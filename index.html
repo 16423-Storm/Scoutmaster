@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <title>Scoutmaster FTC</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <!--nav-->
+
+        <div class="nav">
+            <div class="navcontainer">
+                <div class="titlecontainer"><p class="title">Scoutmaster</p></div>
+                <div class="buttoncontainer">
+                    <div class="buttonminicontainer">
+                        <div class="accountbuttoncontainer"><button class="accountbutton"><img class="accountbuttonimg" id="accountbuttonimg" src="images/accountblack.png"></div>
+                        <div class="darklighttogglecontainer"><button class="darklighttoggle" onclick="darkmodetoggle()"><img class="darklighttoggleimg" id="imgToToggle" src="images/moon.png"></button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="navdividercontainer">
+                <hr id="navdivider" class="navdivider">
+            </div>
+        </div>
+
+
+        <!--body-->
+
+        <div class="mainbody">
+            <div class="signedinmainbody">
+            </div>
+
+            <div class="signedoutmainbody">
+                <div class="textcontainermainbody"><p class="generaltext">Elevate your scouting capabilities and always make the best alliance picks.</p></div>
+                <div class="signupbuttoncontainer">
+
+                </div>
+                <div class="carouselcontainer"></div>
+            </div>
+        </div>
+
+        <script>
+            function darkmodetoggle(){
+                const targetBody = document.body;
+                const sunMoonImg = document.getElementById("imgToToggle");
+                const accountButtonImg = document.getElementById("accountbuttonimg")
+                const switchList = [document.getElementById("navdivider")]
+
+                targetBody.classList.toggle("darkmode");
+                if(targetBody.classList.contains("darkmode")){
+                    sunMoonImg.src = "images/sun.png";
+                    accountButtonImg.src = "images/accountwhite.png"
+                    switchList.forEach(targetElement =>{
+                        targetElement.classList.add(targetElement.id+"dark")
+                        targetElement.classList.remove(targetElement.id)
+                    })
+                }else{
+                    sunMoonImg.src = "images/moon.png";
+                    accountButtonImg.src = "images/accountblack.png"
+                    switchList.forEach(targetElement =>{
+                        targetElement.classList.remove(targetElement.id+"dark")
+                        targetElement.classList.add(targetElement.id)
+                    })
+                }
+            }
+        </script>
+    </body>
+</html>

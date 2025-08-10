@@ -1,0 +1,126 @@
+body{
+    margin:0px;
+    background-color: #f2f2f2;
+    font-family: 'Montserrat';
+    color: #0D0106;
+}
+
+.darkmode{
+    background-color: #0D0106;
+    font-family: 'Montserrat';
+    color: #f2f2f2;
+}
+
+.nav{
+    width: 100vw;
+    font-size: 5rem;
+    margin: 1vh;
+}
+
+.navcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 98vw;
+}
+
+.titlecontainer{
+    width: 50%;
+    float: left;
+    font-weight: 900;
+}
+
+.buttoncontainer{
+    width: 50%;
+    float: left;
+}
+
+.buttonminicontainer{
+    float:right;
+}
+
+.accountbuttoncontainer{
+    width: 50%;
+    float: left;
+}
+
+.accountbutton{
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    text-align: center;
+    float: left;
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+}
+
+.accountbutton:hover{
+    background-color: #31313186;
+}
+
+.accountbuttonimg{
+    width: 4rem;
+    height: 4rem;
+}
+
+.darklighttogglecontainer{
+    width: 50%;
+    float: right;
+}
+
+.darklighttoggle{
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    text-align: center;
+    float: right;
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+}
+
+.darklighttoggle:hover{
+    background-color: #31313186;
+}
+
+.darklighttoggleimg{
+    width: 4rem;
+    height: 4rem;
+    margin: auto;
+}
+
+.title{
+    vertical-align: auto;
+    margin: 0px;
+    font-family: 'Oswald';
+}
+
+.navdividercontainer{
+    width: 98%;
+}
+
+.navdivider{
+    border:none;
+    width: 100%;
+    background-color: #0D0106;
+    height: 4px;
+}
+
+.navdividerdark{
+    border:none;
+    width: 100%;
+    background-color: #f2f2f2;
+    height: 4px;
+}
+
+.signedinmainbody{
+    display: none;
+}
+
+.textcontainermainbody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+}
