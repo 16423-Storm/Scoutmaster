@@ -1,141 +1,142 @@
-body {
-    margin: 0;
+body{
+    margin:0px;
     background-color: #f2f2f2;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
     color: #0D0106;
 }
 
-img {
+img{
     pointer-events: none;
 }
 
-.darkmode {
+.darkmode{
     background-color: #0D0106;
+    font-family: 'Montserrat';
     color: #f2f2f2;
 }
 
-.nav {
+.nav{
     width: 100vw;
-    font-size: clamp(2rem, 5vw, 5rem);
+    font-size: 5rem;
     margin: 1vh;
 }
 
-.navcontainer {
+.navcontainer{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 98vw;
-    flex-wrap: wrap;
 }
 
-.titlecontainer,
-.buttoncontainer {
+.titlecontainer{
     width: 50%;
-    display: flex;
-    align-items: center;
-}
-
-.titlecontainer {
+    float: left;
     font-weight: 900;
 }
 
-.buttoncontainer {
-    justify-content: flex-end;
-}
-
-.buttonminicontainer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.accountbuttoncontainer {
+.buttoncontainer{
     width: 50%;
-    display: flex;
-    align-items: center;
+    float: left;
 }
 
-.accountbutton {
-    background-color: transparent;
-    border: none;
+.buttonminicontainer{
+    float:right;
+}
+
+.accountbuttoncontainer{
+    width: 50%;
+    float: left;
+}
+
+.accountbutton{
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
     text-align: center;
-    width: clamp(3rem, 5vw, 5rem);
-    height: clamp(3rem, 5vw, 5rem);
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.accountbutton:hover {
-    background-color: #31313186;
-}
-
-.accountbuttonimg {
-    width: clamp(2rem, 4vw, 4rem);
-    height: clamp(2rem, 4vw, 4rem);
-}
-
-.darklighttogglecontainer {
-    width: 50%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.darklighttoggle {
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    text-align: center;
-    width: clamp(3rem, 5vw, 5rem);
-    height: clamp(3rem, 5vw, 5rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    float: left;
+    width: 5rem;
+    height: 5rem;
     margin: auto;
 }
 
-.darklighttoggle:hover {
+.accountbutton:hover{
     background-color: #31313186;
 }
 
-.darklighttoggleimg {
-    width: clamp(2rem, 4vw, 4rem);
-    height: clamp(2rem, 4vw, 4rem);
+.accountbuttonimg{
+    width: 4rem;
+    height: 4rem;
 }
 
-.title {
-    margin: 0;
-    font-family: 'Oswald', sans-serif;
+.darklighttogglecontainer{
+    width: 50%;
+    float: right;
 }
 
-.navdividercontainer {
+.darklighttoggle{
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    text-align: center;
+    float: right;
+    width: 5rem;
+    height: 5rem;
+    margin: auto;
+}
+
+.darklighttoggle:hover{
+    background-color: #31313186;
+}
+
+.darklighttoggleimg{
+    width: 4rem;
+    height: 4rem;
+    margin: auto;
+}
+
+.title{
+    vertical-align: auto;
+    margin: 0px;
+    font-family: 'Oswald';
+}
+
+.navdividercontainer{
     width: 98%;
 }
 
-.navdivider, .navdividerdark {
-    border: none;
+.navdivider{
+    border:none;
     width: 100%;
+    background-color: #0D0106;
     height: 4px;
 }
 
-.navdivider {
-    background-color: #0D0106;
-}
-
-.navdividerdark {
+.navdividerdark{
+    border:none;
+    width: 100%;
     background-color: #f2f2f2;
+    height: 4px;
 }
 
-.signedinmainbody {
+.signedinmainbody{
     display: none;
 }
 
-.textcontainermainbody {
+.textcontainermainbody{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: c
+    font-size: clamp(1rem, 3vw, 1.5rem);
+}
+
+.reasonscontainer{
+    width: 100%;
+}
+
+.reasonscontainermini{
+    width: 75%;
+}
+
+.reason{
+    width: 25%;
 }
