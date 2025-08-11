@@ -26,7 +26,21 @@
                     <p class="statustext">Must contain X</p>
                 </div>
                 <div class="signupbuttoncontainer">
-                    <button class="signupbutton" onclick="signUp()">Sign Up</button>
+                    <button class="signupbutton" id="signinbutton" onclick="signIn()">Sign In</button>
+                </div>
+                <div class="rememberMeContainer">
+                    <div class="rememberMeMiniContainer">
+                        <input type="checkbox">
+                    </div>
+                    <div class="rememberMeTextContainer">
+                        <p class="rememberMeText">Remember Me?</p>
+                    </div>
+                </div>
+                <div class="signuppromptcontainer">
+                    <p id="signupprompt" class="signupprompt">Don't have an account? Sign up&nbsp;<span class="signuppromptspan" onclick="signUpPrompted()">here!</span></p>
+                </div>
+                <div class="signupbuttoncontainer">
+                    <button class="signupbutton" id="signupbutton" style="display: none;" onclick="signUp()">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -53,6 +67,30 @@
 
             alert(error ? error.message : 'Check your email to confirm sign-up!');
         }
+
+        async function signIn() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                alert('Login failed: ' + error.message);
+            } else {
+                alert('Login successful!');
+                window.location.href = 'https://abcde456.github.io/Scoutmaster/index.html';
+            }
+        }
+
+        function signUpPrompted(){
+            document.getElementById("signupbutton").style.display = "block";
+            document.getElementById("signinbutton").style.display = "none";
+            document.getElementById("signupprompt").style.display = "none";
+        }
+
         </script>
 
     </body>

@@ -61,11 +61,12 @@
                 </div>
 
                 <div class="signupbuttoncontainer">
-                    <button id="signupbutton" class="signupbutton">Sign up now!</button>
+                    <button id="signupbutton" onclick="goToLogIn()" class="signupbutton">Sign in</button>
                 </div>
             </div>
         </div>
 
+        <script src="sessioncheck.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
         <script>
 
@@ -123,6 +124,21 @@
 
             window.onload = function(){
                 loadcookies();
+                useSessionData();
+            }
+
+            function goToLogIn(){
+                window.location.href = "signup.html"
+            }
+
+            function useSessionData(){
+                isUserLoggedIn().then((isLoggedIn)=>{
+                    if(isLoggedIn){
+                        alert("logged in")
+                    }else{
+                        alert("logged out")
+                    }
+                })
             }
         </script>
     </body>

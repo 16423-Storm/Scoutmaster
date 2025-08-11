@@ -33,6 +33,10 @@ img{
     font-weight: 900;
 }
 
+.title{
+    pointer-events: none;
+}
+
 .buttoncontainer{
     width: 50%;
     float: left;

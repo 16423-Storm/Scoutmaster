@@ -15,6 +15,10 @@
     border-style: solid;
 }
 
+input{
+    width: 15rem;
+}
+
 .inputcontainer * {
     margin-top: 2.5px;
     margin-bottom: 2.5px;
@@ -39,4 +43,31 @@
     font-family: 'Oswald';
     text-align: center;
     font-size: 3rem;
+}
+
+.signuppromptcontainer{
+    font-size: 0.75rem;
+    font-family: 'Montserrat';
+}
+
+.signuppromptspan{
+    color: blue;
+    cursor: pointer;
+}
+
+.signuppromptspan:hover{
+    text-decoration: underline;
+}
+
+.rememberMeContainer{
+    font-family: 'Montserrat';
+    font-size: 0.75rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rememberMeMiniContainer{
+    width: 20%;
 }
