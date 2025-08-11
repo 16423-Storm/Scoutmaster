@@ -1,7 +1,7 @@
-body {
-    margin: 0;
+body{
+    margin:0px;
     background-color: #f2f2f2;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
     color: #0D0106;
 }
 
@@ -9,104 +9,88 @@ img{
     pointer-events: none;
 }
 
-img {
-    pointer-events: none;
-}
-
-.darkmode {
+.darkmode{
     background-color: #0D0106;
+    font-family: 'Montserrat';
     color: #f2f2f2;
 }
 
-.nav {
+.nav{
     width: 100vw;
-    font-size: 5rem;
-    margin: 1vh;
+    font-size: clamp(2rem, 5vw, 5rem);
 }
 
-.navcontainer {
+.navcontainer{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 98vw;
-    flex-wrap: wrap;
 }
 
-.titlecontainer,
-.buttoncontainer {
+.titlecontainer{
     width: 50%;
-    display: flex;
-    align-items: center;
-}
-
-.titlecontainer {
+    float: left;
     font-weight: 900;
 }
 
-.buttoncontainer {
-    justify-content: flex-end;
+.buttoncontainer{
+    width: 50%;
+    float: left;
 }
 
-.buttonminicontainer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+.buttonminicontainer{
+    float:right;
 }
 
 .accountbuttoncontainer{
+    display: none;
     width: 50%;
-    display: flex;
-    align-items: center;
+    float: left;
 }
 
-.accountbutton {
-    background-color: transparent;
-    border: none;
+.accountbutton{
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
     text-align: center;
     float: left;
-    width: 5rem;
-    height: 5rem;
+    width: clamp(2rem, 5vw, 5rem);
+    height: clamp(2rem, 5vw, 5rem);
     margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.accountbutton:hover {
+.accountbutton:hover{
     background-color: #31313186;
 }
 
 .accountbuttonimg{
-    width: 4rem;
-    height: 4rem;
+    width: clamp(1rem, 4vw, 4rem);
+    height: clamp(1rem, 4vw, 4rem);
 }
 
-.darklighttogglecontainer {
+.darklighttogglecontainer{
     width: 50%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    float: right;
 }
 
-.darklighttoggle {
-    background-color: transparent;
-    border: none;
+.darklighttoggle{
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
     text-align: center;
     float: right;
-    width: 5rem;
-    height: 5rem;
+    width: clamp(2rem, 5vw, 5rem);
+    height: clamp(2rem, 5vw, 5rem);
     margin: auto;
 }
 
-.darklighttoggle:hover {
+.darklighttoggle:hover{
     background-color: #31313186;
 }
 
 .darklighttoggleimg{
-    width: 4rem;
-    height: 4rem;
+    width: clamp(1rem, 4vw, 4rem);
+    height: clamp(1rem, 4vw, 4rem);
     margin: auto;
 }
 
@@ -114,26 +98,28 @@ img {
     vertical-align: auto;
     margin: 0px;
     font-family: 'Oswald';
+    text-align: left;
 }
 
 .navdividercontainer{
-    width: 98%;
+    width: 98vw;
 }
 
 .navdivider{
     border:none;
-    width: 100%;
+    width: 98vw;
     background-color: #0D0106;
     height: 4px;
 }
 
 .navdividerdark{
     border:none;
-    width: 100%;
+    width: 98vw;
     background-color: #f2f2f2;
+    height: 4px;
 }
 
-.signedinmainbody {
+.signedinmainbody{
     display: none;
 }
 
@@ -142,8 +128,258 @@ img {
 }
 
 .textcontainermainbody{
+    text-align: center;
+    width: 98vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+.reasonscontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.reasonscontainermini{
+    width: 75%;
+}
+
+@property --angle{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.reason1, .reason2, .reason3, .reason4, .reason1dark , .reason2dark, .reason3dark, .reason4dark{
+    position: relative;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 23%;
+    margin-left: calc(1% - 2px);
+    margin-right: calc(1% - 2px);
+    float: left;
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reason1:hover, .reason1dark:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
+    border:none;
+}
+
+.reason1:hover::after, .reason1:hover::before, .reason1dark:hover::before, .reason1dark:hover::after{
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 80%, #FF7F27);
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: 5px;
+    animation: 3s spin linear infinite;
+}
+
+.reason1dark:hover::before, .reason1:hover::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+.reason2:hover, .reason2dark:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
+    border:none;
+}
+
+.reason2:hover::after, .reason2:hover::before, .reason2dark:hover::before, .reason2dark:hover::after{
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 80%, #5058CF);
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: 5px;
+    animation: 3s spin linear infinite;
+}
+
+.reason2dark:hover::before, .reason2:hover::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+.reason3:hover, .reason3dark:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
+    border:none;
+}
+
+.reason3:hover::after, .reason3:hover::before, .reason3dark:hover::before, .reason3dark:hover::after{
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 80%, #EC1C24);
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: 5px;
+    animation: 3s spin linear infinite;
+}
+
+.reason3dark:hover::before, .reason3:hover::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+.reason4:hover, .reason4dark:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
+    border:none;
+}
+
+.reason4:hover::after, .reason4:hover::before, .reason4dark:hover::before, .reason4dark:hover::after{
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent 80%, #0ED145);
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: 5px;
+    animation: 3s spin linear infinite;
+}
+
+.reason4dark:hover::before, .reason4:hover::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+.reason1, .reason2, .reason3, .reason4{
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+}
+
+.reason1dark, .reason2dark, .reason3dark, .reason4dark{
+    background-color: #242424;
+    border-color: #000000;
+}
+
+.reasonimagecontainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reasonimage{
+    width: 50%;
+    height: auto;
+}
+
+.reasontext{
+    text-align: center;
+    font-size: clamp(0.6rem, 1.5vw, 1rem);
+    margin-right: 5px;
+}
+
+.signupbuttoncontainer{
+    margin: 3%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.signupbutton, .signupbuttondark{
+    border: 1px;
+    border: solid;
+    border-radius: 5px;
+    position: relative;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+    padding: 10px;
+}
+
+.signupbutton{
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+}
+
+.signupbuttondark{
+    background-color: #242424;
+    border-color: #000000;
+}
+
+.signupbutton:hover, .signupbuttondark:hover{
+    border:none;
+}
+
+.signupbuttondark:hover::after, .signupbuttondark:hover::before, .signupbutton:hover::after, .signupbutton:hover::before{
+    --angle: 0deg;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), #FF7F27 , #5058CF , #EC1C24 , #0ED145 , #FF7F27);
+    translate: -50% -51%;
+    z-index: -1;
+    padding: 2px;
+    border-radius: 5px;
+    animation: 3s spin linear infinite;
+}
+
+.signupbuttondark:hover::before, .signupbutton:hover::before{
+    filter: blur(1.5rem);
+    opacity: 0.5;
+}
+
+@keyframes spin{
+    from{
+        --angle: 0deg;
+    }
+    to{
+        --angle: 360deg;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    .reason1, .reason2, .reason3, .reason4, .reason1dark , .reason2dark, .reason3dark, .reason4dark{
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        width: 48%;
+        margin: calc(1% - 2px);
+        border-width: 2px;
+        border-style: solid;
+        background-color: #dadada;
+        float: left;
+    }
+    .reason1, .reason2, .reason3, .reason4{
+        background-color: #e4e4e4;
+        border-color: #ffffff;
+    }
+    .reason1dark, .reason2dark, .reason3dark, .reason4dark{
+        background-color: #242424;
+        border-color: #000000;
+    }
 }
