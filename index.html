@@ -78,7 +78,7 @@
 
                 targetBody.classList.toggle("darkmode");
                 if(targetBody.classList.contains("darkmode")){
-                    document.cookie = "darklight=dark";
+                    document.cookie = "darklight=dark; path=/; max-age=31536000; SameSite=Lax; Secure";
                     sunMoonImg.src = "images/sun.png";
                     accountButtonImg.src = "images/accountwhite.png"
                     switchList.forEach(targetElement =>{
@@ -86,7 +86,7 @@
                         targetElement.classList.remove(targetElement.id)
                     })
                 }else{
-                    document.cookie = "darklight=light";
+                    document.cookie = "darklight=light; path=/; max-age=31536000; SameSite=Lax; Secure";
                     sunMoonImg.src = "images/moon.png";
                     accountButtonImg.src = "images/accountblack.png"
                     switchList.forEach(targetElement =>{
