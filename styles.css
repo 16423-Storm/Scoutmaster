@@ -400,11 +400,13 @@ img{
 .newgroupbutton, .existinggroupbutton, .creategroupbutton{
     background-color: #e4e4e4;
     border-color: #ffffff;
+    color: black;
 }
 
 .newgroupbuttondark, .existinggroupbuttondark, .creategroupbuttondark{
     background-color: #242424;
     border-color: #000000;
+    color: white;
 }
 
 .newgroupbutton:hover, .existinggroupbutton:hover, .creategroupbutton:hover{
