@@ -30,7 +30,7 @@
                 </div>
                 <div class="rememberMeContainer">
                     <div class="rememberMeMiniContainer">
-                        <input type="checkbox">
+                        <input type="checkbox" id="rememberMe">
                     </div>
                     <div class="rememberMeTextContainer">
                         <p class="rememberMeText">Remember Me?</p>
@@ -71,6 +71,10 @@
         async function signIn() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            const persistence = rememberMe ? 'local' : 'session';
+            await supabase.auth.setSessionPersistence(persistence);
 
             const { data, error } = await supabase.auth.signInWithPassword({
                 email,
@@ -84,6 +88,7 @@
                 window.location.href = 'https://abcde456.github.io/Scoutmaster/index.html';
             }
         }
+
 
         function signUpPrompted(){
             document.getElementById("signupbutton").style.display = "block";
