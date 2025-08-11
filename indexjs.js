@@ -154,8 +154,6 @@ async function createGroup() {
   let attempt = 0;
   let groupCreated = false;
 
-  var finalGroupId = 0;
-
   while (attempt < maxRetries && !groupCreated) {
     attempt++;
 
@@ -186,7 +184,14 @@ async function createGroup() {
 
     if (!insertError) {
       alert(`Group "${groupName}" created with ID ${newId}`);
-      finalGroupId = newId;
+          const userIdDataToInsert = {
+            id: userId,
+            group_id: newId,
+        };
+
+        const { error: insertError } = await supabaseClient
+            .from('group')
+            .insert(userIdDataToInsert);
       groupCreated = true;
     } else if (insertError.code === '23505') {
       console.warn(`ID ${newId} already exists. Retrying...`);
@@ -198,15 +203,6 @@ async function createGroup() {
 
   if (!groupCreated) {
     alert("Failed to create group. Please try again.");
-  }else{
-    const userIdDataToInsert = {
-        id: userId,
-        group_id: finalGroupId,
-    };
-
-    const { error: insertError } = await supabaseClient
-        .from('group')
-        .insert(userIdDataToInsert);
   }
 }
 
