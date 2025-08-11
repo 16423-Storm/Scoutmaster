@@ -84,8 +84,8 @@ async function checkGroupMembership() {
 
     if (error || !session || !session.user) {
         console.log("Not logged in");
-        document.getElementById('.ingroupmainbody').style.display = "none";
-        document.getElementById('.notingroupmainbody').style.display = "block";
+        document.getElementById('ingroupmainbody').style.display = "none";
+        document.getElementById('notingroupmainbody').style.display = "block";
         return;
     }
 
@@ -105,13 +105,13 @@ async function checkGroupMembership() {
     if (data) {
         alert("in a group")
         // user is in a group
-        document.getElementById('.ingroupmainbody').style.display = "block";
-        document.getElementById('.notingroupmainbody').style.display = "none";
+        document.getElementById("ingroupmainbody").style.display = "block";
+        document.getElementById("notingroupmainbody").style.display = "none";
     } else {
         alert("not in a group")
         // user is not in a group
-        document.getElementById('.ingroupmainbody').style.display = "none";
-        document.getElementById('.notingroupmainbody').style.display = "block";
+        document.getElementById("ingroupmainbody").style.display = "none";
+        document.getElementById("notingroupmainbody").style.display = "block";
     }
 }
 
