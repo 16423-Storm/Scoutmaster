@@ -185,7 +185,7 @@ async function createGroup() {
         if (!insertError) {
         alert(`Group "${groupName}" created with ID ${newId}`);
             const userIdDataToInsert = {
-                id: userId,
+                id: session.user.id,
                 group_id: newId,
             }
             const { error: userGroupInsertError } = await supabaseClient
