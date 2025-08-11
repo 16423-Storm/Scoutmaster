@@ -22,8 +22,8 @@
                 <div class="passwordcontainer">
                     <input id="password" type="password" class="passwordinput" placeholder="Password">
                 </div>
-                <div class="statuscontainer">
-                    <p class="statustext">Must contain X</p>
+                <div class="statuscontainer" id="statustextcontainer">
+                    <p class="statustext" id="statustext">Must contain X</p>
                 </div>
                 <div class="signupbuttoncontainer">
                     <button class="signupbutton" id="signinbutton" onclick="signIn()">Sign In</button>
@@ -56,25 +56,42 @@
         async function signUp() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
 
             const { error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: 'https://abcde456.github.io/Scoutmaster/index.html'
-            }
+                email,
+                password,
+                options: {
+                    emailRedirectTo: 'https://abcde456.github.io/Scoutmaster/index.html'
+                }
             });
 
-            alert(error ? error.message : 'Check your email to confirm sign-up!');
+            if (!rememberMe) {
+                localStorage.removeItem('supabase.auth.token');
+                localStorage.removeItem('sb-tgptsuzheleshmtesbcx-auth-token');
+            }
+
+
+            const statusText = document.getElementById("statustext");
+            const statusTextContainer = document.getElementById("statustextcontainer")
+            if (error) {
+                statusTextContainer.style.display = 'block';
+                statusText.textContent = error.message;
+                statusText.style.color = 'red';
+            } else {
+                statusTextContainer.style.display = 'block';
+                statusText.textContent = 'Check your email to confirm sign-up!';
+                statusText.style.color = 'black';
+            }
+
         }
 
         async function signIn() {
+            const statusText = document.getElementById("statustext");
+            const statusTextContainer = document.getElementById("statustextcontainer")
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const rememberMe = document.getElementById('rememberMe').checked;
-
-            const persistence = rememberMe ? 'local' : 'session';
-            await supabase.auth.setSessionPersistence(persistence);
 
             const { data, error } = await supabase.auth.signInWithPassword({
                 email,
@@ -82,12 +99,22 @@
             });
 
             if (error) {
-                alert('Login failed: ' + error.message);
+                statusTextContainer.style.display = 'block';
+                statusText.textContent = "Login failed: "+error.message;
+                statusText.style.color = 'red';
             } else {
-                alert('Login successful!');
+                if (!rememberMe) {
+                    localStorage.removeItem('supabase.auth.token');
+                    localStorage.removeItem('sb-tgptsuzheleshmtesbcx-auth-token');
+                }
+
+                statusTextContainer.style.display = 'block';
+                statusText.textContent = 'Login successful!';
+                statusText.style.color = 'black';
                 window.location.href = 'https://abcde456.github.io/Scoutmaster/index.html';
             }
         }
+
 
 
         function signUpPrompted(){

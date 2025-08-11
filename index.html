@@ -35,6 +35,8 @@
 
         <div class="mainbody">
             <div class="signedinmainbody">
+                <div class="ingroupmainbody"></div>
+                <div class="notingroupmainbody"></div>
             </div>
 
             <div class="signedoutmainbody">
@@ -131,19 +133,60 @@
                 useSessionData();
             }
 
+            // button to go to login page
             function goToLogIn(){
                 window.location.href = "signup.html"
             }
 
+            // check is user is already logged in or not
             function useSessionData(){
                 isUserLoggedIn().then((isLoggedIn)=>{
                     if(isLoggedIn){
-                        alert("logged in")
+                        alert("logged in");
+                        checkGroupMembership();
                     }else{
-                        alert("logged out")
+                        alert("logged out");
                     }
                 })
             }
+
+            // checking if user is in a group
+            async function checkGroupMembership() {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+
+                if (error || !session || !session.user) {
+                    console.log("Not logged in");
+                    document.querySelector('.signedinmainbody').style.display = "none";
+                    document.querySelector('.signedoutmainbody').style.display = "block";
+                    return;
+                }
+
+                const userId = session.user.id;
+
+                const { data, error: fetchError } = await supabaseClient
+                    .from('usergroup')
+                    .select('*')
+                    .eq('id', userId)
+                    .maybeSingle();
+
+                if (fetchError) {
+                    console.error("Error checking usergroup:", fetchError);
+                    return;
+                }
+
+                if (data) {
+                    alert("in a group")
+                    // user is in a group
+                    document.querySelector('.ingroupmainbody').style.display = "block";
+                    document.querySelector('.notingroupmainbody').style.display = "none";
+                } else {
+                    alert("not in a group")
+                    // user is not in a group
+                    document.querySelector('.ingroupmainbody').style.display = "none";
+                    document.querySelector('.notingroupmainbody').style.display = "block";
+                }
+            }
+
 
             async function isUserLoggedIn() {
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
