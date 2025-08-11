@@ -142,67 +142,72 @@ function existingButtonClick(){
 }
 
 async function createGroup() {
-  const groupName = document.getElementById('groupnameinput').value;
+    const groupName = document.getElementById('groupnameinput').value;
 
-  const {
-    data: { session },
-  } = await supabaseClient.auth.getSession();
+    const {
+        data: { session },
+    } = await supabaseClient.auth.getSession();
 
-  const userId = session.user.id;
+    const userId = session.user.id;
 
-  let maxRetries = 3;
-  let attempt = 0;
-  let groupCreated = false;
+    let maxRetries = 3;
+    let attempt = 0;
+    let groupCreated = false;
 
-  while (attempt < maxRetries && !groupCreated) {
-    attempt++;
+    while (attempt < maxRetries && !groupCreated) {
+        attempt++;
 
-    const { data: maxData, error: maxError } = await supabaseClient
-      .from('group')
-      .select('id')
-      .order('id', { ascending: false })
-      .limit(1);
+        const { data: maxData, error: maxError } = await supabaseClient
+            .from('group')
+            .select('id')
+            .order('id', { ascending: false })
+            .limit(1);
 
-    if (maxError) {
-      console.error("Failed to fetch max group ID:", maxError.message);
-      return;
-    }
+        if (maxError) {
+            console.error("Failed to fetch max group ID:", maxError.message);
+            return;
+        }
 
-    const newId = maxData.length > 0 ? maxData[0].id + 1 : 1;
+        const newId = maxData.length > 0 ? maxData[0].id + 1 : 1;
 
-    const groupData = {
-      id: newId,
-      group_name: groupName,
-      made: new Date().toISOString(),
-      competitions: {},
-      members: [userId],
-    };
-
-    const { error: insertError } = await supabaseClient
-        .from('group')
-        .insert(groupData);
-
-    if (!insertError) {
-      alert(`Group "${groupName}" created with ID ${newId}`);
-          const userIdDataToInsert = {
-            id: userId,
-            group_id: newId,
+        const groupData = {
+            id: newId,
+            group_name: groupName,
+            made: new Date().toISOString(),
+            competitions: {},
+            members: [userId],
         };
 
         const { error: insertError } = await supabaseClient
             .from('group')
-            .insert(userIdDataToInsert);
-      groupCreated = true;
-    } else if (insertError.code === '23505') {
-      console.warn(`ID ${newId} already exists. Retrying...`);
-    } else {
-      console.error("Error creating group:", insertError.message);
-      return;
-    }
-  }
+            .insert(groupData);
 
-  if (!groupCreated) {
-    alert("Failed to create group. Please try again.");
-  }
+        if (!insertError) {
+        alert(`Group "${groupName}" created with ID ${newId}`);
+            const userIdDataToInsert = {
+                id: userId,
+                group_id: newId,
+            }
+            const { error: userGroupInsertError } = await supabaseClient
+                .from('usergroup')
+                .insert(userIdDataToInsert);
+
+            if (userGroupInsertError) {
+                console.error("Failed to insert into usergroup:", userGroupInsertError.message);
+                return;
+            }
+
+            groupCreated = true;
+        } else if (insertError.code === '23505') {
+        console.warn(`ID ${newId} already exists. Retrying...`);
+        } else {
+        console.error("Error creating group:", insertError.message);
+        return;
+        }
+    }
+
+    if (!groupCreated) {
+        alert("Failed to create group. Please try again.");
+    }
 }
 
