@@ -70,6 +70,8 @@ function useSessionData(){
     isUserLoggedIn().then((isLoggedIn)=>{
         if(isLoggedIn){
             alert("logged in");
+            document.getElementById("signedoutmainbody").style.display = "none";
+            document.getElementById("signedinmainbody").style.display = "block";
             document.getElementById("accountbutton").style.display = "block";
             checkGroupMembership();
         }else{
