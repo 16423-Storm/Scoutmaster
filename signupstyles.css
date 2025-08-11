@@ -1,0 +1,42 @@
+.emailbodycontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.inputcontainer{
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    border-color: gray;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.inputcontainer * {
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.emailcontainer, .passwordcontainer, .signupbuttoncontainer, .titlecontainer, .statuscontainer{
+    width: 100%;
+}
+
+.statuscontainer{
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    color: red;
+    display: none;
+}
+
+.title{
+    margin: 0px;
+    font-family: 'Oswald';
+    text-align: center;
+    font-size: 3rem;
+}

@@ -14,18 +14,20 @@
         <!--nav-->
 
         <div class="nav">
-            <div class="navcontainer">
-                <div class="titlecontainer"><p class="title">Scoutmaster</p></div>
-                <div class="buttoncontainer">
-                    <div class="buttonminicontainer">
-                        <div class="accountbuttoncontainer"><button class="accountbutton"><img class="accountbuttonimg" id="accountbuttonimg" src="images/accountblack.png"></div>
-                        <div class="darklighttogglecontainer"><button class="darklighttoggle" onclick="darkmodetoggle()"><img class="darklighttoggleimg" id="imgToToggle" src="images/moon.png"></button></div>
+            <center>
+                <div class="navcontainer">
+                    <div class="titlecontainer"><p class="title">Scoutmaster</p></div>
+                    <div class="buttoncontainer">
+                        <div class="buttonminicontainer">
+                            <div class="accountbuttoncontainer"><button class="accountbutton"><img class="accountbuttonimg" id="accountbuttonimg" src="images/accountblack.png"></div>
+                            <div class="darklighttogglecontainer"><button class="darklighttoggle" onclick="darkmodetoggle()"><img class="darklighttoggleimg" id="imgToToggle" src="images/moon.png"></button></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="navdividercontainer">
-                <hr id="navdivider" class="navdivider">
-            </div>
+                <div class="navdividercontainer">
+                    <hr id="navdivider" class="navdivider">
+                </div>
+            </center>
         </div>
 
 
@@ -37,26 +39,45 @@
 
             <div class="signedoutmainbody">
                 <div class="textcontainermainbody"><p class="generaltext">Elevate your scouting capabilities and always make the best alliance picks.</p></div>
-                <div class="signupbuttoncontainer">
-
-                </div>
                 <div class="reasonscontainer">
                     <div class="reasonscontainermini">
-                        <div class="reason"><p>e</p></div>
+                        <div class="reason1" id="reason1">
+                            <div class="reasonimagecontainer"><img class="reasonimage" src="images/people.png"></div>
+                            <div class="reasontextcontainer"><p class="reasontext">Share scouting data with teammates</p></div>
+                        </div>
+                        <div class="reason2" id="reason2">
+                            <div class="reasonimagecontainer"><img class="reasonimage" src="images/calculator.png"></div>
+                            <div class="reasontextcontainer"><p class="reasontext">Get accurate numbers for every team at every competition</p></div>
+                        </div>
+                        <div class="reason3" id="reason3">
+                            <div class="reasonimagecontainer"><img class="reasonimage" src="images/handshake.png"></div>
+                            <div class="reasontextcontainer"><p class="reasontext">Realtime alliance info</p></div>
+                        </div>
+                        <div class="reason4" id="reason4">
+                            <div class="reasonimagecontainer"><img class="reasonimage" src="images/navigate.png"></div>
+                            <div class="reasontextcontainer"><p class="reasontext">Easy to navigate UI</p></div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="signupbuttoncontainer">
+                    <button id="signupbutton" class="signupbutton">Sign up now!</button>
                 </div>
             </div>
         </div>
 
         <script>
+
+            //dark mode toggle
             function darkmodetoggle(){
                 const targetBody = document.body;
                 const sunMoonImg = document.getElementById("imgToToggle");
                 const accountButtonImg = document.getElementById("accountbuttonimg")
-                const switchList = [document.getElementById("navdivider")]
+                const switchList = [document.getElementById("navdivider"), document.getElementById("reason1"), document.getElementById("reason2"), document.getElementById("reason3"), document.getElementById("reason4"), document.getElementById("signupbutton")]
 
                 targetBody.classList.toggle("darkmode");
                 if(targetBody.classList.contains("darkmode")){
+                    document.cookie = "darklight=dark";
                     sunMoonImg.src = "images/sun.png";
                     accountButtonImg.src = "images/accountwhite.png"
                     switchList.forEach(targetElement =>{
@@ -64,6 +85,7 @@
                         targetElement.classList.remove(targetElement.id)
                     })
                 }else{
+                    document.cookie = "darklight=light";
                     sunMoonImg.src = "images/moon.png";
                     accountButtonImg.src = "images/accountblack.png"
                     switchList.forEach(targetElement =>{
@@ -71,6 +93,35 @@
                         targetElement.classList.add(targetElement.id)
                     })
                 }
+            }
+
+            
+            //load specific cookie
+            function getCookie(name) {
+                const cookies = document.cookie.split('; ');
+                for (let cookie of cookies) {
+                    const [key, value] = cookie.split('=');
+                    if (key === name) {
+                    return value;
+                    }
+                }
+                return null;
+            }
+
+
+            //loading cookies
+            function loadcookies(){
+                //loading dark mode pref cookie
+                const targetBody = document.body;
+                const theme = getCookie("darklight");
+
+                if(theme == "dark"){
+                    darkmodetoggle();
+                }
+            }
+
+            window.onload = function(){
+                loadcookies();
             }
         </script>
     </body>

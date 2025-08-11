@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <title>Sign Up</title>
+        <link rel="stylesheet" href="signupstyles.css">
+    </head>
+
+    <body style="margin: 0px; padding: 0px;">
+        <div class="emailbodycontainer">
+            <div class="inputcontainer">
+                <div class="titlecontainer">
+                    <p class="title">Scoutmaster</p>
+                </div>
+                <div class="emailcontainer">
+                    <input id="email" type="email" class="emailinput" placeholder="Email">
+                </div>
+                <div class="passwordcontainer">
+                    <input id="password" type="password" class="passwordinput" placeholder="Password">
+                </div>
+                <div class="statuscontainer">
+                    <p class="statustext">Must contain X</p>
+                </div>
+                <div class="signupbuttoncontainer">
+                    <button class="signupbutton" onclick="signup()">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
+        <script>
+            const SUPABASE_URL = 'https://tgptsuzheleshmtesbcx.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHRzdXpoZWxlc2htdGVzYmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA3NDQsImV4cCI6MjA3MDQ1Njc0NH0.pNTxZbSUeyATBlssBIZDrTyn1E2fr8bvCQ4mP3OQ-JM';
+
+            const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            async function signUp() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                const { error } = await supabase.auth.signUp({ email, password, emailRedirectTo: `${window.location.origin}/index.html`});
+                alert(error ? error.message : 'Check your email to confirm sign-up!');
+            }
+        </script>
+    </body>
+</html>
