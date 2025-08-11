@@ -179,7 +179,7 @@ async function createGroup() {
     };
 
     const { error: insertError } = await supabaseClient
-      .from('groups')
+      .from('group')
       .insert(groupData);
 
     if (!insertError) {
