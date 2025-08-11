@@ -146,7 +146,7 @@ async function createGroup() {
 
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await supabaseClient.auth.getSession();
 
   const userId = session.user.id;
 
@@ -157,7 +157,7 @@ async function createGroup() {
   while (attempt < maxRetries && !groupCreated) {
     attempt++;
 
-    const { data: maxData, error: maxError } = await supabase
+    const { data: maxData, error: maxError } = await supabaseClient
       .from('groups')
       .select('id')
       .order('id', { ascending: false })
@@ -178,7 +178,7 @@ async function createGroup() {
       members: [userId],
     };
 
-    const { error: insertError } = await supabase
+    const { error: insertError } = await supabaseClient
       .from('groups')
       .insert(groupData);
 
