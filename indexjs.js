@@ -158,7 +158,7 @@ async function createGroup() {
     attempt++;
 
     const { data: maxData, error: maxError } = await supabaseClient
-      .from('groups')
+      .from('group')
       .select('id')
       .order('id', { ascending: false })
       .limit(1);
