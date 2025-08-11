@@ -140,6 +140,10 @@ img{
     font-size: clamp(0.5rem, 3vw, 1.5rem);
 }
 
+.generaltext{
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
 .reasonscontainer{
     display: flex;
     justify-content: center;
@@ -367,6 +371,64 @@ img{
     }
 }
 
+.notingroupbuttoncontainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.notingroupbuttonminicontainer{
+    margin: 20px;
+}
+
+.newgroupbutton, .existinggroupbutton, .newgroupbuttondark, .existinggroupbuttondark, .creategroupbutton, .creategroupbuttondark{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    border: 1px;
+    border: solid;
+    border-radius: 5px;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+    height: clamp(2rem, 3vw, 5rem);
+    width: clamp(10rem, 15vw, 30rem);
+}
+
+.newgroupbutton, .existinggroupbutton, .creategroupbutton{
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+}
+
+.newgroupbuttondark, .existinggroupbuttondark, .creategroupbuttondark{
+    background-color: #242424;
+    border-color: #000000;
+}
+
+.newgroupbutton:hover, .existinggroupbutton:hover, .creategroupbutton:hover{
+    background-color: #d1d1d1;
+}
+
+.newgroupbuttondark:hover, .existinggroupbuttondark:hover, .creategroupbuttondark:hover{
+    background-color: #303030;
+}
+
+.subtitle{
+    font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.creategroupcontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.creategroupcontainer *{
+    margin: 10px
+}
+
+#groupnameinput{
+    width: 30%;
+}
 
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, .reason1dark , .reason2dark, .reason3dark, .reason4dark{

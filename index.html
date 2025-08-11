@@ -19,7 +19,7 @@
                     <div class="titlecontainer"><p class="title">Scoutmaster</p></div>
                     <div class="buttoncontainer">
                         <div class="buttonminicontainer">
-                            <div class="accountbuttoncontainer"><button class="accountbutton"><img class="accountbuttonimg" id="accountbuttonimg" src="images/accountblack.png"></div>
+                            <div class="accountbuttoncontainer"><button class="accountbutton" id="accountbutton"><img class="accountbuttonimg" id="accountbuttonimg" src="images/accountblack.png"></div>
                             <div class="darklighttogglecontainer"><button class="darklighttoggle" onclick="darkmodetoggle()"><img class="darklighttoggleimg" id="imgToToggle" src="images/moon.png"></button></div>
                         </div>
                     </div>
@@ -34,12 +34,30 @@
         <!--body-->
 
         <div class="mainbody">
-            <div class="signedinmainbody">
+            <div class="signedinmainbody" style="display: block;">
                 <div class="ingroupmainbody"></div>
-                <div class="notingroupmainbody"></div>
+                <div class="notingroupmainbody">
+                    <div class="textcontainermainbody" id="notingrouptext">
+                        <p class="generaltext">You are not currently in a group, please select one of the options below.</p>
+                    </div>
+                    <div class="notingroupbuttoncontainer" id="notingroupbuttons">
+                        <div class="notingroupbuttonminicontainer">
+                            <center><button class="newgroupbutton" id="newgroupbutton" onclick="newButtonClick()">Create a new group</button></center>
+                        </div>
+                        <div class="notingroupbuttonminicontainer">
+                            <button class="existinggroupbutton" id="existinggroupbutton" onclick="existingButtonClick()">Join an existing group</button>
+                        </div>
+                    </div>
+
+                    <div class="creategroupcontainer" id="creategroupcontainer">
+                        <p class="subtitle">Group name:</p>
+                        <input type="text" id="groupnameinput">
+                        <button class="creategroupbutton" id="creategroupbutton">Create group</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="signedoutmainbody">
+            <div class="signedoutmainbody" style="display: none;">
                 <div class="textcontainermainbody"><p class="generaltext">Elevate your scouting capabilities and always make the best alliance picks.</p></div>
                 <div class="reasonscontainer">
                     <div class="reasonscontainermini">
@@ -70,7 +88,8 @@
 
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
-        <script>
+        <script src="indexjs.js"></script>
+        <!-- <script>
             const SUPABASE_URL = 'https://tgptsuzheleshmtesbcx.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHRzdXpoZWxlc2htdGVzYmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA3NDQsImV4cCI6MjA3MDQ1Njc0NH0.pNTxZbSUeyATBlssBIZDrTyn1E2fr8bvCQ4mP3OQ-JM';
 
@@ -81,7 +100,7 @@
                 const targetBody = document.body;
                 const sunMoonImg = document.getElementById("imgToToggle");
                 const accountButtonImg = document.getElementById("accountbuttonimg")
-                const switchList = [document.getElementById("navdivider"), document.getElementById("reason1"), document.getElementById("reason2"), document.getElementById("reason3"), document.getElementById("reason4"), document.getElementById("signupbutton")]
+                const switchList = [document.getElementById("navdivider"), document.getElementById("reason1"), document.getElementById("reason2"), document.getElementById("reason3"), document.getElementById("reason4"), document.getElementById("signupbutton"), document.getElementById("newgroupbutton"), document.getElementById("existinggroupbutton"), document.getElementById("creategroupbutton")]
 
                 targetBody.classList.toggle("darkmode");
                 if(targetBody.classList.contains("darkmode")){
@@ -143,6 +162,7 @@
                 isUserLoggedIn().then((isLoggedIn)=>{
                     if(isLoggedIn){
                         alert("logged in");
+                        document.getElementById("accountbutton").style.display = "block";
                         checkGroupMembership();
                     }else{
                         alert("logged out");
@@ -199,6 +219,20 @@
                 return !!session; 
             }
 
-        </script>
+            // new group/existing group join
+
+            function newButtonClick(){
+                document.getElementById("notingrouptext").style.display = "none";
+                document.getElementById("notingroupbuttons").style.display = "none";
+                document.getElementById("creategroupcontainer").style.display = "block";
+
+
+            }
+
+            function existingButtonClick(){
+
+            }
+
+        </script> -->
     </body>
 </html>
