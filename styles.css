@@ -530,9 +530,7 @@ img{
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    width: 15%;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
+    width: 20%;
 }
 
 .invitebuttoncontainer{
@@ -540,9 +538,7 @@ img{
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    width: 75%;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
+    width: 80%;
 }
 
 .tabletext{

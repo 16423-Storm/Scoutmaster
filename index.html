@@ -54,7 +54,7 @@
 
                                 <div class="tablebelowbuttoncontainer">
                                     <div class="invitebuttoncontainer">
-                                        <button class="invitebutton" id="invitebutton" onclick="invitePopUpOpen()"></button>
+                                        <button class="invitebutton" id="invitebutton" onclick="invitePopUpOpen()">Invite</button>
                                     </div>
                                     <div class="adminupdatebuttoncontainer">
                                         <button class="updateadminbutton" id="updateadminbutton" onclick="popUpWarning('This action changes admins of group, and changes who has permissions to do what, are you 100% sure you want to continue?', adminUpdate)">Update</button>
@@ -139,7 +139,7 @@
 
         <div id="backdrop" class="backdrop"></div>
 
-        <div id="warningpopup" class="warningpopup">
+        <div id="warningpopup" class="popup">
             <p id="warningmessage">Warning text here</p>
             <button onclick="popUpContinue()">Continue</button>
             <button onclick="popUpCancel()">Cancel</button>
