@@ -121,7 +121,7 @@ async function checkGroupMembership() {
     }
 
     if (data) {
-        groupId = data.group_id;
+        const groupId = data.group_id;
 
         const { data: groupData, error: groupError } = await supabaseClient
             .from('group')
@@ -130,14 +130,7 @@ async function checkGroupMembership() {
             .maybeSingle();
 
         if (groupError || !groupData) {
-            console.error("Error fetching group info:", groupError);
-            return;
-        }
-
-        const member = groupData.members?.find(m => m.id === userId || m.email === userEmail);
-
-        if (!member) {
-            console.warn("User not listed in group's members array. Cleaning up usergroup entry.");
+            console.warn("Group does not exist. Removing usergroup entry.");
 
             const { error: deleteError } = await supabaseClient
                 .from('usergroup')
@@ -145,7 +138,28 @@ async function checkGroupMembership() {
                 .eq('id', userId);
 
             if (deleteError) {
-                console.error("Failed to delete inconsistent usergroup row:", deleteError);
+                console.error("Failed to delete usergroup row:", deleteError);
+                return;
+            }
+
+            alert("Your group was deleted. Please join or create a new group.");
+            document.getElementById("ingroupmainbody").style.display = "none";
+            document.getElementById("notingroupmainbody").style.display = "block";
+            return;
+        }
+
+        const member = groupData.members?.find(m => m.id === userId || m.email === userEmail);
+
+        if (!member) {
+            console.warn("User not found in group's members. Removing usergroup entry.");
+
+            const { error: deleteError } = await supabaseClient
+                .from('usergroup')
+                .delete()
+                .eq('id', userId);
+
+            if (deleteError) {
+                console.error("Failed to delete usergroup row:", deleteError);
                 return;
             }
 
@@ -174,6 +188,7 @@ async function checkGroupMembership() {
         document.getElementById("notingroupmainbody").style.display = "block";
     }
 }
+
 
 
 async function isUserLoggedIn() {
