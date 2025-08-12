@@ -92,6 +92,7 @@ async function checkGroupMembership() {
     }
 
     const userId = session.user.id;
+    alert(userId)
 
     const { data, error: fetchError } = await supabaseClient
         .from('usergroup')
