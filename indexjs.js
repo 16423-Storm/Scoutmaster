@@ -146,6 +146,7 @@ async function checkGroupMembership() {
         if (isAdmin) {
             document.getElementById("adminviewbodycontainer").style.display = "flex";
             document.getElementById("regviewbodycontainer").style.display = "none";
+            loadMembers();
         } else {
             document.getElementById("adminviewbodycontainer").style.display = "none";
             document.getElementById("regviewbodycontainer").style.display = "flex";
