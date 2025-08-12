@@ -232,13 +232,14 @@ async function createGroup() {
         if (!insertError) {
             alert(`Group "${groupName}" created with ID ${newId}`);
 
-            const userIdDataToInsert = {
-                id: userId,
-                group_id: newId,
+            const userGroupDataToInsert = {
+                id: userId,  
+                group_id: newId,  
             };
+
             const { error: userGroupInsertError } = await supabaseClient
                 .from('usergroup')
-                .insert(userIdDataToInsert);
+                .insert(userGroupDataToInsert);
 
             if (userGroupInsertError) {
                 console.error("Failed to insert into usergroup:", userGroupInsertError.message);
