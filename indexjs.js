@@ -277,19 +277,24 @@ async function loadMembers() {
 
     const members = groupData.members || [];
 
-    const table = document.getElementById("memberlisttable");
-    table.innerHTML = "";
+    const tbody = document.getElementById("memberlisttbody");
+    tbody.innerHTML = "";  // Clear existing rows
 
     members.forEach(member => {
-        const newRow = table.insertRow();
+        const newRow = document.createElement("tr");
 
-        const cellEmail = newRow.insertCell(0);
+        const cellEmail = document.createElement("td");
         cellEmail.textContent = member.email;
+        newRow.appendChild(cellEmail);
 
-        const cellCheckbox = newRow.insertCell(1);
-        const adminCheckbox = document.createElement('input');
+        const cellCheckbox = document.createElement("td");
+        const adminCheckbox = document.createElement("input");
         adminCheckbox.type = "checkbox";
         adminCheckbox.checked = !!member.isAdmin;
         cellCheckbox.appendChild(adminCheckbox);
+        newRow.appendChild(cellCheckbox);
+
+        tbody.appendChild(newRow);
     });
 }
+
