@@ -425,7 +425,7 @@ img{
 }
 
 .creategroupcontainer{
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -531,6 +531,18 @@ img{
     align-items: center;
     margin-top: 10px;
     width: 20%;
+}
+
+.tablebelowbuttoncontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.invitebutton, .invitebuttondark, .updateadminbutton, .updateadminbuttondark{
+    width: 100%;
 }
 
 .invitebuttoncontainer{

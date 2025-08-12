@@ -300,6 +300,7 @@ async function checkGroupMembership() {
         console.log("Not logged in");
         document.getElementById('ingroupmainbody').style.display = "none";
         document.getElementById('notingroupmainbody').style.display = "block";
+        document.getElementById('notingroupbuttons').style.display = "block";
         return;
     }
 
@@ -347,6 +348,7 @@ async function checkGroupMembership() {
             alert("Your group was deleted. Please join or create a new group.");
             document.getElementById("ingroupmainbody").style.display = "none";
             document.getElementById("notingroupmainbody").style.display = "block";
+            document.getElementById('notingroupbuttons').style.display = "block";
             return;
         }
 
@@ -378,6 +380,7 @@ async function checkGroupMembership() {
             alert("You were removed from the group. Please join again or contact an admin.");
             document.getElementById("ingroupmainbody").style.display = "none";
             document.getElementById("notingroupmainbody").style.display = "block";
+            document.getElementById('notingroupbuttons').style.display = "block";
             return;
         }
 
@@ -385,6 +388,7 @@ async function checkGroupMembership() {
 
         document.getElementById("ingroupmainbody").style.display = "block";
         document.getElementById("notingroupmainbody").style.display = "none";
+        document.getElementById('notingroupbuttons').style.display = "none";
 
         if (isAdmin) {
             document.getElementById("adminviewbodycontainer").style.display = "flex";
@@ -399,6 +403,7 @@ async function checkGroupMembership() {
         alert("not in a group");
         document.getElementById("ingroupmainbody").style.display = "none";
         document.getElementById("notingroupmainbody").style.display = "block";
+        document.getElementById('notingroupbuttons').style.display = "block";
     }
 }
 
@@ -421,7 +426,7 @@ async function isUserLoggedIn() {
 function newButtonClick(){
     document.getElementById("notingrouptext").style.display = "none";
     document.getElementById("notingroupbuttons").style.display = "none";
-    document.getElementById("creategroupcontainer").style.display = "block";
+    document.getElementById("creategroupcontainer").style.display = "flex";
 }
 
 function existingButtonClick(){
