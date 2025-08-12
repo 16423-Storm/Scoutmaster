@@ -3,12 +3,26 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+var groupId;
+
 //dark mode toggle
 function darkmodetoggle(){
     const targetBody = document.body;
     const sunMoonImg = document.getElementById("imgToToggle");
     const accountButtonImg = document.getElementById("accountbuttonimg")
-    const switchList = [document.getElementById("navdivider"), document.getElementById("reason1"), document.getElementById("reason2"), document.getElementById("reason3"), document.getElementById("reason4"), document.getElementById("signupbutton"), document.getElementById("newgroupbutton"), document.getElementById("existinggroupbutton"), document.getElementById("creategroupbutton")]
+    const switchList = [
+        document.getElementById("navdivider"),
+        document.getElementById("reason1"),
+        document.getElementById("reason2"),
+        document.getElementById("reason3"),
+        document.getElementById("reason4"),
+        document.getElementById("signupbutton"),
+        document.getElementById("newgroupbutton"),
+        document.getElementById("existinggroupbutton"),
+        document.getElementById("creategroupbutton"),
+        document.getElementById("memberlistcontainer"),
+        document.getElementById("competitionfocusselectcontainer")
+    ];
 
     targetBody.classList.toggle("darkmode");
     if(targetBody.classList.contains("darkmode")){
@@ -18,18 +32,17 @@ function darkmodetoggle(){
         switchList.forEach(targetElement =>{
             targetElement.classList.add(targetElement.id+"dark")
             targetElement.classList.remove(targetElement.id)
-        })
-    }else{
+        });
+    } else {
         document.cookie = "darklight=light; path=/; max-age=31536000; SameSite=Lax; Secure";
         sunMoonImg.src = "images/moon.png";
         accountButtonImg.src = "images/accountblack.png"
         switchList.forEach(targetElement =>{
             targetElement.classList.remove(targetElement.id+"dark")
             targetElement.classList.add(targetElement.id)
-        })
+        });
     }
 }
-
 
 //load specific cookie
 function getCookie(name) {
@@ -37,12 +50,11 @@ function getCookie(name) {
     for (let cookie of cookies) {
         const [key, value] = cookie.split('=');
         if (key === name) {
-        return value;
+            return value;
         }
     }
     return null;
 }
-
 
 //loading cookies
 function loadcookies(){
@@ -50,7 +62,7 @@ function loadcookies(){
     const targetBody = document.body;
     const theme = getCookie("darklight");
 
-    if(theme == "dark"){
+    if(theme === "dark"){
         darkmodetoggle();
     }
 }
@@ -62,22 +74,25 @@ window.onload = function(){
 
 // button to go to login page
 function goToLogIn(){
-    window.location.href = "signup.html"
+    window.location.href = "signup.html";
 }
 
-// check is user is already logged in or not
-function useSessionData(){
-    isUserLoggedIn().then((isLoggedIn)=>{
-        if(isLoggedIn){
-            alert("logged in");
-            document.getElementById("signedoutmainbody").style.display = "none";
-            document.getElementById("signedinmainbody").style.display = "block";
-            document.getElementById("accountbutton").style.display = "block";
-            checkGroupMembership();
-        }else{
-            alert("logged out");
-        }
-    })
+// check if user is already logged in or not
+async function useSessionData(){
+    const isLoggedIn = await isUserLoggedIn();
+    if(isLoggedIn){
+        alert("logged in");
+        document.getElementById("signedoutmainbody").style.display = "none";
+        document.getElementById("signedinmainbody").style.display = "block";
+        document.getElementById("accountbutton").style.display = "block";
+        checkGroupMembership();
+    } else {
+        alert("logged out");
+        // Probably want to show signedoutmainbody here? (not in your original but might be good)
+        document.getElementById("signedoutmainbody").style.display = "block";
+        document.getElementById("signedinmainbody").style.display = "none";
+        document.getElementById("accountbutton").style.display = "none";
+    }
 }
 
 // checking if user is in a group
@@ -92,7 +107,7 @@ async function checkGroupMembership() {
     }
 
     const userId = session.user.id;
-    alert(userId)
+    const userEmail = session.user.email;
 
     const { data, error: fetchError } = await supabaseClient
         .from('usergroup')
@@ -106,18 +121,41 @@ async function checkGroupMembership() {
     }
 
     if (data) {
-        alert("in a group")
-        // user is in a group
+        groupId = data.group_id;
+        alert("in a group");
+
         document.getElementById("ingroupmainbody").style.display = "block";
         document.getElementById("notingroupmainbody").style.display = "none";
+
+        const { data: groupData, error: groupError } = await supabaseClient
+            .from('group')
+            .select('members')
+            .eq('id', groupId)
+            .maybeSingle();
+
+        if (groupError) {
+            console.error("Error fetching group info:", groupError);
+            return;
+        }
+
+        // Find member by id or email (robust check)
+        const member = groupData?.members?.find(m => m.id === userId || m.email === userEmail);
+
+        const isAdmin = member?.isAdmin === true;
+
+        if (isAdmin) {
+            document.getElementById("adminviewbodycontainer").style.display = "flex";
+            document.getElementById("regviewbodycontainer").style.display = "none";
+        } else {
+            document.getElementById("adminviewbodycontainer").style.display = "none";
+            document.getElementById("regviewbodycontainer").style.display = "flex";
+        }
     } else {
-        alert("not in a group")
-        // user is not in a group
+        alert("not in a group");
         document.getElementById("ingroupmainbody").style.display = "none";
         document.getElementById("notingroupmainbody").style.display = "block";
     }
 }
-
 
 async function isUserLoggedIn() {
     const { data: { session }, error } = await supabaseClient.auth.getSession();
@@ -127,7 +165,7 @@ async function isUserLoggedIn() {
         return false;
     }
 
-    return !!session; 
+    return !!session;
 }
 
 // new group/existing group join
@@ -139,17 +177,20 @@ function newButtonClick(){
 }
 
 function existingButtonClick(){
-
+    // TODO: Implement existing group join flow if needed
 }
 
 async function createGroup() {
     const groupName = document.getElementById('groupnameinput').value;
 
-    const {
-        data: { session },
-    } = await supabaseClient.auth.getSession();
+    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+    if (sessionError || !session) {
+        console.error("No active session or error fetching session:", sessionError);
+        return;
+    }
 
     const userId = session.user.id;
+    const userEmail = session.user.email;
 
     let maxRetries = 3;
     let attempt = 0;
@@ -171,12 +212,16 @@ async function createGroup() {
 
         const newId = maxData.length > 0 ? maxData[0].id + 1 : 1;
 
+        const membersArray = [
+            { id: userId, email: userEmail, isAdmin: true }
+        ];
+
         const groupData = {
             id: newId,
             group_name: groupName,
             made: new Date().toISOString(),
             competitions: {},
-            members: [userId],
+            members: membersArray
         };
 
         const { error: insertError } = await supabaseClient
@@ -184,11 +229,12 @@ async function createGroup() {
             .insert(groupData);
 
         if (!insertError) {
-        alert(`Group "${groupName}" created with ID ${newId}`);
+            alert(`Group "${groupName}" created with ID ${newId}`);
+
             const userIdDataToInsert = {
-                id: session.user.id,
+                id: userId,
                 group_id: newId,
-            }
+            };
             const { error: userGroupInsertError } = await supabaseClient
                 .from('usergroup')
                 .insert(userIdDataToInsert);
@@ -200,10 +246,10 @@ async function createGroup() {
 
             groupCreated = true;
         } else if (insertError.code === '23505') {
-        console.warn(`ID ${newId} already exists. Retrying...`);
+            console.warn(`ID ${newId} already exists. Retrying...`);
         } else {
-        console.error("Error creating group:", insertError.message);
-        return;
+            console.error("Error creating group:", insertError.message);
+            return;
         }
     }
 
@@ -212,3 +258,38 @@ async function createGroup() {
     }
 }
 
+async function loadMembers() {
+    if (!groupId) {
+        console.warn("No groupId set");
+        return;
+    }
+
+    const { data: groupData, error: groupError } = await supabaseClient
+        .from('group')
+        .select('members')
+        .eq('id', groupId)
+        .maybeSingle();
+
+    if (groupError || !groupData) {
+        console.error('Error fetching group members:', groupError);
+        return;
+    }
+
+    const members = groupData.members || [];
+
+    const table = document.getElementById("memberlisttable");
+    table.innerHTML = "";
+
+    members.forEach(member => {
+        const newRow = table.insertRow();
+
+        const cellEmail = newRow.insertCell(0);
+        cellEmail.textContent = member.email;
+
+        const cellCheckbox = newRow.insertCell(1);
+        const adminCheckbox = document.createElement('input');
+        adminCheckbox.type = "checkbox";
+        adminCheckbox.checked = !!member.isAdmin;
+        cellCheckbox.appendChild(adminCheckbox);
+    });
+}

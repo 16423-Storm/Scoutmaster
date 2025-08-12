@@ -117,6 +117,7 @@ img{
 }
 
 .navdividerdark{
+    color: black;
     border:none;
     width: 98vw;
     background-color: #f2f2f2;
@@ -328,11 +329,13 @@ img{
 }
 
 .signupbutton{
+    color: black;
     background-color: #e4e4e4;
     border-color: #ffffff;
 }
 
 .signupbuttondark{
+    color: white;
     background-color: #242424;
     border-color: #000000;
 }
@@ -436,6 +439,92 @@ img{
     width: 30%;
 }
 
+.adminviewbodycontainer{
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.regviewbodycontainer{
+    display: none;
+}
+
+.competitionfocusselectcontainer, .competitionfocusselectcontainerdark{
+    margin-right: 30px;
+    border: 1px;
+    border: solid;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    padding: 10px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.competitionfocusselectcontainer{
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+    color: black;
+}
+
+.competitionfocusselectcontainerdark{
+    background-color: #242424;
+    border-color: #000000;
+    color:white;
+}
+
+.memberlistcontainer, .memberlistcontainerdark{
+    margin-left: 30px;
+    border: 1px;
+    border: solid;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    padding: 10px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.memberlistcontainer{
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+    color: black;
+}
+
+.memberlistcontainerdark{
+    background-color: #242424;
+    border-color: #000000;
+    color:white;
+}
+
+.tabletitle{
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+    font-weight: bolder;
+}
+
+.memberlisttablecontainer{
+    width: 95%;
+}
+
+.memberlisttable{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.memberlisttable *{
+    border:rgba(99, 99, 99, 0.2);
+    border: 1px;
+    border-style: solid;
+}
+
+.tabletext{
+    font-size: clamp(0.5rem, 2.7vw, 1.3rem);
+}
+
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, .reason1dark , .reason2dark, .reason3dark, .reason4dark{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -446,12 +535,34 @@ img{
         background-color: #dadada;
         float: left;
     }
+
     .reason1, .reason2, .reason3, .reason4{
         background-color: #e4e4e4;
         border-color: #ffffff;
     }
+
     .reason1dark, .reason2dark, .reason3dark, .reason4dark{
         background-color: #242424;
         border-color: #000000;
+    }
+
+    .adminviewbodycontainer{
+        width: 100vw;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .competitionfocusselectcontainer, .competitionfocusselectcontainerdark{
+        margin-bottom: 20px;
+        margin-right: 0px;
+        width: 80%;
+    }
+
+    .memberlistcontainer, .memberlistcontainerdark{
+        margin-top: 20px;
+        margin-left: 0px;
+        width: 80%;
     }
 }
