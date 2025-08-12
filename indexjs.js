@@ -122,10 +122,6 @@ async function checkGroupMembership() {
 
     if (data) {
         groupId = data.group_id;
-        alert("in a group");
-
-        document.getElementById("ingroupmainbody").style.display = "block";
-        document.getElementById("notingroupmainbody").style.display = "none";
 
         const { data: groupData, error: groupError } = await supabaseClient
             .from('group')
@@ -133,15 +129,36 @@ async function checkGroupMembership() {
             .eq('id', groupId)
             .maybeSingle();
 
-        if (groupError) {
+        if (groupError || !groupData) {
             console.error("Error fetching group info:", groupError);
             return;
         }
 
-        // Find member by id or email (robust check)
-        const member = groupData?.members?.find(m => m.id === userId || m.email === userEmail);
+        const member = groupData.members?.find(m => m.id === userId || m.email === userEmail);
+
+        if (!member) {
+            console.warn("User not listed in group's members array. Cleaning up usergroup entry.");
+
+            const { error: deleteError } = await supabaseClient
+                .from('usergroup')
+                .delete()
+                .eq('id', userId);
+
+            if (deleteError) {
+                console.error("Failed to delete inconsistent usergroup row:", deleteError);
+                return;
+            }
+
+            alert("You were removed from the group. Please join again or contact an admin.");
+            document.getElementById("ingroupmainbody").style.display = "none";
+            document.getElementById("notingroupmainbody").style.display = "block";
+            return;
+        }
 
         const isAdmin = member?.isAdmin === true;
+
+        document.getElementById("ingroupmainbody").style.display = "block";
+        document.getElementById("notingroupmainbody").style.display = "none";
 
         if (isAdmin) {
             document.getElementById("adminviewbodycontainer").style.display = "flex";
@@ -157,6 +174,7 @@ async function checkGroupMembership() {
         document.getElementById("notingroupmainbody").style.display = "block";
     }
 }
+
 
 async function isUserLoggedIn() {
     const { data: { session }, error } = await supabaseClient.auth.getSession();
@@ -247,6 +265,7 @@ async function createGroup() {
             }
 
             groupCreated = true;
+            checkGroupMembership();
         } else if (insertError.code === '23505') {
             console.warn(`ID ${newId} already exists. Retrying...`);
         } else {
