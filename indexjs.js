@@ -121,7 +121,7 @@ async function checkGroupMembership() {
     }
 
     if (data) {
-        const groupId = data.group_id;
+        groupId = data.group_id;
 
         const { data: groupData, error: groupError } = await supabaseClient
             .from('group')

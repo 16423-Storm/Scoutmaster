@@ -58,16 +58,3 @@ input{
 .signuppromptspan:hover{
     text-decoration: underline;
 }
-
-.rememberMeContainer{
-    font-family: 'Montserrat';
-    font-size: 0.75rem;
-    width: 100%;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.rememberMeMiniContainer{
-    width: 20%;
-}
