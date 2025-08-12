@@ -515,10 +515,18 @@ img{
     border-collapse: collapse;
 }
 
-.memberlisttable *{
+.memberlisttable td{
     border:rgba(99, 99, 99, 0.2);
     border: 1px;
     border-style: solid;
+}
+
+.adminupdatebuttoncontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 100%;
 }
 
 .tabletext{

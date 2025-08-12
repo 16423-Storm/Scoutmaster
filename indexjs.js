@@ -365,11 +365,16 @@ async function loadMembers() {
         adminCheckbox.checked = !!member.isAdmin;
 
         if(!!member.isAdmin){
-            newRow.style.color = "red";
+            const firstCell = newRow.querySelector('td');
+            if (firstCell) {
+                firstCell.style.color = 'red';
+            }
         }
 
         const changedStar = document.createElement("span");
         changedStar.textContent = "*";
+        changedStar.style.border = "none";
+        changedStar.style.outline = "none";
         changedStar.style.marginLeft = "5px";
         changedStar.style.display = "none"; 
 
@@ -419,5 +424,6 @@ async function adminUpdate() {
     console.error('Failed to update members in group:', updateError);
   } else {
     alert('Admin changes saved!');
+    checkGroupMembership();
   }
 }
