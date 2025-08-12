@@ -412,7 +412,7 @@ async function adminUpdate() {
 
   const { error: updateError } = await supabaseClient
     .from('group')
-    .update({ members: JSON.stringify(groupMembers) })
+    .update({ members: groupMembers })
     .eq('id', groupId);
 
   if (updateError) {
