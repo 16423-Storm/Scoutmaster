@@ -365,7 +365,7 @@ async function loadMembers() {
         adminCheckbox.checked = !!member.isAdmin;
 
         if(!!member.isAdmin){
-            newRow.style.backgroundColor = "#ffffcc";
+            newRow.style.color = "red";
         }
 
         const changedStar = document.createElement("span");
@@ -387,6 +387,7 @@ async function loadMembers() {
 }
 
 async function adminUpdate() {
+    alert("admin change attempted")
   if (!groupId) {
     console.error("No groupId set");
     return;
