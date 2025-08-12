@@ -390,7 +390,7 @@ img{
     margin: 20px;
 }
 
-.newgroupbutton, .existinggroupbutton, .newgroupbuttondark, .existinggroupbuttondark, .creategroupbutton, .creategroupbuttondark, .updateadminbutton, .updateadminbuttondark{
+.newgroupbutton, .existinggroupbutton, .newgroupbuttondark, .existinggroupbuttondark, .creategroupbutton, .creategroupbuttondark, .updateadminbutton, .updateadminbuttondark, .invitebutton, .invitebuttondark, .joingroupbutton, .joingroupbuttondark{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px;
     border: solid;
@@ -400,23 +400,23 @@ img{
     width: clamp(10rem, 15vw, 30rem);
 }
 
-.newgroupbutton, .existinggroupbutton, .creategroupbutton, .updateadminbutton{
+.newgroupbutton, .existinggroupbutton, .creategroupbutton, .updateadminbutton, .invitebutton, .joingroupbutton{
     background-color: #e4e4e4;
     border-color: #ffffff;
     color: black;
 }
 
-.newgroupbuttondark, .existinggroupbuttondark, .creategroupbuttondark, .updateadminbuttondark{
+.newgroupbuttondark, .existinggroupbuttondark, .creategroupbuttondark, .updateadminbuttondark, .invitebuttondark, .joingroupbuttondark{
     background-color: #242424;
     border-color: #000000;
     color: white;
 }
 
-.newgroupbutton:hover, .existinggroupbutton:hover, .creategroupbutton:hover, .updateadminbutton:hover{
+.newgroupbutton:hover, .existinggroupbutton:hover, .creategroupbutton:hover, .updateadminbutton:hover, .invitebutton:hover, .joingroupbutton:hover{
     background-color: #d1d1d1;
 }
 
-.newgroupbuttondark:hover, .existinggroupbuttondark:hover, .creategroupbuttondark:hover, .updateadminbuttondark:hover{
+.newgroupbuttondark:hover, .existinggroupbuttondark:hover, .creategroupbuttondark:hover, .updateadminbuttondark:hover, .invitebuttondark:hover, .joingroupbuttondark:hover{
     background-color: #303030;
 }
 
@@ -521,12 +521,28 @@ img{
     border-style: solid;
 }
 
+.memberlistemail:hover{
+    text-decoration: line-through;
+}
+
 .adminupdatebuttoncontainer{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px;
-    width: 100%;
+    margin-top: 10px;
+    width: 15%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.invitebuttoncontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    width: 75%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
 }
 
 .tabletext{
@@ -534,29 +550,30 @@ img{
 }
 
 .backdrop {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+    filter: blur(10px);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
-.warningpopup {
-  display: none;
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-  background-color: #616161;
-  color: #ffffff;
-  border: 1px solid #616161;
-  padding: 20px;
-  z-index: 1000;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+.popup {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    background-color: #616161;
+    color: #ffffff;
+    border: 1px solid #616161;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
 
 

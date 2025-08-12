@@ -4,13 +4,13 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var groupId;
-
 var onContinueAfterWarning;
-
 var groupMembers;
+var invitedMembers;
 
 function popUpWarning(message, onContinue){
     document.getElementById("warningpopup").style.display = "block";
+    document.getElementById("backdrop").style.display = "block";
     document.getElementById("warningmessage").textContent = message;
 
     onContinueAfterWarning = onContinue;
@@ -18,6 +18,7 @@ function popUpWarning(message, onContinue){
 
 function popUpCancel(){
     document.getElementById("warningpopup").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
     onContinueAfterWarning = null;
 }
 
@@ -26,8 +27,178 @@ function popUpContinue(){
         onContinueAfterWarning();
     }
     document.getElementById("warningpopup").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
     onContinueAfterWarning = null;
 }
+
+function invitePopUpOpen(){
+    document.getElementById("invitepopup").style.display = "block";
+    document.getElementById("backdrop").style.display = "block";
+}
+
+function invitePopUpCancel(){
+    document.getElementById("invitepopup").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
+}
+
+async function joinGroup() {
+	const errorHandleText = document.getElementById("errorhandletext");
+	errorHandleText.textContent = "";
+	errorHandleText.style.color = "";
+
+	const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+	if (sessionError || !session) {
+		errorHandleText.textContent = "You must be logged in to join a group.";
+		errorHandleText.style.color = "red";
+		return;
+	}
+
+	const userEmail = session.user.email;
+	const userId = session.user.id;
+
+	if (!groupId) {
+		errorHandleText.textContent = "No group selected to join.";
+		errorHandleText.style.color = "red";
+		return;
+	}
+
+	const { data: groupData, error: groupError } = await supabaseClient
+		.from('group')
+		.select('invited, members')
+		.eq('id', groupId)
+		.maybeSingle();
+
+	if (groupError || !groupData) {
+		errorHandleText.textContent = "Failed to load group data.";
+		errorHandleText.style.color = "red";
+		console.error(groupError);
+		return;
+	}
+
+	const invited = Array.isArray(groupData.invited) ? groupData.invited : [];
+	const members = typeof groupData.members === 'string' ? JSON.parse(groupData.members) : groupData.members || [];
+
+	if (!invited.includes(userEmail.toLowerCase())) {
+		errorHandleText.textContent = "You are not invited to join this group.";
+		errorHandleText.style.color = "red";
+		return;
+	}
+
+	const alreadyMember = members.some(m => m.email.toLowerCase() === userEmail.toLowerCase());
+	if (alreadyMember) {
+		errorHandleText.textContent = "You are already a member of this group.";
+		errorHandleText.style.color = "red";
+		return;
+	}
+
+	members.push({ id: userId, email: userEmail, isAdmin: false });
+
+	const { error: updateGroupError } = await supabaseClient
+		.from('group')
+		.update({ members: members })
+		.eq('id', groupId);
+
+	if (updateGroupError) {
+		errorHandleText.textContent = "Failed to add you to the group members.";
+		errorHandleText.style.color = "red";
+		console.error(updateGroupError);
+		return;
+	}
+
+	const { error: userGroupError } = await supabaseClient
+		.from('usergroup')
+		.insert({ id: userId, group_id: groupId });
+
+	if (userGroupError) {
+		errorHandleText.textContent = "Failed to update your group membership.";
+		errorHandleText.style.color = "red";
+		console.error(userGroupError);
+		return;
+	}
+
+	errorHandleText.textContent = "";
+	checkGroupMembership();
+	alert("You have successfully joined the group!");
+}
+
+
+async function inviteUser() {
+    const inputVal = document.getElementById("invitepopupinput").value.trim().toLowerCase();
+
+    if (!inputVal) {
+        alert("Please enter a valid email.");
+        return;
+    }
+
+    if (!groupId) {
+        console.error("No groupId set");
+        return;
+    }
+
+    if (invitedMembers.includes(inputVal)) {
+        alert("This email is already invited.");
+        return;
+    }
+
+    const updatedInvites = [...invitedMembers, inputVal];
+
+    const { error: updateError } = await supabaseClient
+        .from('group')
+        .update({ invited: updatedInvites })
+        .eq('id', groupId);
+
+    if (updateError) {
+        console.error("Error updating invited list:", updateError.message);
+        alert("Failed to invite user.");
+        return;
+    }
+
+    await loadInvitedUsers();
+
+    document.getElementById("invitepopupinput").value = " ";
+    document.getElementById("invitepopup").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
+
+    alert(`Invited ${inputVal} successfully!`);
+}
+
+
+async function loadInvitedUsers() {
+    if (!groupId) {
+        console.warn("No groupId set");
+        return;
+    }
+
+    const { data: groupData, error: groupError } = await supabaseClient
+        .from('group')
+        .select('invited')
+        .eq('id', groupId)
+        .maybeSingle();
+
+    if (groupError || !groupData) {
+        console.error('Error fetching invited users:', groupError);
+        return;
+    }
+
+    invitedMembers = Array.isArray(groupData.invited) 
+        ? groupData.invited.map(item => typeof item === 'object' && item !== null ? item.email : item)
+        : [];
+
+
+    const invitedTbody = document.getElementById("invitedtbody");
+    invitedTbody.innerHTML = "";
+
+    invitedMembers.forEach(email => {
+        const newRow = document.createElement("tr");
+        const emailCell = document.createElement("td");
+        emailCell.classList.add("invitedlistemail");
+        emailCell.textContent = email; 
+        newRow.appendChild(emailCell);
+        invitedTbody.appendChild(newRow);
+    });
+
+}
+
 
 //dark mode toggle
 function darkmodetoggle(){
@@ -46,7 +217,8 @@ function darkmodetoggle(){
         document.getElementById("creategroupbutton"),
         document.getElementById("memberlistcontainer"),
         document.getElementById("competitionfocusselectcontainer"),
-        document.getElementById("updateadminbutton")
+        document.getElementById("updateadminbutton"),
+        document.getElementById("invitebutton")
     ];
 
     targetBody.classList.toggle("darkmode");
@@ -178,6 +350,11 @@ async function checkGroupMembership() {
             return;
         }
 
+        groupMembers = typeof groupData.members === 'string'
+            ? JSON.parse(groupData.members)
+            : groupData.members;
+
+
         const members = typeof groupData.members === 'string'
             ? JSON.parse(groupData.members)
             : groupData.members;
@@ -213,6 +390,7 @@ async function checkGroupMembership() {
             document.getElementById("adminviewbodycontainer").style.display = "flex";
             document.getElementById("regviewbodycontainer").style.display = "none";
             loadMembers();
+            loadInvitedUsers();
         } else {
             document.getElementById("adminviewbodycontainer").style.display = "none";
             document.getElementById("regviewbodycontainer").style.display = "flex";
@@ -331,65 +509,52 @@ async function createGroup() {
 }
 
 async function loadMembers() {
-    if (!groupId) {
-        console.warn("No groupId set");
-        return;
-    }
+	const tbody = document.getElementById("memberlisttbody");
+	tbody.innerHTML = "";
 
-    const { data: groupData, error: groupError } = await supabaseClient
-        .from('group')
-        .select('members')
-        .eq('id', groupId)
-        .maybeSingle();
+	groupMembers.forEach(member => {
+		const newRow = document.createElement("tr");
 
-    if (groupError || !groupData) {
-        console.error('Error fetching group members:', groupError);
-        return;
-    }
+		const cellEmail = document.createElement("td");
+		cellEmail.classList.add("memberlistemail");
+		cellEmail.textContent = member.email;
+		newRow.appendChild(cellEmail);
 
-    groupMembers = groupData.members || [];
+		const cellCheckbox = document.createElement("td");
+		const adminCheckbox = document.createElement("input");
+		adminCheckbox.type = "checkbox";
+		adminCheckbox.checked = !!member.isAdmin;
 
-    const tbody = document.getElementById("memberlisttbody");
-    tbody.innerHTML = "";  // Clear existing rows
+		if(!!member.isAdmin){
+			const firstCell = newRow.querySelector('td');
+			if (firstCell) {
+				firstCell.style.backgroundColor = 'red';
+			}
+		}
 
-    groupMembers.forEach(member => {
-        const newRow = document.createElement("tr");
+		const changedStar = document.createElement("span");
+		changedStar.textContent = "*";
+		changedStar.style.border = "none";
+		changedStar.style.outline = "none";
+		changedStar.style.marginLeft = "5px";
+		changedStar.style.display = "none"; 
 
-        const cellEmail = document.createElement("td");
-        cellEmail.textContent = member.email;
-        newRow.appendChild(cellEmail);
+		adminCheckbox.addEventListener("change", () => {
+			if (adminCheckbox.checked !== !!member.isAdmin) {
+				changedStar.style.display = "inline";
+			} else {
+				changedStar.style.display = "none";
+			}
+		});
 
-        const cellCheckbox = document.createElement("td");
-        const adminCheckbox = document.createElement("input");
-        adminCheckbox.type = "checkbox";
-        adminCheckbox.checked = !!member.isAdmin;
+		cellCheckbox.appendChild(adminCheckbox);
+		cellCheckbox.appendChild(changedStar);
+		newRow.appendChild(cellCheckbox);
 
-        if(!!member.isAdmin){
-            const firstCell = newRow.querySelector('td');
-            if (firstCell) {
-                firstCell.style.color = 'red';
-            }
-        }
-
-        const changedStar = document.createElement("span");
-        changedStar.textContent = "*";
-        changedStar.style.border = "none";
-        changedStar.style.outline = "none";
-        changedStar.style.marginLeft = "5px";
-        changedStar.style.display = "none"; 
-
-        adminCheckbox.addEventListener("change", () => {
-            changedStar.style.display = "inline";
-        });
-
-        cellCheckbox.appendChild(adminCheckbox);
-        cellCheckbox.appendChild(changedStar);
-        newRow.appendChild(cellCheckbox);
-
-        tbody.appendChild(newRow);
-    });
-
+		tbody.appendChild(newRow);
+	});
 }
+
 
 async function adminUpdate() {
     alert("admin change attempted")
