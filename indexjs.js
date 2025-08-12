@@ -118,6 +118,18 @@ async function joinGroup() {
 		return;
 	}
 
+    const updatedInvited = invited.filter(email => email.toLowerCase() !== userEmail.toLowerCase());
+
+    const { error: invitedUpdateError } = await supabaseClient
+        .from('group')
+        .update({ invited: updatedInvited })
+        .eq('id', groupToJoinId);
+
+    if (invitedUpdateError) {
+        console.error("Failed to remove user from invited list:", invitedUpdateError.message);
+    }
+
+
 	errorHandleText.textContent = "";
 	checkGroupMembership();
 	alert("You have successfully joined the group!");
@@ -432,7 +444,9 @@ function newButtonClick(){
 }
 
 function existingButtonClick(){
-    // TODO: Implement existing group join flow if needed
+    document.getElementById("notingrouptext").style.display = "none";
+    document.getElementById("notingroupbuttons").style.display = "none";
+    document.getElementById("joingroupcontainer").style.display = "flex";
 }
 
 async function createGroup() {

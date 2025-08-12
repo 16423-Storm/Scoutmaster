@@ -431,6 +431,13 @@ img{
     align-items: center;
 }
 
+.joingroupcontainer{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .creategroupcontainer *{
     margin: 10px
 }
