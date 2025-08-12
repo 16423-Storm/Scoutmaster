@@ -129,7 +129,12 @@ async function checkGroupMembership() {
             .eq('id', groupId)
             .maybeSingle();
 
-        if (groupError || !groupData) {
+        if (groupError) {
+            console.error("Error fetching group info:", groupError);
+            return;
+        }
+
+        if (!groupData) {
             console.warn("Group does not exist. Removing usergroup entry.");
 
             const { error: deleteError } = await supabaseClient
@@ -188,6 +193,7 @@ async function checkGroupMembership() {
         document.getElementById("notingroupmainbody").style.display = "block";
     }
 }
+
 
 
 
