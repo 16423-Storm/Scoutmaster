@@ -56,7 +56,9 @@ async function joinGroup() {
 	const userEmail = session.user.email;
 	const userId = session.user.id;
 
-	if (!groupId) {
+    const groupToJoinId = document.getElementById("joingroupinput").value
+
+	if (groupToJoinId) {
 		errorHandleText.textContent = "No group selected to join.";
 		errorHandleText.style.color = "red";
 		return;
@@ -65,7 +67,7 @@ async function joinGroup() {
 	const { data: groupData, error: groupError } = await supabaseClient
 		.from('group')
 		.select('invited, members')
-		.eq('id', groupId)
+		.eq('id', groupToJoinId)
 		.maybeSingle();
 
 	if (groupError || !groupData) {
@@ -96,7 +98,7 @@ async function joinGroup() {
 	const { error: updateGroupError } = await supabaseClient
 		.from('group')
 		.update({ members: members })
-		.eq('id', groupId);
+		.eq('id', groupToJoinId);
 
 	if (updateGroupError) {
 		errorHandleText.textContent = "Failed to add you to the group members.";
@@ -107,7 +109,7 @@ async function joinGroup() {
 
 	const { error: userGroupError } = await supabaseClient
 		.from('usergroup')
-		.insert({ id: userId, group_id: groupId });
+		.insert({ id: userId, group_id: groupToJoinId });
 
 	if (userGroupError) {
 		errorHandleText.textContent = "Failed to update your group membership.";
