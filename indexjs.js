@@ -153,7 +153,12 @@ async function checkGroupMembership() {
             return;
         }
 
-        const member = groupData.members?.find(m => m.id === userId || m.email === userEmail);
+        const members = typeof groupData.members === 'string'
+            ? JSON.parse(groupData.members)
+            : groupData.members;
+
+        const member = members?.find(m => m.id === userId || m.email === userEmail);
+
 
         if (!member) {
             console.warn("User not found in group's members. Removing usergroup entry.");
@@ -261,7 +266,7 @@ async function createGroup() {
             group_name: groupName,
             made: new Date().toISOString(),
             competitions: {},
-            members: membersArray
+            members: JSON.stringify(membersArray)
         };
 
         const { error: insertError } = await supabaseClient
