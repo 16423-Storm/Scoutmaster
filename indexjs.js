@@ -5,7 +5,9 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var groupId;
 
-var onContinueAfterWarning
+var onContinueAfterWarning;
+
+var groupMembers;
 
 function popUpWarning(message, onContinue){
     document.getElementById("warningpopup").style.display = "block";
@@ -345,12 +347,12 @@ async function loadMembers() {
         return;
     }
 
-    const members = groupData.members || [];
+    groupMembers = groupData.members || [];
 
     const tbody = document.getElementById("memberlisttbody");
     tbody.innerHTML = "";  // Clear existing rows
 
-    members.forEach(member => {
+    groupMembers.forEach(member => {
         const newRow = document.createElement("tr");
 
         const cellEmail = document.createElement("td");
@@ -384,3 +386,35 @@ async function loadMembers() {
 
 }
 
+async function adminUpdate() {
+  if (!groupId) {
+    console.error("No groupId set");
+    return;
+  }
+
+  const tbody = document.getElementById("memberlisttbody");
+  const rows = tbody.querySelectorAll("tr");
+
+  rows.forEach(row => {
+    const cells = row.querySelectorAll("td");
+    const email = cells[0].textContent.trim();
+    const checkbox = cells[1].querySelector("input[type='checkbox']");
+    if (!checkbox) return;
+
+    const member = groupMembers.find(m => m.email === email);
+    if (member) {
+      member.isAdmin = checkbox.checked;
+    }
+  });
+
+  const { error: updateError } = await supabaseClient
+    .from('group')
+    .update({ members: JSON.stringify(groupMembers) })
+    .eq('id', groupId);
+
+  if (updateError) {
+    console.error('Failed to update members in group:', updateError);
+  } else {
+    alert('Admin changes saved!');
+  }
+}
