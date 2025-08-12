@@ -58,7 +58,7 @@ async function joinGroup() {
 
     const groupToJoinId = document.getElementById("joingroupinput").value
 
-	if (groupToJoinId) {
+	if (!groupToJoinId) {
 		errorHandleText.textContent = "No group selected to join.";
 		errorHandleText.style.color = "red";
 		return;
