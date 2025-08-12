@@ -42,18 +42,17 @@
                         </div>
                         <div class="memberlistcontainer" id="memberlistcontainer">
                             <div class="memberlisttablecontainer">
+                                <p class="generaltext">Manage Members</p>
                                 <table class="memberlisttable" id="memberlisttable">
                                     <tbody id="memberlisttbody">
                                         <thead>
                                             <td class="tabletitle" style="width: 80%;">Member</td>
                                             <td class="tabletitle" style="width: 20%;">Admin</td>
                                         </thead>
-                                        <tr>
-                                            <td class="tabletext">Member</td>
-                                            <td class="tabletext"><input type="checkbox"></td>
-                                        </tr>
                                     </tbody>
                                 </table>
+
+                                <button class="updateadminbutton" id="updateadminbutton" onclick="popUpWarning('This action changes admins of group, and changes who has permissions to do what, are you 100% sure you want to continue?', adminsupdate)">Update</button>
                             </div>
                         </div>
                     </div>
@@ -115,6 +114,15 @@
             </div>
         </div>
 
+        <!--popup for warning-->
+
+        <div id="backdrop" class="backdrop"></div>
+
+        <div id="warningpopup" class="warningpopup">
+            <p id="warningmessage">Warning text here</p>
+            <button onclick="popUpContinue()">Continue</button>
+            <button onclick="popUpCancel()">Cancel</button>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
         <script src="indexjs.js"></script>

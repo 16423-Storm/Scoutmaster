@@ -5,6 +5,28 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var groupId;
 
+var onContinueAfterWarning
+
+function popUpWarning(message, onContinue){
+    document.getElementById("warningpopup").style.display = "block";
+    document.getElementById("warningmessage").textContent = message;
+
+    onContinueAfterWarning = onContinue;
+}
+
+function popUpCancel(){
+    document.getElementById("warningpopup").style.display = "none";
+    onContinueAfterWarning = null;
+}
+
+function popUpContinue(){
+    if (typeof onContinueAfterWarning === "function") {
+        onContinueAfterWarning();
+    }
+    document.getElementById("warningpopup").style.display = "none";
+    onContinueAfterWarning = null;
+}
+
 //dark mode toggle
 function darkmodetoggle(){
     const targetBody = document.body;
@@ -21,7 +43,8 @@ function darkmodetoggle(){
         document.getElementById("existinggroupbutton"),
         document.getElementById("creategroupbutton"),
         document.getElementById("memberlistcontainer"),
-        document.getElementById("competitionfocusselectcontainer")
+        document.getElementById("competitionfocusselectcontainer"),
+        document.getElementById("updateadminbutton")
     ];
 
     targetBody.classList.toggle("darkmode");
@@ -338,10 +361,26 @@ async function loadMembers() {
         const adminCheckbox = document.createElement("input");
         adminCheckbox.type = "checkbox";
         adminCheckbox.checked = !!member.isAdmin;
+
+        if(!!member.isAdmin){
+            newRow.style.backgroundColor = "#ffffcc";
+        }
+
+        const changedStar = document.createElement("span");
+        changedStar.textContent = "*";
+        changedStar.style.marginLeft = "5px";
+        changedStar.style.display = "none"; 
+
+        adminCheckbox.addEventListener("change", () => {
+            changedStar.style.display = "inline";
+        });
+
         cellCheckbox.appendChild(adminCheckbox);
+        cellCheckbox.appendChild(changedStar);
         newRow.appendChild(cellCheckbox);
 
         tbody.appendChild(newRow);
     });
+
 }
 
