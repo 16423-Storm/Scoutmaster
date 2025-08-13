@@ -135,7 +135,7 @@ async function joinGroup() {
 
 	errorHandleText.textContent = "";
 	checkGroupMembership();
-	alert("You have successfully joined the group!");
+	statusPopUp("You have successfully joined the group!");
 }
 
 
@@ -143,7 +143,7 @@ async function inviteUser() {
     const inputVal = document.getElementById("invitepopupinput").value.trim().toLowerCase();
 
     if (!inputVal) {
-        alert("Please enter a valid email.");
+        statusPopUp("Please enter a valid email.");
         return;
     }
 
@@ -153,7 +153,7 @@ async function inviteUser() {
     }
 
     if (invitedMembers.includes(inputVal)) {
-        alert("This email is already invited.");
+        statusPopUp("This email is already invited.");
         return;
     }
 
@@ -166,7 +166,7 @@ async function inviteUser() {
 
     if (updateError) {
         console.error("Error updating invited list:", updateError.message);
-        alert("Failed to invite user.");
+        statusPopUp("Failed to invite user.");
         return;
     }
 
@@ -176,7 +176,7 @@ async function inviteUser() {
     document.getElementById("invitepopup").style.display = "none";
     document.getElementById("backdrop").style.display = "none";
 
-    alert(`Invited ${inputVal} successfully!`);
+    statusPopUp(`Invited ${inputVal} successfully!`);
 }
 
 
@@ -273,14 +273,11 @@ function goToLogIn(){
 async function useSessionData(){
     const isLoggedIn = await isUserLoggedIn();
     if(isLoggedIn){
-        alert("logged in");
         document.getElementById("signedoutmainbody").style.display = "none";
         document.getElementById("signedinmainbody").style.display = "block";
         document.getElementById("accountbutton").style.display = "block";
         checkGroupMembership();
     } else {
-        alert("logged out");
-        // Probably want to show signedoutmainbody here? (not in your original but might be good)
         document.getElementById("signedoutmainbody").style.display = "block";
         document.getElementById("signedinmainbody").style.display = "none";
         document.getElementById("accountbutton").style.display = "none";
@@ -342,7 +339,7 @@ async function checkGroupMembership() {
                 return;
             }
 
-            alert("Your group was deleted. Please join or create a new group.");
+            statusPopUp("Your group was deleted. Please join or create a new group.");
             document.getElementById("ingroupmainbody").style.display = "none";
             document.getElementById("notingroupmainbody").style.display = "block";
             document.getElementById('notingroupbuttons').style.display = "block";
@@ -374,7 +371,7 @@ async function checkGroupMembership() {
                 return;
             }
 
-            alert("You were removed from the group. Please join again or contact an admin.");
+            statusPopUp("You were removed from the group. Please join again or contact an admin.");
             document.getElementById("ingroupmainbody").style.display = "none";
             document.getElementById("notingroupmainbody").style.display = "block";
             document.getElementById('notingroupbuttons').style.display = "block";
@@ -397,7 +394,6 @@ async function checkGroupMembership() {
             document.getElementById("regviewbodycontainer").style.display = "flex";
         }
     } else {
-        alert("not in a group");
         document.getElementById("ingroupmainbody").style.display = "none";
         document.getElementById("notingroupmainbody").style.display = "block";
         document.getElementById('notingroupbuttons').style.display = "block";
@@ -472,7 +468,6 @@ async function createGroup() {
             id: newId,
             group_name: groupName,
             made: new Date().toISOString(),
-            competitions: {},
             members: membersArray
         };
 
@@ -481,7 +476,7 @@ async function createGroup() {
             .insert(groupData);
 
         if (!insertError) {
-            alert(`Group "${groupName}" created with ID ${newId}`);
+            statusPopUp(`Group "${groupName}" created with ID ${newId}`);
 
             const userGroupDataToInsert = {
                 id: userId,  
@@ -508,7 +503,7 @@ async function createGroup() {
     }
 
     if (!groupCreated) {
-        alert("Failed to create group. Please try again.");
+        statusPopUp("Failed to create group. Please try again.");
     }
 }
 
@@ -569,7 +564,6 @@ async function loadMembers() {
 
 
 async function adminUpdate() {
-    alert("admin change attempted")
   if (!groupId) {
     console.error("No groupId set");
     return;
@@ -590,8 +584,6 @@ async function adminUpdate() {
     }
   });
 
-  alert(JSON.stringify(groupMembers, null, 2));
-
   const { error: updateError } = await supabaseClient
     .from('group')
     .update({ members: groupMembers })
@@ -600,7 +592,7 @@ async function adminUpdate() {
   if (updateError) {
     console.error('Failed to update members in group:', updateError);
   } else {
-    alert('Admin changes saved!');
+    statusPopUp('Admin changes saved!');
     checkGroupMembership();
   }
 }
@@ -675,7 +667,6 @@ async function leaveGroup() {
 
         statusPopUp("You have left your group");
 
-        alert('You have left the group.');
         checkGroupMembership(); 
     }
 }
@@ -730,7 +721,6 @@ async function removeFromGroup(kickedEmail){
 
         statusPopUp("You have left your group");
 
-        alert('You have left the group.');
         checkGroupMembership(); 
     }
 }
@@ -788,3 +778,47 @@ window.leaveGroup = leaveGroup;
 window.deleteAccount = deleteAccount; 
 window.popUpWarning = popUpWarning;
 window.statusPopUpClose = statusPopUpClose;
+
+
+
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ORANGE ALLIANCE STUFF BELOW
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+const ORANGE_API_KEY = 'qZJBdBp3HybnNrouyxbplVsEW31zLpYRARM+B0wmNrU='
+var allMatchesTable = [];
+
+document.getElementById("compsearchinput").addEventListener("input", async function(){
+    var compSearchInputVal = document.getElementById("compsearchinput").value;
+
+    if(allMatchesTable.length === 0){
+        try {
+            const response = await fetch(`https://theorangealliance.org/api/events/${seasonKey}`, {
+            headers: {
+                'X-TOA-Key': API_KEY,
+                'X-Application-Origin': 'scoutmaster',
+                'Content-Type': 'application/json'
+            }
+            });
+
+            if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+            }
+
+            const events = await response.json();
+
+            events.forEach(event => {
+                allMatchesTable.push(event.event_key);
+            });
+
+            alert(allMatchesTable);
+
+        } catch (error) {
+            console.error('Failed to load events:', error);
+            alert('Could not fetch event codes.');
+        }
+    }
+})

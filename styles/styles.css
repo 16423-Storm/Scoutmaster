@@ -591,6 +591,120 @@ body.darkmode .memberlistcontainer{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+.compsearchinput{
+    font-size: clamp(0.5rem, 3vw, 1.3rem);
+}
+
+.compsearchcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.competitionfocusselectcontainer{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comptab, body.dark .comptab{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    border: solid;
+    border-color: #727272;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.comptab{
+    background-color: #e4e4e4;
+}
+
+body.dark .comptab{
+    background-color: #242424;
+}
+
+.comptab:hover{
+    border-color: black;
+    background-color: #cfcfcf;
+    cursor: pointer;
+}
+
+body.dark .comptab:hover{
+    border-color: black;
+    background-color: #353535;
+    cursor: pointer;
+}
+
+.comptabbigtext{
+    font-size: clamp(0.5rem, 3vw, 1.3rem);
+    margin: 2px;
+}
+
+.comptabsmalltext{
+    margin: 2px;
+    font-size: clamp(0.4rem, 2.7vw, 1.2rem);
+    text-align: center;
+    width: 100%;
+}
+
+.comptabcontainer{
+    margin-top: 10px;
+    width: 90%;
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid #727272;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
