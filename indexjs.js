@@ -494,7 +494,7 @@ async function createGroup() {
             group_name: groupName,
             made: new Date().toISOString(),
             competitions: {},
-            members: JSON.stringify(membersArray)
+            members: membersArray
         };
 
         const { error: insertError } = await supabaseClient
@@ -701,7 +701,7 @@ async function deleteAccount() {
         throw new Error('No active session');
         }
 
-        const response = await fetch(`${supabase.url}/functions/v1/delete-user`, {
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/delete-user`, { //problem in url
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${accessToken}`
