@@ -622,7 +622,7 @@ body.darkmode .memberlistcontainer{
     justify-content: center;
 }
 
-.comptab, body.darkmode .comptab{
+.comptab{
     margin-top: 10px;
     margin-bottom: 10px;
     border-width: 1px;
@@ -635,15 +635,25 @@ body.darkmode .memberlistcontainer{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.comptab{
     background-color: #e4e4e4;
 }
 
 body.darkmode .comptab{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    border: solid;
+    border-color: #727272;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    
     background-color: #242424;
 }
+
 
 .comptab:hover{
     border-color: black;
@@ -659,12 +669,12 @@ body.darkmode .comptab:hover{
 
 .comptabbigtext{
     font-size: clamp(0.5rem, 3vw, 1.3rem);
-    margin: 6px;
+    margin: 10px;
     font-weight: bold;
 }
 
 .comptabsmalltext{
-    margin: 2px;
+    margin: 5px;
     font-size: clamp(0.4rem, 2.7vw, 1.2rem);
     text-align: center;
     width: 100%;
@@ -674,7 +684,6 @@ body.darkmode .comptab:hover{
     margin-top: 10px;
     width: 90%;
     max-height: 600px;
-    overflow-y: auto;
     border: 1px solid #727272;
     border-radius: 5px;
     padding: 10px;
