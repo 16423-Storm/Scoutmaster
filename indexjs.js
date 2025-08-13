@@ -632,6 +632,7 @@ async function logOut() {
         console.error('Error logging out:', error.message);
     } else {
         console.log('Successfully logged out from local session.');
+        window.location.href = "index.html";
     }
 }
 
@@ -646,6 +647,7 @@ async function changePassword() {
         console.error('Password change error:', error.message);
         statusPopUp('Password change error:', `${error.message}`);
     } else {
+        statusPopUp("Password changed successfully");
         console.log('Password successfully updated.');
     }
 }
@@ -686,6 +688,8 @@ async function leaveGroup() {
             console.log('Usergroup entry removed.');
         }
 
+        statusPopUp("You have left your group");
+
         alert('You have left the group.');
         checkGroupMembership(); 
     }
@@ -700,21 +704,23 @@ async function deleteAccount() {
         const accessToken = session?.access_token;
 
         if (!accessToken) {
-        throw new Error('No active session');
+            throw new Error('No active session');
         }
 
-        const response = await fetch(`${savedSupabaseUrl}/functions/v1/delete-user`, { //problem in url
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
+        const response = await fetch(`${savedSupabaseUrl}/functions/v1/delete-user`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
         });
 
         if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || 'Failed to delete user');
+            const errorText = await response.text();
+            throw new Error(errorText || 'Failed to delete user');
         }
 
+        window.location.href = "index.html";
+        
         return true;
     } catch (error) {
         console.error('User deletion error:', error);

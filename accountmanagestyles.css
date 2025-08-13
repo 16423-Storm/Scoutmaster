@@ -38,3 +38,22 @@
 .dangerbutton:hover{
     background-color: rgb(189, 0, 0);
 }
+
+.navdividercontainer{
+    width: 98vw;
+}
+
+.navdivider{
+    border:none;
+    width: 98vw;
+    background-color: #0D0106;
+    height: 4px;
+}
+
+body.darkmode .navdivider{
+    color: black;
+    border:none;
+    width: 98vw;
+    background-color: #f2f2f2;
+    height: 4px;
+}
