@@ -3,7 +3,9 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-var groupId;
+const savedGroupId = localStorage.getItem('groupId');
+
+var groupId = savedGroupId;
 var onContinueAfterWarning;
 var groupMembers;
 var invitedMembers;
@@ -334,6 +336,8 @@ async function checkGroupMembership() {
 
     if (data) {
         groupId = data.group_id;
+
+        localStorage.setItem('groupId', groupId);
 
         const { data: groupData, error: groupError } = await supabaseClient
             .from('group')
@@ -690,7 +694,7 @@ async function leaveGroup() {
 async function deleteAccount() {
     await leaveGroup();
     try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         const accessToken = session?.access_token;
 
         if (!accessToken) {
