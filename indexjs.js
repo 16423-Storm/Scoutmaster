@@ -676,6 +676,7 @@ async function leaveGroup() {
 
 async function deleteAccount() {
     await leaveGroup();
+    await logOut();
     try {
         const { data: { session } } = await supabaseClient.auth.getSession();
         const accessToken = session?.access_token;
