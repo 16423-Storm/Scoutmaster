@@ -529,6 +529,14 @@ async function loadMembers() {
 		adminCheckbox.type = "checkbox";
 		adminCheckbox.checked = !!member.isAdmin;
 
+        cellEmail.onclick = function() {
+            popUpWarning(
+            "Clicking continue will remove this member from this group, are you 100% sure you want to continue?", 
+            () => removeFromGroup(this.textContent)
+            );
+        };
+
+
 		if(!!member.isAdmin){
 			const firstCell = newRow.querySelector('td');
 			if (firstCell) {
@@ -638,6 +646,61 @@ async function leaveGroup() {
     }
 
     const memberId = session.user.id;
+
+    if (!groupId) {
+        console.error('No groupId available. Cannot leave group.');
+        return;
+    }
+
+    const { data, error } = await supabaseClient.rpc('remove_member_from_jsonb', {
+        row_id: groupId,
+        member_id: memberId
+    });
+
+    if (error) {
+        console.error('Error removing member from JSONB:', error.message);
+    } else {
+        console.log('Member removed successfully from group.');
+
+        const { error: userGroupError } = await supabaseClient
+            .from('usergroup')
+            .delete()
+            .eq('id', memberId);
+
+        if (userGroupError) {
+            console.error('Error removing usergroup entry:', userGroupError.message);
+        } else {
+            console.log('Usergroup entry removed.');
+        }
+
+        statusPopUp("You have left your group");
+
+        alert('You have left the group.');
+        checkGroupMembership(); 
+    }
+}
+
+async function removeFromGroup(kickedEmail){
+    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+
+    if (sessionError || !session) {
+        console.error('No user logged in or error fetching session:', sessionError?.message);
+        return;
+    }
+
+    var memberId;
+
+    for(i in groupMembers){
+        if(groupMembers[i].email === kickedEmail){
+            memberId = groupMembers[i].id
+            break;
+        }
+    }
+
+    if (!memberId) {
+        console.error('Member ID not found for email:', kickedEmail);
+        return;
+    }
 
     if (!groupId) {
         console.error('No groupId available. Cannot leave group.');

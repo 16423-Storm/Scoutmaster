@@ -528,6 +528,7 @@ body.darkmode .memberlistcontainer{
 
 .memberlistemail:hover{
     text-decoration: line-through;
+    cursor: pointer;
 }
 
 .adminupdatebuttoncontainer{
