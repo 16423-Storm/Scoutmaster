@@ -552,6 +552,7 @@ body.darkmode .memberlistcontainer{
 }
 
 .invitebuttoncontainer{
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -621,7 +622,7 @@ body.darkmode .memberlistcontainer{
     justify-content: center;
 }
 
-.comptab, body.dark .comptab{
+.comptab, body.darkmode .comptab{
     margin-top: 10px;
     margin-bottom: 10px;
     border-width: 1px;
@@ -640,7 +641,7 @@ body.darkmode .memberlistcontainer{
     background-color: #e4e4e4;
 }
 
-body.dark .comptab{
+body.darkmode.comptab{
     background-color: #242424;
 }
 
@@ -650,7 +651,7 @@ body.dark .comptab{
     cursor: pointer;
 }
 
-body.dark .comptab:hover{
+body.darkmode.comptab:hover{
     border-color: black;
     background-color: #353535;
     cursor: pointer;

@@ -788,37 +788,59 @@ window.statusPopUpClose = statusPopUpClose;
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-const ORANGE_API_KEY = 'qZJBdBp3HybnNrouyxbplVsEW31zLpYRARM+B0wmNrU='
-var allMatchesTable = [];
+const ORANGE_API_KEY = 'qZJBdBp3HybnNrouyxbplVsEW31zLpYRARM+B0wmNrU=';
+let allEventsMap = new Map();
 
-document.getElementById("compsearchinput").addEventListener("input", async function(){
-    var compSearchInputVal = document.getElementById("compsearchinput").value;
+document.getElementById("compsearchinput").addEventListener("input", async function() {
+    const compSearchInputVal = this.value.toLowerCase();
+    const container = document.getElementById("comptabcontainer");
 
-    if(allMatchesTable.length === 0){
+    if (allEventsMap.size === 0) {
         try {
-            const response = await fetch(`https://theorangealliance.org/api/events/2526`, {
+        const response = await fetch(`https://theorangealliance.org/api/events/2425`, {
             headers: {
-                'X-TOA-Key': ORANGE_API_KEY,
-                'X-Application-Origin': 'scoutmaster',
-                'Content-Type': 'application/json'
+            'X-TOA-Key': ORANGE_API_KEY,
+            'X-Application-Origin': 'scoutmaster',
+            'Content-Type': 'application/json'
             }
-            });
+        });
 
-            if (!response.ok) {
-            throw new Error(`Error: ${response.status} - ${response.statusText}`);
-            }
+        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
-            const events = await response.json();
+        const events = await response.json();
 
-            events.forEach(event => {
-                allMatchesTable.push(event.event_key);
-            });
-
-            alert(allMatchesTable);
+        events.forEach(event => {
+            allEventsMap.set(event.first_event_code.toLowerCase(), event);
+        });
 
         } catch (error) {
-            console.error('Failed to load events:', error);
-            alert('Could not fetch event codes.');
+        console.error('Failed to load events:', error);
+        alert('Could not fetch event codes.');
+        return;
         }
     }
-})
+
+    const matchingKeys = [...allEventsMap.keys()]
+        .filter(key => key.includes(compSearchInputVal))
+        .slice(0, 5);
+
+    container.innerHTML = '';
+
+    if (matchingKeys.length === 0) {
+        container.innerHTML = '<p>No competitions found.</p>';
+        return;
+    }
+
+    matchingKeys.forEach(key => {
+        const event = allEventsMap.get(key);
+        const startDate = new Date(event.start_date).toDateString();
+        const endDate = new Date(event.end_date).toDateString();
+
+        container.innerHTML += `
+        <div class="comptab" style="border-width: 1px;">
+            <p class="comptabbigtext">${event.event_name}</p>
+            <p class="comptabsmalltext">${event.first_event_code.toUpperCase()}</p>
+            <p class="comptabsmalltext">${startDate} - ${endDate}</p>
+        </div>`;
+    });
+});
