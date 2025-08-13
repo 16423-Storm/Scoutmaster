@@ -797,7 +797,7 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
 
     if (allEventsMap.size === 0) {
         try {
-        const response = await fetch(`https://theorangealliance.org/api/events?season_key=2425`, {
+        const response = await fetch(`https://theorangealliance.org/api/events/season/2425`, {
             headers: {
             'X-TOA-Key': ORANGE_API_KEY,
             'X-Application-Origin': 'scoutmaster',
