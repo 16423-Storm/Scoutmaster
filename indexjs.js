@@ -10,6 +10,7 @@ var groupId = savedGroupId;
 var onContinueAfterWarning;
 var groupMembers;
 var invitedMembers;
+var scoutedCompetitionKey;
 
 function popUpWarning(message, onContinue){
     document.getElementById("warningpopup").style.display = "block";
@@ -262,6 +263,7 @@ window.onload = function(){
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
     loadcookies();
     useSessionData();
+    loadStartingComp();
 }
 
 // button to go to login page
@@ -791,6 +793,53 @@ window.statusPopUpClose = statusPopUpClose;
 const ORANGE_API_KEY = 'qZJBdBp3HybnNrouyxbplVsEW31zLpYRARM+B0wmNrU=';
 let allEventsMap = new Map();
 
+async function loadStartingComp() {
+    if (!groupId) {
+        console.warn("No groupId set");
+        return;
+    }
+
+    const { data: groupData, error: groupError } = await supabaseClient
+        .from('group')
+        .select('competition')
+        .eq('id', groupId)
+        .maybeSingle();
+
+    if (groupError) {
+        console.error('Error fetching group:', groupError);
+        statusPopUp('Error fetching group:', groupError);
+        return;
+    }
+
+    const scoutedCompetitionKey = groupData?.competition;
+    if (!scoutedCompetitionKey) {
+        console.log('No competition set');
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://theorangealliance.org/api/event/${scoutedCompetitionKey}`, {
+        headers: {
+            'X-TOA-Key': ORANGE_API_KEY,
+            'X-Application-Origin': 'scoutmaster',
+            'Content-Type': 'application/json',
+        }
+        });
+
+        if (!response.ok) throw new Error(`${response.status} - ${response.statusText}`);
+
+        const event = await response.json();
+
+        allEventsMap.set(event.first_event_code.toLowerCase(), event);
+
+        document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
+    } catch (error) {
+        console.error('Failed to load event:', error);
+        alert('Could not fetch event info.');
+    }
+}
+
+
 document.getElementById("compsearchinput").addEventListener("input", async function() {
     const compSearchInputVal = this.value.toLowerCase();
     const container = document.getElementById("comptabcontainer");
@@ -814,9 +863,9 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
         });
 
         } catch (error) {
-        console.error('Failed to load events:', error);
-        alert('Could not fetch event codes.');
-        return;
+            console.error('Failed to load events:', error);
+            alert('Could not fetch event codes.');
+            return;
         }
     }
 
@@ -848,31 +897,6 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
 async function checkCompFirst(element){
     const event = element.dataset.eventKey
     const name = element.dataset.eventName
-    if (!event) {
-        console.warn("No eventKey set");
-        return;
-    }
-    if (!groupId) {
-        console.warn("No groupId set");
-        return;
-    }
-
-    const { data: groupData, error: groupError } = await supabaseClient
-        .from('group')
-        .select('competition')
-        .eq('id', groupId)
-        .maybeSingle();
-
-    if (groupError) {
-        console.error('Error fetching invited users:', groupError);
-        statusPopUp('Error fetching invited users:', groupError);
-        return;
-    }
-
-    if(!groupData){
-        setScoutedCompetition();
-    }
-
     popUpWarning("Selecting this will delete ALL data currently saved related to your current competition, are you 100% sure you want to continue?", () => setScoutedCompetition(event, name));
 }
 
