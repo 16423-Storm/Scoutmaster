@@ -4,6 +4,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const savedGroupId = localStorage.getItem('groupId');
+const savedSupabaseUrl = localStorage.getItem('supabaseUrl');
 
 var groupId = savedGroupId;
 var onContinueAfterWarning;
@@ -281,6 +282,7 @@ function loadcookies(){
 }
 
 window.onload = function(){
+    localStorage.setItem('supabaseUrl', SUPABASE_URL);
     loadcookies();
     useSessionData();
 }
@@ -701,7 +703,7 @@ async function deleteAccount() {
         throw new Error('No active session');
         }
 
-        const response = await fetch(`${SUPABASE_URL}/functions/v1/delete-user`, { //problem in url
+        const response = await fetch(`${savedSupabaseUrl}/functions/v1/delete-user`, { //problem in url
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${accessToken}`
