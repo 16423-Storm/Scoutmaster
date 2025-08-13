@@ -3,6 +3,7 @@ body{
     background-color: #f2f2f2;
     font-family: 'Montserrat';
     color: #0D0106;
+    overflow-x: hidden;
 }
 
 img{
@@ -13,10 +14,11 @@ img{
     background-color: #0D0106;
     font-family: 'Montserrat';
     color: #f2f2f2;
+    overflow-x: hidden;
 }
 
 .nav{
-    width: 100vw;
+    width: 100%;
     font-size: clamp(2rem, 5vw, 5rem);
 }
 
@@ -24,7 +26,7 @@ img{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 98vw;
+    width: 98%;
 }
 
 .titlecontainer{
@@ -106,12 +108,12 @@ img{
 }
 
 .navdividercontainer{
-    width: 98vw;
+    width: 100%;
 }
 
 .navdivider{
     border:none;
-    width: 98vw;
+    width: 98%;
     background-color: #0D0106;
     height: 4px;
 }
@@ -119,7 +121,7 @@ img{
 body.darkmode .navdivider{
     color: black;
     border:none;
-    width: 98vw;
+    width: 98%;
     background-color: #f2f2f2;
     height: 4px;
 }
@@ -683,7 +685,6 @@ body.darkmode .comptab:hover{
 .comptabcontainer{
     margin-top: 10px;
     width: 90%;
-    max-height: 600px;
     border: 1px solid #727272;
     border-radius: 5px;
     padding: 10px;
