@@ -819,18 +819,16 @@ async function loadStartingComp() {
 
     try {
         const response = await fetch(`https://theorangealliance.org/api/event/${scoutedCompetitionKey}`, {
-        headers: {
-            'X-TOA-Key': ORANGE_API_KEY,
-            'X-Application-Origin': 'scoutmaster',
-            'Content-Type': 'application/json',
-        }
+            headers: {
+                'X-TOA-Key': ORANGE_API_KEY,
+                'X-Application-Origin': 'scoutmaster',
+                'Content-Type': 'application/json',
+            }
         });
 
         if (!response.ok) throw new Error(`${response.status} - ${response.statusText}`);
 
         const event = await response.json();
-
-        allEventsMap.set(event.first_event_code.toLowerCase(), event);
 
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
     } catch (error) {
@@ -838,6 +836,7 @@ async function loadStartingComp() {
         alert('Could not fetch event info.');
     }
 }
+
 
 
 document.getElementById("compsearchinput").addEventListener("input", async function() {
