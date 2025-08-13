@@ -837,10 +837,58 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
         const endDate = new Date(event.end_date).toDateString();
 
         container.innerHTML += `
-        <div class="comptab" style="border-width: 1px;">
+        <div class="comptab" style="border-width: 1px;" data-event-key="${event.event_key}" data-event-name="${event.event_name}" onclick="checkCompFirst(this)">
             <p class="comptabbigtext">${event.event_name}</p>
             <p class="comptabsmalltext">${event.first_event_code.toUpperCase()}</p>
             <p class="comptabsmalltext">${startDate} - ${endDate}</p>
         </div>`;
     });
 });
+
+async function checkCompFirst(element){
+    const event = element.dataset.eventKey
+    const name = element.dataset.eventName
+    if (!event) {
+        console.warn("No eventKey set");
+        return;
+    }
+    if (!groupId) {
+        console.warn("No groupId set");
+        return;
+    }
+
+    const { data: groupData, error: groupError } = await supabaseClient
+        .from('group')
+        .select('competition')
+        .eq('id', groupId)
+        .maybeSingle();
+
+    if (groupError) {
+        console.error('Error fetching invited users:', groupError);
+        statusPopUp('Error fetching invited users:', groupError);
+        return;
+    }
+
+    if(!groupData){
+        setScoutedCompetition();
+    }
+
+    popUpWarning("Selecting this will delete ALL data currently saved related to your current competition, are you 100% sure you want to continue?", () => setScoutedCompetition(event, name));
+}
+
+async function setScoutedCompetition(eventKey, eventName){
+    const { error: groupError } = await supabaseClient
+        .from('group')
+        .upsert({
+            id: groupId,             
+            competition: eventKey   
+        });
+
+    if(groupError){
+        console.error('Error fetching invited users:', groupError);
+        statusPopUp('Error fetching invited users:', groupError);
+    }
+
+    statusPopUp("Successfully scouting new competition!")
+    document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`
+}
