@@ -222,39 +222,16 @@ function darkmodetoggle(){
     const targetBody = document.body;
     const sunMoonImg = document.getElementById("imgToToggle");
     const accountButtonImg = document.getElementById("accountbuttonimg")
-    const switchList = [
-        document.getElementById("navdivider"),
-        document.getElementById("reason1"),
-        document.getElementById("reason2"),
-        document.getElementById("reason3"),
-        document.getElementById("reason4"),
-        document.getElementById("signupbutton"),
-        document.getElementById("newgroupbutton"),
-        document.getElementById("existinggroupbutton"),
-        document.getElementById("creategroupbutton"),
-        document.getElementById("memberlistcontainer"),
-        document.getElementById("competitionfocusselectcontainer"),
-        document.getElementById("updateadminbutton"),
-        document.getElementById("invitebutton")
-    ];
 
     targetBody.classList.toggle("darkmode");
     if(targetBody.classList.contains("darkmode")){
         document.cookie = "darklight=dark; path=/; max-age=31536000; SameSite=Lax; Secure";
         sunMoonImg.src = "images/sun.png";
         accountButtonImg.src = "images/accountwhite.png"
-        switchList.forEach(targetElement =>{
-            targetElement.classList.add(targetElement.id+"dark")
-            targetElement.classList.remove(targetElement.id)
-        });
     } else {
         document.cookie = "darklight=light; path=/; max-age=31536000; SameSite=Lax; Secure";
         sunMoonImg.src = "images/moon.png";
         accountButtonImg.src = "images/accountblack.png"
-        switchList.forEach(targetElement =>{
-            targetElement.classList.remove(targetElement.id+"dark")
-            targetElement.classList.add(targetElement.id)
-        });
     }
 }
 

@@ -116,7 +116,7 @@ img{
     height: 4px;
 }
 
-.navdividerdark{
+body.darkmode .navdivider{
     color: black;
     border:none;
     width: 98vw;
@@ -162,7 +162,7 @@ img{
     inherits: false;
 }
 
-.reason1, .reason2, .reason3, .reason4, .reason1dark , .reason2dark, .reason3dark, .reason4dark{
+.reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
     position: relative;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     width: 23%;
@@ -178,12 +178,12 @@ img{
     justify-content: center;
 }
 
-.reason1:hover, .reason1dark:hover{
+.reason1:hover, body.darkmode .reason1:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
     border:none;
 }
 
-.reason1:hover::after, .reason1:hover::before, .reason1dark:hover::before, .reason1dark:hover::after{
+.reason1:hover::after, .reason1:hover::before, body.darkmode .reason1:hover::before, body.darkmode .reason1:hover::after{
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -199,17 +199,17 @@ img{
     animation: 3s spin linear infinite;
 }
 
-.reason1dark:hover::before, .reason1:hover::before{
+body.darkmode .reason1:hover::before, .reason1:hover::before{
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason2:hover, .reason2dark:hover{
+.reason2:hover, body.darkmode .reason2:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
     border:none;
 }
 
-.reason2:hover::after, .reason2:hover::before, .reason2dark:hover::before, .reason2dark:hover::after{
+.reason2:hover::after, .reason2:hover::before, body.darkmode .reason2:hover::before, body.darkmode .reason2:hover::after{
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -225,17 +225,17 @@ img{
     animation: 3s spin linear infinite;
 }
 
-.reason2dark:hover::before, .reason2:hover::before{
+body.darkmode .reason2:hover::before, .reason2:hover::before{
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason3:hover, .reason3dark:hover{
+.reason3:hover, body.darkmode .reason3:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
     border:none;
 }
 
-.reason3:hover::after, .reason3:hover::before, .reason3dark:hover::before, .reason3dark:hover::after{
+.reason3:hover::after, .reason3:hover::before, body.darkmode .reason3:hover::before, body.darkmode .reason3:hover::after{
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -251,17 +251,17 @@ img{
     animation: 3s spin linear infinite;
 }
 
-.reason3dark:hover::before, .reason3:hover::before{
+body.darkmode .reason3:hover::before, .reason3:hover::before{
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason4:hover, .reason4dark:hover{
+.reason4:hover, body.darkmode .reason4:hover{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
     border:none;
 }
 
-.reason4:hover::after, .reason4:hover::before, .reason4dark:hover::before, .reason4dark:hover::after{
+.reason4:hover::after, .reason4:hover::before, body.darkmode .reason4:hover::before, body.darkmode .reason4:hover::after{
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -277,7 +277,7 @@ img{
     animation: 3s spin linear infinite;
 }
 
-.reason4dark:hover::before, .reason4:hover::before{
+body.darkmode .reason4:hover::before, .reason4:hover::before{
     filter: blur(1.5rem);
     opacity: 0.5;
 }
@@ -287,7 +287,7 @@ img{
     border-color: #ffffff;
 }
 
-.reason1dark, .reason2dark, .reason3dark, .reason4dark{
+body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
     background-color: #242424;
     border-color: #000000;
 }
@@ -317,14 +317,13 @@ img{
     align-items: center;
 }
 
-.signupbutton, .signupbuttondark{
+.signupbutton, body.darkmode .signupbutton{
     border: 1px;
     border: solid;
     border-radius: 5px;
     position: relative;
     font-size: clamp(0.5rem, 3vw, 1.5rem);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
-    font-size: clamp(0.5rem, 3vw, 1.5rem);
     padding: 10px;
 }
 
@@ -334,17 +333,17 @@ img{
     border-color: #ffffff;
 }
 
-.signupbuttondark{
+body.darkmode .signupbutton{
     color: white;
     background-color: #242424;
     border-color: #000000;
 }
 
-.signupbutton:hover, .signupbuttondark:hover{
+.signupbutton:hover, body.darkmode .signupbutton:hover{
     border:none;
 }
 
-.signupbuttondark:hover::after, .signupbuttondark:hover::before, .signupbutton:hover::after, .signupbutton:hover::before{
+body.darkmode .signupbutton:hover::after, body.darkmode .signupbutton:hover::before, .signupbutton:hover::after, .signupbutton:hover::before{
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -360,7 +359,7 @@ img{
     animation: 3s spin linear infinite;
 }
 
-.signupbuttondark:hover::before, .signupbutton:hover::before{
+body.darkmode .signupbutton:hover::before, .signupbutton:hover::before{
     filter: blur(1.5rem);
     opacity: 0.5;
 }
@@ -390,13 +389,12 @@ img{
     margin: 20px;
 }
 
-.newgroupbutton, .existinggroupbutton, .newgroupbuttondark, .existinggroupbuttondark, .creategroupbutton, .creategroupbuttondark, .updateadminbutton, .updateadminbuttondark, .invitebutton, .invitebuttondark, .joingroupbutton, .joingroupbuttondark{
+.newgroupbutton, .existinggroupbutton, body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, .creategroupbutton, body.darkmode .creategroupbutton, .updateadminbutton, body.darkmode .updateadminbutton, .invitebutton, body.darkmode .invitebutton, .joingroupbutton, body.darkmode .joingroupbutton{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px;
     border: solid;
     border-radius: 5px;
-    font-size: clamp(0.5rem, 3vw, 1.5rem);
-    height: clamp(2rem, 3vw, 5rem);
+    font-size: clamp(0.5rem, 3vw, 1.4rem);
     width: clamp(10rem, 15vw, 30rem);
 }
 
@@ -406,7 +404,7 @@ img{
     color: black;
 }
 
-.newgroupbuttondark, .existinggroupbuttondark, .creategroupbuttondark, .updateadminbuttondark, .invitebuttondark, .joingroupbuttondark{
+body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, body.darkmode .creategroupbutton, body.darkmode .updateadminbutton, body.darkmode .invitebutton, body.darkmode .joingroupbutton{
     background-color: #242424;
     border-color: #000000;
     color: white;
@@ -416,7 +414,7 @@ img{
     background-color: #d1d1d1;
 }
 
-.newgroupbuttondark:hover, .existinggroupbuttondark:hover, .creategroupbuttondark:hover, .updateadminbuttondark:hover, .invitebuttondark:hover, .joingroupbuttondark:hover{
+body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, body.darkmode .creategroupbutton:hover, body.darkmode .updateadminbutton:hover, body.darkmode .invitebutton:hover, body.darkmode .joingroupbutton:hover{
     background-color: #303030;
 }
 
@@ -458,7 +456,7 @@ img{
     display: none;
 }
 
-.competitionfocusselectcontainer, .competitionfocusselectcontainerdark{
+.competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer{
     margin-right: 30px;
     border: 1px;
     border: solid;
@@ -477,13 +475,13 @@ img{
     color: black;
 }
 
-.competitionfocusselectcontainerdark{
+body.darkmode .competitionfocusselectcontainer{
     background-color: #242424;
     border-color: #000000;
     color:white;
 }
 
-.memberlistcontainer, .memberlistcontainerdark{
+.memberlistcontainer, body.darkmode .memberlistcontainer{
     margin-left: 30px;
     border: 1px;
     border: solid;
@@ -502,7 +500,7 @@ img{
     color: black;
 }
 
-.memberlistcontainerdark{
+body.darkmode .memberlistcontainer{
     background-color: #242424;
     border-color: #000000;
     color:white;
@@ -548,7 +546,7 @@ img{
     width: 100%;
 }
 
-.invitebutton, .invitebuttondark, .updateadminbutton, .updateadminbuttondark{
+.invitebutton, body.darkmode .invitebutton, .updateadminbutton, body.darkmode .updateadminbutton{
     width: 100%;
 }
 
@@ -593,7 +591,7 @@ img{
 
 
 @media only screen and (max-width: 800px) {
-    .reason1, .reason2, .reason3, .reason4, .reason1dark , .reason2dark, .reason3dark, .reason4dark{
+    .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         width: 48%;
         margin: calc(1% - 2px);
@@ -608,7 +606,7 @@ img{
         border-color: #ffffff;
     }
 
-    .reason1dark, .reason2dark, .reason3dark, .reason4dark{
+    body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
         background-color: #242424;
         border-color: #000000;
     }
@@ -621,13 +619,13 @@ img{
         flex-direction: column;
     }
 
-    .competitionfocusselectcontainer, .competitionfocusselectcontainerdark{
+    .competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer{
         margin-bottom: 20px;
         margin-right: 0px;
         width: 80%;
     }
 
-    .memberlistcontainer, .memberlistcontainerdark{
+    .memberlistcontainer, body.darkmode .memberlistcontainer{
         margin-top: 20px;
         margin-left: 0px;
         width: 80%;
