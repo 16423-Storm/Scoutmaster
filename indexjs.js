@@ -687,7 +687,7 @@ async function leaveGroup() {
 
 
 
-async function deleteUserAccount() {
+async function deleteAccount() {
     await leaveGroup();
     try {
         const { data: { session } } = await supabase.auth.getSession();
@@ -727,3 +727,10 @@ function statusPopUpClose(){
     document.getElementById("statuspopup").style.display = "none";
     document.getElementById("backdrop").style.display = "none";    
 }
+
+window.logOut = logOut;
+window.changePassword = changePassword;
+window.leaveGroup = leaveGroup;
+window.deleteAccount = deleteAccount; 
+window.popUpWarning = popUpWarning;
+window.statusPopUpClose = statusPopUpClose;
