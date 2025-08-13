@@ -739,7 +739,6 @@ async function removeFromGroup(kickedEmail){
 
 async function deleteAccount() {
     await leaveGroup();
-    await logOut();
     try {
         const { data: { session } } = await supabaseClient.auth.getSession();
         const accessToken = session?.access_token;
@@ -759,6 +758,8 @@ async function deleteAccount() {
             const errorText = await response.text();
             throw new Error(errorText || 'Failed to delete user');
         }
+
+        await logOut();
 
         window.location.href = "index.html";
         
