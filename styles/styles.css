@@ -641,7 +641,7 @@ body.darkmode .memberlistcontainer{
     background-color: #e4e4e4;
 }
 
-body.darkmode.comptab{
+body.darkmode .comptab{
     background-color: #242424;
 }
 
@@ -651,7 +651,7 @@ body.darkmode.comptab{
     cursor: pointer;
 }
 
-body.darkmode.comptab:hover{
+body.darkmode .comptab:hover{
     border-color: black;
     background-color: #353535;
     cursor: pointer;
@@ -659,7 +659,8 @@ body.darkmode.comptab:hover{
 
 .comptabbigtext{
     font-size: clamp(0.5rem, 3vw, 1.3rem);
-    margin: 2px;
+    margin: 6px;
+    font-weight: bold;
 }
 
 .comptabsmalltext{
