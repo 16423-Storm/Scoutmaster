@@ -805,13 +805,22 @@ async function loadStartingComp() {
         .eq('id', groupId)
         .maybeSingle();
 
+    console.log('Raw Supabase groupData:', groupData);
+
     if (groupError) {
         console.error('Error fetching group:', groupError);
         statusPopUp('Error fetching group:', groupError);
         return;
     }
 
-    const scoutedCompetitionKey = groupData?.competition;
+    if (!groupData) {
+        console.warn('Supabase returned null for group data');
+        return;
+    }
+
+    const scoutedCompetitionKey = groupData.competition;
+    console.log('scoutedCompetitionKey:', scoutedCompetitionKey);
+
     if (!scoutedCompetitionKey) {
         console.log('No competition set');
         return;
@@ -913,5 +922,5 @@ async function setScoutedCompetition(eventKey, eventName){
     }
 
     statusPopUp("Successfully scouting new competition!")
-    document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`
+    document.getElementById("compinfo").textContent = `Currently Scouting: test`
 }
