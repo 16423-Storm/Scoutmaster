@@ -1,0 +1,40 @@
+.accountmanagebody, .dangerbuttonsbody, .changeableinputcontainer, .changeablebuttonscontainer{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.changeablebody{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.changeablebuttonscontainer *, .changeableinputcontainer *, .dangerbuttonsbody *{
+    margin-top: 10px;
+}
+
+.changeablebutton{
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+.changeableinput{
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+.dangerbutton{
+    width: 100%;
+    background-color: red;
+    color: white;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+.dangerbutton:hover{
+    background-color: rgb(189, 0, 0);
+}

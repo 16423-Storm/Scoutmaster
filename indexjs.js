@@ -613,3 +613,117 @@ async function adminUpdate() {
     checkGroupMembership();
   }
 }
+
+function goToAccountPage(){
+    window.location.href = "accountmanage.html"
+}
+
+
+async function logOut() {
+    const { error } = await supabaseClient.auth.signOut({ scope: 'local' });
+    
+    if (error) {
+        console.error('Error logging out:', error.message);
+    } else {
+        console.log('Successfully logged out from local session.');
+    }
+}
+
+async function changePassword() {
+    const newPassword = document.getElementById("changepasswordinput").value;
+
+    const { data, error } = await supabaseClient.auth.updateUser({
+        password: newPassword,
+    });
+
+    if (error) {
+        console.error('Password change error:', error.message);
+        statusPopUp('Password change error:', `${error.message}`);
+    } else {
+        console.log('Password successfully updated.');
+    }
+}
+
+async function leaveGroup() {
+    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+
+    if (sessionError || !session) {
+        console.error('No user logged in or error fetching session:', sessionError?.message);
+        return;
+    }
+
+    const memberId = session.user.id;
+
+    if (!groupId) {
+        console.error('No groupId available. Cannot leave group.');
+        return;
+    }
+
+    const { data, error } = await supabaseClient.rpc('remove_member_from_jsonb', {
+        row_id: groupId,
+        member_id: memberId
+    });
+
+    if (error) {
+        console.error('Error removing member from JSONB:', error.message);
+    } else {
+        console.log('Member removed successfully from group.');
+
+        const { error: userGroupError } = await supabaseClient
+            .from('usergroup')
+            .delete()
+            .eq('id', memberId);
+
+        if (userGroupError) {
+            console.error('Error removing usergroup entry:', userGroupError.message);
+        } else {
+            console.log('Usergroup entry removed.');
+        }
+
+        alert('You have left the group.');
+        checkGroupMembership(); 
+    }
+}
+
+
+
+async function deleteUserAccount() {
+    await leaveGroup();
+    try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const accessToken = session?.access_token;
+
+        if (!accessToken) {
+        throw new Error('No active session');
+        }
+
+        const response = await fetch(`${supabase.url}/functions/v1/delete-user`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+        });
+
+        if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Failed to delete user');
+        }
+
+        return true;
+    } catch (error) {
+        console.error('User deletion error:', error);
+        throw error;
+    }
+}
+
+
+function statusPopUp(message){
+    document.getElementById("statuspopup").style.display = "block";
+    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("statuspopuptext").textContent = message;
+}
+
+function statusPopUpClose(){
+    document.getElementById("statuspopup").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";    
+}

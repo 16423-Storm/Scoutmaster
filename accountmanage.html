@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+        <title>Scoutmaster FTC</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="accountmanagestyles.css">
+    </head>
+
+    <body>
+        <!--nav-->
+
+        <div class="nav">
+            <center>
+                <div class="navcontainer">
+                    <div class="titlecontainer"><p class="title">Scoutmaster</p></div>
+                    <div class="buttoncontainer">
+                        <div class="buttonminicontainer">
+                            <div class="darklighttogglecontainer"><button class="darklighttoggle" onclick="darkmodetoggle()"><img class="darklighttoggleimg" id="imgToToggle" src="images/moon.png"></button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navdividercontainer">
+                    <hr id="navdivider" class="navdivider">
+                </div>
+            </center>
+        </div>
+
+        <div class="accountmanagebody">
+            <div class="changeablebody">
+                <div class="changeableinputcontainer">
+                    <input class="changeableinput" id="changepasswordinput" placeholder="Change Password">
+                </div>
+                <div class="changeablebuttonscontainer">
+                    <button class="changeablebutton" id="changepasswordbutton" onclick="changePassword()">Change</button>
+                </div>
+            </div>
+            <div class="dangerbuttonsbody">
+                <button class="dangerbutton" id="logoutbutton" onclick="logOut()">Log Out</button>
+                <button class="dangerbutton" id="leavegroupbutton" onclick="popUpWarning('Pressing continue will remove you from your current group, are you 100% sure you want to continue?', leaveGroup)">Leave Group</button>
+                <button class="dangerbutton" id="deleteaccountbutton" onclick="popUpWarning('Pressing continue will delete your account, are you 100% sure you want to continue?', deleteAccount())">Delete Account</button>
+            </div>
+        </div>
+
+
+        <div id="backdrop" class="backdrop"></div>
+        <div id="statuspopup" class="popup">
+            <p id="statuspopuptext">Warning text here</p>
+            <button onclick="statusPopUpClose()">Close</button>
+        </div>
+
+        <div id="warningpopup" class="popup">
+            <p id="warningmessage">Warning text here</p>
+            <button onclick="popUpContinue()">Continue</button>
+            <button onclick="popUpCancel()">Cancel</button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
+        <script src="accountmanage.js"></script>
+    </body>
+</html>
