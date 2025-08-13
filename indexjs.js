@@ -836,7 +836,8 @@ async function loadStartingComp() {
 
         if (!response.ok) throw new Error(`${response.status} - ${response.statusText}`);
 
-        const event = await response.json();
+        const eventArray = await response.json();
+        const event = eventArray[0];
 
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
     } catch (error) {
