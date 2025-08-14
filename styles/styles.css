@@ -705,6 +705,7 @@ body.darkmode .comptab:hover{
 
 .prescoutbuttoncontainer, .matchscoutbuttoncontainer, .allianceselectionbuttoncontainer{
     width: 33%;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
