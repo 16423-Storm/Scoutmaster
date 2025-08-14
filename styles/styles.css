@@ -593,19 +593,6 @@ body.darkmode .memberlistcontainer{
     box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .compsearchinput{
     font-size: clamp(0.5rem, 3vw, 1.3rem);
 }
@@ -695,27 +682,47 @@ body.darkmode .comptab:hover{
     box-sizing: border-box;
 }
 
+.threebuttonscontainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
 
+.prescoutbodycontainer, .matchscoutbodycontainer, .allianceselectionbodycontainer{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
+.threebuttonsbutton{
+    width: 80%;
+    text-align: center;
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+    color: black;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    border: 1px;
+    border: solid;
+    border-radius: 5px;
+    font-size: clamp(0.5rem, 3vw, 1.4rem);
+}
 
+body.darkmode .threebuttonsbutton{
+    background-color: #242424;
+    border-color: #000000;
+    color: white;
+}
 
+.threebuttonsbutton:hover{
+    background-color: #d1d1d1;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+body.darkmode .threebuttonsbutton:hover{
+    background-color: #303030;
+}
 
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{

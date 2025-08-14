@@ -388,7 +388,7 @@ async function checkGroupMembership() {
 
         if (isAdmin) {
             document.getElementById("adminviewbodycontainer").style.display = "flex";
-            document.getElementById("regviewbodycontainer").style.display = "none";
+            document.getElementById("regviewbodycontainer").style.display = "flex";
             loadMembers();
             loadInvitedUsers();
         } else {
@@ -852,6 +852,10 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
     const compSearchInputVal = this.value.toLowerCase();
     const container = document.getElementById("comptabcontainer");
 
+    if(compSearchInputVal.trim() === ""){
+        container.innerHTML = '';
+    }
+
     if (allEventsMap.size === 0) {
         try {
         const response = await fetch('https://theorangealliance.org/api/event?season_key=2425', {
@@ -922,5 +926,5 @@ async function setScoutedCompetition(eventKey, eventName){
     }
 
     statusPopUp("Successfully scouting new competition!")
-    document.getElementById("compinfo").textContent = `Currently Scouting: test`
+    document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`
 }
