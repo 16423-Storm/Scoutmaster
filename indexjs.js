@@ -1091,7 +1091,7 @@ function goBackFromAllianceSelection(){
 }
 
 
-async function pullAllTeamsPrescout(){
+async function pullAllTeamsPrescout() {
 	try {
 		const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/teams`, {
 			headers: {
@@ -1108,78 +1108,80 @@ async function pullAllTeamsPrescout(){
 
 		const tbody = document.getElementById("prescoutteamstbody");
 
-		const { data, error } = await supabaseClient
-			.rpc('check_prescout_empty', { p_groupid: groupId });
+		const { data, error } = await supabaseClient.rpc('check_prescout_empty', { p_groupid: groupId });
 
 		if (error) {
 			console.error('RPC error:', error.message);
-		} else {
-			if (data === true) {
-				console.log('Prescout is empty or null');
+			return;
+		}
 
-				for (const team of teams) {
-					const teamJsonb = {
-						ability1: null,
-						ability2: null,
-						ability3: null,
-						notes: "",
-						autosvg: [],
-						strategy: "",
-						finalized: 0
-					};
+		if (data === true) {
+			console.log('Prescout is empty or null');
 
-					const { error: rpcError } = await supabaseClient.rpc('add_team_to_prescout', {
-						p_groupid: groupId,
-						p_teamnum: team.team.team_number,
-						p_teamdata: teamJsonb
-					});
+			for (const team of teams) {
+				const teamJsonb = {
+					ability1: null,
+					ability2: null,
+					ability3: null,
+					notes: "",
+					autosvg: [],
+					strategy: "",
+					finalized: 0
+				};
 
-					if (rpcError) {
-						console.error(`Failed to update prescout for team ${team.team.team_number}:`, rpcError);
-					}
+				const { error: rpcError } = await supabaseClient.rpc('add_team_to_prescout', {
+					p_groupid: groupId,
+					p_teamnum: team.team.team_number,
+					p_teamdata: teamJsonb
+				});
+
+				if (rpcError) {
+					console.error(`Failed to update prescout for team ${team.team.team_number}:`, rpcError);
 				}
+			}
 
-				tbody.innerHTML = '';
-				teams.forEach(team =>{
-					tbody.innerHTML += `
+			tbody.innerHTML = '';
+			teams.forEach(team => {
+				tbody.innerHTML += `
 					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
 						<td>${team.team.team_number} - ${team.team.team_name_short}</td>
 						<td style="width: 20%"></td>
 					</tr>
-					`
-				});
-			} else {
-				console.log('Prescout has data');
+				`;
+			});
+		} else {
+			console.log('Prescout has data');
 
-				const { data: finalizedData, error: finalizedError } = await supabaseClient
-					.rpc('get_finalized_list', { p_groupid: groupId });
+			const { data: finalizedData, error: finalizedError } = await supabaseClient.rpc('get_finalized_list', { p_groupid: groupId });
 
-				if (finalizedError) {
-				    console.error('RPC error:', finalizedError);
-				} else {
-					console.log('Finalized list:', finalizedData);
-
-					const finalizedMap = new Map();
-					finalizedData.forEach(entry => {
-						finalizedMap.set(entry.teamnum, entry.finalized === 1);
-					});
-
-					tbody.innerHTML = '';
-					teams.forEach(team => {
-						const teamNum = team.team.team_number;
-						const isFinalized = finalizedMap.get(teamNum.toString()) || false;
-
-						tbody.innerHTML += `
-						<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
-							<td>${teamNum} - ${team.team.team_name_short}</td>
-							<td style="width: 20%">
-								${isFinalized ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">' : ''}
-							</td>
-						</tr>
-						`;
-					});
-				}
+			if (finalizedError) {
+				console.error('RPC error:', finalizedError);
+				return;
 			}
+
+			console.log('Finalized list:', finalizedData);
+
+			finalizedData.sort((a, b) => parseInt(a.teamnum, 10) - parseInt(b.teamnum, 10));
+
+			const finalizedMap = new Map();
+			finalizedData.forEach(entry => {
+				finalizedMap.set(entry.teamnum.toString(), entry.finalized === 1);
+			});
+
+			tbody.innerHTML = '';
+			teams.forEach(team => {
+				const teamNum = team.team.team_number;
+				const isFinalized = finalizedMap.get(teamNum.toString()) || false;
+
+				tbody.innerHTML += `
+					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
+						<td>${teamNum} - ${team.team.team_name_short}</td>
+						<td style="width: 20%">
+							${isFinalized ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">' : ''}
+						</td>
+					</tr>
+				`;
+			});
 		}
 	} catch (error) {
 		console.error('Failed to load teams:', error);
@@ -1188,3 +1190,6 @@ async function pullAllTeamsPrescout(){
 	}
 }
 
+function goToTeamPrescoutPage(element){
+    alert(element.dataset.eventKey)
+}

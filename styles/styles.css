@@ -808,6 +808,12 @@ body.darkmode .prescoutteamstbody tr:hover{
     cursor: pointer;
 }
 
+.prescoutteampage{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
