@@ -11,6 +11,7 @@ var onContinueAfterWarning;
 var groupMembers;
 var invitedMembers;
 var scoutedCompetitionKey;
+var currentEventKey;
 
 function popUpWarning(message, onContinue){
     document.getElementById("warningpopup").style.display = "block";
@@ -878,6 +879,7 @@ async function loadStartingComp() {
     }
 
     const scoutedCompetitionKey = groupData.competition;
+    currentEventKey = scoutedCompetitionKey;
     console.log('scoutedCompetitionKey:', scoutedCompetitionKey);
 
     if (!scoutedCompetitionKey) {
@@ -899,6 +901,7 @@ async function loadStartingComp() {
         const event = eventArray[0];
 
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
+        document.getElementById("competitionnameinprescoutlist").textContent = event.event_name;
     } catch (error) {
         console.error('Failed to load event:', error);
         alert('Could not fetch event info.');
@@ -917,12 +920,12 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
 
     if (allEventsMap.size === 0) {
         try {
-        const response = await fetch('https://theorangealliance.org/api/event?season_key=2425', {
-            headers: {
-            'X-TOA-Key': ORANGE_API_KEY,
-            'X-Application-Origin': 'scoutmaster',
-            'Content-Type': 'application/json'
-            }
+            const response = await fetch('https://theorangealliance.org/api/event?season_key=2425', {
+                headers: {
+                'X-TOA-Key': ORANGE_API_KEY,
+                'X-Application-Origin': 'scoutmaster',
+                'Content-Type': 'application/json'
+                }
         });
 
         if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
@@ -984,8 +987,9 @@ async function setScoutedCompetition(eventKey, eventName){
         statusPopUp('Error fetching invited users:', groupError);
     }
 
-    statusPopUp("Successfully scouting new competition!")
-    document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`
+    statusPopUp("Successfully scouting new competition!");
+    document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
+    document.getElementById("competitionnameinprescoutlist").textContent = eventName;
 }
 
 
@@ -1085,3 +1089,102 @@ function goBackFromAllianceSelection(){
     });
     document.getElementById("allianceselectionbodycontainer").style.display = "none";
 }
+
+
+async function pullAllTeamsPrescout(){
+	try {
+		const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/teams`, {
+			headers: {
+				'X-TOA-Key': ORANGE_API_KEY,
+				'X-Application-Origin': 'scoutmaster',
+				'Content-Type': 'application/json'
+			}
+		});
+
+		if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+
+		const teams = await response.json();
+		teams.sort((a, b) => a.team.team_number - b.team.team_number);
+
+		const tbody = document.getElementById("prescoutteamstbody");
+
+		const { data, error } = await supabaseClient
+			.rpc('check_prescout_empty', { p_groupid: groupId });
+
+		if (error) {
+			console.error('RPC error:', error.message);
+		} else {
+			if (data === true) {
+				console.log('Prescout is empty or null');
+
+				for (const team of teams) {
+					const teamJsonb = {
+						ability1: null,
+						ability2: null,
+						ability3: null,
+						notes: "",
+						autosvg: [],
+						strategy: "",
+						finalized: 0
+					};
+
+					const { error: rpcError } = await supabaseClient.rpc('add_team_to_prescout', {
+						p_groupid: groupId,
+						p_teamnum: team.team.team_number,
+						p_teamdata: teamJsonb
+					});
+
+					if (rpcError) {
+						console.error(`Failed to update prescout for team ${team.team.team_number}:`, rpcError);
+					}
+				}
+
+				tbody.innerHTML = '';
+				teams.forEach(team =>{
+					tbody.innerHTML += `
+					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
+						<td>${team.team.team_number} - ${team.team.team_name_short}</td>
+						<td style="width: 20%"></td>
+					</tr>
+					`
+				});
+			} else {
+				console.log('Prescout has data');
+
+				const { data: finalizedData, error: finalizedError } = await supabaseClient
+					.rpc('get_finalized_list', { p_groupid: groupId });
+
+				if (finalizedError) {
+				    console.error('RPC error:', finalizedError);
+				} else {
+					console.log('Finalized list:', finalizedData);
+
+					const finalizedMap = new Map();
+					finalizedData.forEach(entry => {
+						finalizedMap.set(entry.teamnum, entry.finalized === 1);
+					});
+
+					tbody.innerHTML = '';
+					teams.forEach(team => {
+						const teamNum = team.team.team_number;
+						const isFinalized = finalizedMap.get(teamNum) || false;
+
+						tbody.innerHTML += `
+						<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
+							<td>${teamNum} - ${team.team.team_name_short}</td>
+							<td style="width: 20%">
+								${isFinalized ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">' : ''}
+							</td>
+						</tr>
+						`;
+					});
+				}
+			}
+		}
+	} catch (error) {
+		console.error('Failed to load teams:', error);
+		alert('Could not fetch teams.');
+		return;
+	}
+}
+

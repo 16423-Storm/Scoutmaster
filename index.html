@@ -94,16 +94,35 @@
                         </div>
                     </div>
                 
+
+
                     <div class="prescoutbodycontainer" id="prescoutbodycontainer">
                         <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromPrescout()">&lt;- Back</button>
-                        <p>prescout?</p>
+                        <div class="prescoutteamslist">
+                            <p class="generaltext" id="competitionnameinprescoutlist">Loading...</p>
+                            <table style="border-collapse: collapse;">
+                                <thead style="border-bottom: 1px solid #727272;;">
+                                    <td class="prescoutthead">Team</td>
+                                    <td class="prescoutthead">Scouted</td>
+                                </thead>
+                                <tbody id="prescoutteamstbody" class="prescoutteamstbody">
+                                    <tr class="prescouttablerow">
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
+
 
                     <div class="matchscoutbodycontainer" id="matchscoutbodycontainer">
                         <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromMatchScout()">&lt;- Back</button>
                         <p>matchscout?</p>
                     </div>
                     
+
+
                     <div class="allianceselectionbodycontainer" id="allianceselectionbodycontainer">
                         <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromAllianceSelection()">&lt;- Back</button>
                         <p>allianceselection?</p>

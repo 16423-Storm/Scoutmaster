@@ -697,7 +697,7 @@ body.darkmode .comptab:hover{
 
 .prescoutbodycontainer, .matchscoutbodycontainer, .allianceselectionbodycontainer{
     display: none;
-    width: 33%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -764,6 +764,53 @@ body.darkmode .threebuttonsbutton:hover{
     padding: 20px;
     z-index: 1000;
 }
+
+
+
+
+.prescoutteamslist, body.darkmode .prescoutteamslist{
+    width: 90%;
+    border: 1px solid;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.prescoutteamslist{
+    background-color: #e4e4e4;
+    border-color: #ffffff;
+    color: black;
+}
+
+body.darkmode .prescoutteamslist{
+    background-color: #242424;
+    border-color: #000000;
+    color:white;
+}
+
+.prescoutteamstbody tr{
+    border-bottom: 1px solid #727272;;
+}
+
+.prescoutteamstbody tr:hover{
+    border-color: black;
+    background-color: #cfcfcf;
+    cursor: pointer;
+}
+
+body.darkmode .prescoutteamstbody tr:hover{
+    border-color: black;
+    background-color: #353535;
+    cursor: pointer;
+}
+
+
+
+
 
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
