@@ -1006,7 +1006,7 @@ async function setScoutedCompetition(eventKey, eventName){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function showPrescout(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").querySelectorAll("*"))
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1017,6 +1017,11 @@ function showPrescout(){
             display: style.display
         }
     });
+
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = "none";
+    });
+
     document.getElementById("prescoutbodycontainer").style.display = "flex";
 }
 
@@ -1028,7 +1033,7 @@ function goBackFromPrescout(){
 }
 
 function showMatchScout(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").querySelectorAll("*"))
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1039,6 +1044,11 @@ function showMatchScout(){
             display: style.display
         }
     });
+
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = "none";
+    });
+
     document.getElementById("matchscoutbodycontainer").style.display = "flex";
 }
 
@@ -1050,7 +1060,7 @@ function goBackFromMatchScout(){
 }
 
 function showAllianceSelection(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").querySelectorAll("*"))
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1061,6 +1071,11 @@ function showAllianceSelection(){
             display: style.display
         }
     });
+
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = "none";
+    });
+
     document.getElementById("allianceselectionbodycontainer").style.display = "flex";
 }
 
