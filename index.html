@@ -98,7 +98,7 @@
 
                     <div class="prescoutbodycontainer" id="prescoutbodycontainer">
                         <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromPrescout()">&lt;- Back</button>
-                        <div class="prescoutteamslist">
+                        <div class="prescoutteamslist" id="prescoutteamslist">
                             <p class="generaltext" id="competitionnameinprescoutlist">Loading...</p>
                             <table style="border-collapse: collapse;">
                                 <thead style="border-bottom: 1px solid #727272;;">
@@ -112,7 +112,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="prescoutteampage">
+                        <div class="prescoutteampage" id="prescoutteampage">
+                            <div class="changeablebody">
+                                <button class="changeablebutton" onclick="goBackFromTeamPagePreScout()">&lt;- Back</button>
+                                <p class="generaltext" id="teamnumnameprescout">Loading...</p>
+                                <p class="prescoutsmalltext" id="teamlocationprescout">Loading...</p>
+                                <p class="prescoutsmalltext" id="teamrookieyearprescout">Loading...</p>
+                            </div>
                             <div class="abilitycontainer">
                                 <p class="prescoutsmalltext">Can do X: </p>
                                 <input class="prescoutcheckbox" type="checkbox" id="ability1input">
@@ -265,6 +271,29 @@
 
         <div id="loadingimgcontainer" class="loadingimg">
             <img src="images/loading.gif">
+        </div>
+
+        <div id="autopathsoverlay" class="autopathsoverlay">
+            <div class="autopathssection" id="autopathsection1">
+                <button class="autopathsbuttongreen" id="newautopathbutton" onclick="newAutoPath()">New Path</button>
+                <button class="autopathsbuttonred" onclick="closeAutoPathPopup()">X</button>
+            </div>
+            <div class="autopathssection" id="autopathsection2">
+                <svg viewBox="0 0 300 300" width="20%" height="auto" aspect-ratio="1/1">
+                    <path d=""/>
+                    <image href="images/fieldimage.png" x="0" y="0" width="100%" height="100%"/>
+                </svg>
+            </div>
+            <div class="autopathssection" id="autopathsection3" style="display: none;">
+                <button class="autopathbuttonred">Clear</button>
+                <button class="autopathbuttonred">Save & Exit</button>
+            </div>
+            <div class="autopathssection" id="autopathsection4" style="display: none;">
+                <svg viewBox="0 0 300 300" width="80%" height="auto" aspect-ratio="1/1" id="drawablesvg">
+                    <path id="drawablesvgpath" d=""/>
+                    <image href="images/fieldimage.png" x="0" y="0" width="100%" height="100%"/>
+                </svg>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->

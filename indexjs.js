@@ -262,14 +262,14 @@ function loadcookies(){
 
 window.onload = function(){
     document.body.classList.add("lock-scroll");
-    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("blackout").style.display = "block";
     document.getElementById("loadingimgcontainer").style.display = "block";
     window.setTimeout(actualLoad, 3000);
 }
 
 function actualLoad(){
     document.body.classList.remove("lock-scroll");
-    document.getElementById("backdrop").style.display = "none";
+    document.getElementById("blackout").style.display = "none";
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
     loadcookies();
@@ -1027,6 +1027,8 @@ function showPrescout(){
     });
 
     document.getElementById("prescoutbodycontainer").style.display = "flex";
+    document.getElementById("prescoutteamslist").style.display = "flex";
+    document.getElementById("prescoutteampage").style.display = "none";
     pullAllTeamsPrescout();
 }
 
@@ -1175,7 +1177,7 @@ async function pullAllTeamsPrescout() {
 				const isFinalized = finalizedMap.get(teamNum.toString()) || false;
 
 				tbody.innerHTML += `
-					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
+					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" data-team-is-finalized="${isFinalized}" onclick="goToTeamPrescoutPage(this)">
 						<td>${teamNum} - ${team.team.team_name_short}</td>
 						<td style="width: 20%">
 							${isFinalized ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">' : ''}
@@ -1193,7 +1195,23 @@ async function pullAllTeamsPrescout() {
 
 function goToTeamPrescoutPage(element){
     const teamInfoObj = JSON.parse(element.dataset.teamInfo);
+    const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
 
+    document.getElementById("prescoutteamslist").style.display = "none";
+    document.getElementById("prescoutteampage").style.display = "flex";
 
+    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.rookie_year}`;
+    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.city}, ${teamInfoObj.state_prov} - ${teamInfoObj.country}`;
+
+    if(teamIsFinalized){
+        alert("finalized")
+    }else{
+        alert("not finalized");
+    }
+}
+
+function goBackFromTeamPagePreScout(){
+    document.getElementById("prescoutteamslist").style.display = "flex";
+    document.getElementById("prescoutteampage").style.display = "none";
 }
