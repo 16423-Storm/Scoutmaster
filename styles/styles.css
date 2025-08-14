@@ -816,7 +816,7 @@ body.darkmode .prescoutteamstbody tr:hover{
 }
 
 .abilitycontainer{
-    display: none;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;

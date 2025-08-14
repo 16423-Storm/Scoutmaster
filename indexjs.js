@@ -1146,7 +1146,7 @@ async function pullAllTeamsPrescout() {
 			tbody.innerHTML = '';
 			teams.forEach(team => {
 				tbody.innerHTML += `
-					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
+					<tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToTeamPrescoutPage(this)">
 						<td>${team.team.team_number} - ${team.team.team_name_short}</td>
 						<td style="width: 20%"></td>
 					</tr>
@@ -1177,7 +1177,7 @@ async function pullAllTeamsPrescout() {
 				const isFinalized = finalizedMap.get(teamNum.toString()) || false;
 
 				tbody.innerHTML += `
-					<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" data-team-is-finalized="${isFinalized}" onclick="goToTeamPrescoutPage(this)">
+					<tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' data-team-is-finalized="${isFinalized}" onclick="goToTeamPrescoutPage(this)">
 						<td>${teamNum} - ${team.team.team_name_short}</td>
 						<td style="width: 20%">
 							${isFinalized ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">' : ''}
@@ -1194,7 +1194,7 @@ async function pullAllTeamsPrescout() {
 }
 
 function goToTeamPrescoutPage(element){
-    const teamInfoObj = JSON.stringify(element.dataset.teamInfo);
+    const teamInfoObj = JSON.parse(element.dataset.teamInfo);
     const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
 
@@ -1204,7 +1204,7 @@ function goToTeamPrescoutPage(element){
     document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.rookie_year}`;
     document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.city}, ${teamInfoObj.state_prov} - ${teamInfoObj.country}`;
 
-    if(teamIsFinalized){
+    if(teamIsFinalized === "true"){
         alert("finalized")
     }else{
         alert("not finalized");
