@@ -692,11 +692,16 @@ body.darkmode .comptab:hover{
 }
 
 .prescoutbodycontainer, .matchscoutbodycontainer, .allianceselectionbodycontainer{
-    width: 33.33333%;
-    display: none;
+    width: 33%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.emptyalignerthirds{
+    width: 0.5%;
+    height: 100%;
+    display: block;
 }
 
 .threebuttonsbutton{
