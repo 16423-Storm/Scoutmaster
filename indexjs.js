@@ -1029,6 +1029,7 @@ function showPrescout(){
     document.getElementById("prescoutbodycontainer").style.display = "flex";
     document.getElementById("prescoutteamslist").style.display = "flex";
     document.getElementById("prescoutteampage").style.display = "none";
+    document.getElementById("prescoutallthewaybackbutton").style.display = "none";
     pullAllTeamsPrescout();
 }
 
@@ -1201,8 +1202,8 @@ function goToTeamPrescoutPage(element){
     document.getElementById("prescoutteamslist").style.display = "none";
     document.getElementById("prescoutteampage").style.display = "flex";
 
-    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.rookie_year}`;
-    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.city}, ${teamInfoObj.state_prov} - ${teamInfoObj.country}`;
+    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
+    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
 
     if(teamIsFinalized === "true"){
         alert("finalized")
@@ -1214,4 +1215,13 @@ function goToTeamPrescoutPage(element){
 function goBackFromTeamPagePreScout(){
     document.getElementById("prescoutteamslist").style.display = "flex";
     document.getElementById("prescoutteampage").style.display = "none";
+    document.getElementById("prescoutallthewaybackbutton").style.display = "block";
+}
+
+function showAutoOverlay(){
+    document.getElementById("autopathsoverlay").style.display = "block";
+}
+
+function closeAutoPathPopup(){
+    document.getElementById("autopathsoverlay").style.display = "none";
 }

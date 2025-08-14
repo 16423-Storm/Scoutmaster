@@ -97,7 +97,7 @@
 
 
                     <div class="prescoutbodycontainer" id="prescoutbodycontainer">
-                        <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromPrescout()">&lt;- Back</button>
+                        <button class="changeablebutton" id="prescoutallthewaybackbutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromPrescout()">&lt;- Back</button>
                         <div class="prescoutteamslist" id="prescoutteamslist">
                             <p class="generaltext" id="competitionnameinprescoutlist">Loading...</p>
                             <table style="border-collapse: collapse;">
@@ -112,11 +112,17 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="prescoutteampage" id="prescoutteampage">
-                            <div class="changeablebody">
+                        <div class="prescoutteampage" id="prescoutteampage">                    
+                            <div class="abilitycontainer">
                                 <button class="changeablebutton" onclick="goBackFromTeamPagePreScout()">&lt;- Back</button>
+                            </div>
+                            <div class="abilitycontainer">
                                 <p class="generaltext" id="teamnumnameprescout">Loading...</p>
+                            </div>
+                            <div class="abilitycontainer">
                                 <p class="prescoutsmalltext" id="teamlocationprescout">Loading...</p>
+                            </div>
+                            <div class="abilitycontainer">
                                 <p class="prescoutsmalltext" id="teamrookieyearprescout">Loading...</p>
                             </div>
                             <div class="abilitycontainer">
