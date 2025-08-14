@@ -1191,5 +1191,5 @@ async function pullAllTeamsPrescout() {
 }
 
 function goToTeamPrescoutPage(element){
-    alert(element.dataset.eventKey)
+    alert(element.dataset.teamInfo)
 }
