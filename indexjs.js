@@ -1167,7 +1167,7 @@ async function pullAllTeamsPrescout(){
 					tbody.innerHTML = '';
 					teams.forEach(team => {
 						const teamNum = team.team.team_number;
-						const isFinalized = finalizedMap.get(teamNum) || false;
+						const isFinalized = finalizedMap.get(teamNum.toString()) || false;
 
 						tbody.innerHTML += `
 						<tr class="prescouttablerow" data-team-info="${JSON.stringify(team)}" onclick="goToTeamPrescoutPage(this)">
