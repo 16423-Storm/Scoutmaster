@@ -1027,6 +1027,7 @@ function showPrescout(){
     });
 
     document.getElementById("prescoutbodycontainer").style.display = "flex";
+    pullAllTeamsPrescout();
 }
 
 function goBackFromPrescout(){
@@ -1191,5 +1192,8 @@ async function pullAllTeamsPrescout() {
 }
 
 function goToTeamPrescoutPage(element){
-    alert(element.dataset.teamInfo)
+    const teamInfoObj = JSON.parse(element.dataset.teamInfo);
+    console.log(teamInfoObj, null, 2);
+
+
 }
