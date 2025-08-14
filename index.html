@@ -8,6 +8,7 @@
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
         <title>Scoutmaster FTC</title>
         <link rel="stylesheet" href="styles/styles.css">
+        <link rel="stylesheet" href="styles/accountmanagestyles.css">
     </head>
 
     <body>
@@ -132,6 +133,24 @@
                         <button class="creategroupbutton" id="creategroupbutton" onclick="createGroup()">Create group</button>
                     </div>
                 </div>
+
+                <div class="accountmanagebody">
+                    <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromAccount()">&lt;- Back</button>
+                    <div class="changeablebody">
+                        <div class="changeableinputcontainer">
+                            <input class="changeableinput" id="changepasswordinput" placeholder="Change Password">
+                        </div>
+                        <div class="changeablebuttonscontainer">
+                            <button class="changeablebutton" id="changepasswordbutton" onclick="changePassword()">Change</button>
+                        </div>
+                    </div>
+                    <div class="dangerbuttonsbody">
+                        <button class="dangerbutton" id="logoutbutton" onclick="logOut()">Log Out</button>
+                        <button class="dangerbutton" id="leavegroupbutton" onclick="popUpWarning('Pressing continue will remove you from your current group, are you 100% sure you want to continue?', leaveGroup)">Leave Group</button>
+                        <button class="dangerbutton" id="deleteaccountbutton" onclick="popUpWarning('Pressing continue will delete your account, are you 100% sure you want to continue?', deleteAccount)">Delete Account</button>
+                    </div>
+                </div>
+
             </div>
 
             <div class="signedoutmainbody" id="signedoutmainbody">
@@ -183,6 +202,12 @@
         <div id="statuspopup" class="popup">
             <p id="statuspopuptext">Warning text here</p>
             <button onclick="statusPopUpClose()">Close</button>
+        </div>
+
+        <div id="blackout" class="blackout"></div>
+
+        <div id="loadingimgcontainer" class="loadingimg">
+            <img src="images/loading.gif">
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->

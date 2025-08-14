@@ -260,10 +260,14 @@ function loadcookies(){
 }
 
 window.onload = function(){
+    window.setTimeout(actualLoad, 3000);
+}
+
+function actualLoad(){
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
     loadcookies();
     useSessionData();
-    loadStartingComp();
+    loadStartingComp();  
 }
 
 // button to go to login page
@@ -599,9 +603,52 @@ async function adminUpdate() {
   }
 }
 
+
+
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ACCOUNT MANAGEMENT AFTER HERE
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+var previousDivIdsVisible = [];
+
 function goToAccountPage(){
-    window.location.href = "accountmanage.html"
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    .filter(child => {
+        const style = window.getComputedStyle(child);
+        return style.display !== 'none';
+    }).map(child => {
+        const style = window.getComputedStyle(child);
+        return{
+            id: child.id,
+            display: style.display
+        }
+    });
 }
+
+function goBackFromAccount(){
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = div.display;
+    });
+}
+
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ACCOUNT MANAGEMENT BEFORE HERE
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+
 
 
 async function logOut() {
@@ -928,3 +975,9 @@ async function setScoutedCompetition(eventKey, eventName){
     statusPopUp("Successfully scouting new competition!")
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`
 }
+
+
+
+
+
+
