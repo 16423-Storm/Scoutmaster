@@ -260,10 +260,14 @@ function loadcookies(){
 }
 
 window.onload = function(){
+    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("loadingimgcontainer").style.display = "block";
     window.setTimeout(actualLoad, 3000);
 }
 
 function actualLoad(){
+    document.getElementById("backdrop").style.display = "none";
+    document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
     loadcookies();
     useSessionData();
