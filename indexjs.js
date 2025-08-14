@@ -1028,8 +1028,6 @@ function showPrescout(){
 
     document.getElementById("prescoutbodycontainer").style.display = "flex";
     document.getElementById("prescoutteamslist").style.display = "flex";
-    document.getElementById("prescoutteampage").style.display = "none";
-    document.getElementById("prescoutallthewaybackbutton").style.display = "none";
     pullAllTeamsPrescout();
 }
 
@@ -1201,6 +1199,7 @@ function goToTeamPrescoutPage(element){
 
     document.getElementById("prescoutteamslist").style.display = "none";
     document.getElementById("prescoutteampage").style.display = "flex";
+    document.getElementById("prescoutallthewaybackbutton").style.display = "none";
 
     document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
     document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
@@ -1220,8 +1219,26 @@ function goBackFromTeamPagePreScout(){
 
 function showAutoOverlay(){
     document.getElementById("autopathsoverlay").style.display = "block";
+    document.getElementById("backdrop").style.display = "block";
+    document.body.classList.add("lock-scroll");
 }
 
 function closeAutoPathPopup(){
     document.getElementById("autopathsoverlay").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
+    document.body.classList.remove("lock-scroll");
+}
+
+function newAutoPath(){
+    document.getElementById("autopathsection1").style.display = "none";
+    ocument.getElementById("autopathsection2").style.display = "none";
+    ocument.getElementById("autopathsection3").style.display = "flex";
+    ocument.getElementById("autopathsection4").style.display = "flex";
+}
+
+function exitAutoPathCreationWoutSaving(){
+    document.getElementById("autopathsection1").style.display = "flex";
+    ocument.getElementById("autopathsection2").style.display = "flex";
+    ocument.getElementById("autopathsection3").style.display = "none";
+    ocument.getElementById("autopathsection4").style.display = "none";
 }

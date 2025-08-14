@@ -97,7 +97,7 @@
 
 
                     <div class="prescoutbodycontainer" id="prescoutbodycontainer">
-                        <button class="changeablebutton" id="prescoutallthewaybackbutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromPrescout()">&lt;- Back</button>
+                        <button class="changeablebutton" id="prescoutallthewaybackbutton" style="margin-top: 10px;margin-bottom: 10px; display: block;" onclick="goBackFromPrescout()">&lt;- Back</button>
                         <div class="prescoutteamslist" id="prescoutteamslist">
                             <p class="generaltext" id="competitionnameinprescoutlist">Loading...</p>
                             <table style="border-collapse: collapse;">
@@ -287,17 +287,26 @@
             <div class="autopathssection" id="autopathsection2">
                 <svg viewBox="0 0 300 300" width="20%" height="auto" aspect-ratio="1/1">
                     <path d=""/>
-                    <image href="images/fieldimage.png" x="0" y="0" width="100%" height="100%"/>
+                    <defs>
+                        <pattern id="image_pattern" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
+                            <image href="images/fieldimage.png" x="0" y="0" width="300" height="300" />
+                        </pattern>
+                    </defs>
                 </svg>
             </div>
             <div class="autopathssection" id="autopathsection3" style="display: none;">
-                <button class="autopathbuttonred">Clear</button>
-                <button class="autopathbuttonred">Save & Exit</button>
+                <button class="autopathbuttonred" onclick="clearCurrentPath()">Clear</button>
+                <button class="autopathbuttonred" onclick="exitAutoPathCreationWoutSaving()">Exit Without Saving</button>
+                <button class="autopathsbuttongreen" onclick="exitAutoPathCreationSave()">Save & Exit</button>
             </div>
             <div class="autopathssection" id="autopathsection4" style="display: none;">
                 <svg viewBox="0 0 300 300" width="80%" height="auto" aspect-ratio="1/1" id="drawablesvg">
                     <path id="drawablesvgpath" d=""/>
-                    <image href="images/fieldimage.png" x="0" y="0" width="100%" height="100%"/>
+                    <defs>
+                        <pattern id="image_pattern" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
+                            <image href="images/fieldimage.png" x="0" y="0" width="300" height="300" />
+                        </pattern>
+                    </defs>
                 </svg>
             </div>
         </div>
