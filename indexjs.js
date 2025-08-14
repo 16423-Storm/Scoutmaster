@@ -627,12 +627,14 @@ function goToAccountPage(){
             display: style.display
         }
     });
+    document.getElementById("accountmanagebody").style.display = "block";
 }
 
 function goBackFromAccount(){
     previousDivIdsVisible.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
     });
+    document.getElementById("accountmanagebody").style.display = "none";
 }
 
 
