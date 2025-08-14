@@ -1006,7 +1006,7 @@ async function setScoutedCompetition(eventKey, eventName){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function showPrescout(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1033,7 +1033,7 @@ function goBackFromPrescout(){
 }
 
 function showMatchScout(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1060,7 +1060,7 @@ function goBackFromMatchScout(){
 }
 
 function showAllianceSelection(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
