@@ -260,12 +260,14 @@ function loadcookies(){
 }
 
 window.onload = function(){
+    document.body.classList.add("lock-scroll");
     document.getElementById("backdrop").style.display = "block";
     document.getElementById("loadingimgcontainer").style.display = "block";
     window.setTimeout(actualLoad, 3000);
 }
 
 function actualLoad(){
+    document.body.classList.remove("lock-scroll");
     document.getElementById("backdrop").style.display = "none";
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
@@ -1004,7 +1006,7 @@ async function setScoutedCompetition(eventKey, eventName){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function showPrescout(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").querySelectorAll("*"))
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1026,7 +1028,7 @@ function goBackFromPrescout(){
 }
 
 function showMatchScout(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").querySelectorAll("*"))
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -1048,7 +1050,7 @@ function goBackFromMatchScout(){
 }
 
 function showAllianceSelection(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").querySelectorAll("*"))
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
