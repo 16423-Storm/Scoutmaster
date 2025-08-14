@@ -1194,7 +1194,7 @@ async function pullAllTeamsPrescout() {
 }
 
 function goToTeamPrescoutPage(element){
-    const teamInfoObj = JSON.parse(element.dataset.teamInfo);
+    const teamInfoObj = JSON.stringify(element.dataset.teamInfo);
     const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
 
