@@ -628,6 +628,10 @@ function goToAccountPage(){
         }
     });
     document.getElementById("accountmanagebody").style.display = "block";
+
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = "none";
+    });
 }
 
 function goBackFromAccount(){
@@ -983,3 +987,80 @@ async function setScoutedCompetition(eventKey, eventName){
 
 
 
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// ACTUAL SCOUTING DOWN HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+function showPrescout(){
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    .filter(child => {
+        const style = window.getComputedStyle(child);
+        return style.display !== 'none';
+    }).map(child => {
+        const style = window.getComputedStyle(child);
+        return{
+            id: child.id,
+            display: style.display
+        }
+    });
+    document.getElementById("prescoutbodycontainer").style.display = "flex";
+}
+
+function goBackFromPrescout(){
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = div.display;
+    });
+    document.getElementById("prescoutbodycontainer").style.display = "none";
+}
+
+function showMatchScout(){
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    .filter(child => {
+        const style = window.getComputedStyle(child);
+        return style.display !== 'none';
+    }).map(child => {
+        const style = window.getComputedStyle(child);
+        return{
+            id: child.id,
+            display: style.display
+        }
+    });
+    document.getElementById("matchscoutbodycontainer").style.display = "flex";
+}
+
+function goBackFromMatchScout(){
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = div.display;
+    });
+    document.getElementById("matchscoutbodycontainer").style.display = "none";
+}
+
+function showAllianceSelection(){
+    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    .filter(child => {
+        const style = window.getComputedStyle(child);
+        return style.display !== 'none';
+    }).map(child => {
+        const style = window.getComputedStyle(child);
+        return{
+            id: child.id,
+            display: style.display
+        }
+    });
+    document.getElementById("allianceselectionbodycontainer").style.display = "flex";
+}
+
+function goBackFromAllianceSelection(){
+    previousDivIdsVisible.forEach(div =>{
+        document.getElementById(div.id).style.display = div.display;
+    });
+    document.getElementById("allianceselectionbodycontainer").style.display = "none";
+}

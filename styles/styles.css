@@ -692,6 +692,14 @@ body.darkmode .comptab:hover{
 }
 
 .prescoutbodycontainer, .matchscoutbodycontainer, .allianceselectionbodycontainer{
+    display: none;
+    width: 33%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.prescoutbuttoncontainer, .matchscoutbuttoncontainer, .allianceselectionbuttoncontainer{
     width: 33%;
     justify-content: center;
     align-items: center;
