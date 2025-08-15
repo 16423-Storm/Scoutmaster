@@ -1364,7 +1364,7 @@ function updateAutoPathDisplay() {
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", auto.path);
         path.setAttribute("fill", "none");
-        path.setAttribute("stroke", "black");
+        path.setAttribute("stroke", "white");
         path.setAttribute("stroke-width", "2");
 
         svg.appendChild(path);
@@ -1409,12 +1409,22 @@ function displayAutoBig(element) {
     document.getElementById("autopathsection3").style.display = "flex";
     document.getElementById("autopathsection4").style.display = "flex";
 
+    document.getElementById("autodisplayclearbutton").style.display = "none";
+    document.getElementById("autodisplaysaveandexitbutton").style.display = "none";
+    document.getElementById("autodisplayexitbutton").setAttribute("onclick", "exitFromDisplayAutoBig()");
+
     path.setAttribute("d", autoPathToDrawBig.path);
     path.setAttribute("fill", "none");
-    path.setAttribute("stroke", "black");
+    path.setAttribute("stroke", "white");
     path.setAttribute("stroke-width", "2");
 
     points = [];
+}
+
+function exitFromDisplayAutoBig(){
+    document.getElementById("autodisplayexitbutton").setAttribute("onclick", "exitAutoPathCreationWoutSaving()");
+    document.getElementById("autodisplayclearbutton").style.display = "block";
+    document.getElementById("autodisplaysaveandexitbutton").style.display = "block";
 }
 
 function enableDrawing() {
