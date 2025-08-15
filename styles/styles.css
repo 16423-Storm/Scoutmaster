@@ -844,18 +844,17 @@ body.darkmode .prescoutteamstbody tr:hover{
 }
 
 .prescoutbiginput {
-    height: 300px;
     width: 80%;
+    height: 300px;
     resize: none;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
     padding: 8px;
     font-family: inherit;
     font-size: 1rem;
     box-sizing: border-box;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    vertical-align: top;
 }
-
 
 .autopathsoverlay{
     display: none;

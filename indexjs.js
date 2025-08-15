@@ -1148,7 +1148,7 @@ async function pullAllTeamsPrescout() {
 				tbody.innerHTML += `
 					<tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToTeamPrescoutPage(this)">
 						<td>${team.team.team_number} - ${team.team.team_name_short}</td>
-						<td style="width: 20%"></td>
+						<td style="width: 20%;text-align:center;"></td>
 					</tr>
 				`;
 			});
@@ -1179,8 +1179,8 @@ async function pullAllTeamsPrescout() {
 				tbody.innerHTML += `
 					<tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' data-team-is-finalized="${isFinalized}" onclick="goToTeamPrescoutPage(this)">
 						<td>${teamNum} - ${team.team.team_name_short}</td>
-						<td style="width: 20%">
-							${isFinalized ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">' : ''}
+						<td style="width: 20%; text-align:center;">
+							${isFinalized ? '<img style="width: 30%; height: auto;" src="images/checkmark.png">' : ''}
 						</td>
 					</tr>
 				`;
@@ -1608,7 +1608,7 @@ async function updateFinalizedStatusInTable() {
             const isFinalized = finalizedMap.get(teamNum) || false;
 
             row.cells[1].innerHTML = isFinalized
-                ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">'
+                ? '<img style="width: 30%; height: auto;" src="images/checkmark.png">'
                 : '';
         });
 
