@@ -1363,7 +1363,7 @@ function updateAutoPathDisplay() {
 
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", auto.path);
-        path.setAttribute("fill", "white");
+        path.setAttribute("fill", "none");
         path.setAttribute("stroke", "black");
         path.setAttribute("stroke-width", "2");
 
@@ -1397,7 +1397,7 @@ function displayAutoBig(element) {
 
     console.log(`Attempted to display auto big using these pieces of data: ${selectedId} as the selected id, and ${autoPathToDrawBig} as the specific auto path`)
 
-    if (!auto) {
+    if (!autoPathToDrawBig) {
         console.warn(`No autoSVG found with id ${selectedId}`);
         return;
     }
@@ -1410,7 +1410,7 @@ function displayAutoBig(element) {
     document.getElementById("autopathsection4").style.display = "flex";
 
     path.setAttribute("d", autoPathToDrawBig.path);
-    path.setAttribute("fill", "white");
+    path.setAttribute("fill", "none");
     path.setAttribute("stroke", "black");
     path.setAttribute("stroke-width", "2");
 
