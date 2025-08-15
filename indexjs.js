@@ -1227,6 +1227,7 @@ function goBackFromTeamPagePreScout(){
     document.getElementById("prescoutteampage").style.display = "none";
     document.getElementById("prescoutallthewaybackbutton").style.display = "block";
     autoSVGs = [];
+    updateAutoPathDisplay();
     lockNoUse = false;
 }
 
@@ -1339,7 +1340,7 @@ function updateAutoPathDisplay() {
         img.style.height = "auto";
         img.style.display = "block";
         img.style.position = "relative";
-        img.pointerEvents = "none";
+        img.style.pointerEvents = "none";
         img.style.zIndex = "1";
 
         const overlayDiv = document.createElement("div");
