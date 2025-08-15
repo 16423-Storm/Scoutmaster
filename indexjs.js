@@ -1495,6 +1495,7 @@ async function savePrescoutData() {
 
 	alert("Prescout data saved successfully.");
     goBackFromTeamPagePreScout();
+    updateFinalizedStatusInTable();
 	return true;
 }
 
@@ -1581,8 +1582,9 @@ function lockAndSetPrescoutInputs(data) {
 
 async function updateFinalizedStatusInTable() {
     try {
-        const { data: finalizedData, error } = await supabaseClient.rpc('get_finalized_list');
-
+        const { data: finalizedData, error } = await supabaseClient.rpc('get_finalized_list', {
+            p_groupid: groupId
+        });
         if (error) {
             console.error('RPC error:', error.message);
             return;
