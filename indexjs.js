@@ -1275,6 +1275,7 @@ var points = [];
 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 path.setAttribute("stroke", "white");
 path.setAttribute("stroke-width", "2");
+path.setAttribute("fill", "none");
 svg.appendChild(path);
 
 function handlePointer(event) {
@@ -1442,7 +1443,7 @@ async function loadDbAutoPaths(teamKey) {
 
     console.log(data);
 
-    autoSVGs = data?.[0]?.autosvg || [];
+    autoSVGs = data;
     updateAutoPathDisplay();
 }
 
