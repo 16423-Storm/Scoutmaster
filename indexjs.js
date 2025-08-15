@@ -1215,6 +1215,7 @@ function goToTeamPrescoutPage(element){
         lockNoUse = true;
         lockFinalized = true;
     }else{
+        unlockAndClearPrescoutInputs();
         alert("not finalized");
         lockNoUse = false;
         enableDrawing();
@@ -1556,7 +1557,6 @@ async function loadPrescoutForTeam() {
 		lockAndSetPrescoutInputs(data);
 	} else {
 		unlockAndClearPrescoutInputs();
-
 		document.getElementById("ability1input").checked = data.ability1 === true;
 		document.getElementById("ability2input").checked = data.ability2 === true;
 		document.getElementById("ability3input").value = data.ability3 ?? "";
@@ -1574,6 +1574,7 @@ function unlockAndClearPrescoutInputs() {
 	document.getElementById("ability3input").value = "";
 	document.getElementById("strategyinput").value = "";
 	document.getElementById("notesinput").value = "";
+    document.getElementById("prescoutfinalsubmitbutton").style.display = "block";
 
 	document.getElementById("ability1input").disabled = false;
 	document.getElementById("ability2input").disabled = false;
@@ -1590,7 +1591,7 @@ function unlockAndClearPrescoutInputs() {
 
 function lockAndSetPrescoutInputs(data) {
 	if (!data) return;
-
+    document.getElementById("prescoutfinalsubmitbutton").style.display = "none";
 	document.getElementById("ability1input").checked = data.ability1 === true;
 	document.getElementById("ability2input").checked = data.ability2 === true;
 	document.getElementById("ability3input").value = data.ability3 ?? "";
