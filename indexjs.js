@@ -1245,7 +1245,7 @@ function showAutoOverlay(){
     document.getElementById("autopathsoverlay").style.display = "block";
     document.getElementById("backdrop").style.display = "block";
     document.body.classList.add("lock-scroll");
-    if(autoSVGs.length >= 5){
+    if(autoSVGs.length >= 5 || lockFinalized){
         document.getElementById("newautopathbutton").style.display = "none";
         hideAutoEditButtons();
     }else{

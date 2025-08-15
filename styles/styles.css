@@ -843,10 +843,19 @@ body.darkmode .prescoutteamstbody tr:hover{
     font-size: clamp(0.4rem, 2.7vw, 1.3rem);
 }
 
-.prescoutbiginput{
+.prescoutbiginput {
     height: 300px;
     width: 80%;
+    resize: none;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    vertical-align: top;
 }
+
 
 .autopathsoverlay{
     display: none;
