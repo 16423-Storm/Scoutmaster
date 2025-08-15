@@ -1222,6 +1222,7 @@ function goToTeamPrescoutPage(element){
 var lockNoUse = false;
 
 function goBackFromTeamPagePreScout(){
+    clearCurrentPath();
     document.getElementById("prescoutteamslist").style.display = "flex";
     document.getElementById("prescoutteampage").style.display = "none";
     document.getElementById("prescoutallthewaybackbutton").style.display = "block";
@@ -1259,6 +1260,7 @@ function newAutoPath(){
 
 function exitAutoPathCreationWoutSaving(){
     disableDrawing();
+    clearCurrentPath();
     document.getElementById("autopathsection1").style.display = "flex";
     document.getElementById("autopathsection2").style.display = "flex";
     document.getElementById("autopathsection3").style.display = "none";
