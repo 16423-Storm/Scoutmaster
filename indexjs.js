@@ -1438,9 +1438,9 @@ async function loadDbAutoPaths(teamKey) {
         return;
     }
 
-    console.log(data?.autosvg);
+    console.log(data);
 
-    autoSVGs = data?.autosvg || [];
+    autoSVGs = data?.[0]?.autosvg || [];
     updateAutoPathDisplay();
 }
 
