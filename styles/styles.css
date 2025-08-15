@@ -871,11 +871,6 @@ body.darkmode .prescoutteamstbody tr:hover{
     overflow-x: hidden;
 }
 
-.autopathssection * {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
 .autopathsbuttongreen{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     border: solid 1px rgb(99, 99, 99);
@@ -900,6 +895,18 @@ body.darkmode .prescoutteamstbody tr:hover{
 
 .autopathsbuttonred:hover{
     background-color: #ad151a;
+}
+
+.autopathshowsizebig{
+    width: 300px;
+    height: 300px;
+}
+
+.autodisplaycontainer{
+    flex: 1 1 0;
+    max-width: 20%;
+    margin: 0 5px;
+    box-sizing: border-box;
 }
 
 @media only screen and (max-width: 800px) {

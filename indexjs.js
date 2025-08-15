@@ -12,6 +12,7 @@ var groupMembers;
 var invitedMembers;
 var scoutedCompetitionKey;
 var currentEventKey;
+var autoSVGs = [];
 
 function popUpWarning(message, onContinue){
     document.getElementById("warningpopup").style.display = "block";
@@ -1206,21 +1207,39 @@ function goToTeamPrescoutPage(element){
 
     if(teamIsFinalized === "true"){
         alert("finalized")
+        disableDrawing();
+        loadDbAutoPaths(teamInfoObj.team.team_key);
+        hideAutoEditButtons();
+        lockNoUse = true;
     }else{
         alert("not finalized");
+        lockNoUse = false;
+        enableDrawing();
+        showAutoEditButtons();
     }
 }
+
+var lockNoUse = false;
 
 function goBackFromTeamPagePreScout(){
     document.getElementById("prescoutteamslist").style.display = "flex";
     document.getElementById("prescoutteampage").style.display = "none";
     document.getElementById("prescoutallthewaybackbutton").style.display = "block";
+    autoSVGs = [];
+    lockNoUse = false;
 }
 
 function showAutoOverlay(){
     document.getElementById("autopathsoverlay").style.display = "block";
     document.getElementById("backdrop").style.display = "block";
     document.body.classList.add("lock-scroll");
+    if(autoSVGs.length >= 5){
+        document.getElementById("newautopathbutton").style.display = "none";
+        hideAutoEditButtons();
+    }else{
+        document.getElementById("newautopathbutton").style.display = "block";
+        showAutoEditButtons();
+    }
 }
 
 function closeAutoPathPopup(){
@@ -1231,14 +1250,199 @@ function closeAutoPathPopup(){
 
 function newAutoPath(){
     document.getElementById("autopathsection1").style.display = "none";
-    ocument.getElementById("autopathsection2").style.display = "none";
-    ocument.getElementById("autopathsection3").style.display = "flex";
-    ocument.getElementById("autopathsection4").style.display = "flex";
+    document.getElementById("autopathsection2").style.display = "none";
+    document.getElementById("autopathsection3").style.display = "flex";
+    document.getElementById("autopathsection4").style.display = "flex";
 }
 
 function exitAutoPathCreationWoutSaving(){
     document.getElementById("autopathsection1").style.display = "flex";
-    ocument.getElementById("autopathsection2").style.display = "flex";
-    ocument.getElementById("autopathsection3").style.display = "none";
-    ocument.getElementById("autopathsection4").style.display = "none";
+    document.getElementById("autopathsection2").style.display = "flex";
+    document.getElementById("autopathsection3").style.display = "none";
+    document.getElementById("autopathsection4").style.display = "none";
+}
+
+
+
+const svg = document.getElementById('drawablesvg');
+var points = [];
+
+const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("fill", "white");
+path.setAttribute("stroke", "black");
+path.setAttribute("stroke-width", "2");
+svg.appendChild(path);
+
+function handlePointer(event) {
+	event.preventDefault();
+
+	const point = event.touches ? event.touches[0] : event;
+
+	const pt = svg.createSVGPoint();
+	pt.x = point.clientX;
+	pt.y = point.clientY;
+
+	const svgPoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+
+	points.push({ x: svgPoint.x, y: svgPoint.y });
+
+	const d = points.map((p, i) =>
+		i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`
+	).join(' ');
+
+	path.setAttribute('d', d);
+}
+
+svg.addEventListener('click', handlePointer);
+svg.addEventListener('touchstart', handlePointer);
+let drawingEnabled = true;
+
+
+function clearCurrentPath(){
+	path.setAttribute('d', '');
+    points = [];
+}
+
+function exitAutoPathCreationSave(){
+    const autoPathToSave = path.getAttribute('d');
+    var newSVGId = document.getElementById("autopathsection2").children.length + 1;
+    autoSVGs.push({id: newSVGId, path: autoPathToSave});
+    updateAutoPathDisplay();
+    clearCurrentPath();
+    enableDrawing();
+}
+
+function updateAutoPathDisplay() {
+    if(autoSVGs.length >= 5){
+        document.getElementById("newautopathbutton").style.display = "none";
+    }
+	const container = document.getElementById("autopathsection2");
+	container.innerHTML = "";
+
+	autoSVGs.forEach(auto => {
+		const autodisplaycontainer = document.createElement("div");
+		autodisplaycontainer.className = "autodisplaycontainer";
+		autodisplaycontainer.setAttribute("onclick", "displayAutoBig(this)");
+		autodisplaycontainer.dataset.autoid = auto.id; 
+
+		const img = document.createElement("img");
+		img.src = "images/fieldimage.png";
+		img.style.zIndex = "1002";
+		img.style.width = "80%";
+		img.style.height = "auto";
+		img.style.position = "relative";
+		img.style.display = "block";
+
+		const overlayDiv = document.createElement("div");
+		overlayDiv.style.zIndex = "1003";
+		overlayDiv.style.position = "absolute";
+		overlayDiv.style.top = "0";
+		overlayDiv.style.left = "0";
+		overlayDiv.style.width = "80%";
+
+		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		svg.setAttribute("viewBox", "0 0 300 300");
+		svg.setAttribute("width", "100%");
+		svg.setAttribute("height", "auto");
+		svg.setAttribute("style", "display: block; margin: 0; padding: 0;");
+
+		const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+		path.setAttribute("d", auto.path);
+		path.setAttribute("fill", "white");
+		path.setAttribute("stroke", "black");
+		path.setAttribute("stroke-width", "2");
+
+		svg.appendChild(path);
+		overlayDiv.appendChild(svg);
+
+		autodisplaycontainer.appendChild(img);
+		autodisplaycontainer.appendChild(overlayDiv);
+
+		container.appendChild(autodisplaycontainer);
+	});
+}
+
+function showAutoEditButtons(){
+    if(!lockNoUse){
+        document.getElementById("autodisplayclearbutton").style.display = "block";
+        document.getElementById("autodisplaysaveandexitbutton").style.display = "block";
+    }
+}
+
+function hideAutoEditButtons(){
+    document.getElementById("autodisplayclearbutton").style.display = "none";
+    document.getElementById("autodisplaysaveandexitbutton").style.display = "none";
+}
+
+function displayAutoBig(element) {
+	const selectedId = parseInt(element.dataset.autoid);
+	const auto = autoSVGs.find(item => item.id === selectedId);
+
+	if (!auto) return;
+
+	while (svg.firstChild) {
+		svg.removeChild(svg.firstChild);
+	}
+
+	const displayPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+	displayPath.setAttribute("d", auto.path);
+	displayPath.setAttribute("fill", "white");
+	displayPath.setAttribute("stroke", "black");
+	displayPath.setAttribute("stroke-width", "2");
+
+	svg.appendChild(displayPath);
+
+	disableDrawing();
+
+	points = [];
+}
+
+
+function enableDrawing() {
+	if (!drawingEnabled) {
+		if(!lockNoUse){
+            svg.addEventListener('click', handlePointer);
+            svg.addEventListener('touchstart', handlePointer);
+            drawingEnabled = true;
+        }
+	}
+}
+
+function disableDrawing() {
+	if (drawingEnabled) {
+		svg.removeEventListener('click', handlePointer);
+		svg.removeEventListener('touchstart', handlePointer);
+		drawingEnabled = false;
+	}
+}
+
+async function loadDbAutoPaths(teamKey) {
+    const { data, error } = await supabaseClient
+        .rpc('get_autosvg_by_team', { group_id_input: groupId, team_key_input: teamKey });
+
+    if (error) {
+        console.error('Error loading autosvg via RPC:', error);
+        return;
+    }
+
+    console.log(data?.autosvg);
+
+    autoSVGs = data?.autosvg || [];
+    updateAutoPathDisplay();
+}
+
+
+async function updateSvgPathsForTeam(teamKey) {
+    const { data, error } = await supabaseClient.rpc('update_svg_paths_for_team', {
+        group_id_input: groupId,
+        team_key_input: teamKey,
+        new_autosvg: autoSVGs,
+    });
+
+    if (error) {
+        console.error('Error updating SVG paths:', error);
+        alert('Failed to save SVG paths');
+        return false;
+    }
+    return true;
 }
