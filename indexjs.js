@@ -1197,31 +1197,38 @@ function goToTeamPrescoutPage(element){
     const teamInfoObj = JSON.parse(element.dataset.teamInfo);
     const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
+    currentPrescoutTeam = teamInfoObj.team.team_key;
 
     document.getElementById("prescoutteamslist").style.display = "none";
     document.getElementById("prescoutteampage").style.display = "flex";
     document.getElementById("prescoutallthewaybackbutton").style.display = "none";
 
+    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
     document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
     document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
 
     if(teamIsFinalized === "true"){
         alert("finalized")
         disableDrawing();
-        loadDbAutoPaths(teamInfoObj.team.team_key);
+        loadPrescoutForTeam();
         hideAutoEditButtons();
         lockNoUse = true;
+        lockFinalized = true;
     }else{
         alert("not finalized");
         lockNoUse = false;
         enableDrawing();
         showAutoEditButtons();
+        lockFinalized = false;
     }
 }
 
 var lockNoUse = false;
+var lockFinalized = false;
+var currentPrescoutTeam;
 
 function goBackFromTeamPagePreScout(){
+    unlockAndClearPrescoutInputs();
     clearCurrentPath();
     document.getElementById("prescoutteamslist").style.display = "flex";
     document.getElementById("prescoutteampage").style.display = "none";
@@ -1240,7 +1247,9 @@ function showAutoOverlay(){
         document.getElementById("newautopathbutton").style.display = "none";
         hideAutoEditButtons();
     }else{
-        document.getElementById("newautopathbutton").style.display = "block";
+        if(!lockFinalized){
+            document.getElementById("newautopathbutton").style.display = "block";
+        }
         showAutoEditButtons();
     }
 }
@@ -1425,6 +1434,11 @@ function exitFromDisplayAutoBig(){
     document.getElementById("autodisplayexitbutton").setAttribute("onclick", "exitAutoPathCreationWoutSaving()");
     document.getElementById("autodisplayclearbutton").style.display = "block";
     document.getElementById("autodisplaysaveandexitbutton").style.display = "block";
+    clearCurrentPath();
+    document.getElementById("autopathsection1").style.display = "flex";
+    document.getElementById("autopathsection2").style.display = "flex";
+    document.getElementById("autopathsection3").style.display = "none";
+    document.getElementById("autopathsection4").style.display = "none";
 }
 
 function enableDrawing() {
@@ -1475,3 +1489,122 @@ async function updateSvgPathsForTeam(teamKey) {
     }
     return true;
 }
+
+async function savePrescoutData() {
+	const notes = document.getElementById("notesinput").value;
+	const strategy = document.getElementById("strategyinput").value;
+	const ability1 = document.getElementById("ability1input").checked;
+	const ability2 = document.getElementById("ability2input").checked;
+	const ability3 = document.getElementById("ability3input").value;
+
+	const teamData = {
+		notes: notes,
+		autosvg: autoSVGs,
+		ability1: ability1,
+		ability2: ability2,
+		ability3: ability3,
+		strategy: strategy,
+		finalized: 1
+	};
+
+	const updatePayload = {
+		[currentPrescoutTeam]: teamData
+	};
+
+	const { data, error } = await supabaseClient.rpc("update_prescout_for_team", {
+		group_id_input: groupId,
+		team_json: updatePayload
+	});
+
+	if (error) {
+		console.error("Error updating prescout:", error);
+		alert("Failed to save prescout data.");
+		return false;
+	}
+
+	alert("Prescout data saved successfully.");
+	return true;
+}
+
+var preScoutPulledData;
+
+async function loadPrescoutForTeam() {
+	const { data, error } = await supabaseClient
+		.rpc('get_prescout_for_team', {
+			group_id_input: groupId,
+			team_number_input: currentPrescoutTeam.toString()
+		});
+
+	if (error) {
+		console.error("Failed to load prescout data:", error);
+		return;
+	}
+
+	preScoutPulledData = data;
+
+	if (!data) {
+		unlockAndClearPrescoutInputs();
+		autoSVGs = null;
+		updateAutoPathDisplay();
+		return;
+	}
+
+	autoSVGs = Array.isArray(data.autosvg) ? data.autosvg : null;
+	updateAutoPathDisplay();
+
+	if (data.finalized === 1) {
+		lockAndSetPrescoutInputs(data);
+	} else {
+		unlockAndClearPrescoutInputs();
+
+		document.getElementById("ability1input").checked = data.ability1 === true;
+		document.getElementById("ability2input").checked = data.ability2 === true;
+		document.getElementById("ability3input").value = data.ability3 ?? "";
+		document.getElementById("strategyinput").value = data.strategy ?? "";
+		document.getElementById("notesinput").value = data.notes ?? "";
+
+		lockFinalized = false;
+		lockNoUse = false;
+	}
+}
+
+function unlockAndClearPrescoutInputs() {
+	document.getElementById("ability1input").checked = false;
+	document.getElementById("ability2input").checked = false;
+	document.getElementById("ability3input").value = "";
+	document.getElementById("strategyinput").value = "";
+	document.getElementById("notesinput").value = "";
+
+	document.getElementById("ability1input").disabled = false;
+	document.getElementById("ability2input").disabled = false;
+	document.getElementById("ability3input").disabled = false;
+	document.getElementById("strategyinput").disabled = false;
+	document.getElementById("notesinput").disabled = false;
+
+	autoSVGs = [];
+	updateAutoPathDisplay();
+
+	lockFinalized = false;
+	lockNoUse = false;
+}
+
+function lockAndSetPrescoutInputs(data) {
+	if (!data) return;
+
+	document.getElementById("ability1input").checked = data.ability1 === true;
+	document.getElementById("ability2input").checked = data.ability2 === true;
+	document.getElementById("ability3input").value = data.ability3 ?? "";
+	document.getElementById("strategyinput").value = data.strategy ?? "";
+	document.getElementById("notesinput").value = data.notes ?? "";
+
+	document.getElementById("ability1input").disabled = true;
+	document.getElementById("ability2input").disabled = true;
+	document.getElementById("ability3input").disabled = true;
+	document.getElementById("strategyinput").disabled = true;
+	document.getElementById("notesinput").disabled = true;
+
+	lockFinalized = true;
+	lockNoUse = true;
+}
+
+

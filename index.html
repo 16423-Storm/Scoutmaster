@@ -117,7 +117,7 @@
                                 <button class="changeablebutton" onclick="goBackFromTeamPagePreScout()">&lt;- Back</button>
                             </div>
                             <div class="abilitycontainer">
-                                <p class="generaltext" id="teamnumnameprescout">Loading...</p>
+                                <p class="generaltext" id="teamnumnameprescout" style="font-weight: bold;">Loading...</p>
                             </div>
                             <div class="abilitycontainer">
                                 <p class="prescoutsmalltext" id="teamlocationprescout">Loading...</p>
@@ -153,7 +153,7 @@
                                 <input class="prescoutbiginput" type="text" id="notesinput">
                             </div>
                             <div class="abilitycontainer">
-                                <button class="dangerbutton">Submit</button>
+                                <button class="dangerbutton" onclick="popUpWarning('Pressing continue will mean that you can no longer edit ANY data of this team, are you 100% sure you want to continue?', savePrescoutData)">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -257,8 +257,8 @@
 
         <div id="warningpopup" class="popup">
             <p id="warningmessage">Warning text here</p>
-            <button onclick="popUpContinue()">Continue</button>
-            <button onclick="popUpCancel()">Cancel</button>
+            <button class="autopathsbuttongreen" onclick="popUpContinue()">Continue</button>
+            <button class="autopathsbuttonred" onclick="popUpCancel()">Cancel</button>
         </div>
 
         <div id="invitepopup" class="popup">
@@ -300,7 +300,7 @@
             <div class="autopathssection" id="autopathsection4" style="display: none;">
                 <div class="autopathshowsizebig" style="position: relative;">
                     <img src="images/fieldimage.png" style="z-index: 1002; width: 80%; height: auto; position: relative; display: block;">
-                    <div style="z-index: 1003; position: absolute; top: 0; left: 0; width: 80%;">
+                    <div style="z-index: 1003; position: absolute; top: 50%; left: 50%; width: 80%; transform: translate(-50%, -50%);">
                         <svg viewBox="0 0 300 300" width="100%" height="auto" id="drawablesvg" style="display: block; margin: 0; padding: 0;"></svg>
                     </div>
                 </div>
