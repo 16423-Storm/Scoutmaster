@@ -1230,6 +1230,7 @@ function goBackFromTeamPagePreScout(){
 }
 
 function showAutoOverlay(){
+    disableDrawing();
     document.getElementById("autopathsoverlay").style.display = "block";
     document.getElementById("backdrop").style.display = "block";
     document.body.classList.add("lock-scroll");
@@ -1249,6 +1250,7 @@ function closeAutoPathPopup(){
 }
 
 function newAutoPath(){
+    enableDrawing();
     document.getElementById("autopathsection1").style.display = "none";
     document.getElementById("autopathsection2").style.display = "none";
     document.getElementById("autopathsection3").style.display = "flex";
@@ -1256,6 +1258,7 @@ function newAutoPath(){
 }
 
 function exitAutoPathCreationWoutSaving(){
+    disableDrawing();
     document.getElementById("autopathsection1").style.display = "flex";
     document.getElementById("autopathsection2").style.display = "flex";
     document.getElementById("autopathsection3").style.display = "none";
@@ -1268,8 +1271,7 @@ const svg = document.getElementById('drawablesvg');
 var points = [];
 
 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-path.setAttribute("fill", "white");
-path.setAttribute("stroke", "black");
+path.setAttribute("stroke", "white");
 path.setAttribute("stroke-width", "2");
 svg.appendChild(path);
 
@@ -1293,8 +1295,6 @@ function handlePointer(event) {
 	path.setAttribute('d', d);
 }
 
-svg.addEventListener('click', handlePointer);
-svg.addEventListener('touchstart', handlePointer);
 let drawingEnabled = true;
 
 
@@ -1304,12 +1304,13 @@ function clearCurrentPath(){
 }
 
 function exitAutoPathCreationSave(){
+
     const autoPathToSave = path.getAttribute('d');
     var newSVGId = document.getElementById("autopathsection2").children.length + 1;
     autoSVGs.push({id: newSVGId, path: autoPathToSave});
     updateAutoPathDisplay();
     clearCurrentPath();
-    enableDrawing();
+    disableDrawing();
 }
 
 function updateAutoPathDisplay() {
