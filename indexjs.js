@@ -1304,64 +1304,76 @@ function clearCurrentPath(){
 }
 
 function exitAutoPathCreationSave(){
-
     const autoPathToSave = path.getAttribute('d');
     var newSVGId = document.getElementById("autopathsection2").children.length + 1;
     autoSVGs.push({id: newSVGId, path: autoPathToSave});
     updateAutoPathDisplay();
     clearCurrentPath();
     disableDrawing();
+    exitAutoPathCreationWoutSaving();
 }
 
 function updateAutoPathDisplay() {
-    if(autoSVGs.length >= 5){
+    if (autoSVGs.length >= 5) {
         document.getElementById("newautopathbutton").style.display = "none";
     }
-	const container = document.getElementById("autopathsection2");
-	container.innerHTML = "";
 
-	autoSVGs.forEach(auto => {
-		const autodisplaycontainer = document.createElement("div");
-		autodisplaycontainer.className = "autodisplaycontainer";
-		autodisplaycontainer.setAttribute("onclick", "displayAutoBig(this)");
-		autodisplaycontainer.dataset.autoid = auto.id; 
+    const container = document.getElementById("autopathsection2");
+    container.innerHTML = "";
 
-		const img = document.createElement("img");
-		img.src = "images/fieldimage.png";
-		img.style.zIndex = "1002";
-		img.style.width = "80%";
-		img.style.height = "auto";
-		img.style.position = "relative";
-		img.style.display = "block";
+    autoSVGs.forEach(auto => {
+        const autodisplaycontainer = document.createElement("div");
+        autodisplaycontainer.className = "autodisplaycontainer";
+        autodisplaycontainer.setAttribute("onclick", "displayAutoBig(this)");
+        autodisplaycontainer.dataset.autoid = auto.id;
+        autodisplaycontainer.style.position = "relative";
+        autodisplaycontainer.style.width = "80%";
+        autodisplaycontainer.style.margin = "auto";
 
-		const overlayDiv = document.createElement("div");
-		overlayDiv.style.zIndex = "1003";
-		overlayDiv.style.position = "absolute";
-		overlayDiv.style.top = "0";
-		overlayDiv.style.left = "0";
-		overlayDiv.style.width = "80%";
+        const img = document.createElement("img");
+        img.src = "images/fieldimage.png";
+        img.style.width = "100%";
+        img.style.height = "auto";
+        img.style.display = "block";
+        img.style.position = "relative";
+        img.pointerEvents = "none";
+        img.style.zIndex = "1";
 
-		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		svg.setAttribute("viewBox", "0 0 300 300");
-		svg.setAttribute("width", "100%");
-		svg.setAttribute("height", "auto");
-		svg.setAttribute("style", "display: block; margin: 0; padding: 0;");
+        const overlayDiv = document.createElement("div");
+        overlayDiv.style.position = "absolute";
+        overlayDiv.style.top = "0";
+        overlayDiv.style.left = "0";
+        overlayDiv.style.width = "100%";
+        overlayDiv.style.height = "100%";
+        overlayDiv.style.pointerEvents = "none";
+        overlayDiv.style.zIndex = "2";
 
-		const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-		path.setAttribute("d", auto.path);
-		path.setAttribute("fill", "white");
-		path.setAttribute("stroke", "black");
-		path.setAttribute("stroke-width", "2");
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 300 300");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "100%");
+        svg.style.display = "block";
+        svg.style.position = "absolute";
+        svg.style.top = "0";
+        svg.style.left = "0";
 
-		svg.appendChild(path);
-		overlayDiv.appendChild(svg);
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", auto.path);
+        path.setAttribute("fill", "white");
+        path.setAttribute("stroke", "black");
+        path.setAttribute("stroke-width", "2");
 
-		autodisplaycontainer.appendChild(img);
-		autodisplaycontainer.appendChild(overlayDiv);
+        svg.appendChild(path);
+        overlayDiv.appendChild(svg);
 
-		container.appendChild(autodisplaycontainer);
-	});
+        autodisplaycontainer.appendChild(img);
+        autodisplaycontainer.appendChild(overlayDiv);
+
+        container.appendChild(autodisplaycontainer);
+    });
 }
+
+
 
 function showAutoEditButtons(){
     if(!lockNoUse){
