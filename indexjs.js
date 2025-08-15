@@ -1236,6 +1236,7 @@ function goBackFromTeamPagePreScout(){
     document.getElementById("prescoutallthewaybackbutton").style.display = "block";
     autoSVGs = [];
     updateAutoPathDisplay();
+    updateFinalizedStatusInTable();
     lockNoUse = false;
 }
 
@@ -1460,37 +1461,6 @@ function disableDrawing() {
 	}
 }
 
-async function loadDbAutoPaths(teamKey) {
-    const { data, error } = await supabaseClient
-        .rpc('get_autosvg_by_team', { group_id_input: groupId, team_key_input: teamKey });
-
-    if (error) {
-        console.error('Error loading autosvg via RPC:', error);
-        return;
-    }
-
-    console.log(data);
-
-    autoSVGs = data;
-    updateAutoPathDisplay();
-}
-
-
-async function updateSvgPathsForTeam(teamKey) {
-    const { data, error } = await supabaseClient.rpc('update_svg_paths_for_team', {
-        group_id_input: groupId,
-        team_key_input: teamKey,
-        new_autosvg: autoSVGs,
-    });
-
-    if (error) {
-        console.error('Error updating SVG paths:', error);
-        alert('Failed to save SVG paths');
-        return false;
-    }
-    return true;
-}
-
 async function savePrescoutData() {
 	const notes = document.getElementById("notesinput").value;
 	const strategy = document.getElementById("strategyinput").value;
@@ -1524,6 +1494,7 @@ async function savePrescoutData() {
 	}
 
 	alert("Prescout data saved successfully.");
+    goBackFromTeamPagePreScout();
 	return true;
 }
 
@@ -1608,4 +1579,40 @@ function lockAndSetPrescoutInputs(data) {
 	lockNoUse = true;
 }
 
+async function updateFinalizedStatusInTable() {
+    try {
+        const { data: finalizedData, error } = await supabaseClient.rpc('get_finalized_list');
 
+        if (error) {
+            console.error('RPC error:', error.message);
+            return;
+        }
+
+        finalizedData.sort((a, b) => parseInt(a.teamnum, 10) - parseInt(b.teamnum, 10));
+
+        const finalizedMap = new Map();
+        finalizedData.forEach(entry => {
+            finalizedMap.set(entry.teamnum.toString(), entry.finalized === 1);
+        });
+
+        const tbody = document.getElementById("prescoutteamstbody");
+        if (!tbody) {
+            console.warn('Table body element "prescoutteamstbody" not found.');
+            return;
+        }
+
+        Array.from(tbody.rows).forEach(row => {
+            const teamNumText = row.cells[0]?.textContent || "";
+            const teamNum = teamNumText.split(" ")[0];
+
+            const isFinalized = finalizedMap.get(teamNum) || false;
+
+            row.cells[1].innerHTML = isFinalized
+                ? '<img style="width: 80%; height: auto;" src="images/checkmark.png">'
+                : '';
+        });
+
+    } catch (error) {
+        console.error('Failed to update finalized status:', error);
+    }
+}
