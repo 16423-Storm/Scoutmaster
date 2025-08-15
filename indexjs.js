@@ -1392,28 +1392,30 @@ function hideAutoEditButtons(){
 }
 
 function displayAutoBig(element) {
-	const selectedId = parseInt(element.dataset.autoid);
-	const auto = autoSVGs.find(item => item.id === selectedId);
+    const selectedId = parseInt(element.dataset.autoid, 10);
+    const autoPathToDrawBig = autoSVGs.find(item => item.id === selectedId);
 
-	if (!auto) return;
+    console.log(`Attempted to display auto big using these pieces of data: ${selectedId} as the selected id, and ${autoPathToDrawBig} as the specific auto path`)
 
-	while (svg.firstChild) {
-		svg.removeChild(svg.firstChild);
-	}
+    if (!auto) {
+        console.warn(`No autoSVG found with id ${selectedId}`);
+        return;
+    }
 
-	const displayPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-	displayPath.setAttribute("d", auto.path);
-	displayPath.setAttribute("fill", "white");
-	displayPath.setAttribute("stroke", "black");
-	displayPath.setAttribute("stroke-width", "2");
+    disableDrawing();
 
-	svg.appendChild(displayPath);
+    document.getElementById("autopathsection1").style.display = "none";
+    document.getElementById("autopathsection2").style.display = "none";
+    document.getElementById("autopathsection3").style.display = "flex";
+    document.getElementById("autopathsection4").style.display = "flex";
 
-	disableDrawing();
+    path.setAttribute("d", autoPathToDrawBig.path);
+    path.setAttribute("fill", "white");
+    path.setAttribute("stroke", "black");
+    path.setAttribute("stroke-width", "2");
 
-	points = [];
+    points = [];
 }
-
 
 function enableDrawing() {
 	if (!drawingEnabled) {
