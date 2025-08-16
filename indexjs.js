@@ -1764,29 +1764,29 @@ function goToMatchScoutModePage(){
     // console.log(teamInfoObj, null, 2);
     // currentPrescoutTeam = teamInfoObj.team.team_key;
 
-    // document.getElementById("matchscoutmatchlist").style.display = "none";
-    // document.getElementById("matchscoutmodebody").style.display = "flex";
-    // document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
+    document.getElementById("matchscoutmatchlist").style.display = "none";
+    document.getElementById("matchscoutmodebody").style.display = "flex";
+    document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
 
     // document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
     // document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
     // document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
 
-    if(teamIsFinalized === "true"){
-        // alert("finalized")
-        // disableDrawing();
-        // loadPrescoutForTeam();
-        // hideAutoEditButtons();
-        // lockNoUse = true;
-        // lockFinalized = true;
-    }else{
-        // unlockAndClearPrescoutInputs();
-        // alert("not finalized");
-        // lockNoUse = false;
-        // enableDrawing();
-        // showAutoEditButtons();
-        // lockFinalized = false;
-    }
+    // if(teamIsFinalized === "true"){
+    //     // alert("finalized")
+    //     // disableDrawing();
+    //     // loadPrescoutForTeam();
+    //     // hideAutoEditButtons();
+    //     // lockNoUse = true;
+    //     // lockFinalized = true;
+    // }else{
+    //     // unlockAndClearPrescoutInputs();
+    //     // alert("not finalized");
+    //     // lockNoUse = false;
+    //     // enableDrawing();
+    //     // showAutoEditButtons();
+    //     // lockFinalized = false;
+    // }
 }
 
 var lockNoUse = false;
