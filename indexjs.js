@@ -14,28 +14,6 @@ var scoutedCompetitionKey;
 var currentEventKey;
 var autoSVGs = [];
 
-async function loadCompetitionKeyOnInit(){
-    const { data: groupData, error: groupError } = await supabaseClient
-        .from('group')
-        .select('competition')
-        .eq('id', groupId)
-        .maybeSingle();
-
-    console.log('Raw Supabase groupData:', groupData);
-
-    if (groupError) {
-        console.error('Error fetching group:', groupError);
-        statusPopUp('Error fetching group:', groupError);
-        return;
-    }
-
-    if (!groupData) {
-        console.warn('Supabase returned null for group data');
-        return;
-    }
-
-    const scoutedCompetitionKey = groupData.competition;
-}
 
 function popUpWarning(message, onContinue){
     document.getElementById("warningpopup").style.display = "block";
@@ -296,7 +274,6 @@ function actualLoad(){
     document.getElementById("blackout").style.display = "none";
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
-    loadCompetitionKeyOnInit();
     loadcookies();
     useSessionData();
     loadStartingComp();  
@@ -883,6 +860,27 @@ async function loadStartingComp() {
         console.warn("No groupId set");
         return;
     }
+
+    const { data: groupData, error: groupError } = await supabaseClient
+        .from('group')
+        .select('competition')
+        .eq('id', groupId)
+        .maybeSingle();
+
+    console.log('Raw Supabase groupData:', groupData);
+
+    if (groupError) {
+        console.error('Error fetching group:', groupError);
+        statusPopUp('Error fetching group:', groupError);
+        return;
+    }
+
+    if (!groupData) {
+        console.warn('Supabase returned null for group data');
+        return;
+    }
+
+    const scoutedCompetitionKey = groupData.competition;
 
     currentEventKey = scoutedCompetitionKey;
     console.log('scoutedCompetitionKey:', scoutedCompetitionKey);
