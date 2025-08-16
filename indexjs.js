@@ -1063,6 +1063,7 @@ function showMatchScout(){
     });
 
     document.getElementById("matchscoutbodycontainer").style.display = "flex";
+    getMatchList();
 }
 
 function goBackFromMatchScout(){
