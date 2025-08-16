@@ -1765,7 +1765,7 @@ function goToMatchScoutModePage(element){
     currentPrescoutTeam = teamInfoObj.team.team_key;
 
     document.getElementById("matchscoutmatchlist").style.display = "none";
-    document.getElementById("matchscoutemodebody").style.display = "flex";
+    document.getElementById("matchscoutmodebody").style.display = "flex";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
 
     document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
