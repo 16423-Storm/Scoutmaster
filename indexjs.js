@@ -291,7 +291,7 @@ async function useSessionData(){
         document.getElementById("signedoutmainbody").style.display = "none";
         document.getElementById("signedinmainbody").style.display = "block";
         document.getElementById("accountbutton").style.display = "block";
-        checkGroupMembership();
+        await checkGroupMembership();
     } else {
         document.getElementById("signedoutmainbody").style.display = "block";
         document.getElementById("signedinmainbody").style.display = "none";
@@ -622,10 +622,10 @@ async function adminUpdate() {
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-var previousDivIdsVisible = [];
+var previousDivIdsVisibleAccount = [];
 
 function goToAccountPage(){
-    previousDivIdsVisible = Array.from(document.getElementById("signedinmainbody").children)
+    previousDivIdsVisibleAccount = Array.from(document.getElementById("signedinmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
         return style.display !== 'none';
@@ -638,13 +638,13 @@ function goToAccountPage(){
     });
     document.getElementById("accountmanagebody").style.display = "block";
 
-    previousDivIdsVisible.forEach(div =>{
+    previousDivIdsVisibleAccount.forEach(div =>{
         document.getElementById(div.id).style.display = "none";
     });
 }
 
 function goBackFromAccount(){
-    previousDivIdsVisible.forEach(div =>{
+    previousDivIdsVisibleAccount.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
     });
     document.getElementById("accountmanagebody").style.display = "none";
@@ -663,7 +663,7 @@ function goBackFromAccount(){
 
 
 
-
+var previousDivIdsVisible = [];
 
 
 async function logOut() {
