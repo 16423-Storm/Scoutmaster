@@ -1759,18 +1759,18 @@ async function getMatchList() {
 }
 
 function goToMatchScoutModePage(element){
-    const teamInfoObj = JSON.parse(element.dataset.teamInfo);
-    const teamIsFinalized = element.dataset.teamIsFinalized;
-    console.log(teamInfoObj, null, 2);
-    currentPrescoutTeam = teamInfoObj.team.team_key;
+    // const teamInfoObj = JSON.parse(element.dataset.teamInfo);
+    // const teamIsFinalized = element.dataset.teamIsFinalized;
+    // console.log(teamInfoObj, null, 2);
+    // currentPrescoutTeam = teamInfoObj.team.team_key;
 
-    document.getElementById("matchscoutmatchlist").style.display = "none";
-    document.getElementById("matchscoutmodebody").style.display = "flex";
-    document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
+    // document.getElementById("matchscoutmatchlist").style.display = "none";
+    // document.getElementById("matchscoutmodebody").style.display = "flex";
+    // document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
 
-    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
-    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
-    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
+    // document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
+    // document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
+    // document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
 
     if(teamIsFinalized === "true"){
         // alert("finalized")
