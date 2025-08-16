@@ -1793,11 +1793,11 @@ var lockNoUse = false;
 var lockFinalized = false;
 var currentPrescoutTeam;
 
-function goBackFromTeamPagePreScout(){
+function goBackFromMatchScout(){
     // unlockAndClearPrescoutInputs();
     // clearCurrentPath();
     document.getElementById("matchscoutmatchlist").style.display = "flex";
-    document.getElementById("matchscoutemodebody").style.display = "none";
+    document.getElementById("matchscoutmodebody").style.display = "none";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "block";
     // autoSVGs = [];
     // updateAutoPathDisplay();

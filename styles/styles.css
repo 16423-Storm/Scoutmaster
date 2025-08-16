@@ -1023,14 +1023,6 @@ body.darkmode .prescoutteamstbody tr:hover{
     width: 100%;
 }
 
-.matchscoutbuttonred{
-    background-color: #EC1C24;
-}
-
-.matchscoutbuttongreen{
-    background-color: #0ED145;
-}
-
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
