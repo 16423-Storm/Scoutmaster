@@ -866,6 +866,8 @@ async function loadStartingComp() {
         .eq('id', groupId)
         .maybeSingle();
 
+    scoutedCompetitionKey = groupData.competition;
+
     console.log('Raw Supabase groupData:', groupData);
 
     if (groupError) {
