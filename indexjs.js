@@ -1637,15 +1637,15 @@ async function updateFinalizedStatusInTable() {
 }
 
 function saveTeamPrescoutLocally(teamNumber, teamData) {
-    console.log("Pulled data from local storage for prescout: "+JSON.stringify(prescoutDataToSave))
     const prescoutDataToSave = JSON.parse(localStorage.getItem("prescoutData")) || {};
     prescoutDataToSave[teamNumber] = teamData;
     localStorage.setItem("prescoutData", JSON.stringify(prescoutDataToSave));
+    console.log("Pulled data from local storage for prescout: "+JSON.stringify(prescoutDataToSave));
 }
 
 function getTeamPrescoutFromLocal(teamNumber) {
-    console.log("Pulled data from local storage for prescout: "+JSON.stringify(prescoutData))
     const prescoutData = JSON.parse(localStorage.getItem("prescoutData")) || {};
+    console.log("Pulled data from local storage for prescout: "+JSON.stringify(prescoutData));
     return prescoutData[teamNumber] || null;
 }
 
