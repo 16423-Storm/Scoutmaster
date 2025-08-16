@@ -221,7 +221,7 @@ async function loadInvitedUsers() {
 }
 
 
-//dark mode toggle
+//dark theme toggle
 function darkmodetoggle(){
     const targetBody = document.body;
     const sunMoonImg = document.getElementById("imgToToggle");
