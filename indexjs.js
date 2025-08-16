@@ -905,6 +905,7 @@ async function loadStartingComp() {
 
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
         document.getElementById("competitionnameinprescoutlist").textContent = event.event_name;
+        document.getElementById("competitionnameinmatchscoutlist").textContent = event.event_name;
     } catch (error) {
         console.error('Failed to load event:', error);
         alert('Could not fetch event info.');
@@ -1738,7 +1739,7 @@ async function getMatchList() {
             }
 
             tbody.innerHTML += `
-                <tr class="prescouttablerow">
+                <tr class="prescouttablerow" onclick="goToMatchScoutModePage(this)">
                     <td>${matchNumber}</td>
                     <td style="color: ${color};">${winnerText.toUpperCase()}</td>
                     <td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
@@ -1755,4 +1756,51 @@ async function getMatchList() {
         alert('Could not fetch matches.');
         return;
     }
+}
+
+function goToMatchScoutModePage(element){
+    const teamInfoObj = JSON.parse(element.dataset.teamInfo);
+    const teamIsFinalized = element.dataset.teamIsFinalized;
+    console.log(teamInfoObj, null, 2);
+    currentPrescoutTeam = teamInfoObj.team.team_key;
+
+    document.getElementById("matchscoutmatchlist").style.display = "none";
+    document.getElementById("matchscoutemodebody").style.display = "flex";
+    document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
+
+    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
+    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
+    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
+
+    if(teamIsFinalized === "true"){
+        // alert("finalized")
+        // disableDrawing();
+        // loadPrescoutForTeam();
+        // hideAutoEditButtons();
+        // lockNoUse = true;
+        // lockFinalized = true;
+    }else{
+        // unlockAndClearPrescoutInputs();
+        // alert("not finalized");
+        // lockNoUse = false;
+        // enableDrawing();
+        // showAutoEditButtons();
+        // lockFinalized = false;
+    }
+}
+
+var lockNoUse = false;
+var lockFinalized = false;
+var currentPrescoutTeam;
+
+function goBackFromTeamPagePreScout(){
+    // unlockAndClearPrescoutInputs();
+    // clearCurrentPath();
+    document.getElementById("matchscoutmatchlist").style.display = "flex";
+    document.getElementById("matchscoutemodebody").style.display = "none";
+    document.getElementById("matchscoutallthewaybackbutton").style.display = "block";
+    // autoSVGs = [];
+    // updateAutoPathDisplay();
+    // updateFinalizedStatusInTable();
+    // lockNoUse = false;
 }

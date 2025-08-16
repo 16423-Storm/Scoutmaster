@@ -162,10 +162,10 @@
 
 
                     <div class="matchscoutbodycontainer" id="matchscoutbodycontainer">
-                        <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromMatchScout()">&lt;- Back</button>
+                        <button class="changeablebutton" id="matchscoutallthewaybackbutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromMatchScout()">&lt;- Back</button>
                         <div class="prescoutteamslist" id="matchscoutmatchlist">
                             <p class="generaltext" id="competitionnameinmatchscoutlist">Loading...</p>
-                            <table style="border-collapse: collapse; table-layout: fixed; width: 85%;">
+                            <table style="border-collapse: collapse; table-layout: fixed; width: 90%; font-size: clamp(0.3rem, 2.4vw, 1.1rem);">
                                 <thead style="border-bottom: 1px solid #727272;;">
                                     <th class="prescoutthead" style="width: 7%;">Match</th>
                                     <th class="prescoutthead" style="width: 7%;">Winner</th>
@@ -181,6 +181,29 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="matchscoutmodebody" id="matchscoutemodebody">
+                            <div class="matchteamcontainer">
+                                <div class="matchteamnumbercontainerred">
+                                    <p class="matchteamnumber" id="matchteamnumberredone"></p>
+                                </div>
+                                <div class="matchscoutmodebuttonscontainer">
+                                    <div class="matchscoutnumeratedbuttoncontainer">
+                                        <div class="matchscoutnumeratedbuttonsubcontainer">
+                                            <button class="matchscoutbuttonred">-</button>
+                                            <button class="matchscoutbuttongreen">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="matchscoutnumeratedbuttoncontainer">
+                                        <p>Element 1</p>
+                                        <div class="matchscoutnumeratedbuttonsubcontainer">
+                                            <button class="matchscoutbuttonred">-</button>
+                                            <button class="matchscoutbuttongreen">+</button>
+                                        </div>
+                                        <p id="matchscoutredoneelementone">92</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     

@@ -926,23 +926,98 @@ body.darkmode .prescoutteamstbody tr:hover{
     background-color: rgb(255, 91, 91);
     font-weight: bold;
 }
+
 .matchscoutbluethead{
     background-color: rgb(91, 107, 255);
     font-weight: bold;
 }
+
 .matchscoutredthead{
     background-color: rgb(255, 91, 91);
     font-weight: bold;
 }
+
 .matchscoutredtd{
     background-color: rgb(255, 91, 91);
+
 }
 .matchscoutbluetd{
     background-color: rgb(91, 107, 255);
 }
 
+.matchscoutemodebody{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
 
+.matchteamcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
+.matchteamnumbercontainerred, .matchteamnumbercontainerblue{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+    border-radius: 7px;
+    width: 90%;
+}
+
+.matchteamnumbercontainerred{
+    background-color: red;
+}
+
+.matchteamnumbercontainerblue{
+    background-color: blue;
+}
+
+.matchteamnumber{
+    text-align: center;
+}
+
+.matchscoutmodebuttonscontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.matchscoutnumeratedbuttoncontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: none;
+    border-radius: 5px;
+    width: 25%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.matchscoutnumeratedbuttonsubcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.matchscoutbuttonred{
+    background-color: #EC1C24;
+}
+
+.matchscoutbuttongreen{
+    background-color: #0ED145;
+}
 
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
