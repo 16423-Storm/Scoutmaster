@@ -1506,8 +1506,7 @@ async function savePrescoutData() {
 var preScoutPulledData;
 
 async function loadPrescoutForTeam() {
-    const prescoutData = JSON.parse(localStorage.getItem("prescoutData")) || {};
-    const dataLocal = prescoutData[currentPrescoutTeam];
+    const dataLocal = getTeamPrescoutFromLocal(currentPrescoutTeam);
 
     if (dataLocal !== null && dataLocal !== undefined) {
         console.log("Data exists in localStorage:", dataLocal);
@@ -1629,6 +1628,7 @@ async function updateFinalizedStatusInTable() {
             row.cells[1].innerHTML = isFinalized
                 ? '<img style="width: 30%; height: auto;" src="images/checkmark.png">'
                 : '';
+            row.dataset.teamIsFinalized = isFinalized.toString()
         });
 
     } catch (error) {
@@ -1637,12 +1637,14 @@ async function updateFinalizedStatusInTable() {
 }
 
 function saveTeamPrescoutLocally(teamNumber, teamData) {
+    console.log("Pulled data from local storage for prescout: "+JSON.stringify(prescoutDataToSave))
     const prescoutDataToSave = JSON.parse(localStorage.getItem("prescoutData")) || {};
     prescoutDataToSave[teamNumber] = teamData;
     localStorage.setItem("prescoutData", JSON.stringify(prescoutDataToSave));
 }
 
 function getTeamPrescoutFromLocal(teamNumber) {
+    console.log("Pulled data from local storage for prescout: "+JSON.stringify(prescoutData))
     const prescoutData = JSON.parse(localStorage.getItem("prescoutData")) || {};
     return prescoutData[teamNumber] || null;
 }
