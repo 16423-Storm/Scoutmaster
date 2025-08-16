@@ -992,6 +992,7 @@ async function setScoutedCompetition(eventKey, eventName){
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
     clearAllLocalPrescoutData();
+    deletePrescoutDatabase();
 }
 
 
@@ -1651,4 +1652,17 @@ function getTeamPrescoutFromLocal(teamNumber) {
 
 function clearAllLocalPrescoutData() {
     localStorage.removeItem("prescoutData");
+}
+
+async function deletePrescoutDatabase() {
+    const { data, error } = await supabaseClient
+        .from('group')
+        .update({ prescout: {} })
+        .eq('id', groupId);
+
+    if (error) {
+        console.error('Error updating prescout:', error);
+    } else {
+        console.log('Prescout updated successfully:', data);
+    }
 }
