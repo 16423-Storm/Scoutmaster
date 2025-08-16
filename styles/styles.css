@@ -953,27 +953,30 @@ body.darkmode .prescoutteamstbody tr:hover{
 }
 
 .matchteamcontainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.matchteamnumbercontainerred, .matchteamnumbercontainerblue{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: none;
-    border-radius: 7px;
     width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .matchteamnumbercontainerred{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 7px;
+    width: 90%;
     background-color: red;
 }
 
 .matchteamnumbercontainerblue{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 7px;
+    width: 90%;
     background-color: blue;
 }
 
@@ -991,6 +994,11 @@ body.darkmode .prescoutteamstbody tr:hover{
 
 .matchscoutmodebody{
     display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
 }
 
 .matchscoutnumeratedbuttoncontainer{
