@@ -990,6 +990,8 @@ async function setScoutedCompetition(eventKey, eventName){
         statusPopUp('Error fetching invited users:', groupError);
     }
 
+    currentEventKey = eventKey;
+
     statusPopUp("Successfully scouting new competition!");
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
