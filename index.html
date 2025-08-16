@@ -53,8 +53,8 @@
                                 <table class="memberlisttable" id="memberlisttable">
                                     <tbody id="memberlisttbody">
                                         <thead>
-                                            <td class="tabletitle" style="width: 80%;">Member</td>
-                                            <td class="tabletitle" style="width: 20%;">Admin</td>
+                                            <th class="tabletitle" style="width: 80%;">Member</th>
+                                            <th class="tabletitle" style="width: 20%;">Admin</th>
                                         </thead>
                                     </tbody>
                                 </table>
@@ -71,7 +71,7 @@
                                 <table class="memberlisttable">
                                     <tbody id="invitedtbody">
                                         <thead>
-                                            <td class="tabletitle" style="width: 100%;">Pending Invites</td>
+                                            <th class="tabletitle" style="width: 100%;">Pending Invites</th>
                                         </thead>
                                     </tbody>
                                 </table>
@@ -101,10 +101,10 @@
                         <button class="changeablebutton" id="prescoutallthewaybackbutton" style="margin-top: 10px;margin-bottom: 10px; display: block;" onclick="goBackFromPrescout()">&lt;- Back</button>
                         <div class="prescoutteamslist" id="prescoutteamslist">
                             <p class="generaltext" id="competitionnameinprescoutlist">Loading...</p>
-                            <table style="border-collapse: collapse;">
+                            <table style="border-collapse: collapse; table-layout: fixed;">
                                 <thead style="border-bottom: 1px solid #727272;;">
-                                    <td class="prescoutthead">Team</td>
-                                    <td class="prescoutthead">Scouted</td>
+                                    <th class="prescoutthead" style="width: 80%;">Team</th>
+                                    <th class="prescoutthead" style="width: 20%; text-align: center;">Scouted</th>
                                 </thead>
                                 <tbody id="prescoutteamstbody" class="prescoutteamstbody">
                                     <tr class="prescouttablerow">
@@ -163,7 +163,24 @@
 
                     <div class="matchscoutbodycontainer" id="matchscoutbodycontainer">
                         <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromMatchScout()">&lt;- Back</button>
-                        <p>matchscout?</p>
+                        <div class="prescoutteamslist" id="matchscoutmatchlist">
+                            <p class="generaltext" id="competitionnameinmatchscoutlist">Loading...</p>
+                            <table style="border-collapse: collapse; table-layout: fixed;">
+                                <thead style="border-bottom: 1px solid #727272;;">
+                                    <th class="prescoutthead" style="width: 10%;">Match</th>
+                                    <th class="prescoutthead" style="width: 10%;">Winner</th>
+                                    <th class="matchscoutredthead" style="width: 20%;">Red 1</th>
+                                    <th class="matchscoutredthead" style="width: 20%;">Red 2</th>
+                                    <th class="matchscoutbluethead" style="width: 20%;">Blue 1</th>
+                                    <th class="matchscoutbluethead" style="width: 20%;">Blue 2</th>
+                                </thead>
+                                <tbody id="prescoutteamstbody" class="matchtabletbody">
+                                    <tr class="prescouttablerow">
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     
 

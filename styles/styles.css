@@ -920,6 +920,30 @@ body.darkmode .prescoutteamstbody tr:hover{
     box-sizing: border-box;
 }
 
+
+
+.matchscoutredthead{
+    background-color: rgb(255, 91, 91);
+    font-weight: bold;
+}
+.matchscoutbluethead{
+    background-color: rgb(91, 107, 255);
+    font-weight: bold;
+}
+.matchscoutredthead{
+    background-color: rgb(255, 91, 91);
+    font-weight: bold;
+}
+.matchscoutredtd{
+    background-color: rgb(255, 91, 91);
+}
+.matchscoutbluetd{
+    background-color: rgb(91, 107, 255);
+}
+
+
+
+
 @media only screen and (max-width: 800px) {
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

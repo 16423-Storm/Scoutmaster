@@ -1670,3 +1670,79 @@ async function deletePrescoutDatabase() {
         console.log('Prescout updated successfully:', data);
     }
 }
+
+
+
+
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//MATCH SCOUTING STUFF BELOW HERE
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+async function getMatchList() {
+    try {
+        const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/matches`, {
+            headers: {
+                'X-TOA-Key': ORANGE_API_KEY,
+                'X-Application-Origin': 'scoutmaster',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+
+        const matches = await response.json();
+        const tbody = document.getElementById("matchtabletbody");
+
+        tbody.innerHTML = '';
+
+        for (let i = matches.length - 1; i >= 0; i--) {
+            const parts = matches[i].match_key.toLowerCase().split('-');
+            if (!parts[3] || !parts[3].startsWith('q')) {
+                matches.splice(i, 1);
+            }
+        }
+
+        matches.sort((a, b) => {
+            const getNum = (m) => {
+                const parts = m.match_key.toLowerCase().split('-');
+                return parseInt(parts[3].slice(1)) || 0;
+            };
+            return getNum(a) - getNum(b);
+        });
+
+        matches.forEach(match => {
+            const matchNumber = match.match_name.split(" ")[1];
+            const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
+            const winnerText = match.winning_alliance || 'TBD';
+
+            let color;
+                if (winnerText === 'red') {
+                color = 'red';
+            } else if (winnerText === 'blue') {
+                color = 'blue';
+            } else {
+                color = 'black';
+            }
+
+            tbody.innerHTML += `
+                <tr class="prescouttablerow">
+                    <td>${matchNumber}</td>
+                    <td style="color: ${color};">${winnerText.toUpperCase()}</td>
+                    <td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
+                    <td class="matchscoutredtd">${sortedParticipants[1].team_key}</td>
+                    <td class="matchscoutbluetd">${sortedParticipants[2].team_key}</td>
+                    <td class="matchscoutbluetd">${sortedParticipants[3].team_key}</td>
+                </tr>
+            `;
+        });
+
+    } catch (error) {
+        console.error('Failed to load matches:', error);
+        alert('Could not fetch matches.');
+        return;
+    }
+}
