@@ -1723,6 +1723,8 @@ async function getMatchList() {
                 winnerText = 'RED';
             } else if (match.blue_score > match.red_score) {
                 winnerText = 'BLUE';
+            } else if (match.bluescore === match.red_score){
+                winnerText = 'TIE';
             }
 
 
