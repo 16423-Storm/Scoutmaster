@@ -991,6 +991,7 @@ async function setScoutedCompetition(eventKey, eventName){
     statusPopUp("Successfully scouting new competition!");
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
+    clearAllLocalPrescoutData();
 }
 
 
@@ -1496,48 +1497,64 @@ async function savePrescoutData() {
 	alert("Prescout data saved successfully.");
     goBackFromTeamPagePreScout();
     updateFinalizedStatusInTable();
+
+    saveTeamPrescoutLocally(currentPrescoutTeam, teamData);
+
 	return true;
 }
 
 var preScoutPulledData;
 
 async function loadPrescoutForTeam() {
-	const { data, error } = await supabaseClient
-		.rpc('get_prescout_for_team', {
-			group_id_input: groupId,
-			team_number_input: currentPrescoutTeam.toString()
-		});
+    const prescoutData = JSON.parse(localStorage.getItem("prescoutData")) || {};
+    const dataLocal = prescoutData[currentPrescoutTeam];
 
-	if (error) {
-		console.error("Failed to load prescout data:", error);
-		return;
-	}
+    if (dataLocal !== null && dataLocal !== undefined) {
+        console.log("Data exists in localStorage:", dataLocal);
+        lockAndSetPrescoutInputs(dataLocal);
+        autoSVGs = Array.isArray(dataLocal.autosvg) ? dataLocal.autosvg : null;
+        updateAutoPathDisplay();
+    } else {
+        console.log("No data found for that key in localStorage.");
+        const { data, error } = await supabaseClient
+            .rpc('get_prescout_for_team', {
+                group_id_input: groupId,
+                team_number_input: currentPrescoutTeam.toString()
+            });
 
-	preScoutPulledData = data;
+        if (error) {
+            console.error("Failed to load prescout data:", error);
+            return;
+        }
 
-	if (!data) {
-		unlockAndClearPrescoutInputs();
-		autoSVGs = null;
-		updateAutoPathDisplay();
-		return;
-	}
+        preScoutPulledData = data;
 
-	autoSVGs = Array.isArray(data.autosvg) ? data.autosvg : null;
-	updateAutoPathDisplay();
+        if (!data) {
+            unlockAndClearPrescoutInputs();
+            autoSVGs = null;
+            updateAutoPathDisplay();
+            return;
+        }
 
-	if (data.finalized === 1) {
-		lockAndSetPrescoutInputs(data);
-	} else {
-		unlockAndClearPrescoutInputs();
-		document.getElementById("ability1input").checked = data.ability1 === true;
-		document.getElementById("ability2input").checked = data.ability2 === true;
-		document.getElementById("ability3input").value = data.ability3 ?? "";
-		document.getElementById("strategyinput").value = data.strategy ?? "";
-		document.getElementById("notesinput").value = data.notes ?? "";
+        saveTeamPrescoutLocally(currentPrescoutTeam, data);
 
-		lockFinalized = false;
-		lockNoUse = false;
-	}
+        autoSVGs = Array.isArray(data.autosvg) ? data.autosvg : null;
+        updateAutoPathDisplay();
+
+        if (data.finalized === 1) {
+            lockAndSetPrescoutInputs(data);
+        } else {
+            unlockAndClearPrescoutInputs();
+            document.getElementById("ability1input").checked = data.ability1 === true;
+            document.getElementById("ability2input").checked = data.ability2 === true;
+            document.getElementById("ability3input").value = data.ability3 ?? "";
+            document.getElementById("strategyinput").value = data.strategy ?? "";
+            document.getElementById("notesinput").value = data.notes ?? "";
+
+            lockFinalized = false;
+            lockNoUse = false;
+        }
+    }
 }
 
 function unlockAndClearPrescoutInputs() {
@@ -1617,4 +1634,19 @@ async function updateFinalizedStatusInTable() {
     } catch (error) {
         console.error('Failed to update finalized status:', error);
     }
+}
+
+function saveTeamPrescoutLocally(teamNumber, teamData) {
+    const prescoutDataToSave = JSON.parse(localStorage.getItem("prescoutData")) || {};
+    prescoutDataToSave[teamNumber] = teamData;
+    localStorage.setItem("prescoutData", JSON.stringify(prescoutDataToSave));
+}
+
+function getTeamPrescoutFromLocal(teamNumber) {
+    const prescoutData = JSON.parse(localStorage.getItem("prescoutData")) || {};
+    return prescoutData[teamNumber] || null;
+}
+
+function clearAllLocalPrescoutData() {
+    localStorage.removeItem("prescoutData");
 }
