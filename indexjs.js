@@ -1739,7 +1739,7 @@ async function getMatchList() {
             }
 
             tbody.innerHTML += `
-                <tr class="prescouttablerow" onclick="goToMatchScoutModePage(this)">
+                <tr class="prescouttablerow" onclick="goToMatchScoutModePage()">
                     <td>${matchNumber}</td>
                     <td style="color: ${color};">${winnerText.toUpperCase()}</td>
                     <td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
@@ -1758,7 +1758,7 @@ async function getMatchList() {
     }
 }
 
-function goToMatchScoutModePage(element){
+function goToMatchScoutModePage(){
     // const teamInfoObj = JSON.parse(element.dataset.teamInfo);
     // const teamIsFinalized = element.dataset.teamIsFinalized;
     // console.log(teamInfoObj, null, 2);
