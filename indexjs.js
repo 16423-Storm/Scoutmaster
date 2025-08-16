@@ -1718,12 +1718,18 @@ async function getMatchList() {
         matches.forEach(match => {
             const matchNumber = match.match_name.split(" ")[1];
             const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
-            const winnerText = match.winning_alliance || 'TBD';
+            let winnerText = 'TBD';
+            if (match.red_score > match.blue_score) {
+                winnerText = 'RED';
+            } else if (match.blue_score > match.red_score) {
+                winnerText = 'BLUE';
+            }
+
 
             let color;
-                if (winnerText === 'red') {
+                if (winnerText === 'RED') {
                 color = 'red';
-            } else if (winnerText === 'blue') {
+            } else if (winnerText === 'BLUE') {
                 color = 'blue';
             } else {
                 color = 'black';
@@ -1737,6 +1743,7 @@ async function getMatchList() {
                     <td class="matchscoutredtd">${sortedParticipants[1].team_key}</td>
                     <td class="matchscoutbluetd">${sortedParticipants[2].team_key}</td>
                     <td class="matchscoutbluetd">${sortedParticipants[3].team_key}</td>
+                    <td></td>
                 </tr>
             `;
         });
