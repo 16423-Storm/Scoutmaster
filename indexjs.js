@@ -2343,7 +2343,7 @@ async function loadMatchStationData(matchKey, station) {
 			const { data, error } = await supabaseClient.rpc('get_match_station_data', {
 				p_group_id: groupId,
 				p_match_key: matchKey,
-				p_station_key: null  
+				p_station_key: station  
 			});
 			if (error) {
 				console.error('Error fetching match data from Supabase:', error);
