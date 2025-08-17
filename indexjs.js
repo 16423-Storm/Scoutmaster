@@ -13,6 +13,19 @@ var invitedMembers;
 var scoutedCompetitionKey;
 var currentEventKey;
 var autoSVGs = [];
+var currentMatchKey;
+var currentR1;
+var currentR2;
+var currentB1;
+var currentB2;
+
+console.log(
+    "%c⚠️ WARNING! ⚠️\n" +
+    "This console is intended for developers and developers ONLY.\n" +
+    "Do NOT type anything in here, or you risk getting your entire group banned\n" +
+    "It could expose your data or compromise your account.",
+    "color: red; font-size: 16px; font-weight: bold;"
+);
 
 
 function popUpWarning(message, onContinue){
@@ -394,6 +407,8 @@ async function checkGroupMembership() {
         }
 
         const isAdmin = member?.isAdmin === true;
+
+        isAdminized = isAdmin;
 
         document.getElementById("ingroupmainbody").style.display = "block";
         document.getElementById("notingroupmainbody").style.display = "none";
@@ -1685,122 +1700,495 @@ async function deletePrescoutDatabase() {
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 async function getMatchList() {
-    try {
-        const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/matches`, {
-            headers: {
-                'X-TOA-Key': ORANGE_API_KEY,
-                'X-Application-Origin': 'scoutmaster',
-                'Content-Type': 'application/json'
-            }
-        });
+	try {
+		const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/matches`, {
+			headers: {
+				'X-TOA-Key': ORANGE_API_KEY,
+				'X-Application-Origin': 'scoutmaster',
+				'Content-Type': 'application/json'
+			}
+		});
 
-        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+		if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
-        const matches = await response.json();
-        const tbody = document.getElementById("matchtabletbody");
+		const matches = await response.json();
+		const tbody = document.getElementById("matchtabletbody");
 
-        tbody.innerHTML = '';
+		tbody.innerHTML = '';
 
-        for (let i = matches.length - 1; i >= 0; i--) {
-            const parts = matches[i].match_key.toLowerCase().split('-');
-            if (!parts[3] || !parts[3].startsWith('q')) {
-                matches.splice(i, 1);
-            }
-        }
+		for (let i = matches.length - 1; i >= 0; i--) {
+			const parts = matches[i].match_key.toLowerCase().split('-');
+			if (!parts[3] || !parts[3].startsWith('q')) {
+				matches.splice(i, 1);
+			}
+		}
 
-        matches.sort((a, b) => {
-            const getNum = (m) => {
-                const parts = m.match_key.toLowerCase().split('-');
-                return parseInt(parts[3].slice(1)) || 0;
-            };
-            return getNum(a) - getNum(b);
-        });
+		matches.sort((a, b) => {
+			const getNum = (m) => {
+				const parts = m.match_key.toLowerCase().split('-');
+				return parseInt(parts[3].slice(1)) || 0;
+			};
+			return getNum(a) - getNum(b);
+		});
 
-        matches.forEach(match => {
-            const matchNumber = match.match_name.split(" ")[1];
-            const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
-            let winnerText = 'TBD';
-            if (match.red_score > match.blue_score) {
-                winnerText = 'RED';
-            } else if (match.blue_score > match.red_score) {
-                winnerText = 'BLUE';
-            } else if (match.bluescore === match.red_score){
-                winnerText = 'TIE';
-            }
+		const scoreTableTemplate = {
+			"r1": {
+				"auto": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"teleop": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"team_number":"0000"
+			},
+			"r2": {
+				"auto": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"teleop": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"team_number":"0000"
+			},
+			"b1": {
+				"auto": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"teleop": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"team_number":"0000"
+			},
+			"b2": {
+				"auto": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"teleop": {
+					"elementone": "0",
+					"elementtwo": "0",
+					"elementthree": "0"
+				},
+				"team_number":"0000"
+			}
+		};
 
+		let superTable = {};
+		matches.forEach(match => {
+			superTable[match.match_key] = JSON.parse(JSON.stringify(scoreTableTemplate));
+		});
 
-            let color;
-                if (winnerText === 'RED') {
-                color = 'red';
-            } else if (winnerText === 'BLUE') {
-                color = 'blue';
-            } else {
-                color = 'black';
-            }
+		matches.forEach(match => {
+			const matchNumber = match.match_name.split(" ")[1];
+			const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
+			let winnerText = 'TBD';
 
-            tbody.innerHTML += `
-                <tr class="prescouttablerow" onclick="goToMatchScoutModePage()">
-                    <td>${matchNumber}</td>
-                    <td style="color: ${color};">${winnerText.toUpperCase()}</td>
-                    <td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
-                    <td class="matchscoutredtd">${sortedParticipants[1].team_key}</td>
-                    <td class="matchscoutbluetd">${sortedParticipants[2].team_key}</td>
-                    <td class="matchscoutbluetd">${sortedParticipants[3].team_key}</td>
-                    <td></td>
-                </tr>
-            `;
-        });
+			if (match.red_score > match.blue_score) {
+				winnerText = 'RED';
+			} else if (match.blue_score > match.red_score) {
+				winnerText = 'BLUE';
+			} else if (match.blue_score === match.red_score) {
+				winnerText = 'TIE';
+			}
 
-    } catch (error) {
-        console.error('Failed to load matches:', error);
-        alert('Could not fetch matches.');
-        return;
-    }
+			let color;
+			if (winnerText === 'RED') {
+				color = 'red';
+			} else if (winnerText === 'BLUE') {
+				color = 'blue';
+			} else {
+				color = 'black';
+			}
+
+			currentMatchKey = match.match_key;
+
+			tbody.innerHTML += `
+				<tr class="prescouttablerow" onclick="goToMatchScoutModePage()">
+					<td>${matchNumber}</td>
+					<td style="color: ${color};">${winnerText.toUpperCase()}</td>
+					<td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
+					<td class="matchscoutredtd">${sortedParticipants[1].team_key}</td>
+					<td class="matchscoutbluetd">${sortedParticipants[2].team_key}</td>
+					<td class="matchscoutbluetd">${sortedParticipants[3].team_key}</td>
+					<td></td>
+				</tr>
+			`;
+		});
+
+		const { data, error } = await supabaseClient
+			.from('group')
+			.update({ matches: superTable })
+			.eq('id', groupId);
+
+		if (error) {
+			console.error('Error updating matches in Supabase:', error);
+		} else {
+			console.log('Supabase group matches updated successfully:', data);
+		}
+
+	} catch (error) {
+		console.error('Failed to load matches:', error);
+		alert('Could not fetch matches.');
+	}
 }
 
-function goToMatchScoutModePage(){
-    // const teamInfoObj = JSON.parse(element.dataset.teamInfo);
-    // const teamIsFinalized = element.dataset.teamIsFinalized;
-    // console.log(teamInfoObj, null, 2);
-    // currentPrescoutTeam = teamInfoObj.team.team_key;
 
+
+function goToMatchScoutModePage(){
     document.getElementById("matchscoutmatchlist").style.display = "none";
     document.getElementById("matchscoutmodebody").style.display = "flex";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
-
-    // document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
-    // document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
-    // document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
-
-    // if(teamIsFinalized === "true"){
-    //     // alert("finalized")
-    //     // disableDrawing();
-    //     // loadPrescoutForTeam();
-    //     // hideAutoEditButtons();
-    //     // lockNoUse = true;
-    //     // lockFinalized = true;
-    // }else{
-    //     // unlockAndClearPrescoutInputs();
-    //     // alert("not finalized");
-    //     // lockNoUse = false;
-    //     // enableDrawing();
-    //     // showAutoEditButtons();
-    //     // lockFinalized = false;
-    // }
 }
 
-var lockNoUse = false;
-var lockFinalized = false;
-var currentPrescoutTeam;
-
-function goBackFromMatchScout(){
-    // unlockAndClearPrescoutInputs();
-    // clearCurrentPath();
+function goBackFromMatchModeScout(){
+    scoreTable = [
+        {
+            "r1": {
+                "auto": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                },
+                "teleop": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                }
+            },
+            "r2": {
+                "auto": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                },
+                "teleop": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                }
+            },
+            "b1": {
+                "auto": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                },
+                "teleop": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                }
+            },
+            "b2": {
+                "auto": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                },
+                "teleop": {
+                    "elementone": "0",
+                    "elementtwo": "0",
+                    "elementthree": "0"
+                }
+            }
+        }
+    ];
     document.getElementById("matchscoutmatchlist").style.display = "flex";
     document.getElementById("matchscoutmodebody").style.display = "none";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "block";
-    // autoSVGs = [];
-    // updateAutoPathDisplay();
-    // updateFinalizedStatusInTable();
-    // lockNoUse = false;
+}
+
+var scoreTable = [
+    {
+        "r1": {
+            "auto": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "teleop": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "team_number":"0000"
+        },
+        "r2": {
+            "auto": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "teleop": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "team_number":"0000"
+        },
+        "b1": {
+            "auto": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "teleop": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "team_number":"0000"
+        },
+        "b2": {
+            "auto": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "teleop": {
+                "elementone": "0",
+                "elementtwo": "0",
+                "elementthree": "0"
+            },
+            "team_number":"0000"
+        }
+    }
+];
+
+var currentAutoStatus = true;
+
+
+function changeMatchModeElement(button) {
+    const station = button.dataset.station;   
+    const element = button.dataset.element;  
+    const action = button.dataset.action;
+
+    console.log(station, element, action);
+
+    if(action === "add"){
+        if(currentAutoStatus){
+            scoreTable[0][station]["auto"][element] = (Number(scoreTable[0][station]["auto"][element]) + 1).toString();
+        }else{
+            scoreTable[0][station]["teleop"][element] = (Number(scoreTable[0][station]["teleop"][element]) + 1).toString();
+        }
+    }else{
+        if(currentAutoStatus && scoreTable[0][station]["auto"][element] !== "0"){
+            scoreTable[0][station]["auto"][element] = (Number(scoreTable[0][station]["auto"][element]) - 1).toString();
+        }else if(!currentAutoStatus && scoreTable[0][station]["teleop"][element] !== 0){
+            scoreTable[0][station]["teleop"][element] = (Number(scoreTable[0][station]["teleop"][element]) - 1).toString();
+        }
+    }
+
+    if(currentAutoStatus){
+        document.getElementById(`matchscout${element}${station}`).textContent = scoreTable[0][station]["auto"][element];
+    }else{
+        document.getElementById(`matchscout${element}${station}`).textContent = scoreTable[0][station]["teleop"][element];
+    }
+}
+
+function handleOptionsClick(button){
+    const station = button.dataset.station;   
+    const element = button.dataset.element;  
+    const action = button.dataset.action;
+
+    var arrayOfOtherActions = [];
+    if(action === "lvl1"){
+        arrayOfOtherActions.push("lvl2", "lvl3");
+    }else if(action === "lvl2"){
+        arrayOfOtherActions.push("lvl1", "lvl3");
+    }else if(action === "lvl3"){
+        arrayOfOtherActions.push("lvl1", "lvl2");
+    }else{
+        console.log("Error with handling options buttons click");
+    }
+
+    console.log(station, element, action);
+
+    if(Array.from(button.classList).includes("matchscoutbuttongrey")){
+        arrayOfOtherActions.forEach(one =>{
+            document.getElementById(`${element}${station}${one}`).classList = "matchscoutbuttongrey";
+        });
+        if(station === "r1"){
+            if(currentAutoStatus){
+                scoreTable[0].r1.auto.elementthree = action[3];
+            }else{
+                scoreTable[0].r1.teleop.elementthree = action[3];
+            }
+        }else if(station === "r2"){
+            if(currentAutoStatus){
+                scoreTable[0].r2.auto.elementthree = action[3];
+            }else{
+                scoreTable[0].r2.teleop.elementthree = action[3];
+            }
+        }else if(station === "b1"){
+            if(currentAutoStatus){
+                scoreTable[0].b1.auto.elementthree = action[3];
+            }else{
+                scoreTable[0].b1.teleop.elementthree = action[3];
+            }
+        }else if(station === "b2"){
+            if(currentAutoStatus){
+                scoreTable[0].b2.auto.elementthree = action[3];
+            }else{
+                scoreTable[0].b2.teleop.elementthree = action[3];
+            }
+        }else{
+            console.log("Error with handling options buttons click");
+        }
+        console.log(JSON.stringify(scoreTable));
+        button.classList = "matchscoutbuttonpurple";
+    } else {
+        button.classList = "matchscoutbuttongrey";
+        if (station === "r1") {
+            if (currentAutoStatus) {
+                scoreTable[0].r1.auto.elementthree = "0";
+            } else {
+                scoreTable[0].r1.teleop.elementthree = "0";
+            }
+        } else if (station === "r2") {
+            if (currentAutoStatus) {
+                scoreTable[0].r2.auto.elementthree = "0";
+            } else {
+                scoreTable[0].r2.teleop.elementthree = "0";
+            }
+        } else if (station === "b1") {
+            if (currentAutoStatus) {
+                scoreTable[0].b1.auto.elementthree = "0";
+            } else {
+                scoreTable[0].b1.teleop.elementthree = "0";
+            }
+        } else if (station === "b2") {
+            if (currentAutoStatus) {
+                scoreTable[0].b2.auto.elementthree = "0";
+            } else {
+                scoreTable[0].b2.teleop.elementthree = "0";
+            }
+        } else {
+            console.log("Error with handling options buttons click");
+        }
+    }
+
+}
+
+function flipAutoAuto(){
+    currentAutoStatus = true;
+    document.getElementById("flipautoautobutton").classList = "matchscoutbuttonpurple";
+    document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttongrey";
+    console.log("Auto status flipped to: " + currentAutoStatus);
+
+    const arrayOfElementThree = ["elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
+
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
+
+    arrayOfElementOnesAndTwos.forEach(oneId =>{
+        document.getElementById(oneId).textContent = "";
+        console.log(oneId);
+    });
+
+    for (const station in scoreTable[0]) {
+        const elementOneVal = scoreTable[0][station].auto.elementone;
+        document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
+        const elementTwoVal = scoreTable[0][station].auto.elementtwo;
+        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
+    }
+
+    arrayOfElementThree.forEach(oneId => {
+        document.getElementById(oneId).classList = "matchscoutbuttongrey";
+    });
+
+    for (const station in scoreTable[0]) {
+        const elementThreeVal = scoreTable[0][station].auto.elementthree;
+        if (elementThreeVal === "0") {
+            console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
+        } else {
+            const buttonId = `elementthree${station}lvl${elementThreeVal}`;
+            document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
+        }
+    }
+}
+
+function flipAutoTeleOp(){
+    currentAutoStatus = false;
+    document.getElementById("flipautoautobutton").classList = "matchscoutbuttongrey";
+    document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttonpurple";
+    console.log("Auto status flipped to: " + currentAutoStatus);
+
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
+
+    arrayOfElementOnesAndTwos.forEach(oneId =>{
+        document.getElementById(oneId).textContent = "";
+    });
+
+    for (const station in scoreTable[0]) {
+        const elementOneVal = scoreTable[0][station].teleop.elementone;
+        document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
+        const elementTwoVal = scoreTable[0][station].teleop.elementtwo;
+        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
+    }
+
+    const arrayOfElementThree = [
+        "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+        "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
+        "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
+        "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+    ];
+
+    arrayOfElementThree.forEach(oneId => {
+        document.getElementById(oneId).classList = "matchscoutbuttongrey";
+    });
+
+    for (const station in scoreTable[0]) {
+        const elementThreeVal = scoreTable[0][station].teleop.elementthree;
+        if (elementThreeVal === "0") {
+            console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
+        } else {
+            const buttonId = `elementthree${station}lvl${elementThreeVal}`;
+            document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
+        }
+    }
+}
+
+async function submitIndividualTeam(participantKey) {
+	const station = participantKey;
+
+	const stationData = scoreTable[0][station];
+
+	if (!stationData) {
+		console.error("Invalid participantKey/station:", station);
+		return;
+	}
+
+	try {
+		const { data, error } = await supabase.rpc('update_match_station', {
+			group_id: groupId,
+			match_key: currentMatchKey,
+			station_key: station,
+			station_data: stationData
+		});
+
+		if (error) {
+			console.error("Error updating match station:", error);
+			alert("Failed to update match data.");
+			return;
+		}
+
+		console.log("Successfully updated match station:", data);
+		alert("Match data submitted successfully.");
+	} catch (err) {
+		console.error("Unexpected error submitting match data:", err);
+		alert("An unexpected error occurred.");
+	}
 }

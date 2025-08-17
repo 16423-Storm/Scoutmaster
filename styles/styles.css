@@ -862,7 +862,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     top: 40%;
     left: 50%;
     transform: translate(-50%, -40%);
-    background-color: #6161616b;
+    background-color: #616161;
     color: #ffffff;
     border: 1px solid #616161;
     padding: 20px;
@@ -970,6 +970,11 @@ body.darkmode .prescoutteamstbody tr:hover{
     background-color: red;
 }
 
+.matchteamnumbercontainerred:hover{
+    cursor: pointer;
+    background-color: #ad151a;
+}
+
 .matchteamnumbercontainerblue{
     display: flex;
     justify-content: center;
@@ -980,6 +985,15 @@ body.darkmode .prescoutteamstbody tr:hover{
     background-color: blue;
 }
 
+.matchteamnumbercontainerblue:hover{
+    cursor: pointer;
+    background-color: rgb(0, 0, 155);
+}
+
+.matchteamnumbercontainerred p, .matchteamnumbercontainerblue p{
+    color: white;
+}
+
 .matchteamnumber{
     text-align: center;
 }
@@ -987,7 +1001,7 @@ body.darkmode .prescoutteamstbody tr:hover{
 .matchscoutmodebuttonscontainer{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: row;
     width: 100%;
 }
@@ -1023,7 +1037,72 @@ body.darkmode .prescoutteamstbody tr:hover{
     width: 100%;
 }
 
+.matchscoutbuttongreen{
+    background-color: #0ED145;
+    width: 40%;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.matchscoutbuttongreen:hover{
+    background-color: #0b9c34;
+}
+
+.matchscoutbuttonred{
+    background-color: #EC1C24;
+    width: 40%;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.matchscoutbuttonred:hover{
+    background-color: #ad151a;
+}
+
+.matchscoutbuttonpurple{
+    color: white;
+    background-color: #7124ff;
+    width: 40%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.matchscoutbuttonpurple:hover{
+    background-color: #481a9c;
+}
+
+.matchscoutbuttongrey{
+    color: white;
+    background-color: #808080;
+    width: 40%;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.matchscoutbuttongrey:hover{
+    background-color: #3d3d3d;
+}
+
 @media only screen and (max-width: 800px) {
+    .matchscoutnumeratedbuttoncontainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: none;
+        border-radius: 5px;
+        width: 90%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+    .matchscoutmodebuttonscontainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
     .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         width: 48%;

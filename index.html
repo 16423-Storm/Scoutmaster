@@ -183,130 +183,139 @@
                             </table>
                         </div>
                         <div class="matchscoutmodebody" id="matchscoutmodebody">
-                            <button class="changeablebutton" onclick="goBackFromMatchScout()">&lt;- Back</button>
+                            <button class="changeablebutton" onclick="popUpWarning('Pressing continue will clear all data you have inputted so far, please make sure you submit your data before, are you 100% sure you want to continue?', goBackFromMatchModeScout)">&lt;- Back</button>
                             <div class="matchteamcontainer">
                                 <div class="matchteamnumbercontainerred">
-                                    <p class="matchteamnumber" id="matchteamnumberredone"></p>
+                                    <p class="matchteamnumber" id="matchteamnumberredone" onclick="popUpWarning('Pressing continue will submit all match data for this specific team, and you will no longer be able to edit it, are you 100% sure you want to continue?', () => submitIndividualTeam('r1'))">16423</p>
                                 </div>
                                 <div class="matchscoutmodebuttonscontainer">
                                     <div class="matchscoutnumeratedbuttoncontainer">
                                         <p>Element 1</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonr1">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementoner1">+</button>
+                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonr1" data-station="r1" data-element="elementone" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementoner1" data-station="r1" data-element="elementone" data-action="add" onclick="changeMatchModeElement(this)">+</button>
                                         </div>
-                                        <p id="matchscoutelementoner1">92</p>
+                                        <p id="matchscoutelementoner1">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
                                         <p>Element 2</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonr1">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementtwor1">+</button>
+                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonr1" data-station="r1" data-element="elementtwo" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementtwor1" data-station="r1" data-element="elementtwo" data-action="add" onclick="changeMatchModeElement(this)">+</button>
                                         </div>
-                                        <p id="matchscoutelementtwor1">92</p>
+                                        <p id="matchscoutelementtwor1">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Boolean 1</p>
+                                        <p>Element 3</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawaybooleanoner1">-</button>
-                                            <button class="matchscoutbuttongreen" id="putbooleanoner1">+</button>
+                                            <button class="matchscoutbuttongrey" data-station="r1" data-element="elementthree" data-action="lvl1" id="elementthreer1lvl1" onclick="handleOptionsClick(this)">1</button>
+                                            <button class="matchscoutbuttongrey" data-station="r1" data-element="elementthree" data-action="lvl2" id="elementthreer1lvl2" onclick="handleOptionsClick(this)">2</button>
+                                            <button class="matchscoutbuttongrey" data-station="r1" data-element="elementthree" data-action="lvl3" id="elementthreer1lvl3" onclick="handleOptionsClick(this)">3</button>
                                         </div>
-                                        <p id="matchscoutbooleanoner1">92</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="matchteamcontainer">
                                 <div class="matchteamnumbercontainerred">
-                                    <p class="matchteamnumber" id="matchteamnumberredtwo"></p>
+                                    <p class="matchteamnumber" id="matchteamnumberredtwo" onclick="popUpWarning('Pressing continue will submit all match data for this specific team, and you will no longer be able to edit it, are you 100% sure you want to continue?', () => submitIndividualTeam('r2'))">1234</p>
                                 </div>
                                 <div class="matchscoutmodebuttonscontainer">
                                     <div class="matchscoutnumeratedbuttoncontainer">
                                         <p>Element 1</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonr2">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementoner2">+</button>
+                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonr2" data-station="r2" data-element="elementone" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementoner2" data-station="r2" data-element="elementone" data-action="add" onclick="changeMatchModeElement(this)">+</button>
                                         </div>
-                                        <p id="matchscoutelementoner2">92</p>
+                                        <p id="matchscoutelementoner2">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
                                         <p>Element 2</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonr2">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementtwor2">+</button>
+                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonr2" data-station="r2" data-element="elementtwo" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementtwor2" data-station="r2" data-element="elementtwo" data-action="add" onclick="changeMatchModeElement(this)">+</button>
                                         </div>
-                                        <p id="matchscoutelementtwor2">92</p>
+                                        <p id="matchscoutelementtwor2">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Boolean 1</p>
+                                        <p>Element 3</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawaybooleanoner2">-</button>
-                                            <button class="matchscoutbuttongreen" id="putbooleanoner2">+</button>
+                                            <button class="matchscoutbuttongrey" data-station="r2" data-element="elementthree" data-action="lvl1" id="elementthreer2lvl1" onclick="handleOptionsClick(this)">1</button>
+                                            <button class="matchscoutbuttongrey" data-station="r2" data-element="elementthree" data-action="lvl2" id="elementthreer2lvl2" onclick="handleOptionsClick(this)">2</button>
+                                            <button class="matchscoutbuttongrey" data-station="r2" data-element="elementthree" data-action="lvl3" id="elementthreer2lvl3" onclick="handleOptionsClick(this)">3</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="matchteamcontainer">
                                 <div class="matchscoutnumeratedbuttoncontainer">
-                                    <button></button>
-                                    <button></button>
-                                </div>
-                            </div>
-                            <div class="matchteamcontainer">
-                                <div class="matchteamnumbercontainerblue">
-                                    <p class="matchteamnumber" id="matchteamnumberblueone"></p>
-                                </div>
-                                <div class="matchscoutmodebuttonscontainer">
-                                    <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Element 1</p>
-                                        <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonb1">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementoneb1">+</button>
-                                        </div>
-                                        <p id="matchscoutelementoneb1">92</p>
+                                    <div class="navdividercontainer">
+                                        <hr id="navdivider" class="navdivider">
                                     </div>
-                                    <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Element 2</p>
-                                        <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonb1">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementtwob1">+</button>
-                                        </div>
-                                        <p id="matchscoutelementtwob1">92</p>
-                                    </div>
-                                    <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Boolean 1</p>
-                                        <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawaybooleanoneb1">-</button>
-                                            <button class="matchscoutbuttongreen" id="putbooleanoneb1">+</button>
-                                        </div>
+                                    <button class="matchscoutbuttonpurple" id="flipautoautobutton" onclick="flipAutoAuto()">Auto</button>
+                                    <button class="matchscoutbuttongrey" id="flipautoteleopbutton" onclick="flipAutoTeleOp()">TeleOp</button>
+                                    <div class="navdividercontainer">
+                                        <hr id="navdivider" class="navdivider">
                                     </div>
                                 </div>
                             </div>
                             <div class="matchteamcontainer">
                                 <div class="matchteamnumbercontainerblue">
-                                    <p class="matchteamnumber" id="matchteamnumberbluetwo"></p>
+                                    <p class="matchteamnumber" id="matchteamnumberblueone" onclick="popUpWarning('Pressing continue will submit all match data for this specific team, and you will no longer be able to edit it, are you 100% sure you want to continue?', () => submitIndividualTeam('b1'))">5678</p>
                                 </div>
                                 <div class="matchscoutmodebuttonscontainer">
                                     <div class="matchscoutnumeratedbuttoncontainer">
                                         <p>Element 1</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonb2">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementoneb2">+</button>
+                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonb1" data-station="b1" data-element="elementone" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementoneb1" data-station="b1" data-element="elementone" data-action="add" onclick="changeMatchModeElement(this)">+</button>
                                         </div>
-                                        <p id="matchscoutelementoneb2">92</p>
+                                        <p id="matchscoutelementoneb1">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
                                         <p>Element 2</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonb2">-</button>
-                                            <button class="matchscoutbuttongreen" id="putonelementtwob2">+</button>
+                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonb1" data-station="b1" data-element="elementtwo" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementtwob1" data-station="b1" data-element="elementtwo" data-action="add" onclick="changeMatchModeElement(this)">+</button>
                                         </div>
-                                        <p id="matchscoutelementtwob2">92</p>
+                                        <p id="matchscoutelementtwob1">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Boolean 1</p>
+                                        <p>Element 3</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
-                                            <button class="matchscoutbuttonred" id="takeawaybooleanoneb2">-</button>
-                                            <button class="matchscoutbuttongreen" id="putbooleanoneb2">+</button>
+                                            <button class="matchscoutbuttongrey" data-station="b1" data-element="elementthree" data-action="lvl1" id="elementthreeb1lvl1" onclick="handleOptionsClick(this)">1</button>
+                                            <button class="matchscoutbuttongrey" data-station="b1" data-element="elementthree" data-action="lvl2" id="elementthreeb1lvl2" onclick="handleOptionsClick(this)">2</button>
+                                            <button class="matchscoutbuttongrey" data-station="b1" data-element="elementthree" data-action="lvl3" id="elementthreeb1lvl3" onclick="handleOptionsClick(this)">3</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="matchteamcontainer">
+                                <div class="matchteamnumbercontainerblue">
+                                    <p class="matchteamnumber" id="matchteamnumberbluetwo" onclick="popUpWarning('Pressing continue will submit all match data for this specific team, and you will no longer be able to edit it, are you 100% sure you want to continue?', () => submitIndividualTeam('b2'))">9999</p>
+                                </div>
+                                <div class="matchscoutmodebuttonscontainer">
+                                    <div class="matchscoutnumeratedbuttoncontainer">
+                                        <p>Element 1</p>
+                                        <div class="matchscoutnumeratedbuttonsubcontainer">
+                                            <button class="matchscoutbuttonred" id="takeawayelementonebuttonb2" data-station="b2" data-element="elementone" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementoneb2" data-station="b2" data-element="elementone" data-action="add" onclick="changeMatchModeElement(this)">+</button>
+                                        </div>
+                                        <p id="matchscoutelementoneb2">0</p>
+                                    </div>
+                                    <div class="matchscoutnumeratedbuttoncontainer">
+                                        <p>Element 2</p>
+                                        <div class="matchscoutnumeratedbuttonsubcontainer">
+                                            <button class="matchscoutbuttonred" id="takeawayelementtwobuttonb2" data-station="b2" data-element="elementtwo" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
+                                            <button class="matchscoutbuttongreen" id="putonelementtwob2" data-station="b2" data-element="elementtwo" data-action="add" onclick="changeMatchModeElement(this)">+</button>
+                                        </div>
+                                        <p id="matchscoutelementtwob2">0</p>
+                                    </div>
+                                    <div class="matchscoutnumeratedbuttoncontainer">
+                                        <p>Element 3</p>
+                                        <div class="matchscoutnumeratedbuttonsubcontainer">
+                                            <button class="matchscoutbuttongrey" data-station="b2" data-element="elementthree" data-action="lvl1" id="elementthreeb2lvl1" onclick="handleOptionsClick(this)">1</button>
+                                            <button class="matchscoutbuttongrey" data-station="b2" data-element="elementthree" data-action="lvl2" id="elementthreeb2lvl2" onclick="handleOptionsClick(this)">2</button>
+                                            <button class="matchscoutbuttongrey" data-station="b2" data-element="elementthree" data-action="lvl3" id="elementthreeb2lvl3" onclick="handleOptionsClick(this)">3</button>
                                         </div>
                                     </div>
                                 </div>
