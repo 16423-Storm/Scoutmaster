@@ -1734,7 +1734,7 @@ async function getMatchList() {
 		const { emptyData, emptyError } = await supabaseClient
             .rpc('check_matches_empty', { group_id: groupId });
 
-        if (eremptyErrorror) {
+        if (emptyError) {
             console.error('Error checking matches column:', emptyError);
         } else if (emptyData === true) {
             console.log('Matches column is empty or null. Initializing superTable...');
