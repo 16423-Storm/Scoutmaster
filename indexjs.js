@@ -1904,14 +1904,13 @@ async function getMatchList() {
 
 
 
+async function goToMatchScoutModePage(element) {
+    currentMatchKey = element.dataset.matchkey; 
 
-function goToMatchScoutModePage(element){
     scoreTable[0].r1.team_number = element.dataset.rone;
     scoreTable[0].r2.team_number = element.dataset.rtwo;
     scoreTable[0].b1.team_number = element.dataset.bone;
     scoreTable[0].b2.team_number = element.dataset.btwo;
-
-
 
     document.getElementById("matchteamnumberredone").textContent = element.dataset.rone;
     document.getElementById("matchteamnumberredtwo").textContent = element.dataset.rtwo;
@@ -1921,7 +1920,13 @@ function goToMatchScoutModePage(element){
     document.getElementById("matchscoutmatchlist").style.display = "none";
     document.getElementById("matchscoutmodebody").style.display = "flex";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
+
+    const stations = ['r1', 'r2', 'b1', 'b2'];
+    for (const station of stations) {
+        await loadMatchStationData(currentMatchKey, station);
+    }
 }
+
 
 
 function goBackFromMatchModeScout(){
@@ -2070,7 +2075,7 @@ function changeMatchModeElement(button) {
     }else{
         if(currentAutoStatus && scoreTable[0][station]["auto"][element] !== "0"){
             scoreTable[0][station]["auto"][element] = (Number(scoreTable[0][station]["auto"][element]) - 1).toString();
-        }else if(!currentAutoStatus && scoreTable[0][station]["oteleop"][element] !== 0){
+        }else if(!currentAutoStatus && scoreTable[0][station]["teleop"][element] !== 0){
             scoreTable[0][station]["teleop"][element] = (Number(scoreTable[0][station]["teleop"][element]) - 1).toString();
         }
     }
