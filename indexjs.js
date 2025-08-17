@@ -1013,6 +1013,8 @@ async function setScoutedCompetition(eventKey, eventName){
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
     clearAllLocalPrescoutData();
     deletePrescoutDatabase();
+    deleteMatchDatabase();
+    deleteTeamDatabase();
 }
 
 
@@ -1144,6 +1146,22 @@ async function pullAllTeamsPrescout() {
 		if (data === true) {
 			console.log('Prescout is empty or null');
 
+			const emptyTeamsJson = {};
+			for (const team of teams) {
+				emptyTeamsJson[team.team.team_number.toString()] = [];
+			}
+
+			const { error: initTeamsError } = await supabaseClient.rpc('init_teams_column', {
+				p_groupid: groupId,
+				p_teams: emptyTeamsJson
+			});
+
+			if (initTeamsError) {
+				console.error('Error initializing teams JSONB column:', initTeamsError.message);
+			} else {
+				console.log('Initialized teams JSONB column successfully.');
+			}
+
 			for (const team of teams) {
 				const teamJsonb = {
 					ability1: null,
@@ -1215,6 +1233,7 @@ async function pullAllTeamsPrescout() {
 		return;
 	}
 }
+
 
 function goToTeamPrescoutPage(element){
     const teamInfoObj = JSON.parse(element.dataset.teamInfo);
@@ -1676,18 +1695,43 @@ function clearAllLocalPrescoutData() {
 }
 
 async function deletePrescoutDatabase() {
-    const { data, error } = await supabaseClient
-        .from('group')
-        .update({ prescout: {} })
-        .eq('id', groupId);
+	const { data, error } = await supabaseClient
+		.from('group')
+		.update({ prescout: {} })
+		.eq('id', groupId);
 
-    if (error) {
-        console.error('Error updating prescout:', error);
-    } else {
-        console.log('Prescout updated successfully:', data);
-    }
+	if (error) {
+		console.error('Error clearing prescout:', error);
+	} else {
+		console.log('Prescout cleared successfully:', data);
+	}
 }
 
+async function deleteMatchDatabase() {
+	const { data, error } = await supabaseClient
+		.from('group')
+		.update({ matches: {} })
+		.eq('id', groupId);
+
+	if (error) {
+		console.error('Error clearing matches:', error);
+	} else {
+		console.log('Matches cleared successfully:', data);
+	}
+}
+
+async function deleteTeamDatabase() {
+	const { data, error } = await supabaseClient
+		.from('group')
+		.update({ teams: {} })
+		.eq('id', groupId);
+
+	if (error) {
+		console.error('Error clearing teams:', error);
+	} else {
+		console.log('Teams cleared successfully:', data);
+	}
+}
 
 
 
@@ -1788,7 +1832,7 @@ async function getMatchList() {
 
 
 
-		matches.forEach(match => {
+		for (const match of matches) {
 			const matchNumber = match.match_name.split(" ")[1];
 			const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
 			let winnerText = 'TBD';
@@ -1812,24 +1856,41 @@ async function getMatchList() {
 
 			currentMatchKey = match.match_key;
 
-			tbody.innerHTML += `
-				<tr class="prescouttablerow" data-rone="${sortedParticipants[0].team_key}" data-rtwo="${sortedParticipants[1].team_key}" data-bone="${sortedParticipants[2].team_key}" data-btwo="${sortedParticipants[3].team_key}" onclick="goToMatchScoutModePage(this)">
-					<td>${matchNumber}</td>
-					<td style="color: ${color};">${winnerText.toUpperCase()}</td>
-					<td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
-					<td class="matchscoutredtd">${sortedParticipants[1].team_key}</td>
-					<td class="matchscoutbluetd">${sortedParticipants[2].team_key}</td>
-					<td class="matchscoutbluetd">${sortedParticipants[3].team_key}</td>
-					<td></td>
-				</tr>
-			`;
-		});
+			const { data: finalizedTeams, error: finalizedError } = await supabaseClient.rpc('get_match_teams_finalized', {
+                p_group_id: groupId,
+                p_match_key: match.match_key
+            });
 
-        } catch (error) {
-            console.error('Failed to load matches:', error);
-            alert('Could not fetch matches.');
-        }
+            if (finalizedError) {
+                console.error('Error fetching finalized teams:', finalizedError);
+            }
+
+            const finalizedMap = new Map();
+            if (finalizedTeams) {
+                finalizedTeams.forEach(({ station, finalized }) => {
+                    finalizedMap.set(station, finalized === 1);
+                });
+            }
+
+			tbody.innerHTML += `
+                <tr class="prescouttablerow" data-rone="${sortedParticipants[0].team_key}" data-rtwo="${sortedParticipants[1].team_key}" data-bone="${sortedParticipants[2].team_key}" data-btwo="${sortedParticipants[3].team_key}" data-r1f="${r1f}" data-r2f="${r2f}" data-b1f="${b1f}" data-b2f="${b2f}" onclick="goToMatchScoutModePage(this)">
+                    <td>${matchNumber}</td>
+                    <td style="color: ${color};">${winnerText.toUpperCase()}</td>
+                    <td class="matchscoutredtd">${sortedParticipants[0].team_key}${r1f ? ' ✔️' : ''}</td>
+                    <td class="matchscoutredtd">${sortedParticipants[1].team_key}${r2f ? ' ✔️' : ''}</td>
+                    <td class="matchscoutbluetd">${sortedParticipants[2].team_key}${b1f ? ' ✔️' : ''}</td>
+                    <td class="matchscoutbluetd">${sortedParticipants[3].team_key}${b2f ? ' ✔️' : ''}</td>
+                </tr>
+            `;
+
+		}
+
+	} catch (error) {
+		console.error('Failed to load matches:', error);
+		alert('Could not fetch matches.');
+	}
 }
+
 
 
 
@@ -1839,6 +1900,8 @@ function goToMatchScoutModePage(element){
     scoreTable[0].b1.team_number = element.dataset.bone;
     scoreTable[0].b2.team_number = element.dataset.btwo;
 
+
+
     document.getElementById("matchteamnumberredone").textContent = element.dataset.rone;
     document.getElementById("matchteamnumberredtwo").textContent = element.dataset.rtwo;
     document.getElementById("matchteamnumberblueone").textContent = element.dataset.bone;
@@ -1846,7 +1909,7 @@ function goToMatchScoutModePage(element){
 
     document.getElementById("matchscoutmatchlist").style.display = "none";
     document.getElementById("matchscoutmodebody").style.display = "flex";
-    document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
+    document.getElementById("matchscoutallthewaybackbuttn").style.display = "none";
 }
 
 
@@ -1996,7 +2059,7 @@ function changeMatchModeElement(button) {
     }else{
         if(currentAutoStatus && scoreTable[0][station]["auto"][element] !== "0"){
             scoreTable[0][station]["auto"][element] = (Number(scoreTable[0][station]["auto"][element]) - 1).toString();
-        }else if(!currentAutoStatus && scoreTable[0][station]["teleop"][element] !== 0){
+        }else if(!currentAutoStatus && scoreTable[0][station]["oteleop"][element] !== 0){
             scoreTable[0][station]["teleop"][element] = (Number(scoreTable[0][station]["teleop"][element]) - 1).toString();
         }
     }
@@ -2167,15 +2230,16 @@ function flipAutoTeleOp(){
 
 async function submitIndividualTeam(participantKey) {
 	const station = participantKey;
-
-    scoreTable[0][station].finalized = 1;
-
 	const stationData = scoreTable[0][station];
 
 	if (!stationData) {
 		console.error("Invalid participantKey/station:", station);
 		return;
 	}
+
+	const teamKey = stationData.team_number;
+
+	stationData.finalized = 1;
 
 	try {
 		const { data, error } = await supabase.rpc('update_match_station', {
@@ -2188,7 +2252,7 @@ async function submitIndividualTeam(participantKey) {
 		if (error) {
 			console.error("Error updating match station:", error);
 			alert("Failed to update match data.");
-            scoreTable[0][station].finalized = 0;
+			scoreTable[0][station].finalized = 0;
 			return;
 		}
 
@@ -2197,6 +2261,173 @@ async function submitIndividualTeam(participantKey) {
 	} catch (err) {
 		console.error("Unexpected error submitting match data:", err);
 		alert("An unexpected error occurred.");
-        scoreTable[0][station].finalized = 0;
+		scoreTable[0][station].finalized = 0;
+		return;
 	}
+
+	try {
+		const matchEntry = {
+			match_key: currentMatchKey,
+			station: participantKey
+		};
+
+		const { error: updateError } = await supabase.rpc('update_team_matches', {
+			group_id: groupId,
+			team_key: teamKey,
+			match_entry: matchEntry
+		});
+
+		if (updateError) {
+			console.error("Error updating team matches:", updateError);
+			alert("Failed to append team match.");
+			scoreTable[0][station].finalized = 0;
+			return;
+		}
+
+		console.log("Team match appended successfully to teams column.");
+	} catch (err) {
+		console.error("Unexpected error updating team data:", err);
+		alert("An unexpected error occurred during team data update.");
+		scoreTable[0][station].finalized = 0;
+	}
+
+	const localStorageKey = `matchdata_${currentMatchKey}`;
+	let matchData = localStorage.getItem(localStorageKey);
+	matchData = matchData ? JSON.parse(matchData) : {};
+
+	matchData[station] = stationData;
+
+	localStorage.setItem(localStorageKey, JSON.stringify(matchData));
+}
+
+
+
+
+const allButtonIds = [
+    "matchscoutelementoner1", "matchscoutelementtwor1",
+    "matchscoutelementoner2", "matchscoutelementtwor2",
+    "matchscoutelementoneb1", "matchscoutelementtwob1",
+    "matchscoutelementoneb2", "matchscoutelementtwob2",
+
+    "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+    "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
+    "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
+    "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+];
+
+async function loadMatchStationData(matchKey, station) {
+	const localStorageKey = `matchdata_${matchKey}`;
+	let matchData = localStorage.getItem(localStorageKey);
+
+	if (matchData) {
+		matchData = JSON.parse(matchData);
+		console.log('Loaded match data from localStorage:', matchData);
+	} else {
+		try {
+			const { data, error } = await supabase.rpc('get_match_station_data', {
+				p_group_id: groupId,
+				p_match_key: matchKey,
+				p_station_key: null  
+			});
+			if (error) {
+				console.error('Error fetching match data from Supabase:', error);
+				return null;
+			}
+			matchData = data || {};
+			localStorage.setItem(localStorageKey, JSON.stringify(matchData));
+			console.log('Fetched match data from Supabase and saved to localStorage:', matchData);
+		} catch (err) {
+			console.error('Unexpected error fetching match data:', err);
+			return null;
+		}
+	}
+
+	if (!scoreTable[0]) scoreTable[0] = {};
+
+	for (const st in matchData) {
+		scoreTable[0][st] = matchData[st];
+	}
+
+	const stationData = matchData[station];
+	if (!stationData) {
+		console.warn(`No data found for station ${station} in match ${matchKey}`);
+		return null;
+	}
+
+	if (stationData.finalized === 1) {
+		// const buttonsForStation = allButtonIds
+		// 	.filter(id => id.includes(station))
+		// 	.map(id => document.getElementById(id))
+		// 	.filter(Boolean);
+
+		// buttonsForStation.forEach(button => {
+		// 	button.classList.add('matchscoutbuttongrey');
+		// 	button.disabled = true;
+		// });
+        populateElementsFromScoreTable();
+	} else {
+		// enableStationButtons(station);
+	}
+
+	return stationData;
+}
+
+
+function clearStationDataTable() {
+  localStorage.setItem('stationdata', JSON.stringify({}));
+  console.log('Cleared entire stationdata table in localStorage');
+}
+
+function populateElementsFromScoreTable() {
+    const elementOnesAndTwos = [
+        "matchscoutelementoner1", "matchscoutelementtwor1",
+        "matchscoutelementoner2", "matchscoutelementtwor2",
+        "matchscoutelementoneb1", "matchscoutelementtwob1",
+        "matchscoutelementoneb2", "matchscoutelementtwob2"
+    ];
+
+    const elementThrees = [
+        "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+        "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
+        "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
+        "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+    ];
+
+    elementOnesAndTwos.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = "";
+    });
+
+    elementThrees.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.classList = "matchscoutbuttongrey";
+    });
+
+    for (const station in scoreTable[0]) {
+        if (!scoreTable[0][station]) continue;
+
+        const autoOrTeleop = currentAutoStatus ? "auto" : "teleop";
+        const stationData = scoreTable[0][station][autoOrTeleop];
+        if (!stationData) continue;
+
+        const elOneId = `matchscoutelementone${station}`;
+        const elOne = document.getElementById(elOneId);
+        if (elOne && stationData.elementone !== undefined) {
+            elOne.textContent = stationData.elementone;
+        }
+
+        const elTwoId = `matchscoutelementtwo${station}`;
+        const elTwo = document.getElementById(elTwoId);
+        if (elTwo && stationData.elementtwo !== undefined) {
+            elTwo.textContent = stationData.elementtwo;
+        }
+
+        if (stationData.elementthree && stationData.elementthree !== "0") {
+            const btnId = `elementthree${station}lvl${stationData.elementthree}`;
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.classList = "matchscoutbuttonpurple"; 
+            }
+        }
+    }
 }
