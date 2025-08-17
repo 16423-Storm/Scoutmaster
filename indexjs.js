@@ -1803,6 +1803,17 @@ async function getMatchList() {
                 superTable[match.match_key] = JSON.parse(JSON.stringify(scoreTableTemplate));
             });
 
+            const { data, error } = await supabaseClient
+			.from('group')
+			.update({ matches: superTable })
+			.eq('id', groupId);
+
+            if (error) {
+                console.error('Error updating matches in Supabase:', error);
+            } else {
+                console.log('Supabase group matches updated successfully:', data);
+            }
+
         } else {
             console.log('Matches column already has data. Skipping initialization.');
         }
@@ -1845,21 +1856,10 @@ async function getMatchList() {
 			`;
 		});
 
-		const { data, error } = await supabaseClient
-			.from('group')
-			.update({ matches: superTable })
-			.eq('id', groupId);
-
-		if (error) {
-			console.error('Error updating matches in Supabase:', error);
-		} else {
-			console.log('Supabase group matches updated successfully:', data);
-		}
-
-	} catch (error) {
-		console.error('Failed to load matches:', error);
-		alert('Could not fetch matches.');
-	}
+        } catch (error) {
+            console.error('Failed to load matches:', error);
+            alert('Could not fetch matches.');
+        }
 }
 
 
