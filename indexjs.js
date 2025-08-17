@@ -2253,7 +2253,7 @@ async function submitIndividualTeam(participantKey) {
 	stationData.finalized = 1;
 
 	try {
-		const { data, error } = await supabase.rpc('update_match_station', {
+		const { data, error } = await supabaseClient.rpc('update_match_station', {
 			group_id: groupId,
 			match_key: currentMatchKey,
 			station_key: station,
@@ -2282,7 +2282,7 @@ async function submitIndividualTeam(participantKey) {
 			station: participantKey
 		};
 
-		const { error: updateError } = await supabase.rpc('update_team_matches', {
+		const { error: updateError } = await supabaseClient.rpc('update_team_matches', {
 			group_id: groupId,
 			team_key: teamKey,
 			match_entry: matchEntry
@@ -2335,7 +2335,7 @@ async function loadMatchStationData(matchKey, station) {
 		console.log('Loaded match data from localStorage:', matchData);
 	} else {
 		try {
-			const { data, error } = await supabase.rpc('get_match_station_data', {
+			const { data, error } = await supabaseClient.rpc('get_match_station_data', {
 				p_group_id: groupId,
 				p_match_key: matchKey,
 				p_station_key: null  
