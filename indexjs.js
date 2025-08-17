@@ -1920,7 +1920,7 @@ function goToMatchScoutModePage(element){
 
     document.getElementById("matchscoutmatchlist").style.display = "none";
     document.getElementById("matchscoutmodebody").style.display = "flex";
-    document.getElementById("matchscoutallthewaybackbuttn").style.display = "none";
+    document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
 }
 
 
