@@ -1872,6 +1872,17 @@ async function getMatchList() {
                 });
             }
 
+            let r1f = false, r2f = false, b1f = false, b2f = false;
+
+            if (finalizedTeams && finalizedTeams.length > 0) {
+                const ft = finalizedTeams[0];
+                r1f = ft.r1f === 1;
+                r2f = ft.r2f === 1;
+                b1f = ft.b1f === 1;
+                b2f = ft.b2f === 1;
+            }
+
+
 			tbody.innerHTML += `
                 <tr class="prescouttablerow" data-rone="${sortedParticipants[0].team_key}" data-rtwo="${sortedParticipants[1].team_key}" data-bone="${sortedParticipants[2].team_key}" data-btwo="${sortedParticipants[3].team_key}" data-r1f="${r1f}" data-r2f="${r2f}" data-b1f="${b1f}" data-b2f="${b2f}" onclick="goToMatchScoutModePage(this)">
                     <td>${matchNumber}</td>
