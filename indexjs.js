@@ -1905,7 +1905,7 @@ async function getMatchList() {
 var currentMatchKey2;
 
 async function goToMatchScoutModePage(element) {
-    currentMatchKey2 = element.dataset.matchkey;
+    currentMatchKey2 = element.dataset.matchKey;
 
     scoreTable[0].r1.team_number = element.dataset.rone;
     scoreTable[0].r2.team_number = element.dataset.rtwo;
