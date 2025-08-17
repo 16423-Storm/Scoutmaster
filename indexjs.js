@@ -1933,7 +1933,7 @@ async function goToMatchScoutModePage(element) {
     for (const [station, cellIndex] of Object.entries(stationMap)) {
         const cell = rowCells[cellIndex];
         if (cell && cell.textContent.includes("✔️")) {
-            await loadMatchStationData(currentMatchKey, station);
+            await loadMatchStationData(currentMatchKey2, station);
         }
     }
 }
@@ -2297,7 +2297,7 @@ async function submitIndividualTeam(participantKey) {
 
 	try {
 		const matchEntry = {
-			match_key: currentMatchKey,
+			match_key: currentMatchKey2,
 			station: participantKey
 		};
 
@@ -2321,7 +2321,7 @@ async function submitIndividualTeam(participantKey) {
 		scoreTable[0][station].finalized = 0;
 	}
 
-	const localStorageKey = `matchdata_${currentMatchKey}`;
+	const localStorageKey = `matchdata_${currentMatchKey2}`;
 	let matchData = localStorage.getItem(localStorageKey);
 	matchData = matchData ? JSON.parse(matchData) : {};
 
