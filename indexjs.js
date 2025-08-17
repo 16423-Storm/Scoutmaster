@@ -2270,7 +2270,7 @@ async function submitIndividualTeam(participantKey) {
 	stationData.finalized = 1;
 
 	try {
-		const { data, error } = await supabaseClient.rpc('update_match_station_v2', {
+		const { data, error } = await supabaseClient.rpc('update_match_station_v3', {
             group_id: groupId,
             match_key: currentMatchKey,
             station_key: station,
