@@ -1942,6 +1942,7 @@ async function goToMatchScoutModePage(element) {
 
 
 function goBackFromMatchModeScout(){
+    enableStationButtons();
     resetToAutoMode();
     scoreTable = [
         {
