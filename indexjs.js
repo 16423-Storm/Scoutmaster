@@ -1834,20 +1834,21 @@ async function getMatchList() {
 
 
 function goToMatchScoutModePage(element){
-    scoreTable[0].r1.team_number = element.data.rone;
-    scoreTable[0].r2.team_number = element.data.rtwo;
-    scoreTable[0].b1.team_number = element.data.bone;
-    scoreTable[0].b2.team_number = element.data.btwo;
+    scoreTable[0].r1.team_number = element.dataset.rone;
+    scoreTable[0].r2.team_number = element.dataset.rtwo;
+    scoreTable[0].b1.team_number = element.dataset.bone;
+    scoreTable[0].b2.team_number = element.dataset.btwo;
 
-    document.getElementById("matchteamnumberredone").textContent = element.data.rone;
-    document.getElementById("matchteamnumberredtwo").textContent = element.data.rtwo;
-    document.getElementById("matchteamnumberblueone").textContent = element.data.bone;
-    document.getElementById("matchteamnumberbluetwo").textContent = element.data.btwo;
+    document.getElementById("matchteamnumberredone").textContent = element.dataset.rone;
+    document.getElementById("matchteamnumberredtwo").textContent = element.dataset.rtwo;
+    document.getElementById("matchteamnumberblueone").textContent = element.dataset.bone;
+    document.getElementById("matchteamnumberbluetwo").textContent = element.dataset.btwo;
 
     document.getElementById("matchscoutmatchlist").style.display = "none";
     document.getElementById("matchscoutmodebody").style.display = "flex";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
 }
+
 
 function goBackFromMatchModeScout(){
     scoreTable = [
