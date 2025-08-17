@@ -2334,15 +2334,21 @@ async function submitIndividualTeam(participantKey) {
 
 
 const allButtonIds = [
-    "matchscoutelementoner1", "matchscoutelementtwor1",
-    "matchscoutelementoner2", "matchscoutelementtwor2",
-    "matchscoutelementoneb1", "matchscoutelementtwob1",
-    "matchscoutelementoneb2", "matchscoutelementtwob2",
+  "takeawayelementonebuttonr1", "putonelementoner1",
+  "takeawayelementtwobuttonr1", "putonelementtwor1",
+  "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
 
-    "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
-    "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
-    "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
-    "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+  "takeawayelementonebuttonr2", "putonelementoner2",
+  "takeawayelementtwobuttonr2", "putonelementtwor2",
+  "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
+
+  "takeawayelementonebuttonb1", "putonelementoneb1",
+  "takeawayelementtwobuttonb1", "putonelementtwob1",
+  "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
+
+  "takeawayelementonebuttonb2", "putonelementoneb2",
+  "takeawayelementtwobuttonb2", "putonelementtwob2",
+  "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3",
 ];
 
 async function loadMatchStationData(matchKey, station) {
@@ -2393,9 +2399,10 @@ async function loadMatchStationData(matchKey, station) {
 		buttonsForStation.forEach(button => {
 			button.disabled = true;
 		});
+        document.getElementById(`matchteamnumbercontainer${station}`).onclick = null;
         populateElementsFromScoreTable();
 	} else {
-		enableStationButtons(station);
+		enableStationButtons();
 	}
 
 	return stationData;
@@ -2506,4 +2513,19 @@ function resetToAutoMode() {
         scoreTable[0][station].auto.elementtwo = "0";
         scoreTable[0][station].auto.elementthree = "0";
     }
+}
+
+function enableStationButtons() {
+    allButtonIds.forEach(id => {
+        const button = document.getElementById(id);
+        if (button) button.disabled = false;
+    });
+    ["r1", "r2", "b1", "b2"].forEach(station => {
+        document.getElementById(`matchteamnumbercontainer${station}`).onclick = () => {
+            popUpWarning(
+                'Pressing continue will submit all match data for this specific team, and you will no longer be able to edit it, are you 100% sure you want to continue?',
+                () => submitIndividualTeam(station)
+            );
+        };
+    });
 }
