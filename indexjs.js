@@ -1884,7 +1884,7 @@ async function getMatchList() {
 
 
 			tbody.innerHTML += `
-                <tr class="prescouttablerow" data-match-key="${currentMatchKey}" data-rone="${sortedParticipants[0].team_key}" data-rtwo="${sortedParticipants[1].team_key}" data-bone="${sortedParticipants[2].team_key}" data-btwo="${sortedParticipants[3].team_key}" data-r1f="${r1f}" data-r2f="${r2f}" data-b1f="${b1f}" data-b2f="${b2f}" onclick="goToMatchScoutModePage(this)">
+                <tr class="prescouttablerow" data-match-key="${match.match_key}" data-rone="${sortedParticipants[0].team_key}" data-rtwo="${sortedParticipants[1].team_key}" data-bone="${sortedParticipants[2].team_key}" data-btwo="${sortedParticipants[3].team_key}" data-r1f="${r1f}" data-r2f="${r2f}" data-b1f="${b1f}" data-b2f="${b2f}" onclick="goToMatchScoutModePage(this)">
                     <td>${matchNumber}</td>
                     <td style="color: ${color};">${winnerText.toUpperCase()}</td>
                     <td class="matchscoutredtd">${sortedParticipants[0].team_key}${r1f ? ' ✔️' : ''}</td>
