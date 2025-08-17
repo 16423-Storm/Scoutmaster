@@ -1731,7 +1731,7 @@ async function getMatchList() {
 			return getNum(a) - getNum(b);
 		});
 
-		const { emptyData, emptyError } = await supabaseClient
+		const { data: emptyData, error: emptyError } = await supabaseClient
             .rpc('check_matches_empty', { group_id: groupId });
 
         if (emptyError) {
@@ -1741,58 +1741,26 @@ async function getMatchList() {
 
             const scoreTableTemplate = {
                 "r1": {
-                    "auto": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
-                    "teleop": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
+                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
                     "team_number": "0000",
                     "finalized": 0
                 },
                 "r2": {
-                    "auto": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
-                    "teleop": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
+                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
                     "team_number": "0000",
                     "finalized": 0
                 },
                 "b1": {
-                    "auto": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
-                    "teleop": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
+                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
                     "team_number": "0000",
                     "finalized": 0
                 },
                 "b2": {
-                    "auto": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
-                    "teleop": {
-                        "elementone": "0",
-                        "elementtwo": "0",
-                        "elementthree": "0"
-                    },
+                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
                     "team_number": "0000",
                     "finalized": 0
                 }
@@ -1804,9 +1772,9 @@ async function getMatchList() {
             });
 
             const { data, error } = await supabaseClient
-			.from('group')
-			.update({ matches: superTable })
-			.eq('id', groupId);
+                .from('group')
+                .update({ matches: superTable })
+                .eq('id', groupId);
 
             if (error) {
                 console.error('Error updating matches in Supabase:', error);
@@ -1817,6 +1785,7 @@ async function getMatchList() {
         } else {
             console.log('Matches column already has data. Skipping initialization.');
         }
+
 
 
 		matches.forEach(match => {
