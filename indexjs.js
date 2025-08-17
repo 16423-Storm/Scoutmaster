@@ -1902,10 +1902,10 @@ async function getMatchList() {
 	}
 }
 
-
+var currentMatchKey2;
 
 async function goToMatchScoutModePage(element) {
-    currentMatchKey = element.dataset.matchkey;
+    currentMatchKey2 = element.dataset.matchkey;
 
     scoreTable[0].r1.team_number = element.dataset.rone;
     scoreTable[0].r2.team_number = element.dataset.rtwo;
@@ -2270,9 +2270,9 @@ async function submitIndividualTeam(participantKey) {
 	stationData.finalized = 1;
 
 	try {
-		const { data, error } = await supabaseClient.rpc('update_match_station_v3', {
+		const { data, error } = await supabaseClient.rpc('update_match_station_v2', {
             group_id: groupId,
-            match_key: currentMatchKey,
+            match_key: currentMatchKey2,
             station_key: station,
             station_data: stationData,
         });
