@@ -1905,7 +1905,7 @@ async function getMatchList() {
 
 
 async function goToMatchScoutModePage(element) {
-    currentMatchKey = element.dataset.matchkey; 
+    currentMatchKey = element.dataset.matchkey;
 
     scoreTable[0].r1.team_number = element.dataset.rone;
     scoreTable[0].r2.team_number = element.dataset.rtwo;
@@ -1921,11 +1921,23 @@ async function goToMatchScoutModePage(element) {
     document.getElementById("matchscoutmodebody").style.display = "flex";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
 
-    const stations = ['r1', 'r2', 'b1', 'b2'];
-    for (const station of stations) {
-        await loadMatchStationData(currentMatchKey, station);
+    const stationMap = {
+        r1: 2,
+        r2: 3,
+        b1: 4,
+        b2: 5
+    };
+
+    const rowCells = element.children;
+
+    for (const [station, cellIndex] of Object.entries(stationMap)) {
+        const cell = rowCells[cellIndex];
+        if (cell && cell.textContent.includes("✔️")) {
+            await loadMatchStationData(currentMatchKey, station);
+        }
     }
 }
+
 
 
 
