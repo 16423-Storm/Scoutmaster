@@ -1942,6 +1942,7 @@ async function goToMatchScoutModePage(element) {
 
 
 function goBackFromMatchModeScout(){
+    resetToAutoMode();
     scoreTable = [
         {
             "r1": {
@@ -2384,18 +2385,17 @@ async function loadMatchStationData(matchKey, station) {
 	}
 
 	if (stationData.finalized === 1) {
-		// const buttonsForStation = allButtonIds
-		// 	.filter(id => id.includes(station))
-		// 	.map(id => document.getElementById(id))
-		// 	.filter(Boolean);
+		const buttonsForStation = allButtonIds
+			.filter(id => id.includes(station))
+			.map(id => document.getElementById(id))
+			.filter(Boolean);
 
-		// buttonsForStation.forEach(button => {
-		// 	button.classList.add('matchscoutbuttongrey');
-		// 	button.disabled = true;
-		// });
+		buttonsForStation.forEach(button => {
+			button.disabled = true;
+		});
         populateElementsFromScoreTable();
 	} else {
-		// enableStationButtons(station);
+		enableStationButtons(station);
 	}
 
 	return stationData;
@@ -2458,5 +2458,52 @@ function populateElementsFromScoreTable() {
                 btn.classList = "matchscoutbuttonpurple"; 
             }
         }
+    }
+}
+
+function resetToAutoMode() {
+    currentAutoStatus = true;
+
+    const autoButton = document.getElementById("flipautoautobutton");
+    const teleopButton = document.getElementById("flipautoteleopbutton");
+    if (autoButton && teleopButton) {
+        autoButton.className = "matchscoutbuttonpurple";
+        teleopButton.className = "matchscoutbuttongrey";
+        autoButton.disabled = false;
+        teleopButton.disabled = false;
+    }
+
+    const elementOnesAndTwos = [
+        "matchscoutelementoner1", "matchscoutelementtwor1",
+        "matchscoutelementoner2", "matchscoutelementtwor2",
+        "matchscoutelementoneb1", "matchscoutelementtwob1",
+        "matchscoutelementoneb2", "matchscoutelementtwob2"
+    ];
+
+    elementOnesAndTwos.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = "0";
+    });
+
+    const elementThrees = [
+        "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+        "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
+        "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
+        "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+    ];
+
+    elementThrees.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.className = "matchscoutbuttongrey";
+            btn.disabled = false;
+        }
+    });
+
+    for (const station in scoreTable[0]) {
+        if (!scoreTable[0][station]) continue;
+        scoreTable[0][station].auto.elementone = "0";
+        scoreTable[0][station].auto.elementtwo = "0";
+        scoreTable[0][station].auto.elementthree = "0";
     }
 }
