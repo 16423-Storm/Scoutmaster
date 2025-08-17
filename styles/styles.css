@@ -1008,7 +1008,6 @@ body.darkmode .prescoutteamstbody tr:hover{
 
 .matchscoutmodebody{
     display: none;
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;

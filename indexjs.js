@@ -1731,65 +1731,82 @@ async function getMatchList() {
 			return getNum(a) - getNum(b);
 		});
 
-		const scoreTableTemplate = {
-			"r1": {
-				"auto": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"teleop": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"team_number":"0000"
-			},
-			"r2": {
-				"auto": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"teleop": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"team_number":"0000"
-			},
-			"b1": {
-				"auto": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"teleop": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"team_number":"0000"
-			},
-			"b2": {
-				"auto": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"teleop": {
-					"elementone": "0",
-					"elementtwo": "0",
-					"elementthree": "0"
-				},
-				"team_number":"0000"
-			}
-		};
+		const { emptyData, emptyError } = await supabaseClient
+            .rpc('check_matches_empty', { group_id: groupId });
 
-		let superTable = {};
-		matches.forEach(match => {
-			superTable[match.match_key] = JSON.parse(JSON.stringify(scoreTableTemplate));
-		});
+        if (eremptyErrorror) {
+            console.error('Error checking matches column:', emptyError);
+        } else if (emptyData === true) {
+            console.log('Matches column is empty or null. Initializing superTable...');
+
+            const scoreTableTemplate = {
+                "r1": {
+                    "auto": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "teleop": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "team_number": "0000",
+                    "finalized": 0
+                },
+                "r2": {
+                    "auto": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "teleop": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "team_number": "0000",
+                    "finalized": 0
+                },
+                "b1": {
+                    "auto": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "teleop": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "team_number": "0000",
+                    "finalized": 0
+                },
+                "b2": {
+                    "auto": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "teleop": {
+                        "elementone": "0",
+                        "elementtwo": "0",
+                        "elementthree": "0"
+                    },
+                    "team_number": "0000",
+                    "finalized": 0
+                }
+            };
+
+            let superTable = {};
+            matches.forEach(match => {
+                superTable[match.match_key] = JSON.parse(JSON.stringify(scoreTableTemplate));
+            });
+
+        } else {
+            console.log('Matches column already has data. Skipping initialization.');
+        }
+
 
 		matches.forEach(match => {
 			const matchNumber = match.match_name.split(" ")[1];
@@ -1816,7 +1833,7 @@ async function getMatchList() {
 			currentMatchKey = match.match_key;
 
 			tbody.innerHTML += `
-				<tr class="prescouttablerow" onclick="goToMatchScoutModePage()">
+				<tr class="prescouttablerow" data-rone="${sortedParticipants[0].team_key}" data-rtwo="${sortedParticipants[1].team_key}" data-bone="${sortedParticipants[2].team_key}" data-btwo="${sortedParticipants[3].team_key}" onclick="goToMatchScoutModePage(this)">
 					<td>${matchNumber}</td>
 					<td style="color: ${color};">${winnerText.toUpperCase()}</td>
 					<td class="matchscoutredtd">${sortedParticipants[0].team_key}</td>
@@ -1847,7 +1864,17 @@ async function getMatchList() {
 
 
 
-function goToMatchScoutModePage(){
+function goToMatchScoutModePage(element){
+    scoreTable[0].r1.team_number = element.data.rone;
+    scoreTable[0].r2.team_number = element.data.rtwo;
+    scoreTable[0].b1.team_number = element.data.bone;
+    scoreTable[0].b2.team_number = element.data.btwo;
+
+    document.getElementById("matchteamnumberredone").textContent = element.data.rone;
+    document.getElementById("matchteamnumberredtwo").textContent = element.data.rtwo;
+    document.getElementById("matchteamnumberblueone").textContent = element.data.bone;
+    document.getElementById("matchteamnumberbluetwo").textContent = element.data.btwo;
+
     document.getElementById("matchscoutmatchlist").style.display = "none";
     document.getElementById("matchscoutmodebody").style.display = "flex";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "none";
@@ -1866,7 +1893,9 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0"
-                }
+                },
+                "team_number":"0000",
+                "finalized":0
             },
             "r2": {
                 "auto": {
@@ -1878,7 +1907,9 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0"
-                }
+                },
+                "team_number":"0000",
+                "finalized":0
             },
             "b1": {
                 "auto": {
@@ -1890,7 +1921,9 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0"
-                }
+                },
+                "team_number":"0000",
+                "finalized":0
             },
             "b2": {
                 "auto": {
@@ -1902,7 +1935,9 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0"
-                }
+                },
+                "team_number":"0000",
+                "finalized":0
             }
         }
     ];
@@ -1924,7 +1959,8 @@ var scoreTable = [
                 "elementtwo": "0",
                 "elementthree": "0"
             },
-            "team_number":"0000"
+            "team_number":"0000",
+            "finalized":0
         },
         "r2": {
             "auto": {
@@ -1937,7 +1973,8 @@ var scoreTable = [
                 "elementtwo": "0",
                 "elementthree": "0"
             },
-            "team_number":"0000"
+            "team_number":"0000",
+            "finalized":0
         },
         "b1": {
             "auto": {
@@ -1950,7 +1987,8 @@ var scoreTable = [
                 "elementtwo": "0",
                 "elementthree": "0"
             },
-            "team_number":"0000"
+            "team_number":"0000",
+            "finalized":0
         },
         "b2": {
             "auto": {
@@ -1963,7 +2001,8 @@ var scoreTable = [
                 "elementtwo": "0",
                 "elementthree": "0"
             },
-            "team_number":"0000"
+            "team_number":"0000",
+            "finalized":0
         }
     }
 ];
@@ -2139,12 +2178,7 @@ function flipAutoTeleOp(){
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
     }
 
-    const arrayOfElementThree = [
-        "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
-        "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
-        "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
-        "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
-    ];
+    const arrayOfElementThree = ["elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
 
     arrayOfElementThree.forEach(oneId => {
         document.getElementById(oneId).classList = "matchscoutbuttongrey";
@@ -2164,6 +2198,8 @@ function flipAutoTeleOp(){
 async function submitIndividualTeam(participantKey) {
 	const station = participantKey;
 
+    scoreTable[0][station].finalized = 1;
+
 	const stationData = scoreTable[0][station];
 
 	if (!stationData) {
@@ -2182,6 +2218,7 @@ async function submitIndividualTeam(participantKey) {
 		if (error) {
 			console.error("Error updating match station:", error);
 			alert("Failed to update match data.");
+            scoreTable[0][station].finalized = 0;
 			return;
 		}
 
@@ -2190,5 +2227,6 @@ async function submitIndividualTeam(participantKey) {
 	} catch (err) {
 		console.error("Unexpected error submitting match data:", err);
 		alert("An unexpected error occurred.");
+        scoreTable[0][station].finalized = 0;
 	}
 }
