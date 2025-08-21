@@ -282,13 +282,14 @@ window.onload = function(){
     window.setTimeout(actualLoad, 3000);
 }
 
-function actualLoad(){
+async function actualLoad(){
+    console.log("Loading onload functions now.")
     document.body.classList.remove("lock-scroll");
     document.getElementById("blackout").style.display = "none";
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
     loadcookies();
-    useSessionData();
+    await useSessionData();
     loadStartingComp();  
 }
 
@@ -874,6 +875,7 @@ const ORANGE_API_KEY = 'qZJBdBp3HybnNrouyxbplVsEW31zLpYRARM+B0wmNrU=';
 let allEventsMap = new Map();
 
 async function loadStartingComp() {
+    console.log("Started attempt to load starting comp")
     if (!groupId) {
         console.warn("No groupId set");
         return;
