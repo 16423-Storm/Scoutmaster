@@ -283,14 +283,14 @@ window.onload = function(){
 }
 
 async function actualLoad(){
-    console.log("Loading onload functions now.")
+    console.log("Loading onload functions now.");
+    loadcookies();
+    await useSessionData();
+    loadStartingComp();  
     document.body.classList.remove("lock-scroll");
     document.getElementById("blackout").style.display = "none";
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
-    loadcookies();
-    await useSessionData();
-    loadStartingComp();  
 }
 
 // button to go to login page
@@ -875,7 +875,7 @@ const ORANGE_API_KEY = 'qZJBdBp3HybnNrouyxbplVsEW31zLpYRARM+B0wmNrU=';
 let allEventsMap = new Map();
 
 async function loadStartingComp() {
-    console.log("Started attempt to load starting comp")
+    console.log("Started attempt to load starting comp");
     if (!groupId) {
         console.warn("No groupId set");
         return;
@@ -924,6 +924,7 @@ async function loadStartingComp() {
         const event = eventArray[0];
 
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
+        document.getElementById("headercompetitionname").textContent = `${event.event_name}`;
         document.getElementById("competitionnameinprescoutlist").textContent = event.event_name;
         document.getElementById("competitionnameinmatchscoutlist").textContent = event.event_name;
     } catch (error) {
@@ -1016,6 +1017,7 @@ async function setScoutedCompetition(eventKey, eventName){
 
     statusPopUp("Successfully scouting new competition!");
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
+    document.getElementById("headercompetitionname").textContent = `${eventName}`;
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
     clearAllLocalPrescoutData();
     deletePrescoutDatabase();
@@ -1227,7 +1229,7 @@ async function pullAllTeamsPrescout() {
 					<tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' data-team-is-finalized="${isFinalized}" onclick="goToTeamPrescoutPage(this)">
 						<td>${teamNum} - ${team.team.team_name_short}</td>
 						<td style="width: 20%; text-align:center;">
-							${isFinalized ? '<img style="width: 30%; height: auto;" src="images/checkmark.png">' : ''}
+							${isFinalized ? '✔️' : ''}
 						</td>
 					</tr>
 				`;
@@ -1673,7 +1675,7 @@ async function updateFinalizedStatusInTable() {
             const isFinalized = finalizedMap.get(teamNum) || false;
 
             row.cells[1].innerHTML = isFinalized
-                ? '<img style="width: 30%; height: auto;" src="images/checkmark.png">'
+                ? '✔️'
                 : '';
             row.dataset.teamIsFinalized = isFinalized.toString()
         });

@@ -179,9 +179,8 @@ body.darkmode .navdivider{
     margin-left: calc(1% - 2px);
     margin-right: calc(1% - 2px);
     float: left;
+    border: 2px solid;
     border-radius: 5px;
-    border-width: 2px;
-    border-style: solid;
     height: 10rem;
     display: flex;
     align-items: center;
@@ -328,8 +327,7 @@ body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.dar
 }
 
 .signupbutton, body.darkmode .signupbutton{
-    border: 1px;
-    border: solid;
+    border: 1px solid;
     border-radius: 5px;
     position: relative;
     font-size: clamp(0.5rem, 3vw, 1.5rem);
@@ -401,8 +399,7 @@ body.darkmode .signupbutton:hover::before, .signupbutton:hover::before{
 
 .newgroupbutton, .existinggroupbutton, body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, .creategroupbutton, body.darkmode .creategroupbutton, .updateadminbutton, body.darkmode .updateadminbutton, .invitebutton, body.darkmode .invitebutton, .joingroupbutton, body.darkmode .joingroupbutton{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
-    border: 1px;
-    border: solid;
+    border: 1px solid;
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     width: clamp(10rem, 15vw, 30rem);
@@ -468,8 +465,7 @@ body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, b
 
 .competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer{
     margin-right: 30px;
-    border: 1px;
-    border: solid;
+    border: 1px solid;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
@@ -493,8 +489,7 @@ body.darkmode .competitionfocusselectcontainer{
 
 .memberlistcontainer, body.darkmode .memberlistcontainer{
     margin-left: 30px;
-    border: 1px;
-    border: solid;
+    border: 1px solid;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
@@ -531,9 +526,7 @@ body.darkmode .memberlistcontainer{
 }
 
 .memberlisttable td{
-    border:rgba(99, 99, 99, 0.2);
-    border: 1px;
-    border-style: solid;
+    border: 1px solid rgba(99, 99, 99, 0.2);
 }
 
 .memberlistemail:hover{
@@ -622,9 +615,7 @@ body.darkmode .memberlistcontainer{
 .comptab{
     margin-top: 10px;
     margin-bottom: 10px;
-    border-width: 1px;
-    border: solid;
-    border-color: #727272;
+    border: 1px solid #727272;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     width: 80%;
@@ -638,9 +629,7 @@ body.darkmode .memberlistcontainer{
 body.darkmode .comptab{
     margin-top: 10px;
     margin-bottom: 10px;
-    border-width: 1px;
-    border: solid;
-    border-color: #727272;
+    border: 1px solid #727272;
     border-radius: 5px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     width: 80%;
@@ -727,8 +716,7 @@ body.darkmode .comptab:hover{
     background-color: #e4e4e4;
     color: black;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
-    border: 1px;
-    border: solid;
+    border: 1px solid;
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     border-color: #ffffff;
@@ -881,7 +869,7 @@ body.darkmode .prescoutteamstbody tr:hover{
 
 .autopathsbuttongreen{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
-    border: solid 1px rgb(99, 99, 99);
+    border: 1px solid rgb(99, 99, 99);
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     background-color: #0ED145;
@@ -890,7 +878,7 @@ body.darkmode .prescoutteamstbody tr:hover{
 
 .autopathsbuttonred{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
-    border: solid 1px rgb(99, 99, 99);
+    border: 1px solid rgb(99, 99, 99);
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     background-color: #EC1C24;  
@@ -1106,8 +1094,7 @@ body.darkmode .prescoutteamstbody tr:hover{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         width: 48%;
         margin: calc(1% - 2px);
-        border-width: 2px;
-        border-style: solid;
+        border: 2px solid;
         background-color: #dadada;
         float: left;
     }
