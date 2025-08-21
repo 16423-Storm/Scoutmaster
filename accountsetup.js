@@ -12,7 +12,7 @@ async function signUp() {
         email,
         password,
         options: {
-            emailRedirectTo: 'https://abcde456.github.io/Scoutmaster/index.html'
+            emailRedirectTo: 'https://16423-storm.github.io/Scoutmaster/index.html'
         }
     });
 
@@ -62,7 +62,7 @@ async function signIn() {
         statusTextContainer.style.display = 'block';
         statusText.textContent = 'Login successful!';
         statusText.style.color = 'black';
-        window.location.href = 'https://abcde456.github.io/Scoutmaster/index.html';
+        window.location.href = 'https://16423-storm.github.io/Scoutmaster/index.html';
     }
 }
 
@@ -81,7 +81,7 @@ async function resendEmail() {
             type: 'signup',
             email: email,
             options: {
-                emailRedirectTo: 'https://abcde456.github.io/Scoutmaster/index.html'
+                emailRedirectTo: 'https://16423-storm.github.io/Scoutmaster/index.html'
             }
         });
 
@@ -113,7 +113,7 @@ async function resetPassword() {
 
     try {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: 'https://abcde456.github.io/Scoutmaster/resetpassword.html'
+            redirectTo: 'https://16423-storm.github.io/Scoutmaster/resetpassword.html'
         });
 
         if (error) {
