@@ -1944,6 +1944,7 @@ async function goToMatchScoutModePage(element) {
 function goBackFromMatchModeScout(){
     enableStationButtons();
     resetToAutoMode();
+    getMatchList();
     scoreTable = [
         {
             "r1": {
@@ -2329,6 +2330,7 @@ async function submitIndividualTeam(participantKey) {
 	matchData[station] = stationData;
 
 	localStorage.setItem(localStorageKey, JSON.stringify(matchData));
+    loadMatchStationData(currentMatchKey2, station);
 }
 
 
