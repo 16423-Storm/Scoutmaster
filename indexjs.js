@@ -689,6 +689,7 @@ async function logOut() {
     } else {
         console.log('Successfully logged out from local session.');
         window.location.href = "index.html";
+        location.reload();
     }
 }
 
@@ -747,6 +748,7 @@ async function leaveGroup() {
         statusPopUp("You have left your group");
 
         checkGroupMembership(); 
+        location.reload();
     }
 }
 
@@ -831,6 +833,7 @@ async function deleteAccount() {
         await logOut();
 
         window.location.href = "index.html";
+        location.reload();
         
         return true;
     } catch (error) {
@@ -935,6 +938,7 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
 
     if(compSearchInputVal.trim() === ""){
         container.innerHTML = '';
+        return;
     }
 
     if (allEventsMap.size === 0) {
