@@ -328,7 +328,28 @@
 
                     <div class="allianceselectionbodycontainer" id="allianceselectionbodycontainer">
                         <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromAllianceSelection()">&lt;- Back</button>
-                        <p>allianceselection?</p>
+                        <div class="allianceinfocontainer" id="allianceinfocontainer">
+                            <div class="allianceinfosubcontainer">
+                                <p class="generaltext">Alliance 1</p>
+                                <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                                    <input class="allianceinput" id="allianceinputone">
+                                    <button class="alliancesubmitbutton" data-alliance="one" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prescoutteamslist" id="allianceteamlist">
+                            <p class="generaltext" id="allianceteamlist">Loading...</p>
+                            <table style="border-collapse: collapse; table-layout: fixed;">
+                                <thead style="border-bottom: 1px solid #727272;;">
+                                    <th class="prescoutthead" style="width:100%;">Team</th>
+                                </thead>
+                                <tbody id="allianceteamtbody" class="prescoutteamstbody">
+                                    <tr class="prescouttablerow">
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>

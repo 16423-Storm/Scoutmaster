@@ -1145,7 +1145,9 @@ function goBackFromMatchScout(){
     document.getElementById("matchscoutbodycontainer").style.display = "none";
 }
 
-function showAllianceSelection(){
+async function showAllianceSelection(){
+    var numOfAlliances;
+
     previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
@@ -1163,6 +1165,91 @@ function showAllianceSelection(){
     });
 
     document.getElementById("allianceselectionbodycontainer").style.display = "flex";
+
+    try {
+		const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/teams`, {
+			headers: {
+				'X-TOA-Key': ORANGE_API_KEY,
+				'X-Application-Origin': 'scoutmaster',
+				'Content-Type': 'application/json'
+			}
+		});
+
+		if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+
+		const teams = await response.json();
+		teams.sort((a, b) => a.team.team_number - b.team.team_number);
+
+        if(teams.length < 12){
+            numOfAlliances = 2;
+        }else if(teams.length > 11 && teams.length < 20){
+            numOfAlliances = 4;
+        }else if(teams.length > 19 && teams.length < 40){
+            numOfAlliances = 6;
+        }else if(teams.length > 39){
+            numOfAlliances = 8;
+        }else{
+            numOfAlliances = 2;
+        }
+
+        const allInCon = document.getElementById("allianceinfocontainer");
+        allInCon.innerHTML = '';
+        var num = 0;
+        while(num < numOfAlliances){
+            if(currentEventKey === "2425-CMP-HOU1" || currentEventKey === "2425-CMP-HOU2" || currentEventKey === "2425-CMP-HOU3" || currentEventKey === "2425-CMP-HOU4"){
+                allInCon.innerHTML += `
+                <div class="allianceinfosubcontainer">
+                    <p class="generaltext">Alliance ${num += 1}</p>
+                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                        <input class="allianceinput" id="allianceinputone">
+                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
+                    </div>
+                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                        <input class="allianceinput" id="allianceinputone">
+                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
+                    </div>
+                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                        <input class="allianceinput" id="allianceinputone">
+                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
+                    </div>
+                </div>
+                `
+            }else{
+                allInCon.innerHTML += `
+                <div class="allianceinfosubcontainer">
+                    <p class="generaltext">Alliance ${num += 1}</p>
+                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                        <input class="allianceinput" id="allianceinputone">
+                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
+                    </div>
+                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                        <input class="allianceinput" id="allianceinputone">
+                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
+                    </div>
+                </div>
+                `
+            }
+            num += 1;
+        }
+
+        const tbody = document.getElementById("allianceteamtbody");
+        tbody.innerHTML = '';
+
+        teams.forEach(team => {
+            tbody.innerHTML += `
+                <tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToTeamPrescoutPage(this)">
+                    <td>${team.team.team_number} - ${team.team.team_name_short}</td>
+                    <td style="width: 20%;text-align:center;"></td>
+                </tr>
+            `;
+        });
+		
+	} catch (error) {
+		console.error('Failed to load teams:', error);
+		alert('Could not fetch teams.');
+		return;
+	}
+    
 }
 
 function goBackFromAllianceSelection(){
@@ -2585,4 +2672,9 @@ function enableStationButtons() {
             );
         };
     });
+}
+
+async function sendAlliance(element){
+    allianceNum = element.dataset.alliance;
+    pickNum = element.dataset.pick;
 }
