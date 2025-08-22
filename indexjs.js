@@ -968,6 +968,8 @@ async function loadStartingComp() {
         const event = eventArray[0];
 
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
+        document.getElementById("compsearchinput").value = "";
+        document.getElementById("compsearchinput").dispatchEvent(new Event('input'));
         document.getElementById("headercompetitionname").textContent = `${event.event_name}`;
         document.getElementById("competitionnameinprescoutlist").textContent = event.event_name;
         document.getElementById("competitionnameinmatchscoutlist").textContent = event.event_name;
