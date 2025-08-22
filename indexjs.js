@@ -153,6 +153,33 @@ async function joinGroup() {
 	errorHandleText.textContent = "";
 	checkGroupMembership();
 	statusPopUp("You have successfully joined the group!");
+
+	const { data: usergroupCheck, error: usergroupError } = await supabaseClient
+		.from('usergroup')
+		.select('*')
+		.eq('id', userId)
+		.eq('group_id', groupToJoinId)
+		.single();
+
+	if (usergroupError || !usergroupCheck) {
+		console.error("User not authorized to join this group's channel.");
+		return;
+	}
+
+	const groupChannelName = `chat-room-${groupToJoinId}`;
+	const channel = supabaseClient.channel(groupChannelName, {
+		config: {
+			broadcast: { self: true }
+		}
+	});
+
+	await channel.subscribe();
+
+	channel.on('broadcast', { event: 'new-message' }, (payload) => {
+		console.log(`[${groupChannelName}] Received:`, payload.payload.text);
+        handleNewMessage(payload.payload);
+	});
+
 }
 
 
@@ -468,6 +495,30 @@ async function checkGroupMembership() {
             document.getElementById("adminviewbodycontainer").style.display = "none";
             document.getElementById("regviewbodycontainer").style.display = "flex";
         }
+
+        const groupChannelName = `chat-room-${groupId}`;
+
+        if (!window.joinedChannels[groupChannelName]) {
+            const channel = supabaseClient.channel(groupChannelName, {
+                config: { broadcast: { self: true } }
+            });
+
+            try {
+                await channel.subscribe();
+                channel.on('broadcast', { event: 'new-message' }, (payload) => {
+                    console.log(`[${groupChannelName}] Received:`, payload.payload.text);
+                    handleNewMessage(payload.payload);
+                });
+                window.joinedChannels[groupChannelName] = channel;
+
+                console.log(`Subscribed to realtime channel: ${groupChannelName}`);
+            } catch (error) {
+                console.error("Failed to subscribe to realtime channel:", error);
+            }
+        } else {
+            console.log(`Already subscribed to channel: ${groupChannelName}`);
+        }
+
     } else {
         document.getElementById("ingroupmainbody").style.display = "none";
         document.getElementById("notingroupmainbody").style.display = "block";
@@ -475,8 +526,7 @@ async function checkGroupMembership() {
     }
 }
 
-
-
+window.joinedChannels = window.joinedChannels || {};
 
 async function isUserLoggedIn() {
     const { data: { session }, error } = await supabaseClient.auth.getSession();
@@ -569,6 +619,27 @@ async function createGroup() {
 
             groupCreated = true;
             checkGroupMembership();
+
+			const groupChannelName = `chat-room-${newId}`;
+			const channel = supabaseClient.channel(groupChannelName, {
+				config: {
+					broadcast: { self: true }
+				}
+			});
+
+			await channel.subscribe();
+
+			await channel.send({
+				type: 'broadcast',
+				event: 'new-message',
+				payload: { text: `Group "${groupName}" has been created.` }
+			});
+
+			channel.on('broadcast', { event: 'new-message' }, (payload) => {
+				console.log(`[${groupChannelName}] Received:`, payload.payload.text);
+                handleNewMessage(payload.payload);
+			});
+
         } else if (insertError.code === '23505') {
             console.warn(`ID ${newId} already exists. Retrying...`);
         } else {
@@ -1202,15 +1273,15 @@ async function showAllianceSelection(){
                 <div class="allianceinfosubcontainer">
                     <p class="generaltext">Alliance ${allianceNum}</p>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinputone">
+                        <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
                         <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
                     </div>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinputone">
+                        <input class="allianceinput" id="allianceinput-${allianceNum}-one">
                         <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
                     </div>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinputone">
+                        <input class="allianceinput" id="allianceinput-${allianceNum}-two">
                         <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
                     </div>
                 </div>
@@ -1220,11 +1291,11 @@ async function showAllianceSelection(){
                 <div class="allianceinfosubcontainer">
                     <p class="generaltext">Alliance ${allianceNum}</p>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinputone">
+                        <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
                         <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
                     </div>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinputone">
+                        <input class="allianceinput" id="allianceinput-${allianceNum}-one">
                         <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
                     </div>
                 </div>
@@ -1251,6 +1322,48 @@ async function showAllianceSelection(){
 		return;
 	}
     
+}
+
+async function sendAlliance(element){
+    allianceNum = element.dataset.alliance;
+    pickNum = element.dataset.pick;
+    teamPut = document.getElementById(`aliianceinput-${allianceNum}-${pickNum}`).value;
+
+    let containsLetters = /[a-z]/i.test(teamPut);
+
+    if(containsLetters){
+        statusPopUp("Cannot contain letters, must be a team number ONLY");
+        console.error("Input for team number contains letters, invalid");
+        return;
+    }
+
+    const messageText = `${allianceNum}-${pickNum}-${teamPut}`;
+
+    const groupChannelName = `chat-room-${groupId}`;
+    const channel = window.joinedChannels[groupChannelName];
+
+    if (!channel) {
+        console.error("Not subscribed to the group channel yet.");
+        return;
+    }
+
+    const message = { text: messageText }; 
+
+    const { error } = await channel.send({
+        type: 'broadcast',
+        event: 'new-message',
+        payload: message
+    });
+
+    if (error) {
+        console.error("Failed to send message:", error);
+    }
+
+
+}
+
+function handleNewMessage(message) {
+    alert("Message received: " + message.text);
 }
 
 function goBackFromAllianceSelection(){
@@ -2675,7 +2788,3 @@ function enableStationButtons() {
     });
 }
 
-async function sendAlliance(element){
-    allianceNum = element.dataset.alliance;
-    pickNum = element.dataset.pick;
-}
