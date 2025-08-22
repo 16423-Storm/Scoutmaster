@@ -1196,35 +1196,36 @@ async function showAllianceSelection(){
         allInCon.innerHTML = '';
         var num = 0;
         while(num < numOfAlliances){
+            var allianceNum = num + 1;
             if(currentEventKey === "2425-CMP-HOU1" || currentEventKey === "2425-CMP-HOU2" || currentEventKey === "2425-CMP-HOU3" || currentEventKey === "2425-CMP-HOU4"){
                 allInCon.innerHTML += `
                 <div class="allianceinfosubcontainer">
-                    <p class="generaltext">Alliance ${num += 1}</p>
+                    <p class="generaltext">Alliance ${allianceNum}</p>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
                         <input class="allianceinput" id="allianceinputone">
-                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
+                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
                     </div>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
                         <input class="allianceinput" id="allianceinputone">
-                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
+                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
                     </div>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
                         <input class="allianceinput" id="allianceinputone">
-                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
+                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
                     </div>
                 </div>
                 `
             }else{
                 allInCon.innerHTML += `
                 <div class="allianceinfosubcontainer">
-                    <p class="generaltext">Alliance ${num += 1}</p>
+                    <p class="generaltext">Alliance ${allianceNum}</p>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
                         <input class="allianceinput" id="allianceinputone">
-                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
+                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
                     </div>
                     <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
                         <input class="allianceinput" id="allianceinputone">
-                        <button class="alliancesubmitbutton" data-alliance="${num += 1}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
+                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
                     </div>
                 </div>
                 `
