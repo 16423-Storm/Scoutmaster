@@ -1327,7 +1327,7 @@ async function showAllianceSelection(){
 async function sendAlliance(element){
     allianceNum = element.dataset.alliance;
     pickNum = element.dataset.pick;
-    teamPut = document.getElementById(`aliianceinput-${allianceNum}-${pickNum}`).value;
+    teamPut = document.getElementById(`allianceinput-${allianceNum}-${pickNum}`).value;
 
     let containsLetters = /[a-z]/i.test(teamPut);
 
