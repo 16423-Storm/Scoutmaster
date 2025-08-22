@@ -249,7 +249,7 @@ async function removeInvite(emailCell) {
     const { data: groupData, error: groupError } = await supabaseClient
         .from('group')
         .select('invited')
-        .eq('id', groupToJoinId)
+        .eq('id', groupId)
         .maybeSingle();
 
     if (groupError || !groupData) {
