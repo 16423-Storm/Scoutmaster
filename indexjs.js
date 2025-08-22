@@ -164,7 +164,11 @@ async function inviteUser() {
         return;
     }
 
-    if(!inputVal.contains("@"))
+    if(!inputVal.includes("@")){
+        console.error("Not a valid email, does not contain '@'");
+        statusPopUp("Not a valid email, does not contain '@'");
+        return;
+    }
 
     if (!groupId) {
         console.error("No groupId set");
@@ -227,13 +231,50 @@ async function loadInvitedUsers() {
     invitedMembers.forEach(email => {
         const newRow = document.createElement("tr");
         const emailCell = document.createElement("td");
-        emailCell.classList.add("invitedlistemail");
-        emailCell.textContent = email; 
+        emailCell.classList.add("memberlistemail");
+        emailCell.textContent = email;
+        emailCell.onclick = function() {
+            popUpWarning(
+            "Clicking continue will remove this member from your invite list, are you 100% sure you want to continue?", 
+            () => removeInvite(this)
+            );
+        };
         newRow.appendChild(emailCell);
         invitedTbody.appendChild(newRow);
     });
 
 }
+
+async function removeInvite(emailCell) {
+    const { data: groupData, error: groupError } = await supabaseClient
+        .from('group')
+        .select('invited')
+        .eq('id', groupToJoinId)
+        .maybeSingle();
+
+    if (groupError || !groupData) {
+        errorHandleText.textContent = "Failed to load group data.";
+        errorHandleText.style.color = "red";
+        console.error(groupError);
+        return;
+    }
+
+    const invitedArray = Array.isArray(groupData.invited) ? groupData.invited : [];
+    const updatedInvited = invitedArray.filter(e => e !== emailCell.textContent);
+
+    const { error: invitedUpdateError } = await supabaseClient
+        .from('group')
+        .update({ invited: updatedInvited })
+        .eq('id', groupToJoinId);
+
+    if (invitedUpdateError) {
+        console.error("Failed to remove user from invited list:", invitedUpdateError.message);
+    }
+
+    emailCell.parentElement.remove();
+    statusPopUp("Successfully removed email from invite list");
+}
+
 
 
 //dark theme toggle
@@ -420,6 +461,7 @@ async function checkGroupMembership() {
         if (isAdmin) {
             document.getElementById("adminviewbodycontainer").style.display = "flex";
             document.getElementById("regviewbodycontainer").style.display = "flex";
+            document.getElementById("groupidtext").textContent = `Group ID: ${groupId}`
             loadMembers();
             loadInvitedUsers();
         } else {
@@ -692,6 +734,7 @@ async function logOut() {
     } else {
         console.log('Successfully logged out from local session.');
         window.location.href = "index.html";
+        localStorage.clear();
         location.reload();
     }
 }
@@ -812,7 +855,6 @@ async function removeFromGroup(kickedEmail){
 
 
 async function deleteAccount() {
-    await leaveGroup();
     try {
         const { data: { session } } = await supabaseClient.auth.getSession();
         const accessToken = session?.access_token;
@@ -832,9 +874,9 @@ async function deleteAccount() {
             const errorText = await response.text();
             throw new Error(errorText || 'Failed to delete user');
         }
-
+        await leaveGroup();
         await logOut();
-
+        localStorage.clear();
         window.location.href = "index.html";
         location.reload();
         

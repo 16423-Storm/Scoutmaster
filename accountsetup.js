@@ -70,7 +70,7 @@ function signUpPrompted(){
     document.getElementById("signupbutton").style.display = "block";
     document.getElementById("signinbutton").style.display = "none";
     document.getElementById("signupprompt").style.display = "none";
-    document.getElementById("statusText").textContent = "";
+    document.getElementById("statustext").textContent = "";
 }
 
 async function resendEmail() {
