@@ -792,7 +792,7 @@ async function leaveGroup() {
         }
 
         statusPopUp("You have left your group");
-
+        localStorage.clear();
         checkGroupMembership(); 
         location.reload();
     }
