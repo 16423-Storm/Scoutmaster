@@ -538,8 +538,10 @@ body.darkmode .memberlistcontainer{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
     width: 20%;
+    margin-right: 5px;
+    margin-left: 5px;
+    box-sizing: border-box;
 }
 
 .tablebelowbuttoncontainer{
@@ -561,6 +563,9 @@ body.darkmode .memberlistcontainer{
     align-items: center;
     margin-top: 10px;
     width: 80%;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-sizing: border-box;
 }
 
 .tabletext{

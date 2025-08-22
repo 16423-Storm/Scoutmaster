@@ -164,6 +164,8 @@ async function inviteUser() {
         return;
     }
 
+    if(!inputVal.contains("@"))
+
     if (!groupId) {
         console.error("No groupId set");
         return;

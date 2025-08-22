@@ -121,7 +121,6 @@ async function resetPassword() {
             document.getElementById("statustext").textContent = error;
             document.getElementById("statustext").style.color = 'red';
         } else {
-            alert('Password reset email sent successfully! Please check your inbox.');
             document.getElementById("statustext").textContent = 'Password reset email sent successfully! Please check your inbox.';
             document.getElementById("statustext").style.color = 'black';
         }
