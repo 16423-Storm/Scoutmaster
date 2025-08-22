@@ -265,7 +265,7 @@ async function removeInvite(emailCell) {
     const { error: invitedUpdateError } = await supabaseClient
         .from('group')
         .update({ invited: updatedInvited })
-        .eq('id', groupToJoinId);
+        .eq('id', groupId);
 
     if (invitedUpdateError) {
         console.error("Failed to remove user from invited list:", invitedUpdateError.message);
