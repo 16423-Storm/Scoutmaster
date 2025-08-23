@@ -1314,7 +1314,7 @@ async function showAllianceSelection(){
 
         teams.forEach(team => {
             tbody.innerHTML += `
-                <tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToTeamPrescoutPage(this)">
+                <tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToTeamPrescoutPage(this) style='text-align: center;'">
                     <td>${team.team.team_number} - ${team.team.team_name_short}</td>
                     <td style="width: 20%;text-align:center;"></td>
                 </tr>
@@ -1376,10 +1376,13 @@ function handleNewMessage(message) {
 
     for (let row of rows) {
         const cell = row.children[0];
-        if (cell && cell.textContent.trim() === teamToStrikeThrough) {
-            cell.style.textDecoration = "line-through";
-            cell.onclick = null;
-            break;
+        if (cell) {
+            const teamNumberInCell = cell.textContent.trim().split(" - ")[0];
+            if (teamNumberInCell === teamToStrikeThrough) {
+                cell.style.textDecoration = "line-through";
+                cell.onclick = null;
+                break;
+            }
         }
     }
 }
