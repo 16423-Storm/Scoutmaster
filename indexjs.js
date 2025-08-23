@@ -1333,7 +1333,7 @@ async function sendAlliance(element){
     pickNum = element.dataset.pick;
     teamPut = document.getElementById(`allianceinput-${allianceNum}-${pickNum}`).value;
 
-    if(!allianceTeamsList.contains(teamPut)){
+    if(!allianceTeamsList.includes(teamPut)){
         console.error("Not a valid team number");
         return;
     }
