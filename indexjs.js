@@ -1216,6 +1216,8 @@ function goBackFromMatchScout(){
     document.getElementById("matchscoutbodycontainer").style.display = "none";
 }
 
+var allianceTeamsList = [];
+
 async function showAllianceSelection(){
     var numOfAlliances;
 
@@ -1262,6 +1264,8 @@ async function showAllianceSelection(){
         }else{
             numOfAlliances = 2;
         }
+
+        allianceTeamsList = teams;
 
         const allInCon = document.getElementById("allianceinfocontainer");
         allInCon.innerHTML = '';
@@ -1329,11 +1333,8 @@ async function sendAlliance(element){
     pickNum = element.dataset.pick;
     teamPut = document.getElementById(`allianceinput-${allianceNum}-${pickNum}`).value;
 
-    let containsLetters = /[a-z]/i.test(teamPut);
-
-    if(containsLetters){
-        statusPopUp("Cannot contain letters, must be a team number ONLY");
-        console.error("Input for team number contains letters, invalid");
+    if(!allianceTeamsList.contains(teamPut)){
+        console.error("Not a valid team number");
         return;
     }
 
@@ -1363,7 +1364,23 @@ async function sendAlliance(element){
 }
 
 function handleNewMessage(message) {
-    alert("Message received: " + message.text);
+    console.log("Message received: " + message.text);
+    var splitUp = message.text.split("-");
+
+    document.getElementById(`allianceinput-${splitUp[0]}-${splitUp[1]}`).value = splitUp[2];
+
+    var teamToStrikeThrough = splitUp[2];
+
+    const rows = document.getElementById("allianceteamtbody").children;
+
+    for (let row of rows) {
+        const cell = row.children[0];
+        if (cell && cell.textContent.trim() === teamToStrikeThrough) {
+            cell.style.textDecoration = "line-through";
+            cell.onclick = null;
+            break;
+        }
+    }
 }
 
 function goBackFromAllianceSelection(){
@@ -1371,6 +1388,7 @@ function goBackFromAllianceSelection(){
         document.getElementById(div.id).style.display = div.display;
     });
     document.getElementById("allianceselectionbodycontainer").style.display = "none";
+    allianceTeamsList = [];
 }
 
 
