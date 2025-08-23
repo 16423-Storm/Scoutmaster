@@ -1265,7 +1265,8 @@ async function showAllianceSelection(){
             numOfAlliances = 2;
         }
 
-        allianceTeamsList = teams;
+        allianceTeamsList = teams.map(team => team.team_key);
+
 
         const allInCon = document.getElementById("allianceinfocontainer");
         allInCon.innerHTML = '';
