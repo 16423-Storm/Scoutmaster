@@ -1157,7 +1157,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     
     .totalchartcontainer canvas{
         width: 100% !important;
-        height: 400px !important;
+        height: auto !important;
     }
 
     .chartcontainer{

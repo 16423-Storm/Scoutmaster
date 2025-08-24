@@ -1394,6 +1394,8 @@ function goBackFromAllianceSelection(){
     allianceTeamsList = [];
 }
 
+const chartScale = 0.5;
+
 async function goToAllianceTeamPage(element) {
     const teamNumber = element.children[0].textContent.split(" - ")[0];
 
@@ -1502,20 +1504,47 @@ async function goToAllianceTeamPage(element) {
                     data: overallTotals,
                     borderColor: "rgba(0, 123, 255, 1)",
                     backgroundColor: "rgba(0, 123, 255, 0.1)",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 }
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: `Total Points - Team ${teamNumber}`
+                    text: `Total Points - Team ${teamNumber}`,
+                    font: { size: 14 * chartScale }
+                },
+                legend: {
+                    labels: {
+                        font: { size: 12 * chartScale }
+                    }
+                },
+                tooltip: {
+                    titleFont: { size: 12 * chartScale },
+                    bodyFont: { size: 10 * chartScale }
                 }
             },
             scales: {
-                y: { beginAtZero: true },
-                x: { title: { display: true, text: "Matches" } }
+                y: {
+                    beginAtZero: true,
+                    ticks: { font: { size: 10 * chartScale } },
+                    title: {
+                        display: false
+                    }
+                },
+                x: {
+                    ticks: { font: { size: 10 * chartScale } },
+                    title: {
+                        display: true,
+                        text: "Matches",
+                        font: { size: 12 * chartScale }
+                    }
+                }
             }
         }
     });
@@ -1530,39 +1559,72 @@ async function goToAllianceTeamPage(element) {
                     label: "Auto Element 1",
                     data: autoElementOne,
                     borderColor: "red",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 },
                 {
                     label: "Auto Element 2",
                     data: autoElementTwo,
                     borderColor: "green",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 },
                 {
                     label: "Auto Element 3",
                     data: autoElementThree,
                     borderColor: "blue",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 },
                 {
                     label: "Auto Total",
                     data: autoTotals,
                     borderColor: "purple",
                     borderDash: [5, 5],
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 }
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: `Auto Breakdown - Team ${teamNumber}`
+                    text: `Auto Breakdown - Team ${teamNumber}`,
+                    font: { size: 14 * chartScale }
+                },
+                legend: {
+                    labels: {
+                        font: { size: 12 * chartScale }
+                    }
+                },
+                tooltip: {
+                    titleFont: { size: 12 * chartScale },
+                    bodyFont: { size: 10 * chartScale }
                 }
             },
             scales: {
-                y: { beginAtZero: true },
-                x: { title: { display: true, text: "Matches" } }
+                y: {
+                    beginAtZero: true,
+                    ticks: { font: { size: 10 * chartScale } },
+                    title: {
+                        display: false
+                    }
+                },
+                x: {
+                    ticks: { font: { size: 10 * chartScale } },
+                    title: {
+                        display: true,
+                        text: "Matches",
+                        font: { size: 12 * chartScale }
+                    }
+                }
             }
         }
     });
@@ -1577,42 +1639,76 @@ async function goToAllianceTeamPage(element) {
                     label: "Teleop Element 1",
                     data: teleopElementOne,
                     borderColor: "orange",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 },
                 {
                     label: "Teleop Element 2",
                     data: teleopElementTwo,
                     borderColor: "teal",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 },
                 {
                     label: "Teleop Element 3",
                     data: teleopElementThree,
                     borderColor: "brown",
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 },
                 {
                     label: "Teleop Total",
                     data: teleopTotals,
                     borderColor: "black",
                     borderDash: [5, 5],
-                    tension: 0.3
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
                 }
             ]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
-                    text: `Teleop Breakdown - Team ${teamNumber}`
+                    text: `Teleop Breakdown - Team ${teamNumber}`,
+                    font: { size: 14 * chartScale }
+                },
+                legend: {
+                    labels: {
+                        font: { size: 12 * chartScale }
+                    }
+                },
+                tooltip: {
+                    titleFont: { size: 12 * chartScale },
+                    bodyFont: { size: 10 * chartScale }
                 }
             },
             scales: {
-                y: { beginAtZero: true },
-                x: { title: { display: true, text: "Matches" } }
+                y: {
+                    beginAtZero: true,
+                    ticks: { font: { size: 10 * chartScale } },
+                    title: {
+                        display: false
+                    }
+                },
+                x: {
+                    ticks: { font: { size: 10 * chartScale } },
+                    title: {
+                        display: true,
+                        text: "Matches",
+                        font: { size: 12 * chartScale }
+                    }
+                }
             }
         }
     });
+
 }
 
 
