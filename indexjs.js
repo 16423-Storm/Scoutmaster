@@ -1520,28 +1520,28 @@ async function goToAllianceTeamPage(element) {
                 },
                 legend: {
                     labels: {
-                        font: { size: 12 * chartScale }
+                        font: { size: 13 * chartScale }
                     }
                 },
                 tooltip: {
-                    titleFont: { size: 12 * chartScale },
-                    bodyFont: { size: 10 * chartScale }
+                    titleFont: { size: 13 * chartScale },
+                    bodyFont: { size: 13 * chartScale }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { font: { size: 10 * chartScale } },
+                    ticks: { font: { size: 13 * chartScale } },
                     title: {
                         display: false
                     }
                 },
                 x: {
-                    ticks: { font: { size: 10 * chartScale } },
+                    ticks: { font: { size: 13 * chartScale } },
                     title: {
                         display: true,
                         text: "Matches",
-                        font: { size: 12 * chartScale }
+                        font: { size: 13 * chartScale }
                     }
                 }
             }
@@ -1600,28 +1600,28 @@ async function goToAllianceTeamPage(element) {
                 },
                 legend: {
                     labels: {
-                        font: { size: 12 * chartScale }
+                        font: { size: 13 * chartScale }
                     }
                 },
                 tooltip: {
-                    titleFont: { size: 12 * chartScale },
-                    bodyFont: { size: 10 * chartScale }
+                    titleFont: { size: 13 * chartScale },
+                    bodyFont: { size: 13 * chartScale }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { font: { size: 10 * chartScale } },
+                    ticks: { font: { size: 13 * chartScale } },
                     title: {
                         display: false
                     }
                 },
                 x: {
-                    ticks: { font: { size: 10 * chartScale } },
+                    ticks: { font: { size: 13 * chartScale } },
                     title: {
                         display: true,
                         text: "Matches",
-                        font: { size: 12 * chartScale }
+                        font: { size: 13 * chartScale }
                     }
                 }
             }
@@ -1680,28 +1680,28 @@ async function goToAllianceTeamPage(element) {
                 },
                 legend: {
                     labels: {
-                        font: { size: 12 * chartScale }
+                        font: { size: 13 * chartScale }
                     }
                 },
                 tooltip: {
-                    titleFont: { size: 12 * chartScale },
-                    bodyFont: { size: 10 * chartScale }
+                    titleFont: { size: 13 * chartScale },
+                    bodyFont: { size: 13 * chartScale }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    ticks: { font: { size: 10 * chartScale } },
+                    ticks: { font: { size: 13 * chartScale } },
                     title: {
                         display: false
                     }
                 },
                 x: {
-                    ticks: { font: { size: 10 * chartScale } },
+                    ticks: { font: { size: 13 * chartScale } },
                     title: {
                         display: true,
                         text: "Matches",
-                        font: { size: 12 * chartScale }
+                        font: { size: 13 * chartScale }
                     }
                 }
             }
