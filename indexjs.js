@@ -1137,6 +1137,8 @@ async function setScoutedCompetition(eventKey, eventName){
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
     document.getElementById("headercompetitionname").textContent = `${eventName}`;
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
+    document.getElementById("compsearchinput").value = "";
+    document.getElementById("compsearchinput").dispatchEvent(new Event('input'));
     clearAllLocalPrescoutData();
     deletePrescoutDatabase();
     deleteMatchDatabase();
