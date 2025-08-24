@@ -18,6 +18,7 @@ var currentR1;
 var currentR2;
 var currentB1;
 var currentB2;
+var chartScale = 0.7;
 
 console.log(
     "%c⚠️ WARNING! ⚠️\n" +
@@ -1393,8 +1394,6 @@ function goBackFromAllianceSelection(){
     document.getElementById("allianceselectionbodycontainer").style.display = "none";
     allianceTeamsList = [];
 }
-
-const chartScale = 0.5;
 
 async function goToAllianceTeamPage(element) {
     const teamNumber = element.children[0].textContent.split(" - ")[0];

@@ -1137,16 +1137,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     height: 100% !important;
 }
 
-
-@media only screen and (max-width: 800px) {
-    .allianceinfocontainer{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        width: 95%;
-    }
-
+@media only screen and (max-width: 1000px) {
     .totalchartcontainer{
         display: flex;
         align-items: center;
@@ -1166,6 +1157,17 @@ body.darkmode .prescoutteamstbody tr:hover{
         justify-content: center;
         flex-direction: column;
         width: 100%;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    .allianceinfocontainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 95%;
     }
 
     .allianceinfosubcontainer{
