@@ -1380,7 +1380,7 @@ function handleNewMessage(message) {
             const teamNumberInCell = cell.textContent.trim().split(" - ")[0];
             if (teamNumberInCell === teamToStrikeThrough) {
                 cell.style.textDecoration = "line-through";
-                cell.onclick = "";
+                row.onclick = "";
                 break;
             }
         }
