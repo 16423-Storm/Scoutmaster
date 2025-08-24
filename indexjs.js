@@ -1395,7 +1395,9 @@ function goBackFromAllianceSelection(){
 }
 
 async function goToAllianceTeamPage(element) {
-    document.getElementById("teamshowallianceautooverlay").dataset.team = element.children[0].textContent.split(" - ")[0];
+    const teamNumber = element.children[0].textContent.split(" - ")[0];
+
+    document.getElementById("teamshowallianceautooverlay").dataset.team = teamNumber;
     document.getElementById("allianceteamnumbertext").textContent = element.children[0].textContent;
     document.getElementById("allianceinfocontainer").style.display = "none";
     document.getElementById("allianceteamlist").style.display = "none";
@@ -1404,16 +1406,213 @@ async function goToAllianceTeamPage(element) {
 
     const { data, error } = await supabaseClient.rpc('get_team_match_data', {
         g_id: groupId,
-        team_num: element.children[0].textContent.split(" - ")[0]
+        team_num: teamNumber
     });
 
     if (error) {
         console.error('RPC Error:', error);
-    } else {
-        console.log('Team Match Data:', data);
+        return;
     }
 
+    console.log('Team Match Data:', data);
+
+    const matchLabels = [];
+    const autoElementOne = [];
+    const autoElementTwo = [];
+    const autoElementThree = [];
+    const teleopElementOne = [];
+    const teleopElementTwo = [];
+    const teleopElementThree = [];
+    const autoTotals = [];
+    const teleopTotals = [];
+    const overallTotals = [];
+
+    // Worth variables (adjust per game rules)
+    const AUTO_ELEMENT_ONE_WORTH = 2;
+    const AUTO_ELEMENT_TWO_WORTH = 3;
+    const AUTO_ELEMENT_THREE_WORTH = 5;
+
+    const TELEOP_ELEMENT_ONE_WORTH = 1;
+    const TELEOP_ELEMENT_TWO_WORTH = 2;
+    const TELEOP_ELEMENT_THREE_WORTH = 3;
+
+
+    // Extract and prepare data
+    for (const matchKey in data) {
+        const matchData = data[matchKey];
+        const station = Object.keys(matchData)[0]; 
+        const stationData = matchData[station];
+
+        const auto = stationData.auto;
+        const teleop = stationData.teleop;
+
+        const ae1 = Number(auto.elementone);
+        const ae2 = Number(auto.elementtwo);
+        const ae3 = Number(auto.elementthree);
+        const te1 = Number(teleop.elementone);
+        const te2 = Number(teleop.elementtwo);
+        const te3 = Number(teleop.elementthree);
+
+        matchLabels.push(matchKey);
+        autoElementOne.push(ae1);
+        autoElementTwo.push(ae2);
+        autoElementThree.push(ae3);
+        teleopElementOne.push(te1);
+        teleopElementTwo.push(te2);
+        teleopElementThree.push(te3);
+
+        const autoTotal = 
+            ae1 * AUTO_ELEMENT_ONE_WORTH +
+            ae2 * AUTO_ELEMENT_TWO_WORTH +
+            ae3 * AUTO_ELEMENT_THREE_WORTH;
+
+        const teleopTotal = 
+            te1 * TELEOP_ELEMENT_ONE_WORTH +
+            te2 * TELEOP_ELEMENT_TWO_WORTH +
+            te3 * TELEOP_ELEMENT_THREE_WORTH;
+
+        const total = autoTotal + teleopTotal;
+
+        autoTotals.push(autoTotal);
+        teleopTotals.push(teleopTotal);
+        overallTotals.push(total);
+    }
+
+    const destroyChart = (id) => {
+        const chartCanvas = document.getElementById(id);
+        if (chartCanvas && Chart.getChart(id)) {
+            Chart.getChart(id).destroy();
+        }
+    };
+
+    destroyChart("totalchart");
+    destroyChart("autochart");
+    destroyChart("teleopchart");
+
+    // Total Chart
+    new Chart(document.getElementById("totalchart").getContext("2d"), {
+        type: "line",
+        data: {
+            labels: matchLabels,
+            datasets: [
+                {
+                    label: "Total Points",
+                    data: overallTotals,
+                    borderColor: "rgba(0, 123, 255, 1)",
+                    backgroundColor: "rgba(0, 123, 255, 0.1)",
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Total Points - Team ${teamNumber}`
+                }
+            },
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: "Matches" } }
+            }
+        }
+    });
+
+    // Auto Chart
+    new Chart(document.getElementById("autochart").getContext("2d"), {
+        type: "line",
+        data: {
+            labels: matchLabels,
+            datasets: [
+                {
+                    label: "Auto Element 1",
+                    data: autoElementOne,
+                    borderColor: "red",
+                    tension: 0.3
+                },
+                {
+                    label: "Auto Element 2",
+                    data: autoElementTwo,
+                    borderColor: "green",
+                    tension: 0.3
+                },
+                {
+                    label: "Auto Element 3",
+                    data: autoElementThree,
+                    borderColor: "blue",
+                    tension: 0.3
+                },
+                {
+                    label: "Auto Total",
+                    data: autoTotals,
+                    borderColor: "purple",
+                    borderDash: [5, 5],
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Auto Breakdown - Team ${teamNumber}`
+                }
+            },
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: "Matches" } }
+            }
+        }
+    });
+
+    // Teleop Chart
+    new Chart(document.getElementById("teleopchart").getContext("2d"), {
+        type: "line",
+        data: {
+            labels: matchLabels,
+            datasets: [
+                {
+                    label: "Teleop Element 1",
+                    data: teleopElementOne,
+                    borderColor: "orange",
+                    tension: 0.3
+                },
+                {
+                    label: "Teleop Element 2",
+                    data: teleopElementTwo,
+                    borderColor: "teal",
+                    tension: 0.3
+                },
+                {
+                    label: "Teleop Element 3",
+                    data: teleopElementThree,
+                    borderColor: "brown",
+                    tension: 0.3
+                },
+                {
+                    label: "Teleop Total",
+                    data: teleopTotals,
+                    borderColor: "black",
+                    borderDash: [5, 5],
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Teleop Breakdown - Team ${teamNumber}`
+                }
+            },
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: "Matches" } }
+            }
+        }
+    });
 }
+
 
 async function showAutoOverlayAlliance(element){
     const leTeamNumber = Number(element.dataset.team);
