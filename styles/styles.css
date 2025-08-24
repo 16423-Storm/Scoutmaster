@@ -822,6 +822,16 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-bottom: 10px;
 }
 
+.alliancestuffcontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .prescoutcheckbox{
     height: 100%;
     width: auto;
@@ -1187,7 +1197,7 @@ body.darkmode .allianceinfosubcontainer{
         margin: 5px;
         font-size: clamp(0.4rem, 2.2vw, 1rem);
     }
-    
+
     body.darkmode .allianceinfosubcontainer{
         border-color: black;
     }

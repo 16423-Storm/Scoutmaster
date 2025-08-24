@@ -1711,7 +1711,7 @@ async function goToAllianceTeamPage(element) {
         }
     });
 
-    const { data2, error2 } = await supabaseClient.rpc('get_prescout_data_for_alliance_info', {
+    const { data: data2, error: error2 } = await supabaseClient.rpc('get_prescout_data_for_alliance_info', {
         group_id: groupId,
         team_number: teamNumber.toString()
     });
