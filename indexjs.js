@@ -1135,6 +1135,7 @@ async function setScoutedCompetition(eventKey, eventName){
 
     statusPopUp("Successfully scouting new competition!");
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
+    document.getElementById("competitionnameinmatchscoutlist").textContent = eventName;
     document.getElementById("headercompetitionname").textContent = `${eventName}`;
     document.getElementById("competitionnameinprescoutlist").textContent = eventName;
     document.getElementById("compsearchinput").value = "";
