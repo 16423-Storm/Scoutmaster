@@ -1081,6 +1081,8 @@ body.darkmode .prescoutteamstbody tr:hover{
     justify-content: center;
     flex-direction: row;
     width: 95%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .allianceinfosubcontainer{
@@ -1113,6 +1115,22 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-right: 5px;
     margin-left: 5px;
 }
+
+.chartcontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.totalchartcontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 30%;
+}
+
 
 @media only screen and (max-width: 800px) {
     .allianceinfocontainer{

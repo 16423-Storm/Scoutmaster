@@ -349,6 +349,24 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="prescoutteampage" id="allianceteampage">
+                            <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromAllianceTeamPage()">&lt;- Back</button>
+                            <p class="generaltext" id="allianceteamnumbertext"></p>
+                            <div class="chartcontainer">
+                                <div class="totalchartcontainer">
+                                    <canvas id="totalchart"></canvas>
+                                </div>
+                                <div class="totalchartcontainer">
+                                    <canvas id="autochart"></canvas>
+                                </div>
+                                <div class="totalchartcontainer">
+                                    <canvas id="teleopchart"></canvas>
+                                </div>
+                            </div>
+                            <div class="abilitycontainer">
+                                <button class="changeablebutton" id="teamshowallianceautooverlay" data-team="0" onclick="showAutoOverlayAlliance(this)">Auto Paths</button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -487,6 +505,7 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--chartjs-->
         <script src="indexjs.js"></script>
     </body>
 </html>

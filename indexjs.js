@@ -1314,7 +1314,7 @@ async function showAllianceSelection(){
 
         teams.forEach(team => {
             tbody.innerHTML += `
-                <tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToTeamPrescoutPage(this) style='text-align: center;'">
+                <tr class="prescouttablerow" data-team-info='${JSON.stringify(team)}' onclick="goToAllianceTeamPage(this) style='text-align: center;'">
                     <td>${team.team.team_number} - ${team.team.team_name_short}</td>
                     <td style="width: 20%;text-align:center;"></td>
                 </tr>
@@ -1395,6 +1395,51 @@ function goBackFromAllianceSelection(){
     allianceTeamsList = [];
 }
 
+function goToAllianceTeamPage(element) {
+    document.getElementById("teamshowallianceautooverlay").dataset.team = element.textContent;
+    document.getElementById("allianceteamnumbertext").textContent = element.textContent;
+    document.getElementById("allianceinfocontainer").style.display = "none";
+    document.getElementById("allianceteamlist").style.display = "none";
+    document.getElementById("allianceteampage").style.display = "block";
+}
+
+async function showAutoOverlayAlliance(element){
+    const leTeamNumber = Number(element.dataset.team);
+
+    const { data, error } = await supabase.rpc('get_autosvg', {
+        team_number: leTeamNumber,
+        group_id: groupId
+    });
+
+    if (error) {
+        console.error("Error fetching autosvg:", error);
+        autoSVGs = null;
+    } else if (data) {
+        autoSVGs = data;
+        console.log("Data for autosvgs:", data);
+    } else {
+        autoSVGs = null;
+        console.warn("No autosvg data found for team", String(leTeamNumber));
+    }
+
+    alert("finalized (pseudo)");
+
+    lockNoUse = true;
+    lockFinalized = true;
+
+    showAutoOverlay();
+}
+
+function goBackFromAllianceTeamPage(){
+    document.getElementById("allianceinfocontainer").style.display = "flex";
+    document.getElementById("allianceteamlist").style.display = "flex";
+    document.getElementById("allianceteampage").style.display = "none";
+
+    unlockAndClearPrescoutInputs();
+    clearCurrentPath();
+    updateAutoPathDisplay();
+    lockNoUse = false;
+}
 
 async function pullAllTeamsPrescout() {
 	try {
