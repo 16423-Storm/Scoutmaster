@@ -1436,7 +1436,6 @@ async function goToAllianceTeamPage(element) {
     const TELEOP_ELEMENT_TWO_WORTH = 2;
     const TELEOP_ELEMENT_THREE_WORTH = 3;
 
-
     // Extract and prepare data
     for (const matchKey in data) {
         const matchData = data[matchKey];
@@ -1453,7 +1452,10 @@ async function goToAllianceTeamPage(element) {
         const te2 = Number(teleop.elementtwo);
         const te3 = Number(teleop.elementthree);
 
-        matchLabels.push(matchKey);
+        const parts = matchKey.split("-");
+        const label = parts.slice(-2).join("-");
+        matchLabels.push(label);
+
         autoElementOne.push(ae1);
         autoElementTwo.push(ae2);
         autoElementThree.push(ae3);

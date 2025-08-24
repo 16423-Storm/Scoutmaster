@@ -1121,6 +1121,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    width: 100%;
 }
 
 .totalchartcontainer{
@@ -1129,6 +1130,11 @@ body.darkmode .prescoutteamstbody tr:hover{
     justify-content: center;
     padding: 10px;
     width: 30%;
+}
+
+.totalchartcontainer canvas{
+    width: 100% !important;
+    height: 100% !important;
 }
 
 
