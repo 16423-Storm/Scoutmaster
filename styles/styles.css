@@ -832,6 +832,10 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-bottom: 10px;
 }
 
+.alliancestuffcontainer *{
+    margin: 5px;
+}
+
 .prescoutcheckbox{
     height: 100%;
     width: auto;
