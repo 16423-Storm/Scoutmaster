@@ -1427,7 +1427,8 @@ async function showAutoOverlayAlliance(element){
     lockNoUse = true;
     lockFinalized = true;
 
-    showAutoOverlay();
+    await updateAutoPathDisplay();
+    await showAutoOverlay();
 }
 
 function goBackFromAllianceTeamPage(){
