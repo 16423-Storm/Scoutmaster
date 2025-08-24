@@ -350,7 +350,7 @@
                             </table>
                         </div>
                         <div class="prescoutteampage" id="allianceteampage" style="width: 100%;">
-                            <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="goBackFromAllianceTeamPage()">&lt;- Back</button>
+                            <button class="changeablebutton" style="margin-top: 10px;margin-bottom: 10px;" onclick="popUpWarning('Pressing continue will reset ALL current alliance data, are you 100% sure you want to continue?', goBackFromAllianceTeamPage)">&lt;- Back</button>
                             <p class="generaltext" id="allianceteamnumbertext"></p>
                             <div class="chartcontainer">
                                 <div class="totalchartcontainer">
@@ -364,6 +364,10 @@
                                 </div>
                             </div>
                             <div class="abilitycontainer">
+                                <input type="checkbox" class="prescoutcheckbox" id="candoxalliance">
+                                <input type="checkbox" class="prescoutcheckbox" id="candoyalliance">
+                                <input type="text" class="prescoutbiginput" id="autodescriptionalliance" disabled>
+                                <input type="text" class="prescoutbiginput" id="notesalliance" disabled>
                                 <button class="changeablebutton" id="teamshowallianceautooverlay" data-team="0" onclick="showAutoOverlayAlliance(this)">Auto Paths</button>
                             </div>
                         </div>

@@ -1711,7 +1711,24 @@ async function goToAllianceTeamPage(element) {
         }
     });
 
+    const { data2, error2 } = await supabaseClient.rpc('get_prescout_data_for_alliance_info', {
+        group_id: groupId,
+        team_number: teamNumber.toString()
+    });
+
+    if (error2) {
+        console.error('Error fetching prescout info:', error2);
+        return;
+    }else{
+        document.getElementById("candoxalliance").checked = !!data2.ability1;
+        document.getElementById("candoyalliance").checked = !!data2.ability2;
+        document.getElementById("autodescriptionalliance").value = data2.strategy;
+        document.getElementById("notesalliance").value = data2.notes;
+    }
+
 }
+
+var stillSameTeam = false;
 
 
 async function showAutoOverlayAlliance(element){
@@ -1740,6 +1757,7 @@ async function showAutoOverlayAlliance(element){
 
     await updateAutoPathDisplay();
     await showAutoOverlay();
+    stillSameTeam = true;
 }
 
 function goBackFromAllianceTeamPage(){
@@ -1752,6 +1770,7 @@ function goBackFromAllianceTeamPage(){
     clearCurrentPath();
     updateAutoPathDisplay();
     lockNoUse = false;
+    stillSameTeam = false;
 }
 
 async function pullAllTeamsPrescout() {

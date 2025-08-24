@@ -1096,6 +1096,11 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-right: 5px;
     width: 12.5%;
     border-radius: 5px;
+    border-color: white;
+}
+
+body.darkmode .allianceinfosubcontainer{
+    border-color: black;
 }
 
 .allianceinput{
@@ -1182,6 +1187,11 @@ body.darkmode .prescoutteamstbody tr:hover{
         margin: 5px;
         font-size: clamp(0.4rem, 2.2vw, 1rem);
     }
+    
+    body.darkmode .allianceinfosubcontainer{
+        border-color: black;
+    }
+
 
     .matchscoutnumeratedbuttoncontainer{
         display: flex;
