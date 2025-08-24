@@ -1394,13 +1394,25 @@ function goBackFromAllianceSelection(){
     allianceTeamsList = [];
 }
 
-function goToAllianceTeamPage(element) {
+async function goToAllianceTeamPage(element) {
     document.getElementById("teamshowallianceautooverlay").dataset.team = element.children[0].textContent.split(" - ")[0];
     document.getElementById("allianceteamnumbertext").textContent = element.children[0].textContent;
     document.getElementById("allianceinfocontainer").style.display = "none";
     document.getElementById("allianceteamlist").style.display = "none";
     document.getElementById("allianceteampage").style.display = "flex";
     document.getElementById("goBackAllTheWayFromAlliance").style.display = "none";
+
+    const { data, error } = await supabaseClient.rpc('get_team_match_data', {
+        g_id: groupId,
+        team_num: element.children[0].textContent.split(" - ")[0]
+    });
+
+    if (error) {
+        console.error('RPC Error:', error);
+    } else {
+        console.log('Team Match Data:', data);
+    }
+
 }
 
 async function showAutoOverlayAlliance(element){
