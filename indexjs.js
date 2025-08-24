@@ -1456,12 +1456,12 @@ async function goToAllianceTeamPage(element) {
         const label = parts.slice(-2).join("-");
         matchLabels.push(label);
 
-        autoElementOne.push(ae1);
-        autoElementTwo.push(ae2);
-        autoElementThree.push(ae3);
-        teleopElementOne.push(te1);
-        teleopElementTwo.push(te2);
-        teleopElementThree.push(te3);
+        autoElementOne.push(ae1 * AUTO_ELEMENT_ONE_WORTH);
+        autoElementTwo.push(ae2 * AUTO_ELEMENT_TWO_WORTH);
+        autoElementThree.push(ae3 * AUTO_ELEMENT_THREE_WORTH);
+        teleopElementOne.push(te1 * TELEOP_ELEMENT_ONE_WORTH);
+        teleopElementTwo.push(te2 * TELEOP_ELEMENT_TWO_WORTH);
+        teleopElementThree.push(te3 * TELEOP_ELEMENT_THREE_WORTH);
 
         const autoTotal = 
             ae1 * AUTO_ELEMENT_ONE_WORTH +

@@ -1147,6 +1147,22 @@ body.darkmode .prescoutteamstbody tr:hover{
         width: 95%;
     }
 
+    .totalchartcontainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 95%;
+    }
+
+    .chartcontainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
     .allianceinfosubcontainer{
         display: flex;
         align-items: center;
