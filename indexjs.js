@@ -1732,32 +1732,36 @@ var stillSameTeam = false;
 
 
 async function showAutoOverlayAlliance(element){
-    const leTeamNumber = Number(element.dataset.team);
+    if(stillSameTeam){
+        return;
+    }else{
+        const leTeamNumber = Number(element.dataset.team);
 
-    const { data, error } = await supabaseClient.rpc('get_autosvg', {
-        team_number: leTeamNumber,
-        group_id: groupId
-    });
+        const { data, error } = await supabaseClient.rpc('get_autosvg', {
+            team_number: leTeamNumber,
+            group_id: groupId
+        });
 
-    if (error) {
-        console.error("Error fetching autosvg:", error);
-        autoSVGs = null;
-    } else if (data) {
-        autoSVGs = data;
-        console.log("Data for autosvgs:", data);
-    } else {
-        autoSVGs = null;
-        console.warn("No autosvg data found for team", String(leTeamNumber));
+        if (error) {
+            console.error("Error fetching autosvg:", error);
+            autoSVGs = null;
+        } else if (data) {
+            autoSVGs = data;
+            console.log("Data for autosvgs:", data);
+        } else {
+            autoSVGs = null;
+            console.warn("No autosvg data found for team", String(leTeamNumber));
+        }
+
+        alert("finalized (pseudo)");
+
+        lockNoUse = true;
+        lockFinalized = true;
+
+        await updateAutoPathDisplay();
+        await showAutoOverlay();
+        stillSameTeam = true;
     }
-
-    alert("finalized (pseudo)");
-
-    lockNoUse = true;
-    lockFinalized = true;
-
-    await updateAutoPathDisplay();
-    await showAutoOverlay();
-    stillSameTeam = true;
 }
 
 function goBackFromAllianceTeamPage(){
