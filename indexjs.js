@@ -1047,7 +1047,6 @@ async function loadStartingComp() {
         document.getElementById("competitionnameinmatchscoutlist").textContent = event.event_name;
     } catch (error) {
         console.error('Failed to load event:', error);
-        alert('Could not fetch event info.');
     }
 }
 
@@ -1082,7 +1081,6 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
 
         } catch (error) {
             console.error('Failed to load events:', error);
-            alert('Could not fetch event codes.');
             return;
         }
     }
@@ -1326,7 +1324,6 @@ async function showAllianceSelection(){
 		
 	} catch (error) {
 		console.error('Failed to load teams:', error);
-		alert('Could not fetch teams.');
 		return;
 	}
     
@@ -1753,8 +1750,6 @@ async function showAutoOverlayAlliance(element){
             console.warn("No autosvg data found for team", String(leTeamNumber));
         }
 
-        alert("finalized (pseudo)");
-
         lockNoUse = true;
         lockFinalized = true;
 
@@ -1887,7 +1882,6 @@ async function pullAllTeamsPrescout() {
 		}
 	} catch (error) {
 		console.error('Failed to load teams:', error);
-		alert('Could not fetch teams.');
 		return;
 	}
 }
@@ -1908,7 +1902,6 @@ function goToTeamPrescoutPage(element){
     document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
 
     if(teamIsFinalized === "true"){
-        alert("finalized")
         disableDrawing();
         loadPrescoutForTeam();
         hideAutoEditButtons();
@@ -1916,7 +1909,6 @@ function goToTeamPrescoutPage(element){
         lockFinalized = true;
     }else{
         unlockAndClearPrescoutInputs();
-        alert("not finalized");
         lockNoUse = false;
         enableDrawing();
         showAutoEditButtons();
@@ -2189,11 +2181,11 @@ async function savePrescoutData() {
 
 	if (error) {
 		console.error("Error updating prescout:", error);
-		alert("Failed to save prescout data.");
+		statusPopUp("Failed to save prescout data.");
 		return false;
 	}
 
-	alert("Prescout data saved successfully.");
+	statusPopUp("Prescout data saved successfully.");
     goBackFromTeamPagePreScout();
     updateFinalizedStatusInTable();
 
@@ -2556,7 +2548,6 @@ async function getMatchList() {
 
 	} catch (error) {
 		console.error('Failed to load matches:', error);
-		alert('Could not fetch matches.');
 	}
 }
 
@@ -2941,16 +2932,15 @@ async function submitIndividualTeam(participantKey) {
 
 		if (error) {
 			console.error("Error updating match station:", error);
-			alert("Failed to update match data.");
 			scoreTable[0][station].finalized = 0;
 			return;
 		}
 
 		console.log("Successfully updated match station:", data);
-		alert("Match data submitted successfully.");
+		statusPopUp("Match data submitted successfully.");
 	} catch (err) {
 		console.error("Unexpected error submitting match data:", err);
-		alert("An unexpected error occurred.");
+		statusPopUp("An unexpected error occurred.");
 		scoreTable[0][station].finalized = 0;
 		return;
 	}
@@ -2969,7 +2959,6 @@ async function submitIndividualTeam(participantKey) {
 
 		if (updateError) {
 			console.error("Error updating team matches:", updateError);
-			alert("Failed to append team match.");
 			scoreTable[0][station].finalized = 0;
 			return;
 		}
@@ -2977,7 +2966,6 @@ async function submitIndividualTeam(participantKey) {
 		console.log("Team match appended successfully to teams column.");
 	} catch (err) {
 		console.error("Unexpected error updating team data:", err);
-		alert("An unexpected error occurred during team data update.");
 		scoreTable[0][station].finalized = 0;
 	}
 
