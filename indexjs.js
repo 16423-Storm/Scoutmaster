@@ -20,6 +20,15 @@ var currentB1;
 var currentB2;
 var chartScale = 0.7;
 
+// Worth variables (adjust per game rules)
+const AUTO_ELEMENT_ONE_WORTH = 2;
+const AUTO_ELEMENT_TWO_WORTH = 3;
+const AUTO_ELEMENT_THREE_WORTH = 5;
+
+const TELEOP_ELEMENT_ONE_WORTH = 1;
+const TELEOP_ELEMENT_TWO_WORTH = 2;
+const TELEOP_ELEMENT_THREE_WORTH = 3;
+
 console.log(
     "%c⚠️ WARNING! ⚠️\n" +
     "This console is intended for developers and developers ONLY.\n" +
@@ -1314,14 +1323,27 @@ async function showAllianceSelection(){
         const tbody = document.getElementById("allianceteamtbody");
         tbody.innerHTML = '';
 
-        teams.forEach(team => {
+        for (const team of teams) {
+            const { data: avgPoints, error: avgPointsError } = await supabaseClient.rpc('get_team_average_points', {
+                group_id: groupId,
+                team_key: team.team.team_number.toString()
+            });
+
+            if (avgPointsError) {
+                console.error("Error loading average points:", avgPointsError);
+                continue;
+            }
+
+            console.log("Average points:", avgPoints);
+
             tbody.innerHTML += `
-                <tr class="prescouttablerow" onclick="goToAllianceTeamPage(this)" style="'text-align: center;'">
+                <tr class="prescouttablerow" onclick="goToAllianceTeamPage(this)" style="text-align: center;">
                     <td>${team.team.team_number} - ${team.team.team_name_short}</td>
+                    <td>${avgPoints !== null ? avgPoints : 'N/A'}</td>
                 </tr>
             `;
-        });
-		
+        }
+        
 	} catch (error) {
 		console.error('Failed to load teams:', error);
 		return;
@@ -1427,15 +1449,6 @@ async function goToAllianceTeamPage(element) {
     const autoTotals = [];
     const teleopTotals = [];
     const overallTotals = [];
-
-    // Worth variables (adjust per game rules)
-    const AUTO_ELEMENT_ONE_WORTH = 2;
-    const AUTO_ELEMENT_TWO_WORTH = 3;
-    const AUTO_ELEMENT_THREE_WORTH = 5;
-
-    const TELEOP_ELEMENT_ONE_WORTH = 1;
-    const TELEOP_ELEMENT_TWO_WORTH = 2;
-    const TELEOP_ELEMENT_THREE_WORTH = 3;
 
     // Extract and prepare data
     for (const matchKey in data) {
@@ -2951,10 +2964,13 @@ async function submitIndividualTeam(participantKey) {
 			station: participantKey
 		};
 
+        const points = stationData.auto.elementone * AUTO_ELEMENT_ONE_WORTH + stationData.auto.elementtwo * AUTO_ELEMENT_TWO_WORTH + stationData.auto.elementthree * AUTO_ELEMENT_THREE_WORTH + stationData.teleop.elementone * TELEOP_ELEMENT_ONE_WORTH + stationData.teleop.elementtwo * TELEOP_ELEMENT_TWO_WORTH + stationData.teleop.elementthree * TELEOP_ELEMENT_THREE_WORTH;
+
 		const { error: updateError } = await supabaseClient.rpc('update_team_matches', {
 			group_id: groupId,
 			team_key: teamKey,
-			match_entry: matchEntry
+			match_entry: matchEntry,
+            new_point: points
 		});
 
 		if (updateError) {
