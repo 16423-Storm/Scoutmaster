@@ -1352,7 +1352,7 @@ async function showAllianceSelection(){
             tbody.innerHTML += `
                 <tr class="prescouttablerow" onclick="goToAllianceTeamPage(this)" style="text-align: center;">
                     <td>${team.team.team_number} - ${team.team.team_name_short}</td>
-                    <td>${avgPoints !== -Infinity ? avgPoints : 'N/A'}</td>
+                    <td>${avgPoints !== -Infinity ? avgPoints.toFixed(2) : 'N/A'}</td>
                 </tr>
             `;
         }
