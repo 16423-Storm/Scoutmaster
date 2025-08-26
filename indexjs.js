@@ -1323,6 +1323,8 @@ async function showAllianceSelection(){
         const tbody = document.getElementById("allianceteamtbody");
         tbody.innerHTML = '';
 
+        const teamsWithPoints = [];
+
         for (const team of teams) {
             const { data: avgPoints, error: avgPointsError } = await supabaseClient.rpc('get_team_average_points', {
                 group_id: groupId,
@@ -1336,14 +1338,26 @@ async function showAllianceSelection(){
 
             console.log("Average points:", avgPoints);
 
+            teamsWithPoints.push({
+                team,
+                avgPoints: avgPoints !== null ? avgPoints : -Infinity
+            });
+        }
+
+        teamsWithPoints.sort((a, b) => b.avgPoints - a.avgPoints);
+
+        tbody.innerHTML = '';
+
+        for (const { team, avgPoints } of teamsWithPoints) {
             tbody.innerHTML += `
                 <tr class="prescouttablerow" onclick="goToAllianceTeamPage(this)" style="text-align: center;">
                     <td>${team.team.team_number} - ${team.team.team_name_short}</td>
-                    <td>${avgPoints !== null ? avgPoints : 'N/A'}</td>
+                    <td>${avgPoints !== -Infinity ? avgPoints : 'N/A'}</td>
                 </tr>
             `;
         }
-        
+
+
 	} catch (error) {
 		console.error('Failed to load teams:', error);
 		return;
