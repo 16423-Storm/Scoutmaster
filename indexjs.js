@@ -2870,9 +2870,9 @@ function handleOptionsClick(button){
         button.classList = "matchscoutbuttongrey";
         if (station === "r1") {
             if (currentAutoStatus) {
-                scoreTable[0].r1.auto.elementthree = "0";
+                scoreTable[0].r1.auto.elementfive = "0";
             } else {
-                scoreTable[0].r1.teleop.elementthree = "0";
+                scoreTable[0].r1.teleop.elementfive = "0";
             }
         } else if (station === "r2") {
             if (currentAutoStatus) {
@@ -2924,9 +2924,9 @@ function flipAutoAuto(){
         const elementTwoVal = scoreTable[0][station].auto.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
         const elementThreeVal = scoreTable[0][station].auto.elementfour;
-        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementThreeVal;
+        document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
         const elementFourVal = scoreTable[0][station].auto.elementfour;
-        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementFourVal;
+        document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
     }
 
     arrayOfElementThree.forEach(oneId => {
@@ -2934,11 +2934,11 @@ function flipAutoAuto(){
     });
 
     for (const station in scoreTable[0]) {
-        const elementThreeVal = scoreTable[0][station].auto.elementthree;
+        const elementThreeVal = scoreTable[0][station].auto.elementfive;
         if (elementThreeVal === "0") {
             console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
         } else {
-            const buttonId = `elementthree${station}lvl${elementThreeVal}`;
+            const buttonId = `elementfive${station}lvl${elementThreeVal}`;
             document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
         }
     }
@@ -2966,9 +2966,9 @@ function flipAutoTeleOp(){
         const elementTwoVal = scoreTable[0][station].teleop.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
         const elementThreeVal = scoreTable[0][station].teleop.elementfour;
-        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementThreeVal;
+        document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
         const elementFourVal = scoreTable[0][station].teleop.elementfour;
-        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementFourVal;
+        document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
     }
 
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
