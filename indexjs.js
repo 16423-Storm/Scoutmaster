@@ -927,7 +927,7 @@ async function removeFromGroup(kickedEmail){
             console.log('Usergroup entry removed.');
         }
 
-        statusPopUp("You have left your group");
+        statusPopUp("Removed member from group successfully!");
 
         checkGroupMembership(); 
     }
