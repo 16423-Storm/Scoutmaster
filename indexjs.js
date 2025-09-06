@@ -2905,6 +2905,10 @@ function flipAutoAuto(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttongrey";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
+    document.getElementById("numerated4").style.display = "none";
+
+    document.getElementById("elementfiver1lvl2").style.display = "none";
+
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
 
     const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
@@ -2919,6 +2923,10 @@ function flipAutoAuto(){
         document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
         const elementTwoVal = scoreTable[0][station].auto.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
+        const elementThreeVal = scoreTable[0][station].auto.elementfour;
+        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementThreeVal;
+        const elementFourVal = scoreTable[0][station].auto.elementfour;
+        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementFourVal;
     }
 
     arrayOfElementThree.forEach(oneId => {
@@ -2942,6 +2950,10 @@ function flipAutoTeleOp(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttonpurple";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
+    document.getElementById("numerated4").style.display = "flex";
+    
+    document.getElementById("elementfiver1lvl2").style.display = "block";
+
     const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
 
     arrayOfElementOnesAndTwos.forEach(oneId =>{
@@ -2953,6 +2965,10 @@ function flipAutoTeleOp(){
         document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
         const elementTwoVal = scoreTable[0][station].teleop.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
+        const elementThreeVal = scoreTable[0][station].teleop.elementfour;
+        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementThreeVal;
+        const elementFourVal = scoreTable[0][station].teleop.elementfour;
+        document.getElementById(`matchscoutelementtwo${station}`).textContent = elementFourVal;
     }
 
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
