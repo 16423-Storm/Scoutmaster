@@ -2697,12 +2697,16 @@ var scoreTable = [
             "auto": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "teleop": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "team_number":"0000",
             "finalized":0
@@ -2790,11 +2794,9 @@ function handleOptionsClick(button){
 
     var arrayOfOtherActions = [];
     if(action === "lvl1"){
-        arrayOfOtherActions.push("lvl2", "lvl3");
+        arrayOfOtherActions.push("lvl2");
     }else if(action === "lvl2"){
-        arrayOfOtherActions.push("lvl1", "lvl3");
-    }else if(action === "lvl3"){
-        arrayOfOtherActions.push("lvl1", "lvl2");
+        arrayOfOtherActions.push("lvl1");
     }else{
         console.log("Error with handling options buttons click");
     }
@@ -2807,9 +2809,9 @@ function handleOptionsClick(button){
         });
         if(station === "r1"){
             if(currentAutoStatus){
-                scoreTable[0].r1.auto.elementthree = action[3];
+                scoreTable[0].r1.auto.elementfive = action[3];
             }else{
-                scoreTable[0].r1.teleop.elementthree = action[3];
+                scoreTable[0].r1.teleop.elementfive = action[3];
             }
         }else if(station === "r2"){
             if(currentAutoStatus){
@@ -2873,9 +2875,9 @@ function flipAutoAuto(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttongrey";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    const arrayOfElementThree = ["elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
+    const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
 
-    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
 
     arrayOfElementOnesAndTwos.forEach(oneId =>{
         document.getElementById(oneId).textContent = "";
@@ -2910,7 +2912,7 @@ function flipAutoTeleOp(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttonpurple";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
 
     arrayOfElementOnesAndTwos.forEach(oneId =>{
         document.getElementById(oneId).textContent = "";
@@ -2923,7 +2925,7 @@ function flipAutoTeleOp(){
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
     }
 
-    const arrayOfElementThree = ["elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
+    const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
 
     arrayOfElementThree.forEach(oneId => {
         document.getElementById(oneId).classList = "matchscoutbuttongrey";
@@ -3020,7 +3022,9 @@ async function submitIndividualTeam(participantKey) {
 const allButtonIds = [
   "takeawayelementonebuttonr1", "putonelementoner1",
   "takeawayelementtwobuttonr1", "putonelementtwor1",
-  "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+  "takeawayelementthreebuttonr1", "putonelementthreer1",
+  "takeawayelementfourbuttonr1", "putonelementfourr1",
+  "elementfiver1lvl1", "elementfiver1lvl2",
 
   "takeawayelementonebuttonr2", "putonelementoner2",
   "takeawayelementtwobuttonr2", "putonelementtwor2",
@@ -3100,14 +3104,14 @@ function clearStationDataTable() {
 
 function populateElementsFromScoreTable() {
     const elementOnesAndTwos = [
-        "matchscoutelementoner1", "matchscoutelementtwor1",
+        "matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1",
         "matchscoutelementoner2", "matchscoutelementtwor2",
         "matchscoutelementoneb1", "matchscoutelementtwob1",
         "matchscoutelementoneb2", "matchscoutelementtwob2"
     ];
 
     const elementThrees = [
-        "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+        "elementfiver1lvl1", "elementfiver1lvl2",
         "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
         "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
         "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
@@ -3165,7 +3169,7 @@ function resetToAutoMode() {
     }
 
     const elementOnesAndTwos = [
-        "matchscoutelementoner1", "matchscoutelementtwor1",
+        "matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1",
         "matchscoutelementoner2", "matchscoutelementtwor2",
         "matchscoutelementoneb1", "matchscoutelementtwob1",
         "matchscoutelementoneb2", "matchscoutelementtwob2"
@@ -3177,7 +3181,7 @@ function resetToAutoMode() {
     });
 
     const elementThrees = [
-        "elementthreer1lvl1", "elementthreer1lvl2", "elementthreer1lvl3",
+        "elementfiver1lvl1", "elementfiver1lvl2",
         "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
         "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
         "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
