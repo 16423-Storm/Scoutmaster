@@ -2927,6 +2927,8 @@ function flipAutoAuto(){
         document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
         const elementFourVal = scoreTable[0][station].auto.elementfour;
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
+        const elementFiveVal = scoreTable[0][station].auto.elementfive;
+        document.getElementById(`matchscoutelementfive${station}`).textContent = elementFiveVal;
     }
 
     arrayOfElementThree.forEach(oneId => {
@@ -2934,11 +2936,11 @@ function flipAutoAuto(){
     });
 
     for (const station in scoreTable[0]) {
-        const elementThreeVal = scoreTable[0][station].auto.elementfive;
-        if (elementThreeVal === "0") {
+        const elementFiveVal = scoreTable[0][station].auto.elementfive;
+        if (elementFiveVal === "0") {
             console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
         } else {
-            const buttonId = `elementfive${station}lvl${elementThreeVal}`;
+            const buttonId = `elementfive${station}lvl${elementFiveVal}`;
             document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
         }
     }
@@ -2969,6 +2971,8 @@ function flipAutoTeleOp(){
         document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
         const elementFourVal = scoreTable[0][station].teleop.elementfour;
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
+        const elementFiveVal = scoreTable[0][station].teleop.elementfive;
+        document.getElementById(`matchscoutelementfive${station}`).textContent = elementFiveVal;
     }
 
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementfiver2lvl1", "elementfiver2lvl2", "elementfiveb1lvl1", "elementfiveb1lvl2", "elementfiveb2lvl1", "elementfiveb2lvl2"];
@@ -2978,11 +2982,11 @@ function flipAutoTeleOp(){
     });
 
     for (const station in scoreTable[0]) {
-        const elementThreeVal = scoreTable[0][station].teleop.elementthree;
-        if (elementThreeVal === "0") {
+        const elementFiveVal = scoreTable[0][station].teleop.elementthree;
+        if (elementFiveVal === "0") {
             console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
         } else {
-            const buttonId = `elementthree${station}lvl${elementThreeVal}`;
+            const buttonId = `elementthree${station}lvl${elementFiveVal}`;
             document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
         }
     }
