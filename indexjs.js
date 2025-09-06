@@ -3178,7 +3178,7 @@ function populateElementsFromScoreTable() {
 
         const elThreeId = `matchscoutelementthree${station}`;
         const elThree = document.getElementById(elThreeId);
-        if (elThree && stationData.elementhree !== undefined) {
+        if (elThree && stationData.elementthree !== undefined) {
             elThree.textContent = stationData.elementthree;
         }
 
