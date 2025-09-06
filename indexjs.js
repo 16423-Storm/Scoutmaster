@@ -3159,16 +3159,16 @@ function clearStationDataTable() {
 function populateElementsFromScoreTable() {
     const elementOnesAndTwos = [
         "matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1",
-        "matchscoutelementoner2", "matchscoutelementtwor2",
-        "matchscoutelementoneb1", "matchscoutelementtwob1",
-        "matchscoutelementoneb2", "matchscoutelementtwob2"
+        "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementthreer2", "matchscoutelementfourr2",
+        "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementthreeb1", "matchscoutelementfourb1",
+        "matchscoutelementoneb2", "matchscoutelementtwob2", "matchscoutelementthreeb2", "matchscoutelementfourb2"
     ];
 
     const elementThrees = [
         "elementfiver1lvl1", "elementfiver1lvl2",
-        "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
-        "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
-        "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+        "elementfiver2lvl1", "elementfiver2lvl2",
+        "elementfiveb1lvl1", "elementfiveb1lvl2",
+        "elementfiveb2lvl1", "elementfiveb2lvl2",
     ];
 
     elementOnesAndTwos.forEach(id => {
@@ -3236,9 +3236,9 @@ function resetToAutoMode() {
 
     const elementOnesAndTwos = [
         "matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1",
-        "matchscoutelementoner2", "matchscoutelementtwor2",
-        "matchscoutelementoneb1", "matchscoutelementtwob1",
-        "matchscoutelementoneb2", "matchscoutelementtwob2"
+        "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementthreer2", "matchscoutelementfourr2",
+        "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementthreeb1", "matchscoutelementfourb1",
+        "matchscoutelementoneb2", "matchscoutelementtwob2", "matchscoutelementthreeb2", "matchscoutelementfourb2"
     ];
 
     elementOnesAndTwos.forEach(id => {
@@ -3248,9 +3248,9 @@ function resetToAutoMode() {
 
     const elementThrees = [
         "elementfiver1lvl1", "elementfiver1lvl2",
-        "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
-        "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
-        "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"
+        "elementfiver2lvl1", "elementfiver2lvl2",
+        "elementfiveb1lvl1", "elementfiveb1lvl2",
+        "elementfiveb2lvl1", "elementfiveb2lvl2",
     ];
 
     elementThrees.forEach(id => {
