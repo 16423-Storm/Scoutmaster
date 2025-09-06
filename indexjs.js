@@ -2492,30 +2492,79 @@ async function getMatchList() {
 
             const scoreTableTemplate = {
                 "r1": {
-                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
-                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "auto": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
+                    "teleop": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
                     "team_number": "0000",
                     "finalized": 0
                 },
                 "r2": {
-                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
-                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "auto": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
+                    "teleop": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
                     "team_number": "0000",
                     "finalized": 0
                 },
                 "b1": {
-                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
-                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "auto": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
+                    "teleop": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
                     "team_number": "0000",
                     "finalized": 0
                 },
                 "b2": {
-                    "auto": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
-                    "teleop": { "elementone": "0", "elementtwo": "0", "elementthree": "0" },
+                    "auto": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
+                    "teleop": { 
+                        "elementone": "0", 
+                        "elementtwo": "0", 
+                        "elementthree": "0",
+                        "elementfour": "0",
+                        "elementfive": "0"
+                    },
                     "team_number": "0000",
                     "finalized": 0
                 }
             };
+
 
             let superTable = {};
             matches.forEach(match => {
@@ -2658,12 +2707,16 @@ function goBackFromMatchModeScout(){
                 "auto": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "teleop": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "team_number":"0000",
                 "finalized":0
@@ -2672,12 +2725,16 @@ function goBackFromMatchModeScout(){
                 "auto": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "teleop": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "team_number":"0000",
                 "finalized":0
@@ -2686,12 +2743,16 @@ function goBackFromMatchModeScout(){
                 "auto": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "teleop": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "team_number":"0000",
                 "finalized":0
@@ -2700,12 +2761,16 @@ function goBackFromMatchModeScout(){
                 "auto": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "teleop": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0"
+                    "elementthree": "0",
+                    "elementfour": "0",
+                    "elementfive": "0"
                 },
                 "team_number":"0000",
                 "finalized":0
@@ -2741,12 +2806,16 @@ var scoreTable = [
             "auto": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "teleop": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "team_number":"0000",
             "finalized":0
@@ -2755,12 +2824,16 @@ var scoreTable = [
             "auto": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "teleop": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "team_number":"0000",
             "finalized":0
@@ -2769,12 +2842,16 @@ var scoreTable = [
             "auto": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "teleop": {
                 "elementone": "0",
                 "elementtwo": "0",
-                "elementthree": "0"
+                "elementthree": "0",
+                "elementfour": "0",
+                "elementfive": "0"
             },
             "team_number":"0000",
             "finalized":0
