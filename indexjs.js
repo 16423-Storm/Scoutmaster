@@ -2809,7 +2809,11 @@ function handleOptionsClick(button){
         });
         if(station === "r1"){
             if(currentAutoStatus){
-                scoreTable[0].r1.auto.elementfive = action[3];
+                if(scoreTable[0].r1.auto.elementfive === action[3]){
+                    scoreTable[0].r1.auto.elementfive = 0;
+                }else{
+                    scoreTable[0].r1.auto.elementfive = action[3];
+                }
             }else{
                 scoreTable[0].r1.teleop.elementfive = action[3];
             }
