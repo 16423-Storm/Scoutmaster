@@ -2905,9 +2905,12 @@ function flipAutoAuto(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttongrey";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    document.getElementById("numerated4").style.display = "none";
+    document.querySelectorAll(".numerated4").forEach(el => el.display = "none");
 
     document.getElementById("elementfiver1lvl2").style.display = "none";
+    document.getElementById("elementfiver2lvl2").style.display = "none";
+    document.getElementById("elementfiveb1lvl2").style.display = "none";
+    document.getElementById("elementfiveb2lvl2").style.display = "none";
 
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementfiver2lvl1", "elementfiver2lvl2", "elementfiveb1lvl1", "elementfiveb1lvl2", "elementfiveb2lvl1", "elementfiveb2lvl2"];
 
@@ -2936,8 +2939,8 @@ function flipAutoAuto(){
 
     for (const station in scoreTable[0]) {
         const elementFiveVal = scoreTable[0][station].auto.elementfive;
-        if (elementFiveVal === "0") {
-            console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
+        if (elementFiveVal === "0" || elementFiveVal === undefined || elementFiveVal === null) {
+            console.log(`Element 5 inside of station ${station} is 0, this is not an error`);
         } else {
             const buttonId = `elementfive${station}lvl${elementFiveVal}`;
             document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
@@ -2951,9 +2954,12 @@ function flipAutoTeleOp(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttonpurple";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    document.getElementById("numerated4").style.display = "flex";
+    document.querySelectorAll(".numerated4").forEach(el => el.display = "flex");
     
     document.getElementById("elementfiver1lvl2").style.display = "block";
+    document.getElementById("elementfiver2lvl2").style.display = "block";
+    document.getElementById("elementfiveb1lvl2").style.display = "block";
+    document.getElementById("elementfiveb2lvl2").style.display = "block";
 
     const arrayOfElementOnesAndTwos = ["matchscoutelementoner1","matchscoutelementtwor1","matchscoutelementthreer1","matchscoutelementfourr1","matchscoutelementoner2","matchscoutelementtwor2","matchscoutelementthreer2","matchscoutelementfourr2","matchscoutelementoneb1","matchscoutelementtwob1","matchscoutelementthreeb1","matchscoutelementfourb1","matchscoutelementoneb2","matchscoutelementtwob2","matchscoutelementthreeb2","matchscoutelementfourb2"];
 
@@ -2981,7 +2987,7 @@ function flipAutoTeleOp(){
 
     for (const station in scoreTable[0]) {
         const elementFiveVal = scoreTable[0][station].teleop.elementthree;
-        if (elementFiveVal === "0") {
+        if (elementFiveVal === "0" || elementFiveVal === undefined || elementFiveVal === null) {
             console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
         } else {
             const buttonId = `elementthree${station}lvl${elementFiveVal}`;
