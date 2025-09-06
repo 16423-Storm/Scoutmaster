@@ -3184,12 +3184,12 @@ function populateElementsFromScoreTable() {
 
         const elFourId = `matchscoutelementfour${station}`;
         const elFour = document.getElementById(elFourId);
-        if (elFour && stationData.elemenfour !== undefined) {
-            elThree.textContent = stationData.elementfour;
+        if (elFour && stationData.elementfour !== undefined) {
+            elFour.textContent = stationData.elementfour;
         }
 
         if (stationData.elementfive && stationData.elementfive !== "0") {
-            const btnId = `elementthree${station}lvl${stationData.elementfive}`;
+            const btnId = `elementfive${station}lvl${stationData.elementfive}`;
             const btn = document.getElementById(btnId);
             if (btn) {
                 btn.classList = "matchscoutbuttonpurple"; 
