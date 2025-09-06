@@ -2928,7 +2928,6 @@ function flipAutoAuto(){
         const elementFourVal = scoreTable[0][station].auto.elementfour;
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
         const elementFiveVal = scoreTable[0][station].auto.elementfive;
-        document.getElementById(`matchscoutelementfive${station}`).textContent = elementFiveVal;
     }
 
     arrayOfElementThree.forEach(oneId => {
@@ -2972,7 +2971,6 @@ function flipAutoTeleOp(){
         const elementFourVal = scoreTable[0][station].teleop.elementfour;
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
         const elementFiveVal = scoreTable[0][station].teleop.elementfive;
-        document.getElementById(`matchscoutelementfive${station}`).textContent = elementFiveVal;
     }
 
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementfiver2lvl1", "elementfiver2lvl2", "elementfiveb1lvl1", "elementfiveb1lvl2", "elementfiveb2lvl1", "elementfiveb2lvl2"];
