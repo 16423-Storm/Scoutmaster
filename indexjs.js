@@ -2909,9 +2909,9 @@ function flipAutoAuto(){
 
     document.getElementById("elementfiver1lvl2").style.display = "none";
 
-    const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
+    const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementfiver2lvl1", "elementfiver2lvl2", "elementfiveb1lvl1", "elementfiveb1lvl2", "elementfiveb2lvl1", "elementfiveb2lvl2"];
 
-    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1","matchscoutelementtwor1","matchscoutelementthreer1","matchscoutelementfourr1","matchscoutelementoner2","matchscoutelementtwor2","matchscoutelementthreer2","matchscoutelementfourr2","matchscoutelementoneb1","matchscoutelementtwob1","matchscoutelementthreeb1","matchscoutelementfourb1","matchscoutelementoneb2","matchscoutelementtwob2","matchscoutelementthreeb2","matchscoutelementfourb2"];
 
     arrayOfElementOnesAndTwos.forEach(oneId =>{
         document.getElementById(oneId).textContent = "";
@@ -2954,7 +2954,7 @@ function flipAutoTeleOp(){
     
     document.getElementById("elementfiver1lvl2").style.display = "block";
 
-    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1", "matchscoutelementtwor1", "matchscoutelementthreer1", "matchscoutelementfourr1", "matchscoutelementoner2", "matchscoutelementtwor2", "matchscoutelementoneb1", "matchscoutelementtwob1", "matchscoutelementoneb2", "matchscoutelementtwob2"];
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1","matchscoutelementtwor1","matchscoutelementthreer1","matchscoutelementfourr1","matchscoutelementoner2","matchscoutelementtwor2","matchscoutelementthreer2","matchscoutelementfourr2","matchscoutelementoneb1","matchscoutelementtwob1","matchscoutelementthreeb1","matchscoutelementfourb1","matchscoutelementoneb2","matchscoutelementtwob2","matchscoutelementthreeb2","matchscoutelementfourb2"];
 
     arrayOfElementOnesAndTwos.forEach(oneId =>{
         document.getElementById(oneId).textContent = "";
@@ -2971,7 +2971,7 @@ function flipAutoTeleOp(){
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
     }
 
-    const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3", "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3", "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3"];
+    const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementfiver2lvl1", "elementfiver2lvl2", "elementfiveb1lvl1", "elementfiveb1lvl2", "elementfiveb2lvl1", "elementfiveb2lvl2"];
 
     arrayOfElementThree.forEach(oneId => {
         document.getElementById(oneId).classList = "matchscoutbuttongrey";
