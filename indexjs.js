@@ -1056,6 +1056,7 @@ async function loadStartingComp() {
         document.getElementById("competitionnameinmatchscoutlist").textContent = event.event_name;
     } catch (error) {
         console.error('Failed to load event:', error);
+        window.location.reload();
     }
 }
 
@@ -1360,6 +1361,7 @@ async function showAllianceSelection(){
 
 	} catch (error) {
 		console.error('Failed to load teams:', error);
+        window.location.reload();
 		return;
 	}
     
@@ -1909,6 +1911,7 @@ async function pullAllTeamsPrescout() {
 		}
 	} catch (error) {
 		console.error('Failed to load teams:', error);
+        window.location.reload();
 		return;
 	}
 }
@@ -2241,6 +2244,7 @@ async function loadPrescoutForTeam() {
 
         if (error) {
             console.error("Failed to load prescout data:", error);
+            window.location.reload();
             return;
         }
 
@@ -2575,6 +2579,7 @@ async function getMatchList() {
 
 	} catch (error) {
 		console.error('Failed to load matches:', error);
+        window.location.reload();
 	}
 }
 
