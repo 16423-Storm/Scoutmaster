@@ -24,6 +24,8 @@ var chartScale = 0.7;
 const AUTO_ELEMENT_ONE_WORTH = 2;
 const AUTO_ELEMENT_TWO_WORTH = 3;
 const AUTO_ELEMENT_THREE_WORTH = 5;
+const AUTO_ELEMENT_FOUR_WORTH = 2;
+const AUTO_ELEMENT_FIVE_WORTH = 3;
 
 const TELEOP_ELEMENT_ONE_WORTH = 1;
 const TELEOP_ELEMENT_TWO_WORTH = 2;
@@ -1459,6 +1461,8 @@ async function goToAllianceTeamPage(element) {
     const autoElementOne = [];
     const autoElementTwo = [];
     const autoElementThree = [];
+    const autoElementFour = [];
+    const autoElementFive = [];
     const teleopElementOne = [];
     const teleopElementTwo = [];
     const teleopElementThree = [];
@@ -1478,6 +1482,8 @@ async function goToAllianceTeamPage(element) {
         const ae1 = Number(auto.elementone);
         const ae2 = Number(auto.elementtwo);
         const ae3 = Number(auto.elementthree);
+        const ae4 = Number(auto.elementfour);
+        const ae5 = Number(auto.elementfive);
         const te1 = Number(teleop.elementone);
         const te2 = Number(teleop.elementtwo);
         const te3 = Number(teleop.elementthree);
@@ -1489,6 +1495,8 @@ async function goToAllianceTeamPage(element) {
         autoElementOne.push(ae1 * AUTO_ELEMENT_ONE_WORTH);
         autoElementTwo.push(ae2 * AUTO_ELEMENT_TWO_WORTH);
         autoElementThree.push(ae3 * AUTO_ELEMENT_THREE_WORTH);
+        autoElementFour.push(ae3 * AUTO_ELEMENT_FOUR_WORTH);
+        autoElementFive.push(ae3 * AUTO_ELEMENT_FIVE_WORTH);
         teleopElementOne.push(te1 * TELEOP_ELEMENT_ONE_WORTH);
         teleopElementTwo.push(te2 * TELEOP_ELEMENT_TWO_WORTH);
         teleopElementThree.push(te3 * TELEOP_ELEMENT_THREE_WORTH);
@@ -1496,7 +1504,9 @@ async function goToAllianceTeamPage(element) {
         const autoTotal = 
             ae1 * AUTO_ELEMENT_ONE_WORTH +
             ae2 * AUTO_ELEMENT_TWO_WORTH +
-            ae3 * AUTO_ELEMENT_THREE_WORTH;
+            ae3 * AUTO_ELEMENT_THREE_WORTH +
+            ae4 * AUTO_ELEMENT_FOUR_WORTH +
+            ae5 * AUTO_ELEMENT_FIVE_WORTH;
 
         const teleopTotal = 
             te1 * TELEOP_ELEMENT_ONE_WORTH +
@@ -1603,6 +1613,22 @@ async function goToAllianceTeamPage(element) {
                     label: "Auto Element 3",
                     data: autoElementThree,
                     borderColor: "blue",
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
+                },
+                {
+                    label: "Auto Element 4",
+                    data: autoElementFour,
+                    borderColor: "yellow",
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
+                },
+                {
+                    label: "Auto Element 5",
+                    data: autoElementFive,
+                    borderColor: "pink",
                     tension: 0.3,
                     borderWidth: 2 * chartScale,
                     pointRadius: 3 * chartScale
