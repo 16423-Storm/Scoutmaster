@@ -2994,7 +2994,7 @@ function flipAutoAuto(){
     document.getElementById("elementfiver2lvl1").textContent = "Yes";
     document.getElementById("elementfiveb1lvl1").textContent = "Yes";
     document.getElementById("elementfiveb2lvl1").textContent = "Yes";
-    
+
     document.getElementById("elementfiver1lvl2").style.display = "none";
     document.getElementById("elementfiver2lvl2").style.display = "none";
     document.getElementById("elementfiveb1lvl2").style.display = "none";
@@ -3018,7 +3018,6 @@ function flipAutoAuto(){
         document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
         const elementFourVal = scoreTable[0][station].auto.elementfour;
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
-        const elementFiveVal = scoreTable[0][station].auto.elementfive;
     }
 
     arrayOfElementThree.forEach(oneId => {
@@ -3082,9 +3081,9 @@ function flipAutoTeleOp(){
     for (const station in scoreTable[0]) {
         const elementFiveVal = scoreTable[0][station].teleop.elementthree;
         if (elementFiveVal === "0" || elementFiveVal === undefined || elementFiveVal === null) {
-            console.log(`Element 3 inside of station ${station} is 0, this is not an error`);
+            console.log(`Element 5 inside of station ${station} is 0, this is not an error`);
         } else {
-            const buttonId = `elementthree${station}lvl${elementFiveVal}`;
+            const buttonId = `elementfive${station}lvl${elementFiveVal}`;
             document.getElementById(buttonId).classList = "matchscoutbuttonpurple";
         }
     }
