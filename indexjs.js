@@ -2987,8 +2987,13 @@ function flipAutoAuto(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttongrey";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    document.querySelectorAll(".numerated4").forEach(el => el.style.display = "none");
-    document.querySelectorAll(".leavebaseid").forEach(el => el.textContent = "Leave");
+    document.querySelectorAll("#numerated4").forEach(el => el.style.display = "none");
+    document.querySelectorAll("#leavebaseid").forEach(el => el.textContent = "Leave");
+
+    document.getElementById("elementfiver1lvl1").textContent = "Partial";
+    document.getElementById("elementfiver2lvl1").textContent = "Partial";
+    document.getElementById("elementfiveb1lvl1").textContent = "Partial";
+    document.getElementById("elementfiveb2lvl1").textContent = "Partial";
 
     document.getElementById("elementfiver1lvl2").style.display = "none";
     document.getElementById("elementfiver2lvl2").style.display = "none";
@@ -3037,8 +3042,13 @@ function flipAutoTeleOp(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttonpurple";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    document.querySelectorAll(".numerated4").forEach(el => el.style.display = "flex");
-    document.querySelectorAll(".leavebaseid").forEach(el => el.textContent = "Base");
+    document.querySelectorAll("#numerated4").forEach(el => el.style.display = "flex");
+    document.querySelectorAll("#leavebaseid").forEach(el => el.textContent = "Base");
+
+    document.getElementById("elementfiver1lvl1").textContent = "Yes";
+    document.getElementById("elementfiver2lvl1").textContent = "Yes";
+    document.getElementById("elementfiveb1lvl1").textContent = "Yes";
+    document.getElementById("elementfiveb2lvl1").textContent = "Yes";
     
     document.getElementById("elementfiver1lvl2").style.display = "block";
     document.getElementById("elementfiver2lvl2").style.display = "block";
