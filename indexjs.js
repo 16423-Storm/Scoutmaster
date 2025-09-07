@@ -1720,7 +1720,7 @@ async function goToAllianceTeamPage(element) {
                 },
                 {
                     label: "Base",
-                    data: teleOpElementFive,
+                    data: teleopElementFive,
                     borderColor: "blue",
                     tension: 0.3,
                     borderWidth: 2 * chartScale,
