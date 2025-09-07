@@ -1712,7 +1712,7 @@ async function goToAllianceTeamPage(element) {
                 },
                 {
                     label: "Depot",
-                    data: teleOpElementFour,
+                    data: teleopElementFour,
                     borderColor: "red",
                     tension: 0.3,
                     borderWidth: 2 * chartScale,
