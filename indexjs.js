@@ -2501,7 +2501,6 @@ async function getMatchList() {
                         "elementone": "0", 
                         "elementtwo": "0", 
                         "elementthree": "0",
-                        "elementfour": "0",
                         "elementfive": "0"
                     },
                     "teleop": { 
@@ -2519,7 +2518,6 @@ async function getMatchList() {
                         "elementone": "0", 
                         "elementtwo": "0", 
                         "elementthree": "0",
-                        "elementfour": "0",
                         "elementfive": "0"
                     },
                     "teleop": { 
@@ -2537,7 +2535,6 @@ async function getMatchList() {
                         "elementone": "0", 
                         "elementtwo": "0", 
                         "elementthree": "0",
-                        "elementfour": "0",
                         "elementfive": "0"
                     },
                     "teleop": { 
@@ -2555,7 +2552,6 @@ async function getMatchList() {
                         "elementone": "0", 
                         "elementtwo": "0", 
                         "elementthree": "0",
-                        "elementfour": "0",
                         "elementfive": "0"
                     },
                     "teleop": { 
@@ -2713,7 +2709,6 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0",
-                    "elementfour": "0",
                     "elementfive": "0"
                 },
                 "teleop": {
@@ -2731,7 +2726,6 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0",
-                    "elementfour": "0",
                     "elementfive": "0"
                 },
                 "teleop": {
@@ -2748,8 +2742,6 @@ function goBackFromMatchModeScout(){
                 "auto": {
                     "elementone": "0",
                     "elementtwo": "0",
-                    "elementthree": "0",
-                    "elementfour": "0",
                     "elementfive": "0"
                 },
                 "teleop": {
@@ -2767,7 +2759,6 @@ function goBackFromMatchModeScout(){
                     "elementone": "0",
                     "elementtwo": "0",
                     "elementthree": "0",
-                    "elementfour": "0",
                     "elementfive": "0"
                 },
                 "teleop": {
@@ -2794,7 +2785,6 @@ var scoreTable = [
                 "elementone": "0",
                 "elementtwo": "0",
                 "elementthree": "0",
-                "elementfour": "0",
                 "elementfive": "0"
             },
             "teleop": {
@@ -2812,7 +2802,6 @@ var scoreTable = [
                 "elementone": "0",
                 "elementtwo": "0",
                 "elementthree": "0",
-                "elementfour": "0",
                 "elementfive": "0"
             },
             "teleop": {
@@ -2830,7 +2819,6 @@ var scoreTable = [
                 "elementone": "0",
                 "elementtwo": "0",
                 "elementthree": "0",
-                "elementfour": "0",
                 "elementfive": "0"
             },
             "teleop": {
@@ -2848,7 +2836,6 @@ var scoreTable = [
                 "elementone": "0",
                 "elementtwo": "0",
                 "elementthree": "0",
-                "elementfour": "0",
                 "elementfive": "0"
             },
             "teleop": {
@@ -2927,21 +2914,21 @@ function handleOptionsClick(button){
             }
         }else if(station === "r2"){
             if(currentAutoStatus){
-                scoreTable[0].r2.auto.elementthree = action[3];
+                scoreTable[0].r2.auto.elementfive = action[3];
             }else{
-                scoreTable[0].r2.teleop.elementthree = action[3];
+                scoreTable[0].r2.teleop.elementfive = action[3];
             }
         }else if(station === "b1"){
             if(currentAutoStatus){
-                scoreTable[0].b1.auto.elementthree = action[3];
+                scoreTable[0].b1.auto.elementfive = action[3];
             }else{
-                scoreTable[0].b1.teleop.elementthree = action[3];
+                scoreTable[0].b1.teleop.elementfive = action[3];
             }
         }else if(station === "b2"){
             if(currentAutoStatus){
-                scoreTable[0].b2.auto.elementthree = action[3];
+                scoreTable[0].b2.auto.elementfive = action[3];
             }else{
-                scoreTable[0].b2.teleop.elementthree = action[3];
+                scoreTable[0].b2.teleop.elementfive = action[3];
             }
         }else{
             console.log("Error with handling options buttons click");
