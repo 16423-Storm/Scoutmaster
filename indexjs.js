@@ -3066,7 +3066,7 @@ function flipAutoTeleOp(){
     });
 
     for (const station in scoreTable[0]) {
-        const elementFiveVal = scoreTable[0][station].teleop.elementthree;
+        const elementFiveVal = scoreTable[0][station].teleop.elementfive;
         if (elementFiveVal === "0" || elementFiveVal === undefined || elementFiveVal === null) {
             console.log(`Element 5 inside of station ${station} is 0, this is not an error`);
         } else {
