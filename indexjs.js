@@ -21,15 +21,16 @@ var currentB2;
 var chartScale = 0.7;
 
 // Worth variables (adjust per game rules)
-const AUTO_ELEMENT_ONE_WORTH = 2;
-const AUTO_ELEMENT_TWO_WORTH = 3;
-const AUTO_ELEMENT_THREE_WORTH = 5;
-const AUTO_ELEMENT_FOUR_WORTH = 2;
+const AUTO_ELEMENT_ONE_WORTH = 3;
+const AUTO_ELEMENT_TWO_WORTH = 1;
+const AUTO_ELEMENT_THREE_WORTH = 2;
 const AUTO_ELEMENT_FIVE_WORTH = 3;
 
-const TELEOP_ELEMENT_ONE_WORTH = 1;
-const TELEOP_ELEMENT_TWO_WORTH = 2;
-const TELEOP_ELEMENT_THREE_WORTH = 3;
+const TELEOP_ELEMENT_ONE_WORTH = 3;
+const TELEOP_ELEMENT_TWO_WORTH = 1;
+const TELEOP_ELEMENT_THREE_WORTH = 2;
+const TELEOP_ELEMENT_FOUR_WORTH = 1;
+const TELEOP_ELEMENT_FIVE_WORTH = 5;
 
 console.log(
     "%c⚠️ WARNING! ⚠️\n" +
@@ -1267,13 +1268,13 @@ async function showAllianceSelection(){
 		const teams = await response.json();
 		teams.sort((a, b) => a.team.team_number - b.team.team_number);
 
-        if(teams.length < 12){
+        if(teams.length < 11){
             numOfAlliances = 2;
-        }else if(teams.length > 11 && teams.length < 20){
+        }else if(teams.length > 12 && teams.length < 21){
             numOfAlliances = 4;
-        }else if(teams.length > 19 && teams.length < 40){
+        }else if(teams.length > 20 && teams.length < 41){
             numOfAlliances = 6;
-        }else if(teams.length > 39){
+        }else if(teams.length > 40){
             numOfAlliances = 8;
         }else{
             numOfAlliances = 2;
@@ -1287,39 +1288,39 @@ async function showAllianceSelection(){
         var num = 0;
         while(num < numOfAlliances){
             var allianceNum = num + 1;
-            if(currentEventKey === "2425-CMP-HOU1" || currentEventKey === "2425-CMP-HOU2" || currentEventKey === "2425-CMP-HOU3" || currentEventKey === "2425-CMP-HOU4"){
-                allInCon.innerHTML += `
-                <div class="allianceinfosubcontainer">
-                    <p class="generaltext">Alliance ${allianceNum}</p>
-                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
-                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
-                    </div>
-                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinput-${allianceNum}-one">
-                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
-                    </div>
-                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinput-${allianceNum}-two">
-                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
-                    </div>
+            // if(currentEventKey === "2425-CMP-HOU1" || currentEventKey === "2425-CMP-HOU2" || currentEventKey === "2425-CMP-HOU3" || currentEventKey === "2425-CMP-HOU4"){
+            //     allInCon.innerHTML += `
+            //     <div class="allianceinfosubcontainer">
+            //         <p class="generaltext">Alliance ${allianceNum}</p>
+            //         <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+            //             <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
+            //             <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
+            //         </div>
+            //         <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+            //             <input class="allianceinput" id="allianceinput-${allianceNum}-one">
+            //             <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
+            //         </div>
+            //         <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+            //             <input class="allianceinput" id="allianceinput-${allianceNum}-two">
+            //             <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
+            //         </div>
+            //     </div>
+            //     `
+            // }else{
+            allInCon.innerHTML += `
+            <div class="allianceinfosubcontainer">
+                <p class="generaltext">Alliance ${allianceNum}</p>
+                <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                    <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
+                    <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
                 </div>
-                `
-            }else{
-                allInCon.innerHTML += `
-                <div class="allianceinfosubcontainer">
-                    <p class="generaltext">Alliance ${allianceNum}</p>
-                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
-                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
-                    </div>
-                    <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-                        <input class="allianceinput" id="allianceinput-${allianceNum}-one">
-                        <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
-                    </div>
+                <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
+                    <input class="allianceinput" id="allianceinput-${allianceNum}-one">
+                    <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
                 </div>
-                `
-            }
+            </div>
+            `
+            // }
             num += 1;
         }
 
@@ -1461,11 +1462,12 @@ async function goToAllianceTeamPage(element) {
     const autoElementOne = [];
     const autoElementTwo = [];
     const autoElementThree = [];
-    const autoElementFour = [];
     const autoElementFive = [];
     const teleopElementOne = [];
     const teleopElementTwo = [];
     const teleopElementThree = [];
+    const teleopElementFour = [];
+    const teleopElementFive = [];
     const autoTotals = [];
     const teleopTotals = [];
     const overallTotals = [];
@@ -1482,11 +1484,12 @@ async function goToAllianceTeamPage(element) {
         const ae1 = Number(auto.elementone);
         const ae2 = Number(auto.elementtwo);
         const ae3 = Number(auto.elementthree);
-        const ae4 = Number(auto.elementfour);
         const ae5 = Number(auto.elementfive);
         const te1 = Number(teleop.elementone);
         const te2 = Number(teleop.elementtwo);
         const te3 = Number(teleop.elementthree);
+        const te4 = Number(teleop.elementfour);
+        const te5 = Number(teleop.elementfive);
 
         const parts = matchKey.split("-");
         const label = parts.slice(-2).join("-");
@@ -1495,23 +1498,25 @@ async function goToAllianceTeamPage(element) {
         autoElementOne.push(ae1 * AUTO_ELEMENT_ONE_WORTH);
         autoElementTwo.push(ae2 * AUTO_ELEMENT_TWO_WORTH);
         autoElementThree.push(ae3 * AUTO_ELEMENT_THREE_WORTH);
-        autoElementFour.push(ae3 * AUTO_ELEMENT_FOUR_WORTH);
         autoElementFive.push(ae3 * AUTO_ELEMENT_FIVE_WORTH);
         teleopElementOne.push(te1 * TELEOP_ELEMENT_ONE_WORTH);
         teleopElementTwo.push(te2 * TELEOP_ELEMENT_TWO_WORTH);
         teleopElementThree.push(te3 * TELEOP_ELEMENT_THREE_WORTH);
+        teleopElementFour.push(te2 * TELEOP_ELEMENT_FOUR_WORTH);
+        teleopElementFive.push(te3 * TELEOP_ELEMENT_FIVE_WORTH);
 
         const autoTotal = 
             ae1 * AUTO_ELEMENT_ONE_WORTH +
             ae2 * AUTO_ELEMENT_TWO_WORTH +
             ae3 * AUTO_ELEMENT_THREE_WORTH +
-            ae4 * AUTO_ELEMENT_FOUR_WORTH +
             ae5 * AUTO_ELEMENT_FIVE_WORTH;
 
         const teleopTotal = 
             te1 * TELEOP_ELEMENT_ONE_WORTH +
             te2 * TELEOP_ELEMENT_TWO_WORTH +
-            te3 * TELEOP_ELEMENT_THREE_WORTH;
+            te3 * TELEOP_ELEMENT_THREE_WORTH +
+            te4 * TELEOP_ELEMENT_FOUR_WORTH +
+            te5 * TELEOP_ELEMENT_FIVE_WORTH;
 
         const total = autoTotal + teleopTotal;
 
@@ -1594,7 +1599,7 @@ async function goToAllianceTeamPage(element) {
             labels: matchLabels,
             datasets: [
                 {
-                    label: "Auto Element 1",
+                    label: "Classified",
                     data: autoElementOne,
                     borderColor: "red",
                     tension: 0.3,
@@ -1602,7 +1607,7 @@ async function goToAllianceTeamPage(element) {
                     pointRadius: 3 * chartScale
                 },
                 {
-                    label: "Auto Element 2",
+                    label: "Overflow",
                     data: autoElementTwo,
                     borderColor: "green",
                     tension: 0.3,
@@ -1610,7 +1615,7 @@ async function goToAllianceTeamPage(element) {
                     pointRadius: 3 * chartScale
                 },
                 {
-                    label: "Auto Element 3",
+                    label: "Pattern",
                     data: autoElementThree,
                     borderColor: "blue",
                     tension: 0.3,
@@ -1618,17 +1623,9 @@ async function goToAllianceTeamPage(element) {
                     pointRadius: 3 * chartScale
                 },
                 {
-                    label: "Auto Element 4",
-                    data: autoElementFour,
-                    borderColor: "yellow",
-                    tension: 0.3,
-                    borderWidth: 2 * chartScale,
-                    pointRadius: 3 * chartScale
-                },
-                {
-                    label: "Auto Element 5",
+                    label: "Leave",
                     data: autoElementFive,
-                    borderColor: "pink",
+                    borderColor: "yellow",
                     tension: 0.3,
                     borderWidth: 2 * chartScale,
                     pointRadius: 3 * chartScale
@@ -1690,7 +1687,7 @@ async function goToAllianceTeamPage(element) {
             labels: matchLabels,
             datasets: [
                 {
-                    label: "Teleop Element 1",
+                    label: "Classified",
                     data: teleopElementOne,
                     borderColor: "orange",
                     tension: 0.3,
@@ -1698,7 +1695,7 @@ async function goToAllianceTeamPage(element) {
                     pointRadius: 3 * chartScale
                 },
                 {
-                    label: "Teleop Element 2",
+                    label: "Overflow",
                     data: teleopElementTwo,
                     borderColor: "teal",
                     tension: 0.3,
@@ -1706,9 +1703,25 @@ async function goToAllianceTeamPage(element) {
                     pointRadius: 3 * chartScale
                 },
                 {
-                    label: "Teleop Element 3",
+                    label: "Pattern",
                     data: teleopElementThree,
                     borderColor: "brown",
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
+                },
+                {
+                    label: "Depot",
+                    data: teleOpElementFour,
+                    borderColor: "red",
+                    tension: 0.3,
+                    borderWidth: 2 * chartScale,
+                    pointRadius: 3 * chartScale
+                },
+                {
+                    label: "Base",
+                    data: teleOpElementFive,
+                    borderColor: "blue",
                     tension: 0.3,
                     borderWidth: 2 * chartScale,
                     pointRadius: 3 * chartScale
@@ -1874,7 +1887,6 @@ async function pullAllTeamsPrescout() {
 				const teamJsonb = {
 					ability1: null,
 					ability2: null,
-					ability3: null,
 					notes: "",
 					autosvg: [],
 					strategy: "",
@@ -2214,14 +2226,12 @@ async function savePrescoutData() {
 	const strategy = document.getElementById("strategyinput").value;
 	const ability1 = document.getElementById("ability1input").checked;
 	const ability2 = document.getElementById("ability2input").checked;
-	const ability3 = document.getElementById("ability3input").value;
 
 	const teamData = {
 		notes: notes,
 		autosvg: autoSVGs,
 		ability1: ability1,
 		ability2: ability2,
-		ability3: ability3,
 		strategy: strategy,
 		finalized: 1
 	};
@@ -2294,7 +2304,6 @@ async function loadPrescoutForTeam() {
             unlockAndClearPrescoutInputs();
             document.getElementById("ability1input").checked = data.ability1 === true;
             document.getElementById("ability2input").checked = data.ability2 === true;
-            document.getElementById("ability3input").value = data.ability3 ?? "";
             document.getElementById("strategyinput").value = data.strategy ?? "";
             document.getElementById("notesinput").value = data.notes ?? "";
 
@@ -2307,14 +2316,12 @@ async function loadPrescoutForTeam() {
 function unlockAndClearPrescoutInputs() {
 	document.getElementById("ability1input").checked = false;
 	document.getElementById("ability2input").checked = false;
-	document.getElementById("ability3input").value = "";
 	document.getElementById("strategyinput").value = "";
 	document.getElementById("notesinput").value = "";
     document.getElementById("prescoutfinalsubmitbutton").style.display = "block";
 
 	document.getElementById("ability1input").disabled = false;
 	document.getElementById("ability2input").disabled = false;
-	document.getElementById("ability3input").disabled = false;
 	document.getElementById("strategyinput").disabled = false;
 	document.getElementById("notesinput").disabled = false;
 
@@ -2330,13 +2337,11 @@ function lockAndSetPrescoutInputs(data) {
     document.getElementById("prescoutfinalsubmitbutton").style.display = "none";
 	document.getElementById("ability1input").checked = data.ability1 === true;
 	document.getElementById("ability2input").checked = data.ability2 === true;
-	document.getElementById("ability3input").value = data.ability3 ?? "";
 	document.getElementById("strategyinput").value = data.strategy ?? "";
 	document.getElementById("notesinput").value = data.notes ?? "";
 
 	document.getElementById("ability1input").disabled = true;
 	document.getElementById("ability2input").disabled = true;
-	document.getElementById("ability3input").disabled = true;
 	document.getElementById("strategyinput").disabled = true;
 	document.getElementById("notesinput").disabled = true;
 
@@ -2982,7 +2987,8 @@ function flipAutoAuto(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttongrey";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    document.querySelectorAll(".numerated4").forEach(el => el.display = "none");
+    document.querySelectorAll(".numerated4").forEach(el => el.style.display = "none");
+    document.querySelectorAll(".leavebaseid").forEach(el => el.textContent = "Leave");
 
     document.getElementById("elementfiver1lvl2").style.display = "none";
     document.getElementById("elementfiver2lvl2").style.display = "none";
@@ -3031,7 +3037,8 @@ function flipAutoTeleOp(){
     document.getElementById("flipautoteleopbutton").classList = "matchscoutbuttonpurple";
     console.log("Auto status flipped to: " + currentAutoStatus);
 
-    document.querySelectorAll(".numerated4").forEach(el => el.display = "flex");
+    document.querySelectorAll(".numerated4").forEach(el => el.style.display = "flex");
+    document.querySelectorAll(".leavebaseid").forEach(el => el.textContent = "Base");
     
     document.getElementById("elementfiver1lvl2").style.display = "block";
     document.getElementById("elementfiver2lvl2").style.display = "block";

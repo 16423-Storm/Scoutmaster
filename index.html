@@ -129,14 +129,14 @@
                                 <p class="prescoutsmalltext" id="teamrookieyearprescout">Loading...</p>
                             </div>
                             <div class="abilitycontainer">
-                                <p class="prescoutsmalltext">Can do X:&#8203;</p>
+                                <p class="prescoutsmalltext">Can score artifacts comfortably?:&#8203;</p>
                                 <input class="prescoutcheckbox" type="checkbox" id="ability1input">
                             </div>
                             <div class="abilitycontainer">
-                                <p class="prescoutsmalltext">Can do Y:&#8203;</p>
+                                <p class="prescoutsmalltext">Can fit both teams in base?:&#8203;</p>
                                 <input class="prescoutcheckbox" type="checkbox" id="ability2input">
                             </div>
-                            <div class="abilitycontainer">
+                            <div class="abilitycontainer" style="display: none;">
                                 <p class="prescoutsmalltext">How many Zs?:&#8203;</p>
                                 <input class="prescouttextinput" maxlength="20" type="text" id="ability3input">
                             </div>
@@ -214,7 +214,7 @@
                                         </div>
                                         <p id="matchscoutelementthreer1">0</p>
                                     </div>
-                                    <div class="matchscoutnumeratedbuttoncontainer" id="numerated4">
+                                    <div class="matchscoutnumeratedbuttoncontainer" id="numerated4"  style="display: none;">
                                         <p>Depot</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttonred" id="takeawayelementfourbuttonr1" data-station="r1" data-element="elementfour" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
@@ -223,10 +223,10 @@
                                         <p id="matchscoutelementfourr1">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Leave</p>
+                                        <p id="leavebaseid">Leave</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttongrey" data-station="r1" data-element="elementfive" data-action="lvl1" id="elementfiver1lvl1" onclick="handleOptionsClick(this)">Yes</button>
-                                            <button class="matchscoutbuttongrey" data-station="r1" data-element="elementfive" data-action="lvl2" id="elementfiver1lvl2" onclick="handleOptionsClick(this)">Partial</button>
+                                            <button class="matchscoutbuttongrey" data-station="r1" data-element="elementfive" data-action="lvl2" id="elementfiver1lvl2" onclick="handleOptionsClick(this)"  style="display: none;">Partial</button>
                                         </div>
                                     </div>
                                 </div>
@@ -260,7 +260,7 @@
                                         </div>
                                         <p id="matchscoutelementthreer2">0</p>
                                     </div>
-                                    <div class="matchscoutnumeratedbuttoncontainer"  id="numerated4">
+                                    <div class="matchscoutnumeratedbuttoncontainer"  id="numerated4"  style="display: none;">
                                         <p>Depot</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttonred" id="takeawayelementfourbuttonr2" data-station="r2" data-element="elementfour" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
@@ -269,10 +269,10 @@
                                         <p id="matchscoutelementfourr2">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Leave</p>
+                                        <p id="leavebaseid">Leave</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttongrey" data-station="r2" data-element="elementfive" data-action="lvl1" id="elementfiver2lvl1" onclick="handleOptionsClick(this)">Yes</button>
-                                            <button class="matchscoutbuttongrey" data-station="r2" data-element="elementfive" data-action="lvl2" id="elementfiver2lvl2" onclick="handleOptionsClick(this)">Partial</button>
+                                            <button class="matchscoutbuttongrey" data-station="r2" data-element="elementfive" data-action="lvl2" id="elementfiver2lvl2" onclick="handleOptionsClick(this)"  style="display: none;">Partial</button>
                                         </div>
                                     </div>
                                 </div>
@@ -318,7 +318,7 @@
                                         </div>
                                         <p id="matchscoutelementthreeb1">0</p>
                                     </div>
-                                    <div class="matchscoutnumeratedbuttoncontainer"  id="numerated4">
+                                    <div class="matchscoutnumeratedbuttoncontainer"  id="numerated4"  style="display: none;">
                                         <p>Depot</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttonred" id="takeawayelementfourbuttonb1" data-station="b1" data-element="elementfour" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
@@ -327,10 +327,10 @@
                                         <p id="matchscoutelementfourb1">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Leave</p>
+                                        <p id="leavebaseid">Leave</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttongrey" data-station="b1" data-element="elementfive" data-action="lvl1" id="elementfiveb1lvl1" onclick="handleOptionsClick(this)">Yes</button>
-                                            <button class="matchscoutbuttongrey" data-station="b1" data-element="elementfive" data-action="lvl2" id="elementfiveb1lvl2" onclick="handleOptionsClick(this)">Partial</button>
+                                            <button class="matchscoutbuttongrey" data-station="b1" data-element="elementfive" data-action="lvl2" id="elementfiveb1lvl2" onclick="handleOptionsClick(this)"  style="display: none;">Partial</button>
                                         </div>
                                     </div>
                                 </div>
@@ -364,7 +364,7 @@
                                         </div>
                                         <p id="matchscoutelementthreeb2">0</p>
                                     </div>
-                                    <div class="matchscoutnumeratedbuttoncontainer"  id="numerated4">
+                                    <div class="matchscoutnumeratedbuttoncontainer"  id="numerated4" style="display: none;">
                                         <p>Depot</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttonred" id="takeawayelementfourbuttonb2" data-station="b2" data-element="elementfour" data-action="subtract" onclick="changeMatchModeElement(this)">-</button>
@@ -373,10 +373,10 @@
                                         <p id="matchscoutelementfourb2">0</p>
                                     </div>
                                     <div class="matchscoutnumeratedbuttoncontainer">
-                                        <p>Leave</p>
+                                        <p id="leavebaseid">Leave</p>
                                         <div class="matchscoutnumeratedbuttonsubcontainer">
                                             <button class="matchscoutbuttongrey" data-station="b2" data-element="elementfive" data-action="lvl1" id="elementfiveb2lvl1" onclick="handleOptionsClick(this)">Yes</button>
-                                            <button class="matchscoutbuttongrey" data-station="b2" data-element="elementfive" data-action="lvl2" id="elementfiveb2lvl2" onclick="handleOptionsClick(this)">Partial</button>
+                                            <button class="matchscoutbuttongrey" data-station="b2" data-element="elementfive" data-action="lvl2" id="elementfiveb2lvl2" onclick="handleOptionsClick(this)"  style="display: none;">Partial</button>
                                         </div>
                                     </div>
                                 </div>
@@ -426,9 +426,9 @@
                                 </div>
                             </div>
                             <div class="alliancestuffcontainer">
-                                <p class="generaltext">Can do X:</p>
+                                <p class="generaltext">Can score artifacts comfortably?:</p>
                                 <input type="checkbox" class="prescoutcheckbox" id="candoxalliance" disabled>
-                                <p class="generaltext">Can do Y:</p>
+                                <p class="generaltext">Can fit both teams in base?:</p>
                                 <input type="checkbox" class="prescoutcheckbox" id="candoyalliance" disabled>
                                 <p class="generaltext">Auto Description:</p>
                                 <input type="text" class="prescoutbiginput" id="autodescriptionalliance" disabled>
