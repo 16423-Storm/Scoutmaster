@@ -2699,7 +2699,7 @@ async function goToMatchScoutModePage(element) {
 
 
 function goBackFromMatchModeScout(){
-    alert('started goback');
+    alert('started gobacke');
     enableStationButtons();
     alert('functions done 1');
     resetToAutoMode();
@@ -3358,6 +3358,7 @@ function resetToAutoMode() {
 }
 
 function enableStationButtons() {
+    alert("called station button")
     allButtonIds.forEach(id => {
         const button = document.getElementById(id);
         if (button) button.disabled = false;
