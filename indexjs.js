@@ -3049,8 +3049,6 @@ function flipAutoTeleOp(){
         document.getElementById(oneId).textContent = "";
     });
 
-    alert(JSON.stringify(scoreTable))
-
     for (const station in scoreTable[0]) {
         const elementOneVal = scoreTable[0][station].teleop.elementone;
         document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
@@ -3352,6 +3350,8 @@ function resetToAutoMode() {
             btn.disabled = false;
         }
     });
+
+    alert(JSON.stringify(scoreTable[0]));
 
     for (const station in scoreTable[0]) {
         if (!scoreTable[0][station]) continue;
