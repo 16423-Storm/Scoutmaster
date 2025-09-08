@@ -3358,11 +3358,12 @@ function resetToAutoMode() {
 }
 
 function enableStationButtons() {
-    alert("called station button")
+    alert("called station button");
     allButtonIds.forEach(id => {
         const button = document.getElementById(id);
         if (button) button.disabled = false;
     });
+    alert("first foreach");
     ["r1", "r2", "b1", "b2"].forEach(station => {
         document.getElementById(`matchteamnumbercontainer${station}`).onclick = () => {
             popUpWarning(
@@ -3371,5 +3372,6 @@ function enableStationButtons() {
             );
         };
     });
+    alert("second foreach");
 }
 
