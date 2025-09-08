@@ -3167,29 +3167,29 @@ async function submitIndividualTeam(participantKey) {
 
 
 const allButtonIds = [
-  "takeawayelementonebuttonr1", "putonelementoner1",
-  "takeawayelementtwobuttonr1", "putonelementtwor1",
-  "takeawayelementthreebuttonr1", "putonelementthreer1",
-  "takeawayelementfourbuttonr1", "putonelementfourr1",
-  "elementfiver1lvl1", "elementfiver1lvl2",
+    "takeawayelementonebuttonr1", "putonelementoner1",
+    "takeawayelementtwobuttonr1", "putonelementtwor1",
+    "takeawayelementthreebuttonr1", "putonelementthreer1",
+    "takeawayelementfourbuttonr1", "putonelementfourr1",
+    "elementfiver1lvl1", "elementfiver1lvl2",
 
-  "takeawayelementonebuttonr2", "putonelementoner2",
-  "takeawayelementtwobuttonr2", "putonelementtwor2",
-  "takeawayelementthreebuttonr2", "putonelementthreer2",
-  "takeawayelementfourbuttonr2", "putonelementfourr2",
-  "elementfiver2lvl1", "elementfiver2lvl2",
+    "takeawayelementonebuttonr2", "putonelementoner2",
+    "takeawayelementtwobuttonr2", "putonelementtwor2",
+    "takeawayelementthreebuttonr2", "putonelementthreer2",
+    "takeawayelementfourbuttonr2", "putonelementfourr2",
+    "elementfiver2lvl1", "elementfiver2lvl2",
 
-  "takeawayelementonebuttonb1", "putonelementoneb1",
-  "takeawayelementtwobuttonb1", "putonelementtwob1",
-  "takeawayelementthreebuttonb1", "putonelementthreeb1",
-  "takeawayelementfourbuttonb1", "putonelementfourb1",
-  "elementfiveb1lvl1", "elementfiveb1lvl2",
+    "takeawayelementonebuttonb1", "putonelementoneb1",
+    "takeawayelementtwobuttonb1", "putonelementtwob1",
+    "takeawayelementthreebuttonb1", "putonelementthreeb1",
+    "takeawayelementfourbuttonb1", "putonelementfourb1",
+    "elementfiveb1lvl1", "elementfiveb1lvl2",
 
-  "takeawayelementonebuttonb2", "putonelementoneb2",
-  "takeawayelementtwobuttonb2", "putonelementtwob2",
-  "takeawayelementthreebuttonb2", "putonelementthreeb2",
-  "takeawayelementfourbuttonb2", "putonelementfourb2",
-  "elementfiveb2lvl1", "elementfiveb2lvl2"
+    "takeawayelementonebuttonb2", "putonelementoneb2",
+    "takeawayelementtwobuttonb2", "putonelementtwob2",
+    "takeawayelementthreebuttonb2", "putonelementthreeb2",
+    "takeawayelementfourbuttonb2", "putonelementfourb2",
+    "elementfiveb2lvl1", "elementfiveb2lvl2"
 ];
 
 async function loadMatchStationData(matchKey, station) {
@@ -3221,16 +3221,9 @@ async function loadMatchStationData(matchKey, station) {
 
     if (!scoreTable[0]) scoreTable[0] = {};
 
-	const stations = ["r1", "r2", "b1", "b2"];
-
-    for (const st of stations) {
-        if (matchData[st]) {
-            scoreTable[0][st] = matchData[st];
-        } else {
-            delete scoreTable[0][st];
-        }
+    if (matchData[station]) {
+        scoreTable[0][station] = matchData[station];
     }
-
 
 	const stationData = matchData[station];
 	if (!stationData) {
