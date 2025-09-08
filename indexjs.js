@@ -2566,6 +2566,21 @@ async function getMatchList() {
                 }
             };
 
+            for (let i = matches.length - 1; i >= 0; i--) {
+                const parts = matches[i].match_key.toLowerCase().split('-');
+                if (!parts[3] || !parts[3].startsWith('q')) {
+                    matches.splice(i, 1);
+                }
+            }
+
+            matches.sort((a, b) => {
+                const getNum = (m) => {
+                    const parts = m.match_key.toLowerCase().split('-');
+                    return parseInt(parts[3].slice(1)) || 0;
+                };
+                return getNum(a) - getNum(b);
+            });
+
 
             let superTable = {};
             matches.forEach(match => {
@@ -3204,11 +3219,18 @@ async function loadMatchStationData(matchKey, station) {
 		}
 	}
 
-	if (!scoreTable[0]) scoreTable[0] = {};
+    if (!scoreTable[0]) scoreTable[0] = {};
 
-	for (const st in matchData) {
-		scoreTable[0][st] = matchData[st];
-	}
+	const stations = ["r1", "r2", "b1", "b2"];
+
+    for (const st of stations) {
+        if (matchData[st]) {
+            scoreTable[0][st] = matchData[st];
+        } else {
+            delete scoreTable[0][st];
+        }
+    }
+
 
 	const stationData = matchData[station];
 	if (!stationData) {
