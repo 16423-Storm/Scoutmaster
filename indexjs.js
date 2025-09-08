@@ -2699,13 +2699,9 @@ async function goToMatchScoutModePage(element) {
 
 
 function goBackFromMatchModeScout(){
-    alert('started gobacke');
     enableStationButtons();
-    alert('functions done 1');
     resetToAutoMode();
-    alert('functions done 2');
     getMatchList();
-    alert('functions done');
     scoreTable = [
         {
             "r1": {
@@ -3311,8 +3307,6 @@ function populateElementsFromScoreTable() {
 }
 
 function resetToAutoMode() {
-    alert("started resetToAuto")
-    try{
     currentAutoStatus = true;
 
     const autoButton = document.getElementById("flipautoautobutton");
@@ -3351,8 +3345,6 @@ function resetToAutoMode() {
         }
     });
 
-    alert(JSON.stringify(scoreTable[0]));
-
     const stations = ["r1", "r2", "b1", "b2"];
 
     for (const station of stations) {
@@ -3363,20 +3355,13 @@ function resetToAutoMode() {
         stationData.auto.elementtwo = "0";
         stationData.auto.elementthree = "0";
     }
-
-
-    }catch(error){
-        alert(error)
-    }
 }
 
 function enableStationButtons() {
-    alert("called station button");
     allButtonIds.forEach(id => {
         const button = document.getElementById(id);
         if (button) button.disabled = false;
     });
-    alert("first foreach");
     ["r1", "r2", "b1", "b2"].forEach(station => {
         document.getElementById(`matchteamnumbercontainer${station}`).onclick = () => {
             popUpWarning(
