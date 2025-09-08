@@ -3049,6 +3049,8 @@ function flipAutoTeleOp(){
         document.getElementById(oneId).textContent = "";
     });
 
+    alert(JSON.stringify(scoreTable))
+
     for (const station in scoreTable[0]) {
         const elementOneVal = scoreTable[0][station].teleop.elementone;
         document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
