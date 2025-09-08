@@ -3311,6 +3311,8 @@ function populateElementsFromScoreTable() {
 }
 
 function resetToAutoMode() {
+    alert("started resetToAuto")
+    try{
     currentAutoStatus = true;
 
     const autoButton = document.getElementById("flipautoautobutton");
@@ -3354,6 +3356,9 @@ function resetToAutoMode() {
         scoreTable[0][station].auto.elementone = "0";
         scoreTable[0][station].auto.elementtwo = "0";
         scoreTable[0][station].auto.elementthree = "0";
+    }
+    }catch(error){
+        alert(error)
     }
 }
 
