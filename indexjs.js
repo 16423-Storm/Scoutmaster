@@ -2989,7 +2989,7 @@ function flipAutoAuto(){
 
     const arrayOfElementThree = ["elementfiver1lvl1", "elementfiver1lvl2", "elementfiver2lvl1", "elementfiver2lvl2", "elementfiveb1lvl1", "elementfiveb1lvl2", "elementfiveb2lvl1", "elementfiveb2lvl2"];
 
-    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1","matchscoutelementtwor1","matchscoutelementthreer1","matchscoutelementfourr1","matchscoutelementoner2","matchscoutelementtwor2","matchscoutelementthreer2","matchscoutelementfourr2","matchscoutelementoneb1","matchscoutelementtwob1","matchscoutelementthreeb1","matchscoutelementfourb1","matchscoutelementoneb2","matchscoutelementtwob2","matchscoutelementthreeb2","matchscoutelementfourb2"];
+    const arrayOfElementOnesAndTwos = ["matchscoutelementoner1","matchscoutelementtwor1","matchscoutelementthreer1","matchscoutelementoner2","matchscoutelementtwor2","matchscoutelementthreer2","matchscoutelementoneb1","matchscoutelementtwob1","matchscoutelementthreeb1","matchscoutelementoneb2","matchscoutelementtwob2","matchscoutelementthreeb2"];
 
     arrayOfElementOnesAndTwos.forEach(oneId =>{
         document.getElementById(oneId).textContent = "";
@@ -3001,10 +3001,8 @@ function flipAutoAuto(){
         document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
         const elementTwoVal = scoreTable[0][station].auto.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
-        const elementThreeVal = scoreTable[0][station].auto.elementfour;
-        document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
-        const elementFourVal = scoreTable[0][station].auto.elementfour;
-        document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
+        const elementThreeVal = scoreTable[0][station].auto.elementthree;
+        document.getElementById(`matchscoutelementthree${station}`).textContent = elementTwoVal;
     }
 
     arrayOfElementThree.forEach(oneId => {
@@ -3052,7 +3050,7 @@ function flipAutoTeleOp(){
         document.getElementById(`matchscoutelementone${station}`).textContent = elementOneVal;
         const elementTwoVal = scoreTable[0][station].teleop.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
-        const elementThreeVal = scoreTable[0][station].teleop.elementfour;
+        const elementThreeVal = scoreTable[0][station].teleop.elementthree;
         document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
         const elementFourVal = scoreTable[0][station].teleop.elementfour;
         document.getElementById(`matchscoutelementfour${station}`).textContent = elementFourVal;
