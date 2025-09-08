@@ -3197,27 +3197,38 @@ async function loadMatchStationData(matchKey, station) {
 	let matchData = localStorage.getItem(localStorageKey);
 
 	if (matchData) {
-		matchData = JSON.parse(matchData);
-		console.log('Loaded match data from localStorage:', matchData);
-	} else {
-		try {
-			const { data, error } = await supabaseClient.rpc('get_match_station_data', {
-				p_group_id: groupId,
-				p_match_key: matchKey,
-				p_station_key: station  
-			});
-			if (error) {
-				console.error('Error fetching match data from Supabase:', error);
-				return null;
-			}
-			matchData = data || {};
-			localStorage.setItem(localStorageKey, JSON.stringify(matchData));
-			console.log('Fetched match data from Supabase and saved to localStorage:', matchData);
-		} catch (err) {
-			console.error('Unexpected error fetching match data:', err);
-			return null;
-		}
-	}
+        matchData = JSON.parse(matchData);
+        console.log('Loaded match data from localStorage:', matchData);
+    } else {
+        try {
+            const { data, error } = await supabaseClient.rpc('get_match_station_data', {
+                p_group_id: groupId,
+                p_match_key: matchKey,
+                p_station_key: station  
+            });
+            if (error) {
+                console.error('Error fetching match data from Supabase:', error);
+                return null;
+            }
+
+            let stored = JSON.parse(localStorage.getItem(localStorageKey));
+
+            if (!stored || !Array.isArray(stored) || stored.length === 0) {
+                stored = [{}];
+            }
+
+            stored[0][station] = data || {};
+
+            localStorage.setItem(localStorageKey, JSON.stringify(stored));
+
+            matchData = stored;
+            console.log('Fetched match data from Supabase and saved to localStorage:', matchData);
+        } catch (err) {
+            console.error('Unexpected error fetching match data:', err);
+            return null;
+        }
+    }
+
 
     if (!scoreTable[0]) scoreTable[0] = {};
 
