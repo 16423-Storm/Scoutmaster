@@ -3353,12 +3353,18 @@ function resetToAutoMode() {
 
     alert(JSON.stringify(scoreTable[0]));
 
-    for (const station in scoreTable[0]) {
-        if (!scoreTable[0][station]) continue;
-        scoreTable[0][station].auto.elementone = "0";
-        scoreTable[0][station].auto.elementtwo = "0";
-        scoreTable[0][station].auto.elementthree = "0";
+    const stations = ["r1", "r2", "b1", "b2"];
+
+    for (const station of stations) {
+        const stationData = scoreTable[0][station];
+        if (!stationData || !stationData.auto) continue;
+
+        stationData.auto.elementone = "0";
+        stationData.auto.elementtwo = "0";
+        stationData.auto.elementthree = "0";
     }
+
+
     }catch(error){
         alert(error)
     }
