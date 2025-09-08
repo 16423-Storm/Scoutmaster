@@ -3217,7 +3217,7 @@ async function loadMatchStationData(matchKey, station) {
                 stored = [{}];
             }
 
-            stored[0][station] = data || {};
+            stored[station] = data || {};
 
             localStorage.setItem(localStorageKey, JSON.stringify(stored));
 
@@ -3396,6 +3396,4 @@ function enableStationButtons() {
             );
         };
     });
-    alert("second foreach");
 }
-
