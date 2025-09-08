@@ -3162,15 +3162,21 @@ const allButtonIds = [
 
   "takeawayelementonebuttonr2", "putonelementoner2",
   "takeawayelementtwobuttonr2", "putonelementtwor2",
-  "elementthreer2lvl1", "elementthreer2lvl2", "elementthreer2lvl3",
+  "takeawayelementthreebuttonr2", "putonelementthreer2",
+  "takeawayelementfourbuttonr2", "putonelementfourr2",
+  "elementfiver2lvl1", "elementfiver2lvl2",
 
   "takeawayelementonebuttonb1", "putonelementoneb1",
   "takeawayelementtwobuttonb1", "putonelementtwob1",
-  "elementthreeb1lvl1", "elementthreeb1lvl2", "elementthreeb1lvl3",
+  "takeawayelementthreebuttonb1", "putonelementthreeb1",
+  "takeawayelementfourbuttonb1", "putonelementfourb1",
+  "elementfiveb1lvl1", "elementfiveb1lvl2",
 
   "takeawayelementonebuttonb2", "putonelementoneb2",
   "takeawayelementtwobuttonb2", "putonelementtwob2",
-  "elementthreeb2lvl1", "elementthreeb2lvl2", "elementthreeb2lvl3",
+  "takeawayelementthreebuttonb2", "putonelementthreeb2",
+  "takeawayelementfourbuttonb2", "putonelementfourb2",
+  "elementfiveb2lvl1", "elementfiveb2lvl2"
 ];
 
 async function loadMatchStationData(matchKey, station) {
