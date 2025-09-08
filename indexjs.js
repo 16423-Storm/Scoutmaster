@@ -2701,7 +2701,9 @@ async function goToMatchScoutModePage(element) {
 function goBackFromMatchModeScout(){
     alert('started goback');
     enableStationButtons();
+    alert('functions done 1');
     resetToAutoMode();
+    alert('functions done 2');
     getMatchList();
     alert('functions done');
     scoreTable = [
@@ -2775,11 +2777,9 @@ function goBackFromMatchModeScout(){
             }
         }
     ];
-    alert('scoretable done');
     document.getElementById("matchscoutmatchlist").style.display = "flex";
     document.getElementById("matchscoutmodebody").style.display = "none";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "block";
-    alert('set display');
 }
 
 var scoreTable = [
