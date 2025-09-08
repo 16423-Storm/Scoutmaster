@@ -2699,9 +2699,11 @@ async function goToMatchScoutModePage(element) {
 
 
 function goBackFromMatchModeScout(){
+    alert('started goback');
     enableStationButtons();
     resetToAutoMode();
     getMatchList();
+    alert('functions done');
     scoreTable = [
         {
             "r1": {
@@ -2773,9 +2775,11 @@ function goBackFromMatchModeScout(){
             }
         }
     ];
+    alert('scoretable done');
     document.getElementById("matchscoutmatchlist").style.display = "flex";
     document.getElementById("matchscoutmodebody").style.display = "none";
     document.getElementById("matchscoutallthewaybackbutton").style.display = "block";
+    alert('set display');
 }
 
 var scoreTable = [
@@ -3002,7 +3006,7 @@ function flipAutoAuto(){
         const elementTwoVal = scoreTable[0][station].auto.elementtwo;
         document.getElementById(`matchscoutelementtwo${station}`).textContent = elementTwoVal;
         const elementThreeVal = scoreTable[0][station].auto.elementthree;
-        document.getElementById(`matchscoutelementthree${station}`).textContent = elementTwoVal;
+        document.getElementById(`matchscoutelementthree${station}`).textContent = elementThreeVal;
     }
 
     arrayOfElementThree.forEach(oneId => {
