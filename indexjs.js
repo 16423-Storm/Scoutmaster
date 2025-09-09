@@ -2628,7 +2628,7 @@ async function getMatchList() {
 
 		for (const match of matches) {
 			const matchNumber = match.match_name.split(" ")[1];
-			const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
+			const sortedParticipants = [...match.participants].sort((a, b) => a.station - b.station);
 			let winnerText = 'TBD';
 
 			if (match.red_score > match.blue_score) {
