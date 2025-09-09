@@ -2699,6 +2699,8 @@ async function getMatchList() {
 
 		}
 
+        isCancelled = false;
+
 	} catch (error) {
 		console.error('Failed to load matches:', error);
         window.location.reload();
