@@ -2606,7 +2606,22 @@ async function getMatchList() {
             console.log('Matches column already has data. Skipping initialization.');
         }
 
+        for (let i = matches.length - 1; i >= 0; i--) {
+            const parts = matches[i].match_key.toLowerCase().split('-');
+            if (!parts[3] || !parts[3].startsWith('q')) {
+                matches.splice(i, 1);
+            }
+        }
 
+        matches.sort((a, b) => {
+            const getQNumber = (m) => {
+                const matchKey = m.match_key.toLowerCase();
+                const match = matchKey.match(/q(\d+)/);
+                return match ? parseInt(match[1], 10) : 0;
+            };
+
+            return getQNumber(a) - getQNumber(b);
+        });
 
 		for (const match of matches) {
 			const matchNumber = match.match_name.split(" ")[1];
