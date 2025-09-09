@@ -2623,6 +2623,9 @@ async function getMatchList() {
             return getQNumber(a) - getQNumber(b);
         });
 
+        alert(matches);
+        alert(JSON.stringify(matches))
+
 		for (const match of matches) {
 			const matchNumber = match.match_name.split(" ")[1];
 			const sortedParticipants = match.participants.sort((a, b) => a.station - b.station);
