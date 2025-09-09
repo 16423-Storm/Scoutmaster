@@ -2474,18 +2474,20 @@ async function getMatchList() {
 
 		for (let i = matches.length - 1; i >= 0; i--) {
 			const parts = matches[i].match_key.toLowerCase().split('-');
-			if (!parts[2] || !parts[2].startsWith('q')) {
+			if (!parts[3] || !parts[3].startsWith('q')) {
 				matches.splice(i, 1);
 			}
 		}
 
 		matches.sort((a, b) => {
-			const getNum = (m) => {
-				const parts = m.match_key.toLowerCase().split('-');
-				return parseInt(parts[2].slice(1)) || 0;
-			};
-			return getNum(a) - getNum(b);
-		});
+            const getQNumber = (m) => {
+                const matchKey = m.match_key.toLowerCase();
+                const match = matchKey.match(/q(\d+)/); 
+                return match ? parseInt(match[1], 10) : 0;
+            };
+
+            return getQNumber(a) - getQNumber(b);
+        });
 
 		const { data: emptyData, error: emptyError } = await supabaseClient
             .rpc('check_matches_empty', { group_id: groupId });
@@ -2568,17 +2570,19 @@ async function getMatchList() {
 
             for (let i = matches.length - 1; i >= 0; i--) {
                 const parts = matches[i].match_key.toLowerCase().split('-');
-                if (!parts[2] || !parts[2].startsWith('q')) {
+                if (!parts[3] || !parts[3].startsWith('q')) {
                     matches.splice(i, 1);
                 }
             }
 
             matches.sort((a, b) => {
-                const getNum = (m) => {
-                    const parts = m.match_key.toLowerCase().split('-');
-                    return parseInt(parts[2].slice(1)) || 0;
+                const getQNumber = (m) => {
+                    const matchKey = m.match_key.toLowerCase();
+                    const match = matchKey.match(/q(\d+)/);
+                    return match ? parseInt(match[1], 10) : 0;
                 };
-                return getNum(a) - getNum(b);
+
+                return getQNumber(a) - getQNumber(b);
             });
 
 
