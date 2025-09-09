@@ -1225,6 +1225,7 @@ function showMatchScout(){
 }
 
 function goBackFromMatchScout(){
+    cancelRendering();
     previousDivIdsVisible.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
     });
@@ -2630,6 +2631,7 @@ async function getMatchList() {
 		for (const match of matches) {
             if (isCancelled) {
                 console.log('Rendering cancelled due to user click.');
+                tbody.innerHTML = '';
                 break;
             }
 			const matchNumber = match.match_name.split(" ")[1];
