@@ -2628,6 +2628,10 @@ async function getMatchList() {
         tbody.innerHTML = '';
 
 		for (const match of matches) {
+            if (isCancelled) {
+                console.log('Rendering cancelled due to user click.');
+                break;
+            }
 			const matchNumber = match.match_name.split(" ")[1];
             console.log('Match:', match.match_key, 'participants before sort:', match.participants);
 			const sortedParticipants = [...match.participants].sort((a, b) => a.station - b.station);
@@ -2702,6 +2706,7 @@ async function getMatchList() {
 var currentMatchKey2;
 
 async function goToMatchScoutModePage(element) {
+    cancelRendering();
     currentMatchKey2 = element.dataset.matchKey;
 
     scoreTable[0].r1.team_number = element.dataset.rone;
@@ -2735,8 +2740,11 @@ async function goToMatchScoutModePage(element) {
     }
 }
 
+let isCancelled = false;
 
-
+function cancelRendering() {
+  isCancelled = true;
+}
 
 function goBackFromMatchModeScout(){
     enableStationButtons();
