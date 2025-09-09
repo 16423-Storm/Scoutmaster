@@ -2623,9 +2623,15 @@ async function getMatchList() {
             return getQNumber(a) - getQNumber(b);
         });
 
+        console.log('Final matches for rendering:', matches.map(m => m.match_key));
+        
+        tbody.innerHTML = '';
+
 		for (const match of matches) {
 			const matchNumber = match.match_name.split(" ")[1];
+            console.log('Match:', match.match_key, 'participants before sort:', match.participants);
 			const sortedParticipants = [...match.participants].sort((a, b) => a.station - b.station);
+            console.log('Match:', match.match_key, 'participants after sort:', sortedParticipants.map(p => p.station));
 			let winnerText = 'TBD';
 
 			if (match.red_score > match.blue_score) {
