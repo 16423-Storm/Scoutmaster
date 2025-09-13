@@ -11,6 +11,13 @@
     </head>
 
     <body style="margin: 0px; padding: 0px;">
+        <img src="images/bg.png" alt="Background" class="background-image">
+        
+        <button id="dark-mode-toggle" class="dark-mode-toggle">
+            <span class="sun">🌞</span>
+            <span class="moon">🌙</span>
+        </button>
+
         <div class="emailbodycontainer">
             <div class="inputcontainer">
                 <div class="titlecontainer">
@@ -23,16 +30,19 @@
                     <input id="password" type="password" class="passwordinput" placeholder="Password">
                 </div>
                 <div class="statuscontainer" id="statustextcontainer">
-                    <p class="statustext" id="statustext">Forgot Password? Input email and click&nbsp;<span class="signuppromptspan" onclick="prepForResetPassword()">here&nbsp;</span>to reset.</p>
+                    <p class="statustext" id="statustext">
+                        <button class="forgotpwbutton" type="button" onclick="prepForResetPassword()">Forgot Password?</button>
+                    </p>
                 </div>
                 <div class="signupbuttoncontainer">
                     <button class="signupbutton" id="signinbutton" onclick="signIn()">Sign In</button>
+                    <button class="signupbutton" id="signupbutton" style="display: none;" onclick="signUp()">Sign Up</button>
                 </div>
                 <div class="signuppromptcontainer">
                     <p id="signupprompt" class="signupprompt">Don't have an account? Sign up&nbsp;<span class="signuppromptspan" onclick="signUpPrompted()">here!</span></p>
                 </div>
                 <div class="signupbuttoncontainer">
-                    <button class="signupbutton" id="signupbutton" style="display: none;" onclick="signUp()">Sign Up</button>
+                    <button class="backbutton" id="backbutton" style="display: none;" onclick="goBack()">Back</button>
                 </div>
             </div>
         </div>

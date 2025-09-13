@@ -12,7 +12,7 @@ async function signUp() {
         email,
         password,
         options: {
-            emailRedirectTo: 'https://16423-storm.github.io/Scoutmaster/index.html'
+            emailRedirectTo: './index.html'
         }
     });
 
@@ -62,7 +62,7 @@ async function signIn() {
         statusTextContainer.style.display = 'block';
         statusText.textContent = 'Login successful!';
         statusText.style.color = 'black';
-        window.location.href = 'https://16423-storm.github.io/Scoutmaster/index.html';
+        window.location.href = './index.html';
     }
 }
 
@@ -81,7 +81,7 @@ async function resendEmail() {
             type: 'signup',
             email: email,
             options: {
-                emailRedirectTo: 'https://16423-storm.github.io/Scoutmaster/index.html'
+                emailRedirectTo: './index.html'
             }
         });
 
@@ -113,7 +113,7 @@ async function resetPassword() {
 
     try {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: 'https://16423-storm.github.io/Scoutmaster/resetpassword.html'
+            redirectTo: './resetpassword.html'
         });
 
         if (error) {
@@ -130,3 +130,29 @@ async function resetPassword() {
         document.getElementById("statustext").style.color = 'red';
     }
 }
+
+// Function to toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    
+    // Save the user's preference to localStorage
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// Check for user's saved preference on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // Add event listener to the toggle button
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+    }
+});

@@ -1,8 +1,8 @@
 body{
     margin:0px;
-    background-color: #f2f2f2;
-    font-family: 'Montserrat';
-    color: #0D0106;
+    background: linear-gradient(135deg, #f2f2f2 0%, #e4e4e4 100%);
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #222;
     overflow-x: hidden;
 }
 
@@ -19,7 +19,7 @@ img{
 }
 
 .darkmode{
-    background-color: #0D0106;
+    background: linear-gradient(135deg, #181818 0%, #242424 100%);
     font-family: 'Montserrat';
     color: #f2f2f2;
     overflow-x: hidden;
@@ -331,7 +331,7 @@ body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.dar
     border-radius: 5px;
     position: relative;
     font-size: clamp(0.5rem, 3vw, 1.5rem);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
 }
 
@@ -398,7 +398,7 @@ body.darkmode .signupbutton:hover::before, .signupbutton:hover::before{
 }
 
 .newgroupbutton, .existinggroupbutton, body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, .creategroupbutton, body.darkmode .creategroupbutton, .updateadminbutton, body.darkmode .updateadminbutton, .invitebutton, body.darkmode .invitebutton, .joingroupbutton, body.darkmode .joingroupbutton{
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid;
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
@@ -467,7 +467,7 @@ body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, b
     margin-right: 30px;
     border: 1px solid;
     border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
     width: 30%;
     display: flex;
@@ -491,7 +491,7 @@ body.darkmode .competitionfocusselectcontainer{
     margin-left: 30px;
     border: 1px solid;
     border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
     width: 30%;
     display: flex;
@@ -523,6 +523,26 @@ body.darkmode .memberlistcontainer{
 .memberlisttable{
     width: 100%;
     border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fafafa;
+}
+
+.memberlisttable th,
+.prescoutthead,
+.matchscoutredthead,
+.matchscoutbluethead {
+    background: #f7f7f7;
+    font-weight: 600;
+    padding: 10px 0;
+}
+
+body.darkmode .memberlisttable th,
+body.darkmode .prescoutthead,
+body.darkmode .matchscoutredthead,
+body.darkmode .matchscoutbluethead {
+    background: #232323;
+    color: #fff;
 }
 
 .memberlisttable td{
@@ -590,13 +610,17 @@ body.darkmode .memberlistcontainer{
     top: 40%;
     left: 50%;
     transform: translate(-50%, -40%);
-    background-color: #616161;
-    color: #ffffff;
-    border: 1px solid #616161;
-    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    background: #616161;
+    color: #fff;
+    padding: 32px 24px;
+    font-size: 1.1rem;
     z-index: 1000;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+}
+
+.popup button {
+    margin: 8px 6px;
 }
 
 .compsearchinput{
@@ -622,7 +646,7 @@ body.darkmode .memberlistcontainer{
     margin-bottom: 10px;
     border: 1px solid #727272;
     border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     width: 80%;
     display: flex;
     justify-content: center;
@@ -636,7 +660,7 @@ body.darkmode .comptab{
     margin-bottom: 10px;
     border: 1px solid #727272;
     border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     width: 80%;
     display: flex;
     justify-content: center;
@@ -720,7 +744,7 @@ body.darkmode .comptab:hover{
     text-align: center;
     background-color: #e4e4e4;
     color: black;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid;
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
@@ -769,7 +793,7 @@ body.darkmode .threebuttonsbutton:hover{
     width: 90%;
     border: 1px solid;
     border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -887,7 +911,7 @@ body.darkmode .prescoutteamstbody tr:hover{
 }
 
 .autopathsbuttongreen{
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid rgb(99, 99, 99);
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
@@ -896,7 +920,7 @@ body.darkmode .prescoutteamstbody tr:hover{
 }
 
 .autopathsbuttonred{
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
+    box-shadow: rgba(99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid rgb(99, 99, 99);
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
@@ -1141,6 +1165,11 @@ body.darkmode .allianceinfosubcontainer{
     justify-content: center;
     flex-direction: row;
     width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 18px;
+    margin-bottom: 18px;
 }
 
 .totalchartcontainer{
