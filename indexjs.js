@@ -769,6 +769,7 @@ async function adminUpdate() {
 var previousDivIdsVisibleAccount = [];
 
 function goToAccountPage(){
+    document.getElementById("titlecontainer").innerText = "Account Management";
     previousDivIdsVisibleAccount = Array.from(document.getElementById("signedinmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
@@ -785,13 +786,16 @@ function goToAccountPage(){
     previousDivIdsVisibleAccount.forEach(div =>{
         document.getElementById(div.id).style.display = "none";
     });
+    document.getElementById("accountbutton").style.display = "none";
 }
 
 function goBackFromAccount(){
+    document.getElementById("titlecontainer").innerText = "Scoutmaster";
     previousDivIdsVisibleAccount.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
     });
     document.getElementById("accountmanagebody").style.display = "none";
+    document.getElementById("accountbutton").style.display = "block";
 }
 
 
@@ -1175,6 +1179,7 @@ async function setScoutedCompetition(eventKey, eventName){
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function showPrescout(){
+    document.getElementById("titlecontainer").innerText = "Prescouting";
     previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
@@ -1197,6 +1202,7 @@ function showPrescout(){
 }
 
 function goBackFromPrescout(){
+    document.getElementById("titlecontainer").innerText = "Scoutmaster";
     previousDivIdsVisible.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
     });
@@ -1204,6 +1210,7 @@ function goBackFromPrescout(){
 }
 
 function showMatchScout(){
+    document.getElementById("titlecontainer").innerText = "Match Scouting";
     previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
     .filter(child => {
         const style = window.getComputedStyle(child);
@@ -1225,6 +1232,7 @@ function showMatchScout(){
 }
 
 function goBackFromMatchScout(){
+    document.getElementById("titlecontainer").innerText = "Scoutmaster";
     cancelRendering();
     previousDivIdsVisible.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
@@ -1235,6 +1243,7 @@ function goBackFromMatchScout(){
 var allianceTeamsList = [];
 
 async function showAllianceSelection(){
+    document.getElementById("titlecontainer").innerText = "Alliance Selection";
     var numOfAlliances;
 
     previousDivIdsVisible = Array.from(document.getElementById("ingroupmainbody").children)
@@ -1430,6 +1439,7 @@ function handleNewMessage(message) {
 }
 
 function goBackFromAllianceSelection(){
+    document.getElementById("titlecontainer").innerText = "Scoutmaster";
     previousDivIdsVisible.forEach(div =>{
         document.getElementById(div.id).style.display = div.display;
     });
