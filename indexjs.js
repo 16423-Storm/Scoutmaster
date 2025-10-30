@@ -2932,7 +2932,7 @@ function changeMatchModeElement(button) {
     }else{
         if(currentAutoStatus && scoreTable[0][station]["auto"][element] !== "0"){
             scoreTable[0][station]["auto"][element] = (Number(scoreTable[0][station]["auto"][element]) - 1).toString();
-        }else if(!currentAutoStatus && scoreTable[0][station]["teleop"][element] !== 0){
+        }else if(!currentAutoStatus && scoreTable[0][station]["teleop"][element] !== "0"){
             scoreTable[0][station]["teleop"][element] = (Number(scoreTable[0][station]["teleop"][element]) - 1).toString();
         }
     }
