@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" style="height: 100%;">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -12,7 +12,7 @@
         <link rel="icon" href="icon.svg" type="image/x-icon">
     </head>
 
-    <body>
+    <body style="height: 100%;">
         <!--nav-->
 
         <div class="nav">
@@ -486,7 +486,6 @@
                         <button class="dangerbutton" id="deleteaccountbutton" onclick="popUpWarning('Pressing continue will delete your account, are you 100% sure you want to continue?', deleteAccount)">Delete Account</button>
                     </div>
                 </div>
-
             </div>
 
             <div class="signedoutmainbody" id="signedoutmainbody">
@@ -515,7 +514,9 @@
                 <div class="signupbuttoncontainer">
                     <button id="signupbutton" onclick="goToLogIn()" class="signupbutton">Sign in</button>
                 </div>
+                
             </div>
+                
         </div>
 
         <!--popup for warning-->
@@ -573,6 +574,14 @@
                 </div>
             </div>
         </div>
+
+        <footer class="footer">
+            <center><a class="generaltextgrey" href="https://github.com/16423-Storm/Scoutmaster/wiki">Wiki</a></center>
+            <br>
+            <center><a class="generaltextgrey" href="https://discord.gg/9PqRvQ6cup">Discord</a></center>
+            <br>
+            <center><a class="generaltextgrey" href="https://storm16423.ca/">Team Website</a></center>
+        </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <!--supabase-->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!--chartjs-->

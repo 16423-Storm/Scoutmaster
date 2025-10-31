@@ -139,7 +139,7 @@ body.darkmode .navdivider{
 }
 
 .signedoutmainbody{
-    width: 98vw;
+    width: 100%;
 }
 
 .textcontainermainbody{
@@ -1264,4 +1264,15 @@ body.darkmode .allianceinfosubcontainer{
         margin-left: 0px;
         width: 80%;
     }
+}
+
+.generaltextgrey{
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+    color: grey;
+    width: 100%;
+}
+
+.generaltextgrey:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }
