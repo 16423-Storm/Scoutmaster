@@ -1080,7 +1080,7 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
 
     if (allEventsMap.size === 0) {
         try {
-            const response = await fetch('https://theorangealliance.org/api/event?season_key=2425', {
+            const response = await fetch('https://theorangealliance.org/api/event?season_key=2526', {
                 headers: {
                 'X-TOA-Key': ORANGE_API_KEY,
                 'X-Application-Origin': 'scoutmaster',
@@ -1298,7 +1298,7 @@ async function showAllianceSelection(){
         var num = 0;
         while(num < numOfAlliances){
             var allianceNum = num + 1;
-            // if(currentEventKey === "2425-CMP-HOU1" || currentEventKey === "2425-CMP-HOU2" || currentEventKey === "2425-CMP-HOU3" || currentEventKey === "2425-CMP-HOU4"){
+            // if(currentEventKey === "2526-CMP-HOU1" || currentEventKey === "2526-CMP-HOU2" || currentEventKey === "2526-CMP-HOU3" || currentEventKey === "2526-CMP-HOU4"){
             //     allInCon.innerHTML += `
             //     <div class="allianceinfosubcontainer">
             //         <p class="generaltext">Alliance ${allianceNum}</p>
