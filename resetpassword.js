@@ -25,7 +25,7 @@ async function resetPassword() {
 			statusText.textContent = "Password updated successfully!";
 			statusText.style.color = 'black';
 			setTimeout(() => {
-				window.location.href = "https://16423-storm.github.io/Scoutmaster/index.html";
+				window.location.href = "https://storm16423.ca/Scoutmaster/index.html";
 			}, 2000);
 		}
 	} catch (error) {
