@@ -1,12 +1,13 @@
-body{
-    margin:0px;
+body {
+    margin: 0px;
     background-color: #f2f2f2;
     font-family: 'Montserrat';
     color: #0D0106;
     overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
@@ -14,55 +15,56 @@ button{
     overflow: hidden;
 }
 
-img{
+img {
     pointer-events: none;
 }
 
-.darkmode{
-    background-color: #0D0106;
+.darkmode {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    background-color: #1a1a1a;
     font-family: 'Montserrat';
     color: #f2f2f2;
     overflow-x: hidden;
 }
 
-.nav{
+.nav {
     width: 100%;
     font-size: clamp(2rem, 5vw, 5rem);
 }
 
-.navcontainer{
+.navcontainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 98%;
 }
 
-.titlecontainer{
+.titlecontainer {
     width: 50%;
     float: left;
     font-weight: 900;
 }
 
-.title{
+.title {
     pointer-events: none;
 }
 
-.buttoncontainer{
+.buttoncontainer {
     width: 50%;
     float: left;
 }
 
-.buttonminicontainer{
-    float:right;
+.buttonminicontainer {
+    float: right;
 }
 
-.accountbuttoncontainer{
+.accountbuttoncontainer {
     display: none;
     width: 50%;
     float: left;
 }
 
-.accountbutton{
+.accountbutton {
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
@@ -71,23 +73,25 @@ img{
     width: clamp(2rem, 5vw, 5rem);
     height: clamp(2rem, 5vw, 5rem);
     margin: auto;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.accountbutton:hover{
+.accountbutton:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     background-color: #31313186;
 }
 
-.accountbuttonimg{
+.accountbuttonimg {
     width: clamp(1rem, 4vw, 4rem);
     height: clamp(1rem, 4vw, 4rem);
 }
 
-.darklighttogglecontainer{
+.darklighttogglecontainer {
     width: 50%;
     float: right;
 }
 
-.darklighttoggle{
+.darklighttoggle {
     background-color: rgba(0, 0, 0, 0);
     border-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
@@ -96,53 +100,55 @@ img{
     width: clamp(2rem, 5vw, 5rem);
     height: clamp(2rem, 5vw, 5rem);
     margin: auto;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.darklighttoggle:hover{
+.darklighttoggle:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     background-color: #31313186;
 }
 
-.darklighttoggleimg{
+.darklighttoggleimg {
     width: clamp(1rem, 4vw, 4rem);
     height: clamp(1rem, 4vw, 4rem);
     margin: auto;
 }
 
-.title{
+.title {
     vertical-align: auto;
     margin: 0px;
     font-family: 'Oswald';
     text-align: left;
 }
 
-.navdividercontainer{
+.navdividercontainer {
     width: 100%;
 }
 
-.navdivider{
-    border:none;
+.navdivider {
+    border: none;
     width: 98%;
     background-color: #0D0106;
     height: 4px;
 }
 
-body.darkmode .navdivider{
+body.darkmode .navdivider {
     color: black;
-    border:none;
+    border: none;
     width: 98%;
     background-color: #f2f2f2;
     height: 4px;
 }
 
-.signedinmainbody{
+.signedinmainbody {
     display: none;
 }
 
-.signedoutmainbody{
+.signedoutmainbody {
     width: 100%;
 }
 
-.textcontainermainbody{
+.textcontainermainbody {
     text-align: center;
     width: 98vw;
     display: flex;
@@ -151,28 +157,28 @@ body.darkmode .navdivider{
     font-size: clamp(0.5rem, 3vw, 1.5rem);
 }
 
-.generaltext{
+.generaltext {
     font-size: clamp(0.5rem, 3vw, 1.5rem);
 }
 
-.reasonscontainer{
+.reasonscontainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.reasonscontainermini{
+.reasonscontainermini {
     width: 75%;
 }
 
-@property --angle{
+@property --angle {
     syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
 }
 
-.reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
+.reason1, .reason2, .reason3, .reason4, body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4 {
     position: relative;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     width: 23%;
@@ -185,14 +191,16 @@ body.darkmode .navdivider{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.reason1:hover, body.darkmode .reason1:hover{
+.reason1:hover, body.darkmode .reason1:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
-    border:none;
+    border: none;
 }
 
-.reason1:hover::after, .reason1:hover::before, body.darkmode .reason1:hover::before, body.darkmode .reason1:hover::after{
+.reason1:hover::after, .reason1:hover::before, body.darkmode .reason1:hover::before, body.darkmode .reason1:hover::after {
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -208,17 +216,18 @@ body.darkmode .navdivider{
     animation: 3s spin linear infinite;
 }
 
-body.darkmode .reason1:hover::before, .reason1:hover::before{
+body.darkmode .reason1:hover::before, .reason1:hover::before {
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason2:hover, body.darkmode .reason2:hover{
+.reason2:hover, body.darkmode .reason2:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
-    border:none;
+    border: none;
 }
 
-.reason2:hover::after, .reason2:hover::before, body.darkmode .reason2:hover::before, body.darkmode .reason2:hover::after{
+.reason2:hover::after, .reason2:hover::before, body.darkmode .reason2:hover::before, body.darkmode .reason2:hover::after {
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -234,17 +243,18 @@ body.darkmode .reason1:hover::before, .reason1:hover::before{
     animation: 3s spin linear infinite;
 }
 
-body.darkmode .reason2:hover::before, .reason2:hover::before{
+body.darkmode .reason2:hover::before, .reason2:hover::before {
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason3:hover, body.darkmode .reason3:hover{
+.reason3:hover, body.darkmode .reason3:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
-    border:none;
+    border: none;
 }
 
-.reason3:hover::after, .reason3:hover::before, body.darkmode .reason3:hover::before, body.darkmode .reason3:hover::after{
+.reason3:hover::after, .reason3:hover::before, body.darkmode .reason3:hover::before, body.darkmode .reason3:hover::after {
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -260,17 +270,18 @@ body.darkmode .reason2:hover::before, .reason2:hover::before{
     animation: 3s spin linear infinite;
 }
 
-body.darkmode .reason3:hover::before, .reason3:hover::before{
+body.darkmode .reason3:hover::before, .reason3:hover::before {
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason4:hover, body.darkmode .reason4:hover{
+.reason4:hover, body.darkmode .reason4:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 0px 0px 0px;
-    border:none;
+    border: none;
 }
 
-.reason4:hover::after, .reason4:hover::before, body.darkmode .reason4:hover::before, body.darkmode .reason4:hover::after{
+.reason4:hover::after, .reason4:hover::before, body.darkmode .reason4:hover::before, body.darkmode .reason4:hover::after {
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -286,72 +297,74 @@ body.darkmode .reason3:hover::before, .reason3:hover::before{
     animation: 3s spin linear infinite;
 }
 
-body.darkmode .reason4:hover::before, .reason4:hover::before{
+body.darkmode .reason4:hover::before, .reason4:hover::before {
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-.reason1, .reason2, .reason3, .reason4{
+.reason1, .reason2, .reason3, .reason4 {
     background-color: #e4e4e4;
     border-color: #ffffff;
 }
 
-body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
+body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4 {
     background-color: #242424;
     border-color: #000000;
 }
 
-.reasonimagecontainer{
+.reasonimagecontainer {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.reasonimage{
+.reasonimage {
     width: 50%;
     height: auto;
 }
 
-.reasontext{
+.reasontext {
     text-align: center;
     font-size: clamp(0.6rem, 1.5vw, 1rem);
     margin-right: 5px;
 }
 
-.signupbuttoncontainer{
+.signupbuttoncontainer {
     margin: 3%;
     justify-content: center;
     display: flex;
     align-items: center;
 }
 
-.signupbutton, body.darkmode .signupbutton{
+.signupbutton, body.darkmode .signupbutton {
     border: 1px solid;
     border-radius: 5px;
     position: relative;
     font-size: clamp(0.5rem, 3vw, 1.5rem);
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.signupbutton{
+.signupbutton {
     color: black;
     background-color: #e4e4e4;
     border-color: #ffffff;
 }
 
-body.darkmode .signupbutton{
+body.darkmode .signupbutton {
     color: white;
     background-color: #242424;
     border-color: #000000;
 }
 
-.signupbutton:hover, body.darkmode .signupbutton:hover{
-    border:none;
+.signupbutton:hover, body.darkmode .signupbutton:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    border: none;
 }
 
-body.darkmode .signupbutton:hover::after, body.darkmode .signupbutton:hover::before, .signupbutton:hover::after, .signupbutton:hover::before{
+body.darkmode .signupbutton:hover::after, body.darkmode .signupbutton:hover::before, .signupbutton:hover::after, .signupbutton:hover::before {
     --angle: 0deg;
     content: '';
     position: absolute;
@@ -359,7 +372,7 @@ body.darkmode .signupbutton:hover::after, body.darkmode .signupbutton:hover::bef
     left: 50%;
     height: 100%;
     width: 100%;
-    background-image: conic-gradient(from var(--angle), #FF7F27 , #5058CF , #EC1C24 , #0ED145 , #FF7F27);
+    background-image: conic-gradient(from var(--angle), #FF7F27, #5058CF, #EC1C24, #0ED145, #FF7F27);
     translate: -50% -51%;
     z-index: -1;
     padding: 2px;
@@ -367,25 +380,25 @@ body.darkmode .signupbutton:hover::after, body.darkmode .signupbutton:hover::bef
     animation: 3s spin linear infinite;
 }
 
-body.darkmode .signupbutton:hover::before, .signupbutton:hover::before{
+body.darkmode .signupbutton:hover::before, .signupbutton:hover::before {
     filter: blur(1.5rem);
     opacity: 0.5;
 }
 
-@keyframes spin{
-    from{
+@keyframes spin {
+    from {
         --angle: 0deg;
     }
-    to{
+    to {
         --angle: 360deg;
     }
 }
 
-.ingroupmainbody{
+.ingroupmainbody {
     display: none;
 }
 
-.notingroupbuttoncontainer{
+.notingroupbuttoncontainer {
     width: 100%;
     display: none;
     justify-content: center;
@@ -393,65 +406,69 @@ body.darkmode .signupbutton:hover::before, .signupbutton:hover::before{
     flex-direction: column;
 }
 
-.notingroupbuttonminicontainer{
+.notingroupbuttonminicontainer {
     margin: 20px;
 }
 
-.newgroupbutton, .existinggroupbutton, body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, .creategroupbutton, body.darkmode .creategroupbutton, .updateadminbutton, body.darkmode .updateadminbutton, .invitebutton, body.darkmode .invitebutton, .joingroupbutton, body.darkmode .joingroupbutton{
+.newgroupbutton, .existinggroupbutton, body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, .creategroupbutton, body.darkmode .creategroupbutton, .updateadminbutton, body.darkmode .updateadminbutton, .invitebutton, body.darkmode .invitebutton, .joingroupbutton, body.darkmode .joingroupbutton {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid;
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     width: clamp(10rem, 15vw, 30rem);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.newgroupbutton, .existinggroupbutton, .creategroupbutton, .updateadminbutton, .invitebutton, .joingroupbutton{
+.newgroupbutton, .existinggroupbutton, .creategroupbutton, .updateadminbutton, .invitebutton, .joingroupbutton {
     background-color: #e4e4e4;
     border-color: #ffffff;
     color: black;
 }
 
-body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, body.darkmode .creategroupbutton, body.darkmode .updateadminbutton, body.darkmode .invitebutton, body.darkmode .joingroupbutton{
+body.darkmode .newgroupbutton, body.darkmode .existinggroupbutton, body.darkmode .creategroupbutton, body.darkmode .updateadminbutton, body.darkmode .invitebutton, body.darkmode .joingroupbutton {
     background-color: #242424;
     border-color: #000000;
     color: white;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.newgroupbutton:hover, .existinggroupbutton:hover, .creategroupbutton:hover, .updateadminbutton:hover, .invitebutton:hover, .joingroupbutton:hover{
+.newgroupbutton:hover, .existinggroupbutton:hover, .creategroupbutton:hover, .updateadminbutton:hover, .invitebutton:hover, .joingroupbutton:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     background-color: #d1d1d1;
 }
 
-body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, body.darkmode .creategroupbutton:hover, body.darkmode .updateadminbutton:hover, body.darkmode .invitebutton:hover, body.darkmode .joingroupbutton:hover{
+body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, body.darkmode .creategroupbutton:hover, body.darkmode .updateadminbutton:hover, body.darkmode .invitebutton:hover, body.darkmode .joingroupbutton:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     background-color: #303030;
 }
 
-.subtitle{
+.subtitle {
     font-size: clamp(2rem, 3vw, 3rem);
 }
 
-.creategroupcontainer{
+.creategroupcontainer {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.joingroupcontainer{
+.joingroupcontainer {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.creategroupcontainer *{
+.creategroupcontainer * {
     margin: 10px
 }
 
-#groupnameinput{
+#groupnameinput {
     width: 30%;
 }
 
-.adminviewbodycontainer{
+.adminviewbodycontainer {
     width: 100vw;
     display: none;
     justify-content: center;
@@ -459,11 +476,11 @@ body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, b
     flex-direction: row;
 }
 
-.regviewbodycontainer{
+.regviewbodycontainer {
     display: none;
 }
 
-.competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer{
+.competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer {
     margin-right: 30px;
     border: 1px solid;
     border-radius: 5px;
@@ -473,21 +490,22 @@ body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, b
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.competitionfocusselectcontainer{
+.competitionfocusselectcontainer {
     background-color: #e4e4e4;
     border-color: #ffffff;
     color: black;
 }
 
-body.darkmode .competitionfocusselectcontainer{
+body.darkmode .competitionfocusselectcontainer {
     background-color: #242424;
     border-color: #000000;
-    color:white;
+    color: white;
 }
 
-.memberlistcontainer, body.darkmode .memberlistcontainer{
+.memberlistcontainer, body.darkmode .memberlistcontainer {
     margin-left: 30px;
     border: 1px solid;
     border-radius: 5px;
@@ -497,44 +515,50 @@ body.darkmode .competitionfocusselectcontainer{
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.memberlistcontainer{
+.memberlistcontainer {
     background-color: #e4e4e4;
     border-color: #ffffff;
     color: black;
 }
 
-body.darkmode .memberlistcontainer{
+body.darkmode .memberlistcontainer {
     background-color: #242424;
     border-color: #000000;
-    color:white;
+    color: white;
 }
 
-.tabletitle{
+.tabletitle {
     font-size: clamp(0.5rem, 3vw, 1.5rem);
     font-weight: bolder;
 }
 
-.memberlisttablecontainer{
+.memberlisttablecontainer {
     width: 95%;
 }
 
-.memberlisttable{
+.memberlisttable {
     width: 100%;
     border-collapse: collapse;
 }
 
-.memberlisttable td{
+.memberlisttable td {
     border: 1px solid rgba(99, 99, 99, 0.2);
 }
 
-.memberlistemail:hover{
+.memberlistemail {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.memberlistemail:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     text-decoration: line-through;
     cursor: pointer;
 }
 
-.adminupdatebuttoncontainer{
+.adminupdatebuttoncontainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -544,7 +568,7 @@ body.darkmode .memberlistcontainer{
     box-sizing: border-box;
 }
 
-.tablebelowbuttoncontainer{
+.tablebelowbuttoncontainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -552,11 +576,11 @@ body.darkmode .memberlistcontainer{
     width: 100%;
 }
 
-.invitebutton, body.darkmode .invitebutton, .updateadminbutton, body.darkmode .updateadminbutton{
+.invitebutton, body.darkmode .invitebutton, .updateadminbutton, body.darkmode .updateadminbutton {
     width: 100%;
 }
 
-.invitebuttoncontainer{
+.invitebuttoncontainer {
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
@@ -568,7 +592,7 @@ body.darkmode .memberlistcontainer{
     box-sizing: border-box;
 }
 
-.tabletext{
+.tabletext {
     font-size: clamp(0.4rem, 2.7vw, 1.3rem);
 }
 
@@ -596,28 +620,28 @@ body.darkmode .memberlistcontainer{
     padding: 20px;
     z-index: 1000;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-.compsearchinput{
+.compsearchinput {
     font-size: clamp(0.5rem, 3vw, 1.3rem);
 }
 
-.compsearchcontainer{
+.compsearchcontainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.competitionfocusselectcontainer{
+.competitionfocusselectcontainer {
     flex-direction: column;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.comptab{
+.comptab {
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid #727272;
@@ -629,9 +653,10 @@ body.darkmode .memberlistcontainer{
     align-items: center;
     flex-direction: column;
     background-color: #e4e4e4;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-body.darkmode .comptab{
+body.darkmode .comptab {
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid #727272;
@@ -641,37 +666,39 @@ body.darkmode .comptab{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;    
+    flex-direction: column;
     background-color: #242424;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-
-.comptab:hover{
+.comptab:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     border-color: black;
     background-color: #cfcfcf;
     cursor: pointer;
 }
 
-body.darkmode .comptab:hover{
+body.darkmode .comptab:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     border-color: black;
     background-color: #353535;
     cursor: pointer;
 }
 
-.comptabbigtext{
+.comptabbigtext {
     font-size: clamp(0.5rem, 3vw, 1.3rem);
     margin: 10px;
     font-weight: bold;
 }
 
-.comptabsmalltext{
+.comptabsmalltext {
     margin: 5px;
     font-size: clamp(0.4rem, 2.7vw, 1.2rem);
     text-align: center;
     width: 100%;
 }
 
-.comptabcontainer{
+.comptabcontainer {
     margin-top: 10px;
     width: 90%;
     border: 1px solid #727272;
@@ -684,7 +711,7 @@ body.darkmode .comptab:hover{
     box-sizing: border-box;
 }
 
-.threebuttonscontainer{
+.threebuttonscontainer {
     margin-top: 30px;
     width: 100%;
     display: flex;
@@ -693,7 +720,7 @@ body.darkmode .comptab:hover{
     flex-direction: row;
 }
 
-.prescoutbodycontainer, .matchscoutbodycontainer, .allianceselectionbodycontainer{
+.prescoutbodycontainer, .matchscoutbodycontainer, .allianceselectionbodycontainer {
     display: none;
     width: 100%;
     justify-content: center;
@@ -701,7 +728,7 @@ body.darkmode .comptab:hover{
     flex-direction: column;
 }
 
-.prescoutbuttoncontainer, .matchscoutbuttoncontainer, .allianceselectionbuttoncontainer{
+.prescoutbuttoncontainer, .matchscoutbuttoncontainer, .allianceselectionbuttoncontainer {
     width: 33%;
     display: flex;
     justify-content: center;
@@ -709,13 +736,13 @@ body.darkmode .comptab:hover{
     flex-direction: column;
 }
 
-.emptyalignerthirds{
+.emptyalignerthirds {
     width: 0.5%;
     height: 100%;
     display: block;
 }
 
-.threebuttonsbutton{
+.threebuttonsbutton {
     width: 80%;
     text-align: center;
     background-color: #e4e4e4;
@@ -725,23 +752,27 @@ body.darkmode .comptab:hover{
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     border-color: #ffffff;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-body.darkmode .threebuttonsbutton{
+body.darkmode .threebuttonsbutton {
     background-color: #242424;
     border-color: #000000;
     color: white;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.threebuttonsbutton:hover{
+.threebuttonsbutton:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     background-color: #d1d1d1;
 }
 
-body.darkmode .threebuttonsbutton:hover{
+body.darkmode .threebuttonsbutton:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     background-color: #303030;
 }
 
-.blackout{
+.blackout {
     display: none;
     position: fixed;
     top: 0;
@@ -752,20 +783,17 @@ body.darkmode .threebuttonsbutton:hover{
     z-index: 999;
 }
 
-.loadingimg{
+.loadingimg {
     display: none;
     position: fixed;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -40%);
     padding: 20px;
-    z-index: 1000;
+    z-index: 1002;
 }
 
-
-
-
-.prescoutteamslist, body.darkmode .prescoutteamslist{
+.prescoutteamslist, body.darkmode .prescoutteamslist {
     width: 90%;
     border: 1px solid;
     border-radius: 5px;
@@ -775,44 +803,49 @@ body.darkmode .threebuttonsbutton:hover{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.prescoutteamslist{
+.prescoutteamslist {
     background-color: #e4e4e4;
     border-color: #ffffff;
     color: black;
 }
 
-body.darkmode .prescoutteamslist{
+body.darkmode .prescoutteamslist {
     background-color: #242424;
     border-color: #000000;
-    color:white;
+    color: white;
 }
 
-.prescoutteamstbody tr{
-    border-bottom: 1px solid #727272;;
+.prescoutteamstbody tr {
+    border-bottom: 1px solid #727272;
+    ;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.prescoutteamstbody tr:hover{
+.prescoutteamstbody tr:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     border-color: black;
     background-color: #cfcfcf;
     cursor: pointer;
 }
 
-body.darkmode .prescoutteamstbody tr:hover{
+body.darkmode .prescoutteamstbody tr:hover {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     border-color: black;
     background-color: #353535;
     cursor: pointer;
 }
 
-.prescoutteampage{
+.prescoutteampage {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.abilitycontainer{
+.abilitycontainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -822,7 +855,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-bottom: 10px;
 }
 
-.alliancestuffcontainer{
+.alliancestuffcontainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -832,21 +865,21 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-bottom: 10px;
 }
 
-.alliancestuffcontainer *{
+.alliancestuffcontainer * {
     margin: 5px;
 }
 
-.prescoutcheckbox{
+.prescoutcheckbox {
     height: 100%;
     width: auto;
 }
 
-.prescouttextinput{
+.prescouttextinput {
     height: 100%;
     font-size: clamp(0.4rem, 2.7vw, 1.3rem);
 }
 
-.prescoutsmalltext{
+.prescoutsmalltext {
     font-size: clamp(0.4rem, 2.7vw, 1.3rem);
 }
 
@@ -863,7 +896,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     box-sizing: border-box;
 }
 
-.autopathsoverlay{
+.autopathsoverlay {
     display: none;
     position: fixed;
     top: 40%;
@@ -875,10 +908,10 @@ body.darkmode .prescoutteamstbody tr:hover{
     padding: 20px;
     z-index: 1000;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-.autopathssection{
+.autopathssection {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -886,33 +919,37 @@ body.darkmode .prescoutteamstbody tr:hover{
     overflow-x: hidden;
 }
 
-.autopathsbuttongreen{
+.autopathsbuttongreen {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid rgb(99, 99, 99);
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
     background-color: #0ED145;
     color: white;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.autopathsbuttonred{
+.autopathsbuttonred {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 4px 16px 0px;
     border: 1px solid rgb(99, 99, 99);
     border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.4rem);
-    background-color: #EC1C24;  
-    color: white;  
+    background-color: #EC1C24;
+    color: white;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.autopathsbuttongreen:hover{
+.autopathsbuttongreen:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     background-color: #0b9c34;
 }
 
-.autopathsbuttonred:hover{
+.autopathsbuttonred:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     background-color: #ad151a;
 }
 
-.autopathshowsizebig{
+.autopathshowsizebig {
     width: 300px;
     height: 300px;
     display: flex;
@@ -920,46 +957,45 @@ body.darkmode .prescoutteamstbody tr:hover{
     align-items: center;
 }
 
-.autodisplaycontainer{
+.autodisplaycontainer {
     flex: 1 1 0;
     max-width: 20%;
     margin: 0 5px;
     box-sizing: border-box;
 }
 
-
-
-.matchscoutredthead{
+.matchscoutredthead {
     background-color: rgb(255, 91, 91);
     font-weight: bold;
 }
 
-.matchscoutbluethead{
+.matchscoutbluethead {
     background-color: rgb(91, 107, 255);
     font-weight: bold;
 }
 
-.matchscoutredthead{
+.matchscoutredthead {
     background-color: rgb(255, 91, 91);
     font-weight: bold;
 }
 
-.matchscoutredtd{
+.matchscoutredtd {
     background-color: rgb(255, 91, 91);
 
 }
-.matchscoutbluetd{
+
+.matchscoutbluetd {
     background-color: rgb(91, 107, 255);
 }
 
-.matchscoutemodebody{
+.matchscoutemodebody {
     display: none;
     justify-content: center;
     align-items: center;
     flex-direction: row;
 }
 
-.matchteamcontainer{
+.matchteamcontainer {
     width: 90%;
     display: flex;
     justify-content: center;
@@ -967,7 +1003,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     flex-direction: column;
 }
 
-.matchteamnumbercontainerred{
+.matchteamnumbercontainerred {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -975,14 +1011,16 @@ body.darkmode .prescoutteamstbody tr:hover{
     border-radius: 7px;
     width: 90%;
     background-color: red;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.matchteamnumbercontainerred:hover{
+.matchteamnumbercontainerred:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     cursor: pointer;
     background-color: #ad151a;
 }
 
-.matchteamnumbercontainerblue{
+.matchteamnumbercontainerblue {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -990,22 +1028,24 @@ body.darkmode .prescoutteamstbody tr:hover{
     border-radius: 7px;
     width: 90%;
     background-color: blue;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.matchteamnumbercontainerblue:hover{
+.matchteamnumbercontainerblue:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     cursor: pointer;
     background-color: rgb(0, 0, 155);
 }
 
-.matchteamnumbercontainerred p, .matchteamnumbercontainerblue p{
+.matchteamnumbercontainerred p, .matchteamnumbercontainerblue p {
     color: white;
 }
 
-.matchteamnumber{
+.matchteamnumber {
     text-align: center;
 }
 
-.matchscoutmodebuttonscontainer{
+.matchscoutmodebuttonscontainer {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -1013,7 +1053,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     width: 100%;
 }
 
-.matchscoutmodebody{
+.matchscoutmodebody {
     display: none;
     justify-content: center;
     align-items: center;
@@ -1021,7 +1061,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     width: 100%;
 }
 
-.matchscoutnumeratedbuttoncontainer{
+.matchscoutnumeratedbuttoncontainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1033,7 +1073,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     overflow-y: hidden;
 }
 
-.matchscoutnumeratedbuttonsubcontainer{
+.matchscoutnumeratedbuttonsubcontainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1043,53 +1083,61 @@ body.darkmode .prescoutteamstbody tr:hover{
     width: 100%;
 }
 
-.matchscoutbuttongreen{
+.matchscoutbuttongreen {
     background-color: #0ED145;
     width: 40%;
     border: 1px solid;
     border-radius: 5px;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.matchscoutbuttongreen:hover{
+.matchscoutbuttongreen:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     background-color: #0b9c34;
 }
 
-.matchscoutbuttonred{
+.matchscoutbuttonred {
     background-color: #EC1C24;
     width: 40%;
     border: 1px solid;
     border-radius: 5px;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.matchscoutbuttonred:hover{
+.matchscoutbuttonred:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     background-color: #ad151a;
 }
 
-.matchscoutbuttonpurple{
+.matchscoutbuttonpurple {
     color: white;
     background-color: #7124ff;
     width: 40%;
     border: 1px solid #000000;
     border-radius: 5px;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.matchscoutbuttonpurple:hover{
+.matchscoutbuttonpurple:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     background-color: #481a9c;
 }
 
-.matchscoutbuttongrey{
+.matchscoutbuttongrey {
     color: white;
     background-color: #808080;
     width: 40%;
     border: 1px solid #000000;
     border-radius: 5px;
+    transition: all 0.3s ease, transform 0.3s ease;
 }
 
-.matchscoutbuttongrey:hover{
+.matchscoutbuttongrey:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
     background-color: #3d3d3d;
 }
 
-.allianceinfocontainer{
+.allianceinfocontainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1099,7 +1147,7 @@ body.darkmode .prescoutteamstbody tr:hover{
     margin-bottom: 5px;
 }
 
-.allianceinfosubcontainer{
+.allianceinfosubcontainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1113,11 +1161,11 @@ body.darkmode .prescoutteamstbody tr:hover{
     border-color: white;
 }
 
-body.darkmode .allianceinfosubcontainer{
+body.darkmode .allianceinfosubcontainer {
     border-color: black;
 }
 
-.allianceinput{
+.allianceinput {
     margin: 5px;
     font-size: clamp(0.4rem, 2.2vw, 1rem);
     width: 80%;
@@ -1126,7 +1174,7 @@ body.darkmode .allianceinfosubcontainer{
     margin-left: 5px;
 }
 
-.alliancesubmitbutton{
+.alliancesubmitbutton {
     margin: 5px;
     font-size: clamp(0.4rem, 2.2vw, 1rem);
     width: 20%;
@@ -1135,7 +1183,7 @@ body.darkmode .allianceinfosubcontainer{
     margin-left: 5px;
 }
 
-.chartcontainer{
+.chartcontainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1143,7 +1191,7 @@ body.darkmode .allianceinfosubcontainer{
     width: 100%;
 }
 
-.totalchartcontainer{
+.totalchartcontainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1151,26 +1199,26 @@ body.darkmode .allianceinfosubcontainer{
     width: 30%;
 }
 
-.totalchartcontainer canvas{
+.totalchartcontainer canvas {
     width: 100% !important;
     height: 100% !important;
 }
 
 @media only screen and (max-width: 1000px) {
-    .totalchartcontainer{
+    .totalchartcontainer {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px;
         width: 95%;
     }
-    
-    .totalchartcontainer canvas{
+
+    .totalchartcontainer canvas {
         width: 100% !important;
         height: auto !important;
     }
 
-    .chartcontainer{
+    .chartcontainer {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1181,7 +1229,7 @@ body.darkmode .allianceinfosubcontainer{
 
 
 @media only screen and (max-width: 800px) {
-    .allianceinfocontainer{
+    .allianceinfocontainer {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1189,7 +1237,7 @@ body.darkmode .allianceinfosubcontainer{
         width: 95%;
     }
 
-    .allianceinfosubcontainer{
+    .allianceinfosubcontainer {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1202,12 +1250,12 @@ body.darkmode .allianceinfosubcontainer{
         font-size: clamp(0.4rem, 2.2vw, 1rem);
     }
 
-    body.darkmode .allianceinfosubcontainer{
+    body.darkmode .allianceinfosubcontainer {
         border-color: black;
     }
 
 
-    .matchscoutnumeratedbuttoncontainer{
+    .matchscoutnumeratedbuttoncontainer {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1218,7 +1266,8 @@ body.darkmode .allianceinfosubcontainer{
         overflow-x: hidden;
         overflow-y: hidden;
     }
-    .matchscoutmodebuttonscontainer{
+
+    .matchscoutmodebuttonscontainer {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1226,7 +1275,7 @@ body.darkmode .allianceinfosubcontainer{
         width: 100%;
     }
 
-    .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1 , body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
+    .reason1, .reason2, .reason3, .reason4, body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4 {
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         width: 48%;
         margin: calc(1% - 2px);
@@ -1235,17 +1284,17 @@ body.darkmode .allianceinfosubcontainer{
         float: left;
     }
 
-    .reason1, .reason2, .reason3, .reason4{
+    .reason1, .reason2, .reason3, .reason4 {
         background-color: #e4e4e4;
         border-color: #ffffff;
     }
 
-    body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4{
+    body.darkmode .reason1, body.darkmode .reason2, body.darkmode .reason3, body.darkmode .reason4 {
         background-color: #242424;
         border-color: #000000;
     }
 
-    .adminviewbodycontainer{
+    .adminviewbodycontainer {
         width: 100vw;
         display: none;
         justify-content: center;
@@ -1253,26 +1302,95 @@ body.darkmode .allianceinfosubcontainer{
         flex-direction: column;
     }
 
-    .competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer{
+    .competitionfocusselectcontainer, body.darkmode .competitionfocusselectcontainer {
         margin-bottom: 20px;
         margin-right: 0px;
         width: 80%;
     }
 
-    .memberlistcontainer, body.darkmode .memberlistcontainer{
+    .memberlistcontainer, body.darkmode .memberlistcontainer {
         margin-top: 20px;
         margin-left: 0px;
         width: 80%;
     }
 }
 
-.generaltextgrey{
-    font-size: clamp(0.5rem, 3vw, 1.5rem);
-    color: grey;
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    z-index: 600;
+    background-color: #e6e6e6;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.generaltextgrey:hover{
-    text-decoration: underline;
-    cursor: pointer;
+body.darkmode .footer {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    background-color: #282828;
+}
+
+.footer a.generaltextgrey {
+    color: #555;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 500;
+    font-size: 20px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+body.darkmode .footer a.generaltextgrey {
+    color: #ccc;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer a.generaltextgrey:hover {
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: #000;
+}
+
+body.darkmode .footer a.generaltextgrey:hover {
+    transition: color 0.3s ease, transform 0.3s ease;
+    color: #fff;
+}
+
+.footer i {
+    margin-right: 6px;
+    color: inherit;
+}
+
+@media only screen and (max-width: 800px) {
+    .footer a.generaltextgrey {
+        margin: 0 20px;
+        font-size: 13px;
+    }
+}
+
+
+/* Works for Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #666;
+    border-radius: 4px;
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
+    background-color: #888;
+}
+
+/* Works for Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #666 #1a1a1a;
 }
