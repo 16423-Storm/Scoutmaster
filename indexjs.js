@@ -1806,10 +1806,14 @@ async function goToAllianceTeamPage(element) {
 
 var stillSameTeam = false;
 
-
 async function showAutoOverlayAlliance(element){
     if(stillSameTeam){
-        return;
+        lockNoUse = true;
+        lockFinalized = true;
+
+        await updateAutoPathDisplay();
+        await showAutoOverlay();
+        stillSameTeam = true;
     }else{
         const leTeamNumber = Number(element.dataset.team);
 
@@ -2638,8 +2642,10 @@ async function getMatchList() {
         
         tbody.innerHTML = '';
 
+        isRendering = true;
+
 		for (const match of matches) {
-            if (isCancelled) {
+            if (isCancelled && isRendering) {
                 console.log('Rendering cancelled due to user click.');
                 tbody.innerHTML = '';
                 break;
@@ -2710,6 +2716,7 @@ async function getMatchList() {
 		}
 
         isCancelled = false;
+        isRendering = false;
 
 	} catch (error) {
 		console.error('Failed to load matches:', error);
@@ -2718,6 +2725,7 @@ async function getMatchList() {
 }
 
 var currentMatchKey2;
+var isRendering = false;
 
 async function goToMatchScoutModePage(element) {
     if(!currentAutoStatus){
