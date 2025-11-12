@@ -2731,9 +2731,7 @@ var currentMatchKey2;
 var isRendering = false;
 
 async function goToMatchScoutModePage(element) {
-    if(!currentAutoStatus){
-        flipAutoAuto();
-    }
+    flipAutoAuto();
     cancelRendering();
     currentMatchKey2 = element.dataset.matchKey;
 
