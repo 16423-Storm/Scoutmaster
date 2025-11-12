@@ -12,7 +12,7 @@ async function signUp() {
         email,
         password,
         options: {
-            emailRedirectTo: 'https://storm16423.ca/Scoutmaster/index.html'
+            emailRedirectTo: 'https://16423-storm.github.io/Scoutmaster/index.html'
         }
     });
 
