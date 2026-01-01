@@ -2651,7 +2651,9 @@ async function getMatchList() {
                 tbody.innerHTML = '';
                 isCancelled = false;
                 isRendering = false;
-                break;
+                if(document.getElementById("matchtabletbody").childElementCount == 0){
+                    break;
+                }
             }
 			const matchNumber = match.match_name.split(" ")[1];
             console.log('Match:', match.match_key, 'participants before sort:', match.participants);
