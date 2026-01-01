@@ -2645,9 +2645,12 @@ async function getMatchList() {
         isRendering = true;
 
 		for (const match of matches) {
+            isRendering = true
             if (isCancelled && isRendering) {
                 console.log('Rendering cancelled due to user click.');
                 tbody.innerHTML = '';
+                isCancelled = false;
+                isRendering = false;
                 break;
             }
 			const matchNumber = match.match_name.split(" ")[1];
@@ -2712,7 +2715,7 @@ async function getMatchList() {
                     <td class="matchscoutbluetd">${sortedParticipants[3].team_key}${b2f ? ' ✔️' : ''}</td>
                 </tr>
             `;
-
+            isRendering = false;
 		}
 
         isCancelled = false;
@@ -2728,9 +2731,7 @@ var currentMatchKey2;
 var isRendering = false;
 
 async function goToMatchScoutModePage(element) {
-    if(!currentAutoStatus){
-        flipAutoAuto();
-    }
+    flipAutoAuto();
     cancelRendering();
     currentMatchKey2 = element.dataset.matchKey;
 
@@ -2774,6 +2775,7 @@ function cancelRendering() {
 function goBackFromMatchModeScout(){
     enableStationButtons();
     resetToAutoMode();
+    isCancelled = false;
     getMatchList();
     scoreTable = [
         {

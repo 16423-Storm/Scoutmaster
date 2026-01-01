@@ -18,11 +18,43 @@
     margin-top: 10px;
 }
 
-.changeablebutton{
+.changeableinput{
     font-size: clamp(0.5rem, 3vw, 1.5rem);
 }
 
-.changeableinput{
+.changeablebutton{
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+.changeablebutton:hover{
+    border: 1px solid #d1d1d1;
+    background-color: #cccccc;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+body.darkmode .changeablebutton{
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    font-size: clamp(0.5rem, 3vw, 1.5rem);
+}
+
+body.darkmode .changeablebutton:hover{
+    background-color: #424242;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
     font-size: clamp(0.5rem, 3vw, 1.5rem);
 }
 

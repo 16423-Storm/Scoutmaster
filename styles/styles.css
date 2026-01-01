@@ -466,6 +466,20 @@ body.darkmode .newgroupbutton:hover, body.darkmode .existinggroupbutton:hover, b
 
 #groupnameinput {
     width: 30%;
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode #groupnameinput {
+    width: 30%;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .adminviewbodycontainer {
@@ -625,6 +639,20 @@ body.darkmode .memberlistcontainer {
 
 .compsearchinput {
     font-size: clamp(0.5rem, 3vw, 1.3rem);
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .compsearchinput {
+    font-size: clamp(0.5rem, 3vw, 1.3rem);
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .compsearchcontainer {
@@ -877,6 +905,21 @@ body.darkmode .prescoutteamstbody tr:hover {
 .prescouttextinput {
     height: 100%;
     font-size: clamp(0.4rem, 2.7vw, 1.3rem);
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .prescouttextinput {
+    height: 100%;
+    font-size: clamp(0.4rem, 2.7vw, 1.3rem);
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .prescoutsmalltext {
@@ -894,6 +937,29 @@ body.darkmode .prescoutteamstbody tr:hover {
     font-family: inherit;
     font-size: 1rem;
     box-sizing: border-box;
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .prescoutbiginput {
+    width: 80%;
+    height: 300px;
+    resize: none;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .autopathsoverlay {
@@ -1172,6 +1238,25 @@ body.darkmode .allianceinfosubcontainer {
     box-sizing: border-box;
     margin-right: 5px;
     margin-left: 5px;
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .allianceinput {
+    margin: 5px;
+    font-size: clamp(0.4rem, 2.2vw, 1rem);
+    width: 80%;
+    box-sizing: border-box;
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .alliancesubmitbutton {
@@ -1181,6 +1266,53 @@ body.darkmode .allianceinfosubcontainer {
     box-sizing: border-box;
     margin-right: 5px;
     margin-left: 5px;
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+.alliancesubmitbutton:hover {
+    margin: 5px;
+    font-size: clamp(0.4rem, 2.2vw, 1rem);
+    width: 20%;
+    box-sizing: border-box;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid #d1d1d1;
+    background-color: #cccccc;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .alliancesubmitbutton {
+    margin: 5px;
+    font-size: clamp(0.4rem, 2.2vw, 1rem);
+    width: 20%;
+    box-sizing: border-box;
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .alliancesubmitbutton:hover {
+    margin: 5px;
+    font-size: clamp(0.4rem, 2.2vw, 1rem);
+    width: 20%;
+    box-sizing: border-box;
+    margin-right: 5px;
+    margin-left: 5px;
+    background-color: #424242;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .chartcontainer {
@@ -1359,6 +1491,38 @@ body.darkmode .footer a.generaltextgrey:hover {
 .footer i {
     margin-right: 6px;
     color: inherit;
+}
+
+.changeablebutton{
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+.changeablebutton:hover{
+    border: 1px solid #d1d1d1;
+    background-color: #cccccc;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .changeablebutton{
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+body.darkmode .changeablebutton:hover{
+    background-color: #1d1d1d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 @media only screen and (max-width: 800px) {
