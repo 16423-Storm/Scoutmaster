@@ -1525,6 +1525,8 @@ body.darkmode .changeablebutton:hover{
     border-radius: 5px;
 }
 
+
+
 @media only screen and (max-width: 800px) {
     .footer a.generaltextgrey {
         margin: 0 20px;

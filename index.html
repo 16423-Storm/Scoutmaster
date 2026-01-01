@@ -129,13 +129,16 @@
                             <div class="abilitycontainer">
                                 <p class="prescoutsmalltext" id="teamrookieyearprescout">Loading...</p>
                             </div>
-                            <div class="abilitycontainer">
+                            <!-- <div class="abilitycontainer">
                                 <p class="prescoutsmalltext">Can score artifacts comfortably?:&#8203;</p>
                                 <input class="prescoutcheckbox" type="checkbox" id="ability1input">
                             </div>
                             <div class="abilitycontainer">
                                 <p class="prescoutsmalltext">Can fit both teams in base?:&#8203;</p>
                                 <input class="prescoutcheckbox" type="checkbox" id="ability2input">
+                            </div> -->
+                            <div class="abilitycontainer">
+                                <button class="changeablebutton" id="addQuestionButton" style="display: none;">Add Question</button>
                             </div>
                             <div class="abilitycontainer" style="display: none;">
                                 <p class="prescoutsmalltext">How many Zs?:&#8203;</p>
@@ -573,6 +576,23 @@
                         <svg viewBox="0 0 300 300" width="100%" height="auto" id="drawablesvg" style="display: block; margin: 0; padding: 0;"></svg>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="customquestionpopup" id="customQuestionOverlay">
+            <div class="autopathssection">
+                <p class="generaltext">New Question</p>
+                <button class="autopathsbuttonred" onclick="closeNewQuestionPopup()">X</button>
+            </div>
+            <div class="autopathssection">
+                <input id="customquestionnameinput" class="customquestionlabelinput" placeholder="Question...">
+            </div>
+            <div class="autopathssection">
+                <button class="matchscoutbuttonpurple" id="customquestioncheckboxbutton" onclick="questionChoiceClick(1)">Checkbox</button>
+                <button class="matchscoutbuttongrey" id="customquestiontextbutton" onclick="questionChoiceClick(2)">Text</button>
+            </div>
+            <div class="autopathssection">
+                <button class="autopathsbuttongreen" onclick="submitNewQuestion()">Add</button>
             </div>
         </div>
 

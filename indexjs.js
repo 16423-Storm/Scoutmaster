@@ -499,6 +499,7 @@ async function checkGroupMembership() {
         document.getElementById('notingroupbuttons').style.display = "none";
 
         if (isAdmin) {
+            document.getElementById("addQuestionButton").style.display = "block";
             document.getElementById("adminviewbodycontainer").style.display = "flex";
             document.getElementById("regviewbodycontainer").style.display = "flex";
             document.getElementById("groupidtext").textContent = `Group ID: ${groupId}`
@@ -2015,6 +2016,58 @@ function goBackFromTeamPagePreScout(){
     lockNoUse = false;
 }
 
+function closeNewQuestionPopup(){
+    document.getElementById("customQuestionOverlay").style.display = "none";
+    document.getElementById("backdrop").style.display = "none";
+    document.body.classList.remove("lock-scroll");
+}
+
+function showNewQuestionOverlay(){
+    document.getElementById("customQuestionOverlay").style.display = "block";
+    document.getElementById("backdrop").style.display = "block";
+    document.body.classList.add("lock-scroll");
+}
+
+let queuedNewQuestionType = 1;
+function questionChoiceClick(option){
+    let checkboxbutton = document.getElementById("customquestioncheckboxbutton");
+    let textbutton = document.getElementById("customquestiontextbutton");
+    if(option == 1){
+        queuedNewQuestionType = 1;
+        checkboxbutton.classList = "matchscoutbuttonpurple";
+        textbutton.classList = "matchscoutbuttongrey";
+    }else{
+        queuedNewQuestionType = 2;
+        checkboxbutton.classList = "matchscoutbuttongrey";
+        textbutton.classList = "matchscoutbuttonpurple";
+    }
+}
+
+async function submitNewQuestion(){
+    let value = 0
+    let key = document.getElementById("customquestionnameinput").value.trim()
+    if(queuedNewQuestionType == 1){
+        value = false;
+    }else{
+        value = "";
+    }
+    const { error } = await supabaseClient
+        .rpc('add_custom_question', {
+            p_id: groupId,
+            p_key: key,
+            p_value: value
+        })
+
+    if (error) {
+        console.error('Error adding custom question:', error);
+        return;
+    }
+}
+
+function setPrescoutCustomQuestions(questionData){
+    
+}
+
 function showAutoOverlay(){
     disableDrawing();
     document.getElementById("autopathsoverlay").style.display = "block";
@@ -2239,14 +2292,23 @@ function disableDrawing() {
 async function savePrescoutData() {
 	const notes = document.getElementById("notesinput").value;
 	const strategy = document.getElementById("strategyinput").value;
-	const ability1 = document.getElementById("ability1input").checked;
-	const ability2 = document.getElementById("ability2input").checked;
+	
 
 	const teamData = {
 		notes: notes,
 		autosvg: autoSVGs,
-		ability1: ability1,
-		ability2: ability2,
+		abilities: {
+            1: "",
+            2: "",
+            3: "",
+            4: "",
+            5: "",
+            6: "",
+            7: "",
+            8: "",
+            9: "",
+            10: false
+        },
 		strategy: strategy,
 		finalized: 1
 	};
