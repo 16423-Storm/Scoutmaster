@@ -2648,10 +2648,10 @@ async function getMatchList() {
             isRendering = true
             if (isCancelled && isRendering) {
                 console.log('Rendering cancelled due to user click.');
-                tbody.innerHTML = '';
+                // tbody.innerHTML = '';
                 isCancelled = false;
                 isRendering = false;
-                if(document.getElementById("matchtabletbody").childElementCount == 0){
+                if(document.getElementById("matchtabletbody").childElementCount != 0){
                     break;
                 }
             }
@@ -2771,7 +2771,8 @@ async function goToMatchScoutModePage(element) {
 let isCancelled = false;
 
 function cancelRendering() {
-  isCancelled = true;
+    isCancelled = true;
+    document.getElementById("matchtabletbody").innerHTML = '';
 }
 
 function goBackFromMatchModeScout(){
