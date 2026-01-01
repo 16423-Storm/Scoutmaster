@@ -1,14 +1,14 @@
 const SUPABASE_URL = 'https://tgptsuzheleshmtesbcx.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRncHRzdXpoZWxlc2htdGVzYmN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ4ODA3NDQsImV4cCI6MjA3MDQ1Njc0NH0.pNTxZbSUeyATBlssBIZDrTyn1E2fr8bvCQ4mP3OQ-JM';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function signUp() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const rememberMe = true;
 
-    const { error } = await supabase.auth.signUp({
+    const { error } = await supabaseClient.auth.signUp({
         email,
         password,
         options: {
@@ -44,7 +44,7 @@ async function signIn() {
     const password = document.getElementById('password').value;
     const rememberMe = true;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
         email,
         password,
     });
@@ -77,7 +77,7 @@ async function resendEmail() {
     const email = document.getElementById('email').value;
 
     try {
-        const { error } = await supabase.auth.resend({
+        const { error } = await supabaseClient.auth.resend({
             type: 'signup',
             email: email,
             options: {
@@ -112,7 +112,7 @@ async function resetPassword() {
     const email = document.getElementById('email').value;
 
     try {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
             redirectTo: 'https://storm16423.ca/Scoutmaster/resetpassword.html'
         });
 
