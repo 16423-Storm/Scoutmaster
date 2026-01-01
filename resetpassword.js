@@ -33,3 +33,5 @@ async function resetPassword() {
 		statusText.style.color = 'red';
 	}
 }
+
+window.resetPassword = resetPassword;

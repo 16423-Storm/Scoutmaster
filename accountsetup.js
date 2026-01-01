@@ -130,3 +130,12 @@ async function resetPassword() {
         document.getElementById("statustext").style.color = 'red';
     }
 }
+
+
+
+window.signIn = signIn;
+window.signUp = signUp;
+window.signUpPrompted = signUpPrompted;
+window.resendEmail = resendEmail;
+window.prepForResetPassword = prepForResetPassword;
+window.resetPassword = resetPassword;
