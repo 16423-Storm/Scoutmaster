@@ -2734,7 +2734,7 @@ var isRendering = false;
 
 async function goToMatchScoutModePage(element) {
     flipAutoAuto();
-    // cancelRendering();
+    cancelRendering();
     currentMatchKey2 = element.dataset.matchKey;
 
     scoreTable[0].r1.team_number = element.dataset.rone;
