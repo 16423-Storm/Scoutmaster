@@ -1987,8 +1987,6 @@ async function goToTeamPrescoutPage(element){
     document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
     document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
 
-    setPrescoutCustomQuestions(teamInfoObj, teamIsFinalized);
-
     if(teamIsFinalized === "true"){
         disableDrawing();
         loadPrescoutForTeam();
@@ -1996,6 +1994,7 @@ async function goToTeamPrescoutPage(element){
         lockNoUse = true;
         lockFinalized = true;
     }else{
+        setPrescoutCustomQuestions(teamInfoObj, teamIsFinalized);
         unlockAndClearPrescoutInputs();
         lockNoUse = false;
         enableDrawing();
@@ -2115,7 +2114,8 @@ async function submitNewQuestion(){
 }
 
 function setPrescoutCustomQuestions(questionData, finalized){
-    if(!finalized){
+    console.log("Finalized is equal to, " + finalized)
+    if(finalized != "true"){
         Object.entries(customQuestionsList).forEach(([question, value], index) => {
             // question = the key from JSON
             // value = the value from JSON
