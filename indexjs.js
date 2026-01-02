@@ -367,6 +367,7 @@ window.onload = function(){
 
 async function actualLoad(){
     console.log("Loading onload functions now.");
+    customQuestionsList = await loadAllCustomQuestions();
     loadcookies();
     await useSessionData();
     loadStartingComp();  
@@ -1971,7 +1972,8 @@ async function pullAllTeamsPrescout() {
 }
 
 
-function goToTeamPrescoutPage(element){
+async function goToTeamPrescoutPage(element){
+    abilityCount = await countCustomQuestions(groupId);
     const teamInfoObj = JSON.parse(element.dataset.teamInfo);
     const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
@@ -1984,6 +1986,8 @@ function goToTeamPrescoutPage(element){
     document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
     document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
     document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
+
+    setPrescoutCustomQuestions(teamInfoObj, teamIsFinalized);
 
     if(teamIsFinalized === "true"){
         disableDrawing();
@@ -2043,14 +2047,38 @@ function questionChoiceClick(option){
     }
 }
 
+var abilityCount = 0;
+var customQuestionsList;
+
+async function loadAllCustomQuestions(){
+    const { data, error } = await supabase
+        .from("groups")
+        .select("customQuestions")
+        .eq('id', groupId)
+        .single();
+    
+    if(error){
+        console.error('Error requesting list of custom questions: ', error);
+        return;
+    }
+
+    return data?.customQuestions || {};
+}
+
 async function submitNewQuestion(){
     let value = 0
     let key = document.getElementById("customquestionnameinput").value.trim()
+
     if(queuedNewQuestionType == 1){
         value = false;
     }else{
         value = "";
     }
+
+    if(key == ""){
+        return;
+    }
+
     const { error } = await supabaseClient
         .rpc('add_custom_question', {
             p_id: groupId,
@@ -2062,11 +2090,90 @@ async function submitNewQuestion(){
         console.error('Error adding custom question:', error);
         return;
     }
+
+    abilityCount += 1;
+
+    if(abilityCount < 11){
+        var newDiv = document.createElement("div");
+        newDiv.classList.add("abilitycontainer");
+        if(queuedNewQuestionType == 1){
+            newDiv.innerHTML = `<p class="prescoutsmalltext">${key}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityCount}">`;
+            document.getElementById("addQuestionMarkerDiv").before(newDiv);
+        }else{
+            newDiv.innerHTML = `<p class="prescoutsmalltext">${key}:&#8203;</p>`
+            document.getElementById("addQuestionMarkerDiv").before(newDiv);
+            var newDiv2 = document.createElement("div");
+            newDiv2.classList.add("abilitycontainer");
+            newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${abilityCount}>`;
+            document.getElementById("addQuestionMarkerDiv").before(newDiv2);
+        }
+        closeNewQuestionPopup();
+    }else{
+        console.error('Too many custom questions, maximum of 10');
+        return;
+    }
 }
 
-function setPrescoutCustomQuestions(questionData){
-    
+function setPrescoutCustomQuestions(questionData, finalized){
+    if(!finalized){
+        Object.entries(customQuestionsList).forEach(([question, value], index) => {
+            // question = the key from JSON
+            // value = the value from JSON
+            // index = the position in the object
+
+            var newDiv = document.createElement("div");
+            newDiv.classList.add("abilitycontainer");
+
+            if (value === "") {
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
+                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+
+                var newDiv2 = document.createElement("div");
+                newDiv2.classList.add("abilitycontainer");
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${index + 1}">`;
+                document.getElementById("addQuestionMarkerDiv").before(newDiv2);
+            } else {
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${index + 1}">`;
+                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+            }
+        });
+
+    }else{
+        Object.entries(customQuestionsList).forEach(([question, value], index) => {
+            const abilityNumber = index + 1; // 1-based index
+
+            if (value === "") {
+                // Text input version
+                const newDiv = document.createElement("div");
+                newDiv.classList.add("abilitycontainer");
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
+                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+
+                const newDiv2 = document.createElement("div");
+                newDiv2.classList.add("abilitycontainer");
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${abilityNumber}" value="${questionData.abilities[abilityNumber] ?? ""}" disabled>`;
+                document.getElementById("addQuestionMarkerDiv").before(newDiv2);
+            } else {
+                // Checkbox version
+                const newDiv = document.createElement("div");
+                newDiv.classList.add("abilitycontainer");
+                const isChecked = questionData.abilities[abilityNumber] ? "checked" : "";
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled>`;
+                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+            }
+        });
+
+    }
 }
+
+async function countCustomQuestions(id) {
+    const { data, error } = await supabaseClient
+        .rpc('count_custom_questions', { group_id: id });
+
+    if (error) return 0;
+    return data;
+}
+
 
 function showAutoOverlay(){
     disableDrawing();

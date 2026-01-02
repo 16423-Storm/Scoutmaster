@@ -1547,6 +1547,44 @@ body.darkmode .changeablebutton:hover{
     }
 }
 
+.prescoutsmallinput {
+    width: 80%;
+    height: 300px;
+    resize: none;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    border: 1px solid #d1d1d1;
+    background-color: #f7f7f7;
+    color: black;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    height: 50px;
+}
+
+body.darkmode .prescoutsmallinput {
+    width: 80%;
+    height: 300px;
+    resize: none;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background-color: #2d2d2d;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: border 0.3s, background-color 0.3s;
+    border-radius: 5px;
+    height: 50px;
+}
+
 
 /* Works for Chrome, Edge, Safari */
 ::-webkit-scrollbar {
