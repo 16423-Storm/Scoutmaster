@@ -1794,7 +1794,7 @@ async function goToAllianceTeamPage(element) {
         }
     });
 
-    const { data: data2, error: error2 } = await supabaseClient.rpc('get_prescout_data_for_alliance_info', {
+    const { data: data2, error: error2 } = await supabaseClient.rpc('get_prescout_data_for_alliance_info_new', {
         group_id: groupId,
         team_number: teamNumber.toString()
     });
@@ -1827,8 +1827,6 @@ async function goToAllianceTeamPage(element) {
             }
         });
         
-        document.getElementById("candoxalliance").checked = !!data2.ability1;
-        document.getElementById("candoyalliance").checked = !!data2.ability2;
         document.getElementById("autodescriptionalliance").value = data2.strategy;
         document.getElementById("notesalliance").value = data2.notes;
     }
