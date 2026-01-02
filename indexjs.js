@@ -1811,19 +1811,19 @@ async function goToAllianceTeamPage(element) {
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
-                document.getElementById("customquestiondiv").appendChild(newDiv);
+                document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
                 newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)] ?? ""}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
-                document.getElementById("customquestiondiv").appendChild(newDiv2);
+                document.getElementById("alliancesutomquestionslist").appendChild(newDiv2);
             } else {
                 // Checkbox version
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
                 const isChecked = data2.abilities[String(abilityNumber)] ? "checked" : "";
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
-                document.getElementById("customquestiondiv").appendChild(newDiv);
+                document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
             }
         });
         
