@@ -2052,7 +2052,7 @@ var customQuestionsList;
 
 async function loadAllCustomQuestions(){
     const { data, error } = await supabaseClient
-        .from("groups")
+        .from("group")
         .select("customQuestions")
         .eq('id', groupId)
         .single();
