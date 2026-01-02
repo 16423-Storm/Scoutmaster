@@ -375,6 +375,23 @@ async function actualLoad(){
     document.getElementById("blackout").style.display = "none";
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
+
+    if(!isAdmin){
+        let mySheet;
+        for (let sheet of document.styleSheets) {
+            let href = sheet.href;
+            if (href && href.endsWith('styles/styles.css')) {
+                mySheet = sheet;
+                break;
+            }
+        }
+
+        if (mySheet) {
+            mySheet.insertRule('.removecustomquestionbutton { display: none; }', mySheet.cssRules.length);
+        } else {
+            console.error("Stylesheet 'styles/styles.css' not found!");
+        }
+    }
 }
 
 // button to go to login page
@@ -2211,6 +2228,7 @@ async function removeCustomQuestion(index){
         }else{
             statusPopUp("Removed Question");
             setScoutedCompetition(currentEventKey, currentEventName);
+            window.location.reload();
         }
     });
 }
