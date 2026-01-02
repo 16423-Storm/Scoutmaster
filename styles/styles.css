@@ -1595,6 +1595,11 @@ body.darkmode .prescoutsmallinput {
     transition: all 0.3s ease, transform 0.3s ease;
 }
 
+.removecustomquestionbutton:hover {
+    transition: all 0.3s ease, transform 0.3s ease;
+    background-color: #ad151a;
+}
+
 
 /* Works for Chrome, Edge, Safari */
 ::-webkit-scrollbar {
