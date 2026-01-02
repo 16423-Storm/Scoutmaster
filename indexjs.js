@@ -1805,6 +1805,7 @@ async function goToAllianceTeamPage(element) {
     }else{
         Object.entries(customQuestionsList).forEach(([question, value], index) => {
             const abilityNumber = index + 1; // 1-based index
+            console.log("New ability number generated: "+String(abilityNumber));
 
             if (value === "") {
                 // Text input version
@@ -1815,14 +1816,14 @@ async function goToAllianceTeamPage(element) {
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)]}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)]}" disabled>`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv2);
             } else {
                 // Checkbox version
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
                 const isChecked = data2.abilities[String(abilityNumber)] ? "checked" : "";
-                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled>`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
             }
         });
