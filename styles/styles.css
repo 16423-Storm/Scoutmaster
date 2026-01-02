@@ -1585,6 +1585,16 @@ body.darkmode .prescoutsmallinput {
     height: 50px;
 }
 
+.removecustomquestionbutton {
+    background-color: #EC1C24;
+    color: white;
+    width: 20px;
+    margin-left: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    transition: all 0.3s ease, transform 0.3s ease;
+}
+
 
 /* Works for Chrome, Edge, Safari */
 ::-webkit-scrollbar {
