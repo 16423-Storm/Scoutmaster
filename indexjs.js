@@ -2051,7 +2051,7 @@ var abilityCount = 0;
 var customQuestionsList;
 
 async function loadAllCustomQuestions(){
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from("groups")
         .select("customQuestions")
         .eq('id', groupId)
