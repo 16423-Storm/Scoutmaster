@@ -2216,7 +2216,6 @@ function setPrescoutCustomQuestions(questionData, finalized){
 }
 
 async function removeCustomQuestion(index){
-    alert(`Must remove question ${index}`);
     supabaseClient.rpc("remove_custom_question_by_index", {
         p_group_id: groupId,
         p_index: index
@@ -2227,8 +2226,7 @@ async function removeCustomQuestion(index){
             statusPopUp("Error while removing question");
         }else{
             statusPopUp("Removed Question");
-            setScoutedCompetition(currentEventKey, currentEventName);
-            window.location.reload();
+            setScoutedCompetition(currentEventKey, currentEventName).then(() => window.location.reload());
         }
     });
 }
