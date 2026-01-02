@@ -3818,12 +3818,3 @@ function enableStationButtons() {
         };
     });
 }
-
-setInterval(() => {
-    if (!isAdmin) {
-        const buttons = document.querySelectorAll('.removecustomquestionbutton');
-        buttons.forEach(button => {
-        button.style.display = 'none';
-        });
-    }
-}, 100);
