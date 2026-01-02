@@ -2518,6 +2518,7 @@ function unlockAndClearPrescoutInputs() {
 
 function lockAndSetPrescoutInputs(data) {
 	if (!data) return;
+    setPrescoutCustomQuestions(data, "true");
     document.getElementById("prescoutfinalsubmitbutton").style.display = "none";
 	document.getElementById("ability1input").checked = data.ability1 === true;
 	document.getElementById("ability2input").checked = data.ability2 === true;
