@@ -2151,14 +2151,14 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${abilityNumber}" value="${questionData.abilities[abilityNumber] ?? ""}" disabled>`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${questionData.abilities[String(abilityNumber)] ?? ""}" disabled>`;
                 document.getElementById("addQuestionMarkerDiv").before(newDiv2);
             } else {
                 // Checkbox version
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
-                const isChecked = questionData.abilities[abilityNumber] ? "checked" : "";
-                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled>`;
+                const isChecked = questionData.abilities[String(abilityNumber)] ? "checked" : "";
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${String(abilityNumber)}" ${isChecked} disabled>`;
                 document.getElementById("addQuestionMarkerDiv").before(newDiv);
             }
         });
