@@ -1821,7 +1821,7 @@ async function goToAllianceTeamPage(element) {
         return;
     }else{
         Object.entries(customQuestionsList).forEach(([question, value], index) => {
-            const abilityNumber = index; // 1-based index
+            const abilityNumber = index + 1; // 1-based index
 
             if (value === "") {
                 // Text input version
