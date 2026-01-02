@@ -2183,9 +2183,7 @@ async function removeCustomQuestion(index){
             statusPopUp("Error while removing question");
         }else{
             statusPopUp("Removed Question");
-            setScoutedCompetition(currentEventKey, currentEventName).then(() => {
-                window.location.reload();
-            });
+            setScoutedCompetition(currentEventKey, currentEventName);
         }
     });
 }
@@ -2423,22 +2421,143 @@ function disableDrawing() {
 async function savePrescoutData() {
 	const notes = document.getElementById("notesinput").value;
 	const strategy = document.getElementById("strategyinput").value;
+
+    const abilities = [];
 	
+    try{
+        const input = document.getElementById("ability1");
+
+        if(input.type === "checkbox"){
+            abilities[0] = input.checked;
+        }else{
+            abilities[0] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 1");
+    }
+
+    try{
+        const input = document.getElementById("ability2");
+
+        if(input.type === "checkbox"){
+            abilities[1] = input.checked;
+        }else{
+            abilities[1] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 2");
+    }
+
+    try{
+        const input = document.getElementById("ability3");
+
+        if(input.type === "checkbox"){
+            abilities[2] = input.checked;
+        }else{
+            abilities[2] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 3");
+    }
+
+    try{
+        const input = document.getElementById("ability4");
+
+        if(input.type === "checkbox"){
+            abilities[3] = input.checked;
+        }else{
+            abilities[3] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 4");
+    }
+
+    try{
+        const input = document.getElementById("ability5");
+
+        if(input.type === "checkbox"){
+            abilities[4] = input.checked;
+        }else{
+            abilities[4] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 5");
+    }
+
+    try{
+        const input = document.getElementById("ability6");
+
+        if(input.type === "checkbox"){
+            abilities[5] = input.checked;
+        }else{
+            abilities[5] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 6");
+    }
+
+    try{
+        const input = document.getElementById("ability7");
+
+        if(input.type === "checkbox"){
+            abilities[6] = input.checked;
+        }else{
+            abilities[6] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 7");
+    }
+
+    try{
+        const input = document.getElementById("ability8");
+
+        if(input.type === "checkbox"){
+            abilities[7] = input.checked;
+        }else{
+            abilities[7] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 8");
+    }
+
+    try{
+        const input = document.getElementById("ability9");
+
+        if(input.type === "checkbox"){
+            abilities[8] = input.checked;
+        }else{
+            abilities[8] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 9");
+    }
+
+    try{
+        const input = document.getElementById("ability10");
+
+        if(input.type === "checkbox"){
+            abilities[9] = input.checked;
+        }else{
+            abilities[9] = input.value;
+        }
+    }catch{
+        console.log("Failed ability 10");
+    }
 
 	const teamData = {
 		notes: notes,
 		autosvg: autoSVGs,
 		abilities: {
-            1: "",
-            2: "",
-            3: "",
-            4: "",
-            5: "",
-            6: "",
-            7: "",
-            8: "",
-            9: "",
-            10: false
+            1: abilities[0],
+            2: abilities[1],
+            3: abilities[2],
+            4: abilities[3],
+            5: abilities[4],
+            6: abilities[5],
+            7: abilities[6],
+            8: abilities[7],
+            9: abilities[8],
+            10: abilities[9]
         },
 		strategy: strategy,
 		finalized: 1
@@ -2510,8 +2629,6 @@ async function loadPrescoutForTeam() {
             lockAndSetPrescoutInputs(data);
         } else {
             unlockAndClearPrescoutInputs();
-            document.getElementById("ability1input").checked = data.ability1 === true;
-            document.getElementById("ability2input").checked = data.ability2 === true;
             document.getElementById("strategyinput").value = data.strategy ?? "";
             document.getElementById("notesinput").value = data.notes ?? "";
 
@@ -2522,14 +2639,10 @@ async function loadPrescoutForTeam() {
 }
 
 function unlockAndClearPrescoutInputs() {
-	document.getElementById("ability1input").checked = false;
-	document.getElementById("ability2input").checked = false;
 	document.getElementById("strategyinput").value = "";
 	document.getElementById("notesinput").value = "";
     document.getElementById("prescoutfinalsubmitbutton").style.display = "block";
 
-	document.getElementById("ability1input").disabled = false;
-	document.getElementById("ability2input").disabled = false;
 	document.getElementById("strategyinput").disabled = false;
 	document.getElementById("notesinput").disabled = false;
 
@@ -2544,13 +2657,9 @@ function lockAndSetPrescoutInputs(data) {
 	if (!data) return;
     setPrescoutCustomQuestions(data, "true");
     document.getElementById("prescoutfinalsubmitbutton").style.display = "none";
-	document.getElementById("ability1input").checked = data.ability1 === true;
-	document.getElementById("ability2input").checked = data.ability2 === true;
 	document.getElementById("strategyinput").value = data.strategy ?? "";
 	document.getElementById("notesinput").value = data.notes ?? "";
 
-	document.getElementById("ability1input").disabled = true;
-	document.getElementById("ability2input").disabled = true;
 	document.getElementById("strategyinput").disabled = true;
 	document.getElementById("notesinput").disabled = true;
 
