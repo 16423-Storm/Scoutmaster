@@ -1815,7 +1815,7 @@ async function goToAllianceTeamPage(element) {
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)] ?? ""}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)]}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv2);
             } else {
                 // Checkbox version
@@ -2183,7 +2183,7 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${questionData.abilities[String(abilityNumber)] ?? ""}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${questionData.abilities[String(abilityNumber)]}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
                 document.getElementById("customquestiondiv").appendChild(newDiv2);
             } else {
                 // Checkbox version
