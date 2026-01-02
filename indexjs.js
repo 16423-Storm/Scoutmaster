@@ -1804,8 +1804,7 @@ async function goToAllianceTeamPage(element) {
         return;
     }else{
         Object.entries(customQuestionsList).forEach(([question, value], index) => {
-            const abilityNumber = index + 1; // 1-based index
-            console.log("New ability number generated: "+String(abilityNumber));
+            const abilityNumber = index; // 1-based index
 
             if (value === "") {
                 // Text input version
@@ -2163,17 +2162,17 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
                 var newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="allianceability${index + 1}">`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="allianceability${index}">`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv2);
             } else {
-                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="allianceability${index + 1}">`;
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="allianceability${index}">`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
             }
         });
 
     }else{
         Object.entries(customQuestionsList).forEach(([question, value], index) => {
-            const abilityNumber = index + 1; // 1-based index
+            const abilityNumber = index; // 1-based index
 
             if (value === "") {
                 // Text input version
