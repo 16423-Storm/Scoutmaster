@@ -2015,6 +2015,7 @@ var currentPrescoutTeam;
 function goBackFromTeamPagePreScout(){
     unlockAndClearPrescoutInputs();
     clearCurrentPath();
+    document.getElementById("customquestiondiv").innerHTML = "";
     document.getElementById("prescoutteamslist").style.display = "flex";
     document.getElementById("prescoutteampage").style.display = "none";
     document.getElementById("prescoutallthewaybackbutton").style.display = "block";
@@ -2102,14 +2103,14 @@ async function submitNewQuestion(){
         newDiv.classList.add("abilitycontainer");
         if(queuedNewQuestionType == 1){
             newDiv.innerHTML = `<p class="prescoutsmalltext">${key}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityCount}">`;
-            document.getElementById("addQuestionMarkerDiv").before(newDiv);
+            document.getElementById("customquestiondiv").appendChild(newDiv);
         }else{
             newDiv.innerHTML = `<p class="prescoutsmalltext">${key}:&#8203;</p>`
-            document.getElementById("addQuestionMarkerDiv").before(newDiv);
+            document.getElementById("customquestiondiv").appendChild(newDiv);
             var newDiv2 = document.createElement("div");
             newDiv2.classList.add("abilitycontainer");
             newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${abilityCount}>`;
-            document.getElementById("addQuestionMarkerDiv").before(newDiv2);
+            document.getElementById("customquestiondiv").appendChild(newDiv2);
         }
         closeNewQuestionPopup();
     }else{
@@ -2131,15 +2132,15 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
             if (value === "") {
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
-                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+                document.getElementById("customquestiondiv").appendChild(newDiv);
 
                 var newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
                 newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${index + 1}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index + 1}))">-</button>`;
-                document.getElementById("addQuestionMarkerDiv").before(newDiv2);
+                document.getElementById("customquestiondiv").appendChild(newDiv2);
             } else {
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${index + 1}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index + 1}))">-</button>`;
-                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+                document.getElementById("customquestiondiv").appendChild(newDiv);
             }
         });
 
@@ -2152,19 +2153,19 @@ function setPrescoutCustomQuestions(questionData, finalized){
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
-                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+                document.getElementById("customquestiondiv").appendChild(newDiv);
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
                 newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${questionData.abilities[String(abilityNumber)] ?? ""}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
-                document.getElementById("addQuestionMarkerDiv").before(newDiv2);
+                document.getElementById("customquestiondiv").appendChild(newDiv2);
             } else {
                 // Checkbox version
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
                 const isChecked = questionData.abilities[String(abilityNumber)] ? "checked" : "";
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
-                document.getElementById("addQuestionMarkerDiv").before(newDiv);
+                document.getElementById("customquestiondiv").appendChild(newDiv);
             }
         });
 
