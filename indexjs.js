@@ -20,6 +20,8 @@ var currentB1;
 var currentB2;
 var chartScale = 0.7;
 
+var isAdminized;
+
 // Worth variables (adjust per game rules)
 const AUTO_ELEMENT_ONE_WORTH = 3;
 const AUTO_ELEMENT_TWO_WORTH = 1;
@@ -362,7 +364,7 @@ window.onload = function(){
     document.body.classList.add("lock-scroll");
     document.getElementById("blackout").style.display = "block";
     document.getElementById("loadingimgcontainer").style.display = "block";
-    window.setTimeout(actualLoad, 3000);
+    window.setTimeout(actualLoad, 400);
 }
 
 async function actualLoad(){
@@ -376,7 +378,7 @@ async function actualLoad(){
     document.getElementById("loadingimgcontainer").style.display = "none";
     localStorage.setItem('supabaseUrl', SUPABASE_URL);
 
-    if(!isAdmin){
+    if(!isAdminized){
         let mySheet;
         for (let sheet of document.styleSheets) {
             let href = sheet.href;
