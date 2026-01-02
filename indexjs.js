@@ -1948,8 +1948,18 @@ async function pullAllTeamsPrescout() {
 
 			for (const team of teams) {
 				const teamJsonb = {
-					ability1: null,
-					ability2: null,
+					abilities: {
+                        1: "",
+                        2: "",
+                        3: "",
+                        4: "",
+                        5: "",
+                        6: "",
+                        7: "",
+                        8: "",
+                        9: "",
+                        10: ""
+                    },
 					notes: "",
 					autosvg: [],
 					strategy: "",
