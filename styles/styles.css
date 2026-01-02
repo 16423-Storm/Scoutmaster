@@ -1540,6 +1540,10 @@ body.darkmode .changeablebutton:hover{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
+.customquestionpopup *{
+    margin: 5px;
+}
+
 @media only screen and (max-width: 800px) {
     .footer a.generaltextgrey {
         margin: 0 20px;
