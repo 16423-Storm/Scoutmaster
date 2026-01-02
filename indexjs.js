@@ -2218,7 +2218,7 @@ function setPrescoutCustomQuestions(questionData, finalized){
 async function removeCustomQuestion(index){
     supabaseClient.rpc("remove_custom_question_by_index", {
         p_group_id: groupId,
-        p_index: index
+        p_index: index + 1
     })
     .then(({ error }) => {
         if(error){
