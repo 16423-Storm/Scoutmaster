@@ -1803,6 +1803,30 @@ async function goToAllianceTeamPage(element) {
         console.error('Error fetching prescout info:', error2);
         return;
     }else{
+        Object.entries(customQuestionsList).forEach(([question, value], index) => {
+            const abilityNumber = index + 1; // 1-based index
+
+            if (value === "") {
+                // Text input version
+                const newDiv = document.createElement("div");
+                newDiv.classList.add("abilitycontainer");
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
+                document.getElementById("customquestiondiv").appendChild(newDiv);
+
+                const newDiv2 = document.createElement("div");
+                newDiv2.classList.add("abilitycontainer");
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)] ?? ""}" disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
+                document.getElementById("customquestiondiv").appendChild(newDiv2);
+            } else {
+                // Checkbox version
+                const newDiv = document.createElement("div");
+                newDiv.classList.add("abilitycontainer");
+                const isChecked = data2.abilities[String(abilityNumber)] ? "checked" : "";
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${abilityNumber}))">-</button>`;
+                document.getElementById("customquestiondiv").appendChild(newDiv);
+            }
+        });
+        
         document.getElementById("candoxalliance").checked = !!data2.ability1;
         document.getElementById("candoyalliance").checked = !!data2.ability2;
         document.getElementById("autodescriptionalliance").value = data2.strategy;
@@ -1850,6 +1874,8 @@ async function showAutoOverlayAlliance(element){
 }
 
 function goBackFromAllianceTeamPage(){
+    document.getElementById("alliancesutomquestionslist").innerHTML = "";
+
     document.getElementById("allianceinfocontainer").style.display = "flex";
     document.getElementById("allianceteamlist").style.display = "flex";
     document.getElementById("allianceteampage").style.display = "none";
@@ -2112,9 +2138,11 @@ async function submitNewQuestion(){
             newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${abilityCount}>`;
             document.getElementById("customquestiondiv").appendChild(newDiv2);
         }
+        statusPopUp("Successfully added new question!");
         closeNewQuestionPopup();
     }else{
         console.error('Too many custom questions, maximum of 10');
+        statusPopUp("Too many custom questions. max: 10");
         return;
     }
 }
@@ -2132,15 +2160,15 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
             if (value === "") {
                 newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p>`;
-                document.getElementById("customquestiondiv").appendChild(newDiv);
+                document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
 
                 var newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${index + 1}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index + 1}))">-</button>`;
-                document.getElementById("customquestiondiv").appendChild(newDiv2);
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="allianceability${index + 1}">`;
+                document.getElementById("alliancesutomquestionslist").appendChild(newDiv2);
             } else {
-                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${index + 1}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index + 1}))">-</button>`;
-                document.getElementById("customquestiondiv").appendChild(newDiv);
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="allianceability${index + 1}">`;
+                document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
             }
         });
 
