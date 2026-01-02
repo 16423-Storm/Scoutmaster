@@ -1832,14 +1832,14 @@ async function goToAllianceTeamPage(element) {
 
                 const newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)]}" disabled>`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="allianceability${String(abilityNumber)}" value="${data2.abilities[String(abilityNumber)]}" disabled>`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv2);
             } else {
                 // Checkbox version
                 const newDiv = document.createElement("div");
                 newDiv.classList.add("abilitycontainer");
                 const isChecked = data2.abilities[String(abilityNumber)] ? "checked" : "";
-                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${abilityNumber}" ${isChecked} disabled>`;
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="allianceability${abilityNumber}" ${isChecked} disabled>`;
                 document.getElementById("alliancesutomquestionslist").appendChild(newDiv);
             }
         });
@@ -2189,10 +2189,10 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
                 var newDiv2 = document.createElement("div");
                 newDiv2.classList.add("abilitycontainer");
-                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="allianceability${index}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index}))">-</button>`;
+                newDiv2.innerHTML = `<input class="prescoutsmallinput" id="ability${index + 1}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index + 1}))">-</button>`;
                 document.getElementById("customquestiondiv").appendChild(newDiv2);
             } else {
-                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="allianceability${index}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index}))">-</button>`;
+                newDiv.innerHTML = `<p class="prescoutsmalltext">${question}:&#8203;</p><input class="prescoutcheckbox" type="checkbox" id="ability${index + 1}"><button class="removecustomquestionbutton" onclick="popUpWarning('This action will reset ALL scouting data currently gathered, are you sure you want to continue?', () => removeCustomQuestion(${index + 1}))">-</button>`;
                 document.getElementById("customquestiondiv").appendChild(newDiv);
             }
         });
