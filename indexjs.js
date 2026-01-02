@@ -1057,6 +1057,8 @@ async function loadStartingComp() {
         const eventArray = await response.json();
         const event = eventArray[0];
 
+        currentEventName = event.event_name;
+
         document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
         document.getElementById("compsearchinput").value = "";
         document.getElementById("compsearchinput").dispatchEvent(new Event('input'));
@@ -1129,6 +1131,8 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
     });
 });
 
+var currentEventName;
+
 async function checkCompFirst(element){
     const event = element.dataset.eventKey
     const name = element.dataset.eventName
@@ -1149,6 +1153,7 @@ async function setScoutedCompetition(eventKey, eventName){
     }
 
     currentEventKey = eventKey;
+    currentEventName = eventName;
 
     statusPopUp("Successfully scouting new competition!");
     document.getElementById("compinfo").textContent = `Currently Scouting: ${eventName}`;
@@ -2168,6 +2173,21 @@ function setPrescoutCustomQuestions(questionData, finalized){
 
 async function removeCustomQuestion(index){
     alert(`Must remove question ${index}`);
+    supabaseClient.rpc("remove_custom_question_by_index", {
+        p_group_id: groupId,
+        p_index: index
+    })
+    .then(({ error }) => {
+        if(error){
+            console.error(`Error while removing question: ${error}`);
+            statusPopUp("Error while removing question");
+        }else{
+            statusPopUp("Removed Question");
+            setScoutedCompetition(currentEventKey, currentEventName).then(() => {
+                window.location.reload();
+            });
+        }
+    });
 }
 
 async function countCustomQuestions(id) {
