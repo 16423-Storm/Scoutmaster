@@ -303,6 +303,18 @@ body.dark-mode .forgotpwbutton:hover {
     background: linear-gradient(90deg, #851216 60%, #b2181d 100%);
 }
 
+.noticetextcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.smallnoticetext{
+    text-align: center;
+    color: grey;
+    font-size: 0.75rem;
+}
+
 /* --- Mobile and Tablet Optimization --- */
 
 /* For devices with a screen width up to 768px (like phones) */

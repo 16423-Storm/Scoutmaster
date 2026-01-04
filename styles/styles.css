@@ -1453,10 +1453,25 @@ body.darkmode .alliancesubmitbutton:hover {
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 15px 0;
+    padding-top: 15px;
+    padding-bottom: 5px;
     z-index: 600;
     background-color: #e6e6e6;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.smallnoticetext{
+    text-align: center;
+    color: #555;
+    font-size: 0.75rem;
+    margin: 10px;
+}
+
+body.darkmode .smallnoticetext{
+    text-align: center;
+    color: #ccc;
+    font-size: 0.75rem;
+    margin: 10px;
 }
 
 body.darkmode .footer {
