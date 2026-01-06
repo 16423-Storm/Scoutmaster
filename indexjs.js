@@ -1102,16 +1102,17 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
     }
 
     if (allEventsMap.size === 0) {
-        try {
-            const response = await fetch('https://theorangealliance.org/api/event?season_key=2526', {
-                headers: {
-                'X-TOA-Key': ORANGE_API_KEY,
-                'X-Application-Origin': 'scoutmaster',
-                'Content-Type': 'application/json'
-                }
-        });
+        // try {
+        //     const response = await fetch('https://theorangealliance.org/api/event?season_key=2526', {
+        //         headers: {
+        //         'X-TOA-Key': ORANGE_API_KEY,
+        //         'X-Application-Origin': 'scoutmaster',
+        //         'Content-Type': 'application/json'
+        //         }
+        // });
 
-        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        // if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        const response = await fetch('allEvents.json');
 
         const events = await response.json();
 
@@ -1119,10 +1120,10 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
             allEventsMap.set(event.first_event_code.toLowerCase(), event);
         });
 
-        } catch (error) {
-            console.error('Failed to load events:', error);
-            return;
-        }
+        // } catch (error) {
+        //     console.error('Failed to load events:', error);
+        //     return;
+        // }
     }
 
     const matchingKeys = [...allEventsMap.keys()]
