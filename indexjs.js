@@ -1064,9 +1064,12 @@ async function loadStartingComp() {
     }
 
     try {
-        const workerUrl = `https://scoutmaster.scoutmaster.workers.dev/api/event/${scoutedCompetitionKey}`;
-
-        const response = await fetch(workerUrl);
+        const response = await fetch(`https://theorangealliance.org/api/event/${scoutedCompetitionKey}`, {
+            headers: {
+                'X-TOA-Key': ORANGE_API_KEY,
+                'X-Application-Origin': 'scoutmaster'
+            }
+        });
 
         if (!response.ok) throw new Error(`${response.status} - ${response.statusText}`);
 
