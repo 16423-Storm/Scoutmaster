@@ -2784,12 +2784,40 @@ async function getMatchList() {
 		if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
 		const matchesData = await response.json();
-		const matches = matchesData.matches.slice(); // copy array
-		const tbody = document.getElementById("matchtabletbody");
 
+		// ----------------------------
+		// Normalize new API to old TOA structure
+		// ----------------------------
+		const matches = matchesData.map(m => {
+			const matchKey = `${currentEventKey}-q${m.matchNumber}`;
+			return {
+				matchKey: matchKey,
+				description: m.description,
+				matchNumber: m.matchNumber,
+				scoreRedFinal: m.scoreRedFinal,
+				scoreRedFoul: m.scoreRedFoul,
+				scoreRedAuto: m.scoreRedAuto,
+				scoreBlueFinal: m.scoreBlueFinal,
+				scoreBlueFoul: m.scoreBlueFoul,
+				scoreBlueAuto: m.scoreBlueAuto,
+				teams: m.teams.map(t => ({
+					teamNumber: t.teamNumber,
+					station: t.station,
+					dq: t.dq,
+					onField: t.onField
+				})),
+				actualStartTime: m.actualStartTime,
+				postResultTime: m.postResultTime,
+				modifiedOn: m.modifiedOn
+			};
+		});
+
+		const tbody = document.getElementById("matchtabletbody");
 		tbody.innerHTML = '';
 
+		// ----------------------------
 		// Filter out non-qualification matches (exact same loops as original)
+		// ----------------------------
 		for (let i = matches.length - 1; i >= 0; i--) {
 			const parts = matches[i].matchKey.toLowerCase().split('-');
 			if (!parts[3] || !parts[3].startsWith('q')) {
@@ -2807,7 +2835,9 @@ async function getMatchList() {
 			return getQNumber(a) - getQNumber(b);
 		});
 
+		// ----------------------------
 		// Check if Supabase matches column is empty
+		// ----------------------------
 		const { data: emptyData, error: emptyError } = await supabaseClient.rpc('check_matches_empty', { group_id: groupId });
 
 		if (emptyError) {
@@ -2822,20 +2852,6 @@ async function getMatchList() {
 				"b2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 }
 			};
 
-			// Filter & sort again before building superTable (exact original behavior)
-			for (let i = matches.length - 1; i >= 0; i--) {
-				const parts = matches[i].matchKey.toLowerCase().split('-');
-				if (!parts[3] || !parts[3].startsWith('q')) matches.splice(i, 1);
-			}
-			matches.sort((a, b) => {
-				const getQNumber = (m) => {
-					const matchKey = m.matchKey.toLowerCase();
-					const match = matchKey.match(/q(\d+)/);
-					return match ? parseInt(match[1], 10) : 0;
-				};
-				return getQNumber(a) - getQNumber(b);
-			});
-
 			let superTable = {};
 			matches.forEach(match => {
 				superTable[match.matchKey] = JSON.parse(JSON.stringify(scoreTableTemplate));
@@ -2848,22 +2864,9 @@ async function getMatchList() {
 			console.log('Matches column already has data. Skipping initialization.');
 		}
 
-		// Filter & sort final time before rendering (same as original)
-		for (let i = matches.length - 1; i >= 0; i--) {
-			const parts = matches[i].matchKey.toLowerCase().split('-');
-			if (!parts[3] || !parts[3].startsWith('q')) matches.splice(i, 1);
-		}
-		matches.sort((a, b) => {
-			const getQNumber = (m) => {
-				const matchKey = m.matchKey.toLowerCase();
-				const match = matchKey.match(/q(\d+)/);
-				return match ? parseInt(match[1], 10) : 0;
-			};
-			return getQNumber(a) - getQNumber(b);
-		});
-
-		console.log('Final matches for rendering:', matches.map(m => m.matchKey));
-
+		// ----------------------------
+		// Render matches table (keep all original behavior)
+		// ----------------------------
 		tbody.innerHTML = '';
 		isRendering = true;
 
@@ -2877,10 +2880,7 @@ async function getMatchList() {
 			}
 
 			const matchNumber = match.description.split(" ")[1];
-			console.log('Match:', match.matchKey, 'participants before sort:', match.teams);
-
 			const sortedParticipants = [...match.teams].sort((a, b) => a.station.localeCompare(b.station));
-			console.log('Match:', match.matchKey, 'participants after sort:', sortedParticipants.map(p => p.station));
 
 			let winnerText = 'TBD';
 			if (match.scoreRedFinal > match.scoreBlueFinal) winnerText = 'RED';
