@@ -3366,7 +3366,7 @@ async function submitIndividualTeam(participantKey) {
 			station: participantKey
 		};
 
-        const points = stationData.auto.elementone * AUTO_ELEMENT_ONE_WORTH + stationData.auto.elementtwo * AUTO_ELEMENT_TWO_WORTH + stationData.auto.elementthree * AUTO_ELEMENT_THREE_WORTH + stationData.teleop.elementone * TELEOP_ELEMENT_ONE_WORTH + stationData.teleop.elementtwo * TELEOP_ELEMENT_TWO_WORTH + stationData.teleop.elementthree * TELEOP_ELEMENT_THREE_WORTH;
+        const points = (stationData.auto.elementone * AUTO_ELEMENT_ONE_WORTH) + (stationData.auto.elementtwo * AUTO_ELEMENT_TWO_WORTH) + (stationData.auto.elementthree * AUTO_ELEMENT_THREE_WORTH) + (stationData.auto.elementfive * AUTO_ELEMENT_FIVE_WORTH) + (stationData.teleop.elementone * TELEOP_ELEMENT_ONE_WORTH) + (stationData.teleop.elementtwo * TELEOP_ELEMENT_TWO_WORTH) + (stationData.teleop.elementthree * TELEOP_ELEMENT_THREE_WORTH) + (stationData.teleop.elementfour * TELEOP_ELEMENT_FOUR_WORTH) + (stationData.teleop.elementfive * TELEOP_ELEMENT_FIVE_WORTH);
 
 		const { error: updateError } = await supabaseClient.rpc('update_team_matches', {
 			group_id: groupId,
