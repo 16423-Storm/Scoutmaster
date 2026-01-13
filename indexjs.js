@@ -1141,7 +1141,7 @@ document.getElementById("compsearchinput").addEventListener("input", async funct
         const endDate = new Date(event.end_date).toDateString();
 
         container.innerHTML += `
-        <div class="comptab" style="border-width: 1px;" data-event-key="${event.event_key}" data-event-name="${event.event_name}" onclick="checkCompFirst(this)">
+        <div class="comptab" style="border-width: 1px;" data-event-key="${event.first_event_code}" data-event-name="${event.event_name}" onclick="checkCompFirst(this)">
             <p class="comptabbigtext">${event.event_name}</p>
             <p class="comptabsmalltext">${event.first_event_code.toUpperCase()}</p>
             <p class="comptabsmalltext">${startDate} - ${endDate}</p>
