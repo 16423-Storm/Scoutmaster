@@ -1064,26 +1064,24 @@ async function loadStartingComp() {
     }
 
     try {
-        const response = await fetch(`https://theorangealliance.org/api/event/${scoutedCompetitionKey}`, {
-            headers: {
-                'X-TOA-Key': ORANGE_API_KEY,
-                'X-Application-Origin': 'scoutmaster'
-            }
-        });
+        const response = await fetch(
+            `https://scoutmaster.scoutmaster.workers.dev/2025/events?eventCode=${scoutedCompetitionKey}`
+        );
 
         if (!response.ok) throw new Error(`${response.status} - ${response.statusText}`);
 
-        const eventArray = await response.json();
-        const event = eventArray[0];
+        const eventData = await response.json();
+        const event = eventData.events[0];
 
-        currentEventName = event.event_name;
+        currentEventName = event.name;
 
-        document.getElementById("compinfo").textContent = `Currently Scouting: ${event.event_name}`;
+        document.getElementById("compinfo").textContent = `Currently Scouting: ${event.name}`;
         document.getElementById("compsearchinput").value = "";
         document.getElementById("compsearchinput").dispatchEvent(new Event('input'));
-        document.getElementById("headercompetitionname").textContent = `${event.event_name}`;
-        document.getElementById("competitionnameinprescoutlist").textContent = event.event_name;
-        document.getElementById("competitionnameinmatchscoutlist").textContent = event.event_name;
+        document.getElementById("headercompetitionname").textContent = `${event.name}`;
+        document.getElementById("competitionnameinprescoutlist").textContent = event.name;
+        document.getElementById("competitionnameinmatchscoutlist").textContent = event.name;
+
     } catch (error) {
         console.error('Failed to load event:', error);
         window.location.reload();
