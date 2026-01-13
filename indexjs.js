@@ -1290,20 +1290,14 @@ async function showAllianceSelection(){
     document.getElementById("allianceselectionbodycontainer").style.display = "flex";
 
     try {
-		const response = await fetch(`https://theorangealliance.org/api/event/${currentEventKey}/teams`, {
-			headers: {
-				'X-TOA-Key': ORANGE_API_KEY,
-				'X-Application-Origin': 'scoutmaster',
-				'Content-Type': 'application/json'
-			}
-		});
+        const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/events/${currentEventKey}/teams`);
 
-		if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
-		const teams = await response.json();
-		teams.sort((a, b) => a.team.team_number - b.team.team_number);
+        const teamsData = await response.json();
+        const teams = teamsData.teams.slice().sort((a, b) => a.teamNumber - b.teamNumber);
 
-        if(teams.length < 11){
+        if (teams.length < 11){
             numOfAlliances = 2;
         }else if(teams.length > 12 && teams.length < 21){
             numOfAlliances = 4;
@@ -1315,33 +1309,13 @@ async function showAllianceSelection(){
             numOfAlliances = 2;
         }
 
-        allianceTeamsList = teams.map(team => team.team_key);
-
+        allianceTeamsList = teams.map(team => team.teamNumber.toString());
 
         const allInCon = document.getElementById("allianceinfocontainer");
         allInCon.innerHTML = '';
         var num = 0;
         while(num < numOfAlliances){
             var allianceNum = num + 1;
-            // if(currentEventKey === "2526-CMP-HOU1" || currentEventKey === "2526-CMP-HOU2" || currentEventKey === "2526-CMP-HOU3" || currentEventKey === "2526-CMP-HOU4"){
-            //     allInCon.innerHTML += `
-            //     <div class="allianceinfosubcontainer">
-            //         <p class="generaltext">Alliance ${allianceNum}</p>
-            //         <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-            //             <input class="allianceinput" id="allianceinput-${allianceNum}-zero">
-            //             <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="zero" onclick="sendAlliance(this)">✔️</button>
-            //         </div>
-            //         <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-            //             <input class="allianceinput" id="allianceinput-${allianceNum}-one">
-            //             <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
-            //         </div>
-            //         <div style="flex-direction: row; display: flex;align-items: center;justify-content: center;">
-            //             <input class="allianceinput" id="allianceinput-${allianceNum}-two">
-            //             <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="two" onclick="sendAlliance(this)">✔️</button>
-            //         </div>
-            //     </div>
-            //     `
-            // }else{
             allInCon.innerHTML += `
             <div class="allianceinfosubcontainer">
                 <p class="generaltext">Alliance ${allianceNum}</p>
@@ -1354,8 +1328,7 @@ async function showAllianceSelection(){
                     <button class="alliancesubmitbutton" data-alliance="${allianceNum}" data-pick="one" onclick="sendAlliance(this)">✔️</button>
                 </div>
             </div>
-            `
-            // }
+            `;
             num += 1;
         }
 
@@ -1367,15 +1340,13 @@ async function showAllianceSelection(){
         for (const team of teams) {
             const { data: avgPoints, error: avgPointsError } = await supabaseClient.rpc('get_team_average_points', {
                 group_id: groupId,
-                team_key: team.team.team_number.toString()
+                team_key: team.teamNumber.toString()
             });
 
             if (avgPointsError) {
                 console.error("Error loading average points:", avgPointsError);
                 continue;
             }
-
-            console.log("Average points:", avgPoints);
 
             teamsWithPoints.push({
                 team,
@@ -1390,18 +1361,18 @@ async function showAllianceSelection(){
         for (const { team, avgPoints } of teamsWithPoints) {
             tbody.innerHTML += `
                 <tr class="prescouttablerow" onclick="goToAllianceTeamPage(this)" style="text-align: center;">
-                    <td>${team.team.team_number} - ${team.team.team_name_short}</td>
+                    <td>${team.teamNumber} - ${team.nameShort}</td>
                     <td>${avgPoints !== -Infinity ? avgPoints.toFixed(2) : 'N/A'}</td>
                 </tr>
             `;
         }
 
-
-	} catch (error) {
-		console.error('Failed to load teams:', error);
+    } catch (error) {
+        console.error('Failed to load teams:', error);
         window.location.reload();
-		return;
-	}
+        return;
+    }
+
     
 }
 
