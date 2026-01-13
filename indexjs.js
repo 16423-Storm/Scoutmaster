@@ -2785,32 +2785,34 @@ async function getMatchList() {
 
 		const matchesData = await response.json();
 
-		// ----------------------------
-		// Normalize new API to old TOA structure
-		// ----------------------------
-		const matches = matchesData.map(m => {
-			const matchKey = `${currentEventKey}-q${m.matchNumber}`;
-			return {
-				matchKey: matchKey,
-				description: m.description,
-				matchNumber: m.matchNumber,
-				scoreRedFinal: m.scoreRedFinal,
-				scoreRedFoul: m.scoreRedFoul,
-				scoreRedAuto: m.scoreRedAuto,
-				scoreBlueFinal: m.scoreBlueFinal,
-				scoreBlueFoul: m.scoreBlueFoul,
-				scoreBlueAuto: m.scoreBlueAuto,
-				teams: m.teams.map(t => ({
-					teamNumber: t.teamNumber,
-					station: t.station,
-					dq: t.dq,
-					onField: t.onField
-				})),
-				actualStartTime: m.actualStartTime,
-				postResultTime: m.postResultTime,
-				modifiedOn: m.modifiedOn
-			};
-		});
+        // Ensure we have an array
+        const matchesArray = Array.isArray(matchesData.matches) ? matchesData.matches : [];
+
+        // Normalize to match original TOA format
+        const matches = matchesArray.map(m => {
+            const matchKey = `${currentEventKey}-q${m.matchNumber}`;
+            return {
+                matchKey: matchKey,
+                description: m.description,
+                matchNumber: m.matchNumber,
+                scoreRedFinal: m.scoreRedFinal,
+                scoreRedFoul: m.scoreRedFoul,
+                scoreRedAuto: m.scoreRedAuto,
+                scoreBlueFinal: m.scoreBlueFinal,
+                scoreBlueFoul: m.scoreBlueFoul,
+                scoreBlueAuto: m.scoreBlueAuto,
+                teams: m.teams.map(t => ({
+                    teamNumber: t.teamNumber,
+                    station: t.station,
+                    dq: t.dq,
+                    onField: t.onField
+                })),
+                actualStartTime: m.actualStartTime,
+                postResultTime: m.postResultTime,
+                modifiedOn: m.modifiedOn
+            };
+        });
+
 
 		const tbody = document.getElementById("matchtabletbody");
 		tbody.innerHTML = '';
