@@ -2821,10 +2821,8 @@ async function getMatchList() {
 		// Filter out non-qualification matches (exact same loops as original)
 		// ----------------------------
 		for (let i = matches.length - 1; i >= 0; i--) {
-			const parts = matches[i].matchKey.toLowerCase().split('-');
-			if (!parts[3] || !parts[3].startsWith('q')) {
-				matches.splice(i, 1);
-			}
+			const parts = match.matchKey.toLowerCase().split('-');
+            if (!parts[1] || !parts[1].startsWith('q')) matches.splice(i, 1);   
 		}
 
 		// Sort by qualification number
