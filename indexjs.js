@@ -1290,7 +1290,7 @@ async function showAllianceSelection(){
     document.getElementById("allianceselectionbodycontainer").style.display = "flex";
 
     try {
-        const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/teams?eventCode=${scoutedCompetitionKey}`);
+        const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/teams?eventCode=${currentEventKey}`);
 
         if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
@@ -1877,7 +1877,7 @@ function goBackFromAllianceTeamPage(){
 
 async function pullAllTeamsPrescout() {
 	try {
-        const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/teams?eventCode=${scoutedCompetitionKey}`);
+        const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/teams?eventCode=${currentEventKey}`);
 
         if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
