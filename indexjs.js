@@ -2776,105 +2776,115 @@ async function deleteTeamDatabase() {
 
 async function getMatchList() {
 	try {
-        const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/matches/${currentEventKey}`);
+		const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/matches/${currentEventKey}`);
+		if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
 
-        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+		const matchesData = await response.json();
+		const matches = matchesData.matches.map(m => ({
+			matchKey: `${currentEventKey}-Q${m.matchNumber}`,
+			matchName: m.description,
+			participants: m.teams.map(t => ({
+				station: t.station === "Red1" ? 1 :
+						 t.station === "Red2" ? 2 :
+						 t.station === "Blue1" ? 3 : 4,
+				teamKey: t.teamNumber
+			})),
+			redScore: m.scoreRedFinal,
+			blueScore: m.scoreBlueFinal
+		}));
 
-        const matchesData = await response.json();
-        const matches = matchesData.matches.slice();
+		const tbody = document.getElementById("matchtabletbody");
+		tbody.innerHTML = '';
 
-        const tbody = document.getElementById("matchtabletbody");
-        tbody.innerHTML = '';
+		const filterAndSortMatches = mList => {
+			const filtered = mList.filter(m => m.matchKey.toLowerCase().split('-')[3]?.startsWith('q'));
+			filtered.sort((a, b) => {
+				const getQNumber = m => {
+					const match = m.matchKey.toLowerCase().match(/q(\d+)/);
+					return match ? parseInt(match[1], 10) : 0;
+				};
+				return getQNumber(a) - getQNumber(b);
+			});
+			return filtered;
+		};
 
-        const filterAndSortMatches = (matchList) => {
-            const filtered = matchList.filter(m => m.matchKey && m.matchKey.toLowerCase().split('-')[3]?.startsWith('q'));
-            filtered.sort((a, b) => {
-                const getQNumber = m => {
-                    const match = m.matchKey.toLowerCase().match(/q(\d+)/);
-                    return match ? parseInt(match[1], 10) : 0;
-                };
-                return getQNumber(a) - getQNumber(b);
-            });
-            return filtered;
-        };
+		const filteredMatches = filterAndSortMatches(matches);
 
-        const filteredMatches = filterAndSortMatches(matches);
+		const { data: emptyData, error: emptyError } = await supabaseClient.rpc('check_matches_empty', { group_id: groupId });
+		if (emptyError) console.error('Error checking matches column:', emptyError);
+		else if (emptyData === true) {
+			const scoreTableTemplate = {
+				"r1": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
+				"r2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
+				"b1": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
+				"b2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 }
+			};
+			const superTable = {};
+			filteredMatches.forEach(match => {
+				superTable[match.matchKey] = JSON.parse(JSON.stringify(scoreTableTemplate));
+			});
+			const { data, error } = await supabaseClient.from('group').update({ matches: superTable }).eq('id', groupId);
+			if (error) console.error('Error updating matches in Supabase:', error);
+		}
 
-        const { data: emptyData, error: emptyError } = await supabaseClient.rpc('check_matches_empty', { group_id: groupId });
+		tbody.innerHTML = '';
+		isRendering = true;
 
-        if (emptyError) {
-            console.error('Error checking matches column:', emptyError);
-        } else if (emptyData === true) {
-            const scoreTableTemplate = {
-                "r1": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
-                "r2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
-                "b1": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
-                "b2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 }
-            };
+		for (const match of filteredMatches) {
+			if (isCancelled && isRendering) {
+				isCancelled = false;
+				isRendering = false;
+				if(tbody.childElementCount !== 0) break;
+			}
 
-            let superTable = {};
-            filteredMatches.forEach(match => {
-                superTable[match.matchKey] = JSON.parse(JSON.stringify(scoreTableTemplate));
-            });
+			const matchNumber = match.matchName.split(" ")[1];
+			const sortedParticipants = [...match.participants].sort((a,b)=>a.station-b.station);
 
-            const { data, error } = await supabaseClient.from('group').update({ matches: superTable }).eq('id', groupId);
-            if (error) console.error('Error updating matches in Supabase:', error);
-        }
+			let winnerText = 'TBD';
+			if (match.redScore > match.blueScore) winnerText = 'RED';
+			else if (match.blueScore > match.redScore) winnerText = 'BLUE';
+			else if (match.blueScore === match.redScore) winnerText = 'TIE';
 
-        tbody.innerHTML = '';
-        isRendering = true;
+			const color = winnerText === 'RED' ? 'red' : winnerText === 'BLUE' ? 'blue' : 'black';
+			currentMatchKey = match.matchKey;
 
-        for (const match of filteredMatches) {
-            if (isCancelled && isRendering) {
-                isCancelled = false;
-                isRendering = false;
-                if(document.getElementById("matchtabletbody").childElementCount !== 0) break;
-            }
+			const { data: finalizedTeams, error: finalizedError } = await supabaseClient.rpc('get_match_teams_finalized', {
+				p_group_id: groupId,
+				p_match_key: match.matchKey
+			});
+			if (finalizedError) console.error('Error fetching finalized teams:', finalizedError);
 
-            const matchNumber = match.matchName.split(" ")[1];
-            const sortedParticipants = [...match.participants].sort((a, b) => a.station - b.station);
-            let winnerText = 'TBD';
-            if (match.redScore > match.blueScore) winnerText = 'RED';
-            else if (match.blueScore > match.redScore) winnerText = 'BLUE';
-            else if (match.blueScore === match.redScore) winnerText = 'TIE';
-            const color = winnerText === 'RED' ? 'red' : winnerText === 'BLUE' ? 'blue' : 'black';
+			let r1f = false, r2f = false, b1f = false, b2f = false;
+			if (finalizedTeams && finalizedTeams.length > 0) {
+				const ft = finalizedTeams[0];
+				r1f = ft.r1f === 1;
+				r2f = ft.r2f === 1;
+				b1f = ft.b1f === 1;
+				b2f = ft.b2f === 1;
+			}
 
-            currentMatchKey = match.matchKey;
+			tbody.innerHTML += `
+				<tr class="prescouttablerow" data-match-key="${match.matchKey}" data-rone="${sortedParticipants[0].teamKey}" data-rtwo="${sortedParticipants[1].teamKey}" data-bone="${sortedParticipants[2].teamKey}" data-btwo="${sortedParticipants[3].teamKey}" data-r1f="${r1f}" data-r2f="${r2f}" data-b1f="${b1f}" data-b2f="${b2f}" onclick="goToMatchScoutModePage(this)">
+					<td>${matchNumber}</td>
+					<td style="color: ${color};">${winnerText.toUpperCase()}</td>
+					<td class="matchscoutredtd">${sortedParticipants[0].teamKey}${r1f?' ✔️':''}</td>
+					<td class="matchscoutredtd">${sortedParticipants[1].teamKey}${r2f?' ✔️':''}</td>
+					<td class="matchscoutbluetd">${sortedParticipants[2].teamKey}${b1f?' ✔️':''}</td>
+					<td class="matchscoutbluetd">${sortedParticipants[3].teamKey}${b2f?' ✔️':''}</td>
+				</tr>
+			`;
+			isRendering = false;
+		}
 
-            const { data: finalizedTeams, error: finalizedError } = await supabaseClient.rpc('get_match_teams_finalized', {
-                p_group_id: groupId,
-                p_match_key: match.matchKey
-            });
-            if (finalizedError) console.error('Error fetching finalized teams:', finalizedError);
+		isCancelled = false;
+		isRendering = false;
 
-            let r1f = false, r2f = false, b1f = false, b2f = false;
-            if (finalizedTeams && finalizedTeams.length > 0) {
-                const ft = finalizedTeams[0];
-                r1f = ft.r1f === 1; r2f = ft.r2f === 1; b1f = ft.b1f === 1; b2f = ft.b2f === 1;
-            }
-
-            tbody.innerHTML += `
-                <tr class="prescouttablerow" data-match-key="${match.matchKey}" data-rone="${sortedParticipants[0].teamKey}" data-rtwo="${sortedParticipants[1].teamKey}" data-bone="${sortedParticipants[2].teamKey}" data-btwo="${sortedParticipants[3].teamKey}" data-r1f="${r1f}" data-r2f="${r2f}" data-b1f="${b1f}" data-b2f="${b2f}" onclick="goToMatchScoutModePage(this)">
-                    <td>${matchNumber}</td>
-                    <td style="color: ${color};">${winnerText.toUpperCase()}</td>
-                    <td class="matchscoutredtd">${sortedParticipants[0].teamKey}${r1f ? ' ✔️' : ''}</td>
-                    <td class="matchscoutredtd">${sortedParticipants[1].teamKey}${r2f ? ' ✔️' : ''}</td>
-                    <td class="matchscoutbluetd">${sortedParticipants[2].teamKey}${b1f ? ' ✔️' : ''}</td>
-                    <td class="matchscoutbluetd">${sortedParticipants[3].teamKey}${b2f ? ' ✔️' : ''}</td>
-                </tr>
-            `;
-            isRendering = false;
-        }
-
-        isCancelled = false;
-        isRendering = false;
-
-    } catch (error) {
-        console.error('Failed to load matches:', error);
-        window.location.reload();
-    }
-
+	} catch (error) {
+		console.error('Failed to load matches:', error);
+		window.location.reload();
+	}
 }
+
 
 var currentMatchKey2;
 var isRendering = false;
