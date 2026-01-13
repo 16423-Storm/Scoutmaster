@@ -2776,6 +2776,7 @@ async function deleteTeamDatabase() {
 
 async function getMatchList() {
     try {
+        // 1. Fetch data from the API
         const response = await fetch(`https://scoutmaster.scoutmaster.workers.dev/2025/matches/${currentEventKey}`, {
             headers: { 'Content-Type': 'application/json' }
         });
@@ -2785,49 +2786,40 @@ async function getMatchList() {
         const matchesData = await response.json();
         const matchesArray = Array.isArray(matchesData.matches) ? matchesData.matches : [];
 
-        // 1. Map and Filter in one pass to avoid ReferenceErrors
+        // 2. Filter for Qualification matches and Map data
+        // This replaces the broken 'for' loop that caused the ReferenceError
         const matches = matchesArray
-            .filter(m => m.tournamentLevel === "QUALIFICATION") // Use the API's own flag
+            .filter(m => m.tournamentLevel === "QUALIFICATION")
             .map(m => {
                 return {
                     matchKey: `${currentEventKey}-q${m.matchNumber}`,
                     description: m.description,
                     matchNumber: m.matchNumber,
                     scoreRedFinal: m.scoreRedFinal,
-                    scoreRedFoul: m.scoreRedFoul,
-                    scoreRedAuto: m.scoreRedAuto,
                     scoreBlueFinal: m.scoreBlueFinal,
-                    scoreBlueFoul: m.scoreBlueFoul,
-                    scoreBlueAuto: m.scoreBlueAuto,
                     teams: m.teams.map(t => ({
                         teamNumber: t.teamNumber,
-                        station: t.station,
-                        dq: t.dq,
-                        onField: t.onField
-                    })),
-                    actualStartTime: m.actualStartTime,
-                    postResultTime: m.postResultTime,
-                    modifiedOn: m.modifiedOn
+                        station: t.station
+                    }))
                 };
             });
 
-        // 2. Sort by match number
+        // 3. Sort by match number (Numeric sort)
         matches.sort((a, b) => a.matchNumber - b.matchNumber);
 
         const tbody = document.getElementById("matchtabletbody");
         tbody.innerHTML = '';
 
-        // ----------------------------
-        // Initialize Supabase if empty
-        // ----------------------------
+        // 4. Initialize Supabase group matches if empty
         const { data: emptyData, error: emptyError } = await supabaseClient.rpc('check_matches_empty', { group_id: groupId });
 
-        if (emptyData === true) {
+        if (!emptyError && emptyData === true) {
+            console.log('Initializing superTable...');
             const scoreTableTemplate = {
                 "r1": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
                 "r2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
                 "b1": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 },
-                "b2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 }
+                "b2": { "auto": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfive":"0" }, "teleop": { "elementone":"0","elementtwo":"0","elementthree":"0","elementfour":"0","elementfive":"0" }, "team_number":"0000","finalized":0 }
             };
 
             let superTable = {};
@@ -2838,21 +2830,31 @@ async function getMatchList() {
             await supabaseClient.from('group').update({ matches: superTable }).eq('id', groupId);
         }
 
-        // ----------------------------
-        // Render Table
-        // ----------------------------
+        // 5. Render matches table
+        isRendering = true;
+        isCancelled = false;
+        let tableHTML = ''; // Use a string buffer for 10x faster rendering
+
         for (const match of matches) {
-            const matchNumber = match.matchNumber; 
+            // Check if user clicked something else to cancel
+            if (isCancelled) {
+                console.log('Rendering cancelled.');
+                isRendering = false;
+                isCancelled = false;
+                return; // Exit function immediately
+            }
+
             const sortedParticipants = [...match.teams].sort((a, b) => a.station.localeCompare(b.station));
 
+            // Determine Winner
             let winnerText = 'TBD';
             if (match.scoreRedFinal > match.scoreBlueFinal) winnerText = 'RED';
             else if (match.scoreBlueFinal > match.scoreRedFinal) winnerText = 'BLUE';
-            else if (match.scoreBlueFinal === match.scoreRedFinal && match.scoreRedFinal > 0) winnerText = 'TIE';
+            else if (match.scoreBlueFinal === match.scoreRedFinal && match.scoreBlueFinal > 0) winnerText = 'TIE';
 
             let color = winnerText === 'RED' ? 'red' : winnerText === 'BLUE' ? 'blue' : 'black';
 
-            // Get finalized status from Supabase
+            // Check finalized status from Supabase
             const { data: finalizedTeams } = await supabaseClient.rpc('get_match_teams_finalized', {
                 p_group_id: groupId,
                 p_match_key: match.matchKey
@@ -2861,13 +2863,22 @@ async function getMatchList() {
             let r1f = false, r2f = false, b1f = false, b2f = false;
             if (finalizedTeams && finalizedTeams.length > 0) {
                 const ft = finalizedTeams[0];
-                r1f = ft.r1f === 1; r2f = ft.r2f === 1;
-                b1f = ft.b1f === 1; b2f = ft.b2f === 1;
+                r1f = ft.r1f === 1;
+                r2f = ft.r2f === 1;
+                b1f = ft.b1f === 1;
+                b2f = ft.b2f === 1;
             }
 
-            tbody.innerHTML += `
-                <tr class="prescouttablerow" data-match-key="${match.matchKey}" onclick="goToMatchScoutModePage(this)">
-                    <td>${matchNumber}</td>
+            // Construct row HTML
+            tableHTML += `
+                <tr class="prescouttablerow" 
+                    data-match-key="${match.matchKey}" 
+                    data-rone="${sortedParticipants[0].teamNumber}" 
+                    data-rtwo="${sortedParticipants[1].teamNumber}" 
+                    data-bone="${sortedParticipants[2].teamNumber}" 
+                    data-btwo="${sortedParticipants[3].teamNumber}" 
+                    onclick="goToMatchScoutModePage(this)">
+                    <td>${match.matchNumber}</td>
                     <td style="color: ${color}; font-weight: bold;">${winnerText}</td>
                     <td class="matchscoutredtd">${sortedParticipants[0].teamNumber}${r1f ? ' ✔️' : ''}</td>
                     <td class="matchscoutredtd">${sortedParticipants[1].teamNumber}${r2f ? ' ✔️' : ''}</td>
@@ -2877,8 +2888,13 @@ async function getMatchList() {
             `;
         }
 
+        // Push everything to the DOM at once
+        tbody.innerHTML = tableHTML;
+        isRendering = false;
+
     } catch (error) {
         console.error('Failed to load matches:', error);
+        window.location.reload();
     }
 }
 
