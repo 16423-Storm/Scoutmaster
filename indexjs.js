@@ -1981,15 +1981,15 @@ async function goToTeamPrescoutPage(element){
     const teamInfoObj = JSON.parse(element.dataset.teamInfo);
     const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
-    currentPrescoutTeam = teamInfoObj.team.teamNumber;
+    currentPrescoutTeam = teamInfoObj.teamNumber;
 
     document.getElementById("prescoutteamslist").style.display = "none";
     document.getElementById("prescoutteampage").style.display = "flex";
     document.getElementById("prescoutallthewaybackbutton").style.display = "none";
 
-    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.displayTeamNumber} - ${teamInfoObj.team.nameShort}`
-    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookieYear}`;
-    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.stateProv} - ${teamInfoObj.team.country}`;
+    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.displayTeamNumber} - ${teamInfoObj.nameShort}`
+    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.rookieYear}`;
+    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.city}, ${teamInfoObj.stateProv} - ${teamInfoObj.country}`;
 
     if(teamIsFinalized === "true"){
         disableDrawing();
