@@ -1981,15 +1981,15 @@ async function goToTeamPrescoutPage(element){
     const teamInfoObj = JSON.parse(element.dataset.teamInfo);
     const teamIsFinalized = element.dataset.teamIsFinalized;
     console.log(teamInfoObj, null, 2);
-    currentPrescoutTeam = teamInfoObj.team.team_key;
+    currentPrescoutTeam = teamInfoObj.team.teamNumber;
 
     document.getElementById("prescoutteamslist").style.display = "none";
     document.getElementById("prescoutteampage").style.display = "flex";
     document.getElementById("prescoutallthewaybackbutton").style.display = "none";
 
-    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.team_number} - ${teamInfoObj.team.team_name_short}`
-    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookie_year}`;
-    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.state_prov} - ${teamInfoObj.team.country}`;
+    document.getElementById("teamnumnameprescout").textContent = `${teamInfoObj.team.displayTeamNumber} - ${teamInfoObj.team.nameShort}`
+    document.getElementById("teamrookieyearprescout").textContent = `Rookie Year: ${teamInfoObj.team.rookieYear}`;
+    document.getElementById("teamlocationprescout").textContent = `${teamInfoObj.team.city}, ${teamInfoObj.team.stateProv} - ${teamInfoObj.team.country}`;
 
     if(teamIsFinalized === "true"){
         disableDrawing();
